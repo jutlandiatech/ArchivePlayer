@@ -106,7 +106,7 @@ archive.org facts that shape these requirements (observed November 2026; counts 
 
 | ID | Requirement |
 |---|---|
-| R50 | Library tab with filter chips: Playlists, Liked, Following, Downloads, History. Settings is reachable from the Library top bar. |
+| R50 | Library tab with filter chips: Playlists, Liked, Following, Downloads, History. Settings is reachable from the top bar of every tab root (Home, Search, Library). |
 | R51 | Playlists: create, rename, describe, delete (with undo), reorder entries, remove entries; mixed audio and video entries allowed; artwork is a mosaic of the first entries' artwork. Playlists can be played, shuffled, cast, shared, exported and (audio entries) downloaded. |
 | R52 | Liked: a heart on any entry or item adds it to an automatic "Liked" list that behaves like a playlist (play, shuffle, cast, share, download) but cannot be renamed or deleted. |
 | R53 | Following: users follow collections and creators; followed sources feed the Home row (R21) and are listed in Library. |
@@ -128,6 +128,7 @@ archive.org facts that shape these requirements (observed November 2026; counts 
 | R59 | Audio entries, whole audio items, playlists and Liked can be downloaded for offline playback. Video entries are not downloadable in v1; when downloading a mixed playlist, only its audio entries download and the UI says so. |
 | R60 | Downloads use a background download manager (Media3 `DownloadService`) that survives app closure and resumes after network loss. "Download on Wi-Fi only" is on by default; Settings can switch it off, and while it is on, a download waiting for Wi-Fi offers a one-off "Download now on mobile data" action. |
 | R61 | Downloaded entries play offline automatically (cast falls back to streaming). Used and free storage are shown, with a warning below 500 MB free; no hard storage limit in v1. Downloads can be removed individually or all at once. |
+| R85 | Download location: Settings → Storage & downloads offers "Internal storage" (default) and "SD card", each showing its free space. "SD card" is offered only while a removable volume is mounted. Files go to ArchivePlayer's own folder on the chosen volume (`Context.getExternalFilesDirs`, no storage permission); Settings states that they are removed when the app is uninstalled. Changing the location applies to new downloads and offers to move existing downloads, showing count and size; the user can decline. A move is resumable, and a source file is deleted only after its copy is verified. If the card is removed, downloads on it are marked "SD card removed" and play by streaming; they are not deleted and work offline again when the card returns. While the chosen card is missing, new downloads go to internal storage and the Storage screen says so. Used/free storage and the 500 MB warning (R61) are per location. Same in both flavours. |
 
 ## 12. Devices, layout, look and feel
 
@@ -158,7 +159,7 @@ archive.org facts that shape these requirements (observed November 2026; counts 
 
 | ID | Requirement |
 |---|---|
-| R72 | Settings (menu style per R83): UI language, appearance (R82), preferred content languages, data saver, download on Wi-Fi only, storage/downloads, subtitles default, show adult content, history (pause/clear), clear search history, export/import library, about (version, flavour, license, open-source notices, archive.org attribution). |
+| R72 | Settings (menu style per R83): UI language, appearance (R82), preferred content languages, data saver, download on Wi-Fi only, storage/downloads (incl. download location, R85), subtitles default, show adult content, history (pause/clear), clear search history, export/import library, about (version, flavour, license, open-source notices, archive.org attribution). |
 | R73 | Library data (playlists, likes, follows, history, settings) is stored locally (Room/DataStore) and included in Android Auto Backup. Downloaded media and caches are excluded from backup. |
 | R74 | "Export library" / "Import library" writes/reads one versioned JSON file via the Storage Access Framework, working without Google services. Import merges (no silent overwrite) and reports conflicts. |
 | R75 | No analytics, crash reporting SDKs, or third-party trackers. Network access is limited to archive.org domains and the project's GitHub Pages domain. |
@@ -229,6 +230,9 @@ These scenarios define intended behavior, not completed tests. Each must be tran
 | A40 | Entry has a human-made `.srt` and a machine-generated transcript subtitle | Both offered; the machine-generated one labelled "Auto-generated" | R45 |
 | A41 | Remote adult keyword list adds a keyword | Matching items are hidden after the next successful fetch, without a new APK | R71 |
 | A42 | Content languages are English + French; user switches app language to Dansk (setup or Settings) | Content languages stay English + French; switching content languages never changes the app language | R27, R67 |
+| A43 | SD card inserted; user picks "SD card" as download location and downloads an album | Files are stored in ArchivePlayer's folder on the SD card; Storage & downloads shows the usage under SD card | R85 |
+| A44 | 2 downloads (416 MB) on internal storage; user switches the location to SD card | Prompt "Move 2 downloads (416 MB) to SD card?". Move: both are moved and still play offline. Keep: they stay; new downloads go to the SD card | R85 |
+| A45 | Downloads on the SD card; card is removed, later reinserted | Entries are marked "SD card removed" and play by streaming, nothing is deleted; after reinsertion they play offline again | R85 |
 | A36 | Run the setup scenarios in UI_SETUP_SPEC.md and shell scenarios in UI_SHELL_SPEC.md | Stable IDs, correct navigation, localization and accessibility | R62–R69 |
 
 ## 18. Resolved open points
@@ -293,3 +297,4 @@ All open points of v0.1 were resolved in review on 7 November 2026; the resoluti
 | D28 | Menus and settings follow sim-warning-app; initial category list approved | R17, R72, R83 |
 | D29 | Logo "Signal A" chosen from five concepts; same icon in `full` and `foss` | R84 |
 | D30 | App language and content languages are fully separate settings; content-language preselection comes from the phone's language, not the app-language choice | R27, R67 |
+| D31 | Downloads can be stored on internal storage or an SD card (app-specific folder, no storage permission); internal is the default and existing downloads move only with consent | R85 |
