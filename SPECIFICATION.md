@@ -63,7 +63,7 @@ archive.org facts that shape these requirements (observed November 2026; counts 
 | R24 | Sort: relevance (default), popularity (archive.org download counts), newest added, original date. |
 | R25 | Results are grouped: Collections, Items, and the user's own playlists matching the query. Results page incrementally (infinite scroll) and show a clear empty state and error/retry state. |
 | R26 | Without a query, the Search tab shows the category map as browsable tiles (browse). Opening a category shows its sub-categories and a results list using the same filters and sorts. |
-| R27 | Preferred content languages: chosen during setup (UI_SETUP_SPEC.md) and in Settings; zero or more ISO languages. |
+| R27 | Preferred content languages: chosen during setup (UI_SETUP_SPEC.md) and in Settings; zero or more ISO languages. They are a separate setting from the app (UI) language: changing one never changes the other, and they have distinct names ("App language" vs "Content languages"). |
 | R28 | When a language filter is active, only items tagged with a matching normalized language are shown; untagged items are excluded. Without a language filter, untagged items are shown normally. |
 | R29 | Recent searches are stored locally, shown in the Search tab, and can be removed individually or cleared. |
 
@@ -228,6 +228,7 @@ These scenarios define intended behavior, not completed tests. Each must be tran
 | A39 | Wi-Fi only on, on mobile data; start a download and choose "Download now on mobile data" | That download starts on mobile data; the setting stays on | R60 |
 | A40 | Entry has a human-made `.srt` and a machine-generated transcript subtitle | Both offered; the machine-generated one labelled "Auto-generated" | R45 |
 | A41 | Remote adult keyword list adds a keyword | Matching items are hidden after the next successful fetch, without a new APK | R71 |
+| A42 | Content languages are English + French; user switches app language to Dansk (setup or Settings) | Content languages stay English + French; switching content languages never changes the app language | R27, R67 |
 | A36 | Run the setup scenarios in UI_SETUP_SPEC.md and shell scenarios in UI_SHELL_SPEC.md | Stable IDs, correct navigation, localization and accessibility | R62–R69 |
 
 ## 18. Resolved open points
@@ -291,3 +292,4 @@ All open points of v0.1 were resolved in review on 7 November 2026; the resoluti
 | D27 | Wi-Fi-only downloads by default with override; relaxed performance targets; remaining small defaults accepted | R60, R77, section 18 |
 | D28 | Menus and settings follow sim-warning-app; initial category list approved | R17, R72, R83 |
 | D29 | Logo "Signal A" chosen from five concepts; same icon in `full` and `foss` | R84 |
+| D30 | App language and content languages are fully separate settings; content-language preselection comes from the phone's language, not the app-language choice | R27, R67 |

@@ -22,8 +22,9 @@ A primary full-width button ("Continue", on the last step "Start") and, from ste
 
 ## Step 2 — Content languages
 
-- English heading: "Which languages do you watch and listen in?". Supporting text: "We'll favour these on Home and offer them as quick filters. You can skip this."
-- Multi-select chips for common content languages, shown with native names. The UI language's content language is preselected; English is preselected too when the UI language is not English (SO1). Chips shown directly: English, German, Danish, French, Spanish, Italian, Swedish, Norwegian, Dutch, Japanese (SO2). A "More languages" action opens the full list of languages known to the normalization table (R13).
+- English heading: "Which languages do you watch and listen in?". Supporting text: "Languages of the films, shows and audio you want. Separate from the app language. We'll favour these on Home and offer them as quick filters. You can skip this."
+- **Separation:** content languages are independent of the app language chosen in step 1. Going back to step 1 and changing the app language never changes the content-language selection, and vice versa.
+- Multi-select chips for common content languages, shown with native names. On first entry, the phone's language is preselected (if it is in the language list), plus English (SO1); the step-1 app-language choice has no influence. Chips shown directly: English, German, Danish, French, Spanish, Italian, Swedish, Norwegian, Dutch, Japanese (SO2). A "More languages" action opens the full list of languages known to the normalization table (R13).
 - Zero selections are allowed (no preference).
 
 ## Step 3 — Ready
@@ -83,7 +84,7 @@ Danish and German texts are drafted in the catalog files during the test gate an
 | U02 | Select each language row by ID: setup text changes immediately; IDs and selected state stay stable. |
 | U03 | Continue through steps 1–3: exactly one step root visible at a time; progress increments; Back absent on step 1, present on steps 2–3. |
 | U04 | In-app Back and Android Back on steps 2–3 return one step and keep selections; Android Back on step 1 leaves the app and setup is shown again on next launch. |
-| U05 | Content languages: default preselection per UI language; toggling chips by ID; zero selections allowed; "More languages" adds a language. |
+| U05 | Content languages: default preselection from the phone's language plus English; changing the app language in step 1 afterwards leaves the selection unchanged; toggling chips by ID; zero selections allowed; "More languages" adds a language. |
 | U06 | Rotate / recreate the activity on each step: same step and selections. |
 | U07 | Start: Home opens; UI language and content languages persisted; relaunch opens Home directly. Double tap on Start completes once. |
 | U08 | Adding a test-only fourth catalog in the test APK: it appears as a language row without code changes. |
@@ -94,5 +95,5 @@ Danish and German texts are drafted in the catalog files during the test gate an
 
 | ID | Topic | Resolution |
 |---|---|---|
-| SO1 | Content-language preselection | UI language's content language, plus English when the UI language isn't English. |
+| SO1 | Content-language preselection | Phone's language (if listed) plus English, independent of the app language (D30). |
 | SO2 | Content-language chip list | en, de, da, fr, es, it, sv, no, nl, ja shown directly; the rest under "More languages". |
