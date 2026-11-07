@@ -53,7 +53,7 @@ Follows the sim-warning-app approach (SPECIFICATION.md R69):
 | `top_bar_title` | Localized title of the current tab root |
 | `top_bar_theme_toggle` | Light/noir toggle; current theme exposed as state |
 | `top_bar_cast_button` | Cast route button (`full` only) |
-| `top_bar_settings_button` | Settings action (Library) |
+| `top_bar_settings_button` | Settings action (top bar of every tab root: Home, Search, Library) |
 | `home_screen` / `search_screen` / `library_screen` | Tab root screens |
 | `mini_player` | Mini-player bar |
 | `mini_player_title` | Current entry title |
