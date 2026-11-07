@@ -13,7 +13,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.ui.compose.material3.Player
-import com.thomasnorlund.archiveplayer.PlayerViewModel
+import com.thomasnorlund.archiveplayer.playback.PlayerViewModel
 
 @OptIn(UnstableApi::class)
 @Composable

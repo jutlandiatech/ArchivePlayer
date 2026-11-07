@@ -8,8 +8,11 @@ Companion documents:
 
 - [UI_SHELL_SPEC.md](UI_SHELL_SPEC.md) — navigation shell, mini-player, theme and theme toggle, flavour differences, element-ID conventions.
 - [UI_SETUP_SPEC.md](UI_SETUP_SPEC.md) — first-launch setup (language, content languages, adult-content default).
-- Further `UI_<AREA>_SPEC.md` files (Home, Search, Item, Player, Library, Playlist, Settings) follow after this document is approved.
-- `TESTING.md` and `TDD_EVIDENCE.md` are created in the test gate.
+- [UI_SETTINGS_SPEC.md](UI_SETTINGS_SPEC.md) — Settings menu, detail screens and their element IDs.
+- Further `UI_<AREA>_SPEC.md` files (Home, Search, Item, Player, Library, Playlist) follow after this document is approved.
+- [ANDROID_FEASIBILITY.md](ANDROID_FEASIBILITY.md) — archive.org, Cast and Android findings behind these requirements; [docs/ARCHITECTURE_UML.md](docs/ARCHITECTURE_UML.md) — proposed architecture.
+- [TESTING.md](TESTING.md) and [TDD_EVIDENCE.md](TDD_EVIDENCE.md) — test strategy/traceability and recorded red→green runs (filled in the test gate).
+- Design references: [design/](design/README.md) (interactive mockup, logo).
 
 ## 1. Purpose and scope
 
@@ -159,7 +162,7 @@ archive.org facts that shape these requirements (observed November 2026; counts 
 
 | ID | Requirement |
 |---|---|
-| R72 | Settings (menu style per R83): UI language, appearance (R82), preferred content languages, data saver, download on Wi-Fi only, storage/downloads (incl. download location, R85), subtitles default, show adult content, history (pause/clear), clear search history, export/import library, about (version, flavour, license, open-source notices, archive.org attribution). |
+| R72 | Settings (menu style per R83; layout, detail screens and IDs in UI_SETTINGS_SPEC.md): UI language, appearance (R82), preferred content languages, data saver, download on Wi-Fi only, storage/downloads (incl. download location, R85), subtitles default, show adult content, history (pause/clear), clear search history, export/import library, about (version, flavour, license, open-source notices, archive.org attribution). |
 | R73 | Library data (playlists, likes, follows, history, settings) is stored locally (Room/DataStore) and included in Android Auto Backup. Downloaded media and caches are excluded from backup. |
 | R74 | "Export library" / "Import library" writes/reads one versioned JSON file via the Storage Access Framework, working without Google services. Import merges (no silent overwrite) and reports conflicts. |
 | R75 | No analytics, crash reporting SDKs, or third-party trackers. Network access is limited to archive.org domains and the project's GitHub Pages domain. |
@@ -181,7 +184,7 @@ archive.org facts that shape these requirements (observed November 2026; counts 
 | R81 | In `foss`, every Cast requirement (R46–R49) has a defined "no Cast" behavior: no Cast button or Cast indicator is shown, no Cast route discovery happens, and all playback is local. Cast code lives behind an interface with a no-op `foss` implementation; tests cover both implementations. The About screen shows the flavour. |
 | R82 | Appearance: Nordic light by default. A theme toggle (sun/moon icon) in the top bar of each tab root switches between Nordic light and Nordic noir in one tap; Settings → Appearance offers Nordic light, Nordic noir and Follow system. The choice is persisted, applies immediately without losing screen state, and is included in backup/export. |
 | R83 | Menus and settings follow sim-warning-app's design language: Settings is a list of full-width rows with a blue icon, the label, the current value as secondary text and a chevron; each row opens its own detail screen; changes apply immediately (no Save button). Body text 18 sp, headings about 28 sp, controls at least 48 dp, generous spacing. The UI-language detail screen uses the same flag + native-name rows as setup. |
-| R84 | Logo "Signal A": a bold "A" whose crossbar is a play triangle, with two signal arcs at the apex. Masters in `docs/logo/`: the launcher icon is an adaptive icon (white glyph on `#2769AD`, glyph inside the 66 dp safe zone) with an Android 13+ monochrome layer; in the app, the blue glyph plus the "Archive**Player**" wordmark appears in the setup header and About. Both flavours use the same icon. |
+| R84 | Logo "Signal A": a bold "A" whose crossbar is a play triangle, with two signal arcs at the apex. Masters in `design/logo/`: the launcher icon is an adaptive icon (white glyph on `#2769AD`, glyph inside the 66 dp safe zone) with an Android 13+ monochrome layer; in the app, the blue glyph plus the "Archive**Player**" wordmark appears in the setup header and About. Both flavours use the same icon. |
 
 ## 17. Acceptance scenarios
 

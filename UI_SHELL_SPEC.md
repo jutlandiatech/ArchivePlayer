@@ -7,7 +7,7 @@ Status: **draft v0.2 for final review**, 7 November 2026. Companion to SPECIFICA
 - Three destinations, in this order: **Home**, **Search** (search plus category browse), **Library** (playlists, liked, following, downloads, history).
 - Phones (< 600 dp width): Material 3 bottom navigation bar. Tablets/foldables (≥ 600 dp): navigation rail on the start edge.
 - Each destination keeps its own back stack; reselecting the current tab scrolls to top and then pops to the tab root. Android Back pops within the tab, then returns to Home, then leaves the app.
-- Top bar on each tab root: localized title, theme toggle (sun/moon, R82), Cast button (Media3 `MediaRouteButton`, `full` flavour only), and on Library a Settings action.
+- Top bar on each tab root: localized title, theme toggle (sun/moon, R82), Cast button (Media3 `MediaRouteButton`, `full` flavour only) and a Settings action (UI_SETTINGS_SPEC.md).
 - Detail destinations (item, collection, category, playlist, settings pages) open within the current tab's back stack.
 
 ## Mini-player and full player

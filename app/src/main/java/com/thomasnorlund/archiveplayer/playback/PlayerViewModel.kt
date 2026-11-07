@@ -1,4 +1,4 @@
-package com.thomasnorlund.archiveplayer
+package com.thomasnorlund.archiveplayer.playback
 
 import android.app.Application
 import androidx.annotation.OptIn
