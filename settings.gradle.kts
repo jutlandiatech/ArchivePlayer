@@ -14,4 +14,4 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "ArchivePlayer"
-include(":app")
+include(":core", ":app")
