@@ -1,6 +1,6 @@
 # First-launch setup
 
-Status: **draft v0.1 for review**, 7 November 2026. Companion to SPECIFICATION.md R27, R65–R69, R70 and decision D15. The layout follows jutlandiatech/sim-warning-app's setup approach, adapted to ArchivePlayer's dark-first theme. Not approved.
+Status: **draft v0.2 for final review**, 7 November 2026. Companion to SPECIFICATION.md R27, R65–R69, R70 and decision D15. The layout follows jutlandiatech/sim-warning-app's setup approach, in the Nordic light design language (R63, R83). Not yet approved.
 
 ## Flow
 
@@ -23,7 +23,7 @@ A primary full-width button ("Continue", on the last step "Start") and, from ste
 ## Step 2 — Content languages
 
 - English heading: "Which languages do you watch and listen in?". Supporting text: "We'll favour these on Home and offer them as quick filters. You can skip this."
-- Multi-select chips for common content languages, shown with native names. The UI language's content language is preselected; English is preselected too when the UI language is not English (SO1). A "More languages" action opens the full list of languages known to the normalization table (R13).
+- Multi-select chips for common content languages, shown with native names. The UI language's content language is preselected; English is preselected too when the UI language is not English (SO1). Chips shown directly: English, German, Danish, French, Spanish, Italian, Swedish, Norwegian, Dutch, Japanese (SO2). A "More languages" action opens the full list of languages known to the normalization table (R13).
 - Zero selections are allowed (no preference).
 
 ## Step 3 — Ready
@@ -90,9 +90,9 @@ Danish and German texts are drafted in the catalog files during the test gate an
 | U09 | All languages at normal and 200% font scale on 320 dp width: no clipping; actions reachable by scrolling; touch targets ≥ 48 dp. |
 | U10 | TalkBack: headings, single/multi selection states, button labels; flags not announced redundantly. |
 
-## Open points
+## Resolved points
 
-| ID | Topic | Proposed default |
+| ID | Topic | Resolution |
 |---|---|---|
 | SO1 | Content-language preselection | UI language's content language, plus English when the UI language isn't English. |
-| SO2 | Content-language chip list | English, German, Danish, French, Spanish, Italian, Swedish, Norwegian, Dutch, Japanese; the rest under "More languages". |
+| SO2 | Content-language chip list | en, de, da, fr, es, it, sv, no, nl, ja shown directly; the rest under "More languages". |
