@@ -1,0 +1,37 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ArchivePlayer logo concepts v0.1</title>
+<style>body{margin:0;font-family:Roboto,"Segoe UI",system-ui,sans-serif;background:#F4F7FA;color:#15191E;padding:24px}h1{font-size:28px;font-weight:500;margin:0 0 4px}p.i{color:#454E58;margin:0 0 20px;max-width:900px;line-height:1.5}
+.c{background:#fff;border:1px solid #C2CEDB;border-radius:12px;padding:20px;margin-bottom:20px}.c h2{margin:0;font-size:22px;font-weight:500;color:#2769AD}.c .d{color:#454E58;margin:4px 0 16px;line-height:1.5;max-width:900px}
+.g{display:flex;gap:24px;flex-wrap:wrap;align-items:flex-end}.cell{text-align:center;font-size:12px;color:#454E58}.cell>div{margin-bottom:6px}
+.home{display:flex;gap:18px;padding:18px 22px;border-radius:16px}.home .ap{display:flex;flex-direction:column;align-items:center;gap:6px;font-size:12px}
+.lk{display:flex;align-items:center;gap:12px;padding:14px 18px;border-radius:12px;font-size:22px;font-weight:500}.lk.n{background:#0F1318;color:#E8EDF2}.lk.l{background:#fff;border:1px solid #E0E6ED}
+svg{display:block}</style></head><body>
+<h1>ArchivePlayer logo concepts</h1><p class="i">Five concepts in the Nordic design language (blue <b>#2769AD</b>, white, ink #15191E). Each one is shown as an Android adaptive launcher icon in circle and squircle masks, on a light and a dark home screen, as the Android 13+ monochrome “themed icon”, and as the in-app lockup for the setup screen and top bar. Everything is vector SVG, ready for <code>ic_launcher_foreground</code>/<code>monochrome</code>.</p>
+<div id="out"></div>
+<script>
+const B="#2769AD",W="#fff",N="#15191E";
+// each glyph drawn in a 108x108 adaptive-icon canvas, safe zone = central 66dp circle
+const L=[
+{n:"1 · Archive Arch",d:"A classical archive portico (a nod to the Internet Archive's temple) whose doorway is a play button. Reads as ‘library + play’; strong, calm, Nordic.",
+g:(f,b)=>`<path d="M30 44 L54 30 L78 44 Z" fill="${f}"/><rect x="30" y="46" width="48" height="4" rx="1" fill="${f}"/><rect x="33" y="52" width="6" height="22" rx="1" fill="${f}"/><rect x="69" y="52" width="6" height="22" rx="1" fill="${f}"/><path d="M48 54 L63 63 L48 72 Z" fill="${f}"/><rect x="29" y="76" width="50" height="4" rx="1" fill="${f}"/>`},
+{n:"2 · Reel to Wave",d:"A film reel that turns into a sound wave: video and audio in one mark, the core idea of the app. Most ‘media player’ of the five.",
+g:(f,b)=>`<circle cx="46" cy="54" r="17" fill="none" stroke="${f}" stroke-width="5"/><circle cx="46" cy="45" r="3.2" fill="${f}"/><circle cx="46" cy="63" r="3.2" fill="${f}"/><circle cx="37" cy="54" r="3.2" fill="${f}"/><circle cx="55" cy="54" r="3.2" fill="${f}"/><path d="M66 54 v0 M70 46 v16 M76 40 v28 M82 48 v12" stroke="${f}" stroke-width="4.5" stroke-linecap="round"/>`},
+{n:"3 · Shelf Play",d:"Three archive shelves/drawers with a play triangle cut out of them. Minimal and geometric; works very well small and monochrome.",
+g:(f,b)=>`<rect x="31" y="34" width="46" height="10" rx="3" fill="${f}"/><rect x="31" y="49" width="46" height="10" rx="3" fill="${f}"/><rect x="31" y="64" width="46" height="10" rx="3" fill="${f}"/><path d="M46 37 L68 54 L46 71 Z" fill="${b}"/><path d="M50 45 L61 54 L50 63 Z" fill="${f}"/>`},
+{n:"4 · Signal A",d:"A bold ‘A’ whose crossbar is a play triangle, with two cast arcs at the apex: Archive, Play and Cast in one letterform.",
+g:(f,b)=>`<path d="M54 32 L76 78 H67 L54 49 L41 78 H32 Z" fill="${f}"/><path d="M47 62 L60 68 L47 74 Z" fill="${f}"/><path d="M63 30 a10 10 0 0 1 8 8 M66 24 a17 17 0 0 1 13 13" stroke="${f}" stroke-width="3.5" fill="none" stroke-linecap="round"/>`},
+{n:"5 · Time Disc",d:"A record/disc with groove rings and a play triangle as the label: vintage media (78rpm, radio, film) meets modern streaming.",
+g:(f,b)=>`<circle cx="54" cy="54" r="24" fill="${f}"/><circle cx="54" cy="54" r="19" fill="none" stroke="${b}" stroke-width="1.2" opacity=".6"/><circle cx="54" cy="54" r="15" fill="none" stroke="${b}" stroke-width="1.2" opacity=".6"/><circle cx="54" cy="54" r="10" fill="${b}"/><path d="M51 49 L60 54 L51 59 Z" fill="${f}"/>`}];
+const icon=(l,s,mask,bg,fg)=>{const id=Math.random().toString(36).slice(2);const clip=mask=="circle"?`<circle cx="54" cy="54" r="54"/>`:`<path d="M54 0C88 0 108 20 108 54S88 108 54 108 0 88 0 54 20 0 54 0Z"/>`;
+return `<svg width="${s}" height="${s}" viewBox="0 0 108 108"><defs><clipPath id="c${id}">${clip}</clipPath></defs><g clip-path="url(#c${id})"><rect width="108" height="108" fill="${bg}"/>${l.g(fg,bg)}</g></svg>`};
+const glyph=(l,s,fg,bg)=>`<svg width="${s}" height="${s}" viewBox="22 22 64 64">${l.g(fg,bg)}</svg>`;
+document.getElementById("out").innerHTML=L.map(l=>`<div class="c"><h2>${l.n}</h2><div class="d">${l.d}</div><div class="g">
+<div class="cell"><div>${icon(l,120,"circle",B,W)}</div>Launcher · circle</div>
+<div class="cell"><div>${icon(l,120,"squircle",B,W)}</div>Launcher · squircle</div>
+<div class="cell"><div>${icon(l,120,"circle",W,B)}</div>Inverted variant</div>
+<div class="cell"><div class="home" style="background:linear-gradient(135deg,#cfe0f2,#e9eef4)"><div class="ap">${icon(l,56,"circle",B,W)}ArchivePlayer</div><div class="ap">${icon(l,56,"circle","#DDE6EF","#24527F")}Themed</div></div>Light home screen</div>
+<div class="cell"><div class="home" style="background:linear-gradient(135deg,#1b2430,#0c1015);color:#E8EDF2"><div class="ap">${icon(l,56,"circle",B,W)}ArchivePlayer</div><div class="ap">${icon(l,56,"circle","#2B3A4A","#BFD7F2")}Themed</div></div>Dark home screen</div>
+<div class="cell"><div>${glyph(l,48,N,"#fff")}</div>Monochrome</div></div>
+<div class="g" style="margin-top:16px"><div class="cell"><div class="lk l">${glyph(l,36,B,"#fff")}<span>Archive<span style="color:${B}">Player</span></span></div>In-app lockup · Nordic light</div>
+<div class="cell"><div class="lk n">${glyph(l,36,"#7FB0E8","#0F1318")}<span>Archive<span style="color:#7FB0E8">Player</span></span></div>In-app lockup · Nordic noir</div>
+<div class="cell"><div class="lk l" style="font-size:16px">${glyph(l,24,B,"#fff")}<span>ArchivePlayer</span></div>Top bar / setup header</div></div></div>`).join("");
+</script></body></html>

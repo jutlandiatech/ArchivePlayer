@@ -180,6 +180,7 @@ archive.org facts that shape these requirements (observed November 2026; counts 
 | R81 | In `foss`, every Cast requirement (R46–R49) has a defined "no Cast" behavior: no Cast button or Cast indicator is shown, no Cast route discovery happens, and all playback is local. Cast code lives behind an interface with a no-op `foss` implementation; tests cover both implementations. The About screen shows the flavour. |
 | R82 | Appearance: Nordic light by default. A theme toggle (sun/moon icon) in the top bar of each tab root switches between Nordic light and Nordic noir in one tap; Settings → Appearance offers Nordic light, Nordic noir and Follow system. The choice is persisted, applies immediately without losing screen state, and is included in backup/export. |
 | R83 | Menus and settings follow sim-warning-app's design language: Settings is a list of full-width rows with a blue icon, the label, the current value as secondary text and a chevron; each row opens its own detail screen; changes apply immediately (no Save button). Body text 18 sp, headings about 28 sp, controls at least 48 dp, generous spacing. The UI-language detail screen uses the same flag + native-name rows as setup. |
+| R84 | Logo "Signal A": a bold "A" whose crossbar is a play triangle, with two signal arcs at the apex. Masters in `docs/logo/`: the launcher icon is an adaptive icon (white glyph on `#2769AD`, glyph inside the 66 dp safe zone) with an Android 13+ monochrome layer; in the app, the blue glyph plus the "Archive**Player**" wordmark appears in the setup header and About. Both flavours use the same icon. |
 
 ## 17. Acceptance scenarios
 
@@ -289,3 +290,4 @@ All open points of v0.1 were resolved in review on 7 November 2026; the resoluti
 | D26 | Two build flavours: `full` (Cast) and `foss` (F-Droid-ready) | R80–R81 |
 | D27 | Wi-Fi-only downloads by default with override; relaxed performance targets; remaining small defaults accepted | R60, R77, section 18 |
 | D28 | Menus and settings follow sim-warning-app; initial category list approved | R17, R72, R83 |
+| D29 | Logo "Signal A" chosen from five concepts; same icon in `full` and `foss` | R84 |
