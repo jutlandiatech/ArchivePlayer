@@ -22,5 +22,10 @@ Observed November 2026. Historical entries stay; new findings are appended with 
 
 ## Devin VM
 
-- No Android SDK; used for specs, mockups and core-only work.
+- Android SDK in `~/android-sdk` (platform 37, build-tools 37.0.0, emulator, system image `android-37.0;google_apis;x86_64`) with AVD `ap37`; KVM available. Core tests, both flavour builds and the connected UI tests run here; `local.properties` points at the SDK (not committed).
+- Start the emulator headless: `emulator -avd ap37 -no-window -no-audio -no-boot-anim -gpu swiftshader_indirect -no-snapshot`.
 - Maven Central answered HTTP 429 from the VM. A VM-only Gradle init script redirects Maven Central to Google's mirror; it is not part of the repository and not needed on normal machines.
+
+## Known gotchas
+
+- Compose UI testing pulls in espresso-core 3.5, which crashes on API 37 (`NoSuchMethodException: InputManager.getInstance`). `app/build.gradle.kts` pins espresso-core 3.7.0 for androidTest.

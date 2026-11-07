@@ -3,21 +3,18 @@ package com.thomasnorlund.archiveplayer.playback
 import android.app.Application
 import androidx.annotation.OptIn
 import androidx.lifecycle.AndroidViewModel
-import androidx.media3.cast.CastPlayer
 import androidx.media3.common.MediaItem
 import androidx.media3.common.MediaMetadata
 import androidx.media3.common.MimeTypes
 import androidx.media3.common.Player
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.exoplayer.ExoPlayer
+import com.thomasnorlund.archiveplayer.cast.FlavourCast
 
 @OptIn(UnstableApi::class)
 class PlayerViewModel(application: Application) : AndroidViewModel(application) {
 
-    // CastPlayer plays on the local ExoPlayer and hands playback over when a Cast session starts or ends.
-    val player: Player = CastPlayer.Builder(application)
-        .setLocalPlayer(ExoPlayer.Builder(application).build())
-        .build()
+    val player: Player = FlavourCast.wrapPlayer(application, ExoPlayer.Builder(application).build())
 
     init {
         player.setMediaItem(SAMPLE_ITEM)

@@ -20,7 +20,7 @@ ArchivePlayer is developed specification-first: specifications are agreed before
 - [TDD_EVIDENCE.md](TDD_EVIDENCE.md) — recorded red→green runs (evidence files in `docs/tdd/`).
 - [DEVELOPMENT_ENVIRONMENT.md](DEVELOPMENT_ENVIRONMENT.md) — observed build environment and toolchain.
 
-Current status: specification v0.2 in final review. No feature tests or production features yet; the app module is a scaffold (single sample stream with Cast).
+Current status: specification v1.0 approved (7 November 2026). Gate 2 red baseline recorded: 188 tests written before the implementation, all failing against API skeletons (see TDD_EVIDENCE.md). The app module is still a scaffold (single sample stream; Cast only in the `full` flavour). Next: gate 3, implementation.
 
 ## Design
 

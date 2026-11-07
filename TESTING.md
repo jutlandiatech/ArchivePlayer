@@ -1,6 +1,6 @@
 # Specification-first development
 
-Requirements are in SPECIFICATION.md; UI contracts and stable element IDs are in the `UI_*_SPEC.md` files. Status: test gate not started — it begins once the specification is approved.
+Requirements are in SPECIFICATION.md; UI contracts and stable element IDs are in the `UI_*_SPEC.md` files. Status: **gate 2 red baseline recorded** (7 November 2026): 188 tests written before any feature code, all failing or skipped against unimplemented skeletons. See TDD_EVIDENCE.md.
 
 ## Workflow per slice
 
@@ -33,7 +33,47 @@ Test names start with the ID they cover, e.g. `R27_appLanguageChangeKeepsContent
 .\tools\run-gradle.ps1 :core:build :app:assembleDebug :app:lintDebug
 ```
 
-Instrumentation and flavour tasks are added with the first UI slice.
+Android UI tests (both flavours, needs a running emulator or phone) and the flavour check:
+
+```powershell
+.\tools\run-gradle.ps1 --continue :app:connectedFullDebugAndroidTest :app:connectedFossDebugAndroidTest
+.\tools\run-gradle.ps1 :app:verifyFossDependencies   # also part of :app:check
+```
+
+Opt-in live catalog check (network): `.\tools\run-gradle.ps1 :core:test --tests "*LiveCategoryMapCheck*" -Darchiveplayer.live=true` (system property must reach the test JVM; wired up in the implementation gate).
+
+UI tests run with the test orchestrator and `clearPackageData`, so every test starts from a fresh install. The emulator's phone language is en-US; other phone languages are covered by core tests (A01, A02, U01).
+
+## Traceability (red baseline)
+
+| Area | Test class (layer) | IDs |
+|---|---|---|
+| Text catalogs | `TextCatalogTest`, `ShippedCatalogsTest` (core) | R65, R66, A03, A04, R72, R27, UI_SETUP text contract |
+| Languages | `LanguagesTest` (core) | R13, R28, R67, R83, A01, A02, A05–A07, U01, SO1, SO2 |
+| Settings and theme | `AppSettingsTest` (core) | R27, R72, A38, A42, R82, D30 |
+| Setup flow | `SetupFlowTest` (core), `SetupUiTest` (Android) | U01–U07, A42 |
+| archive.org parsing | `MetadataParserTest`, `CatalogUtilitiesTest` (core, recorded fixtures) | R07–R12, R23, R45, R78, A10–A12, A33, A40 |
+| Format selection | `FormatSelectorTest` (core) | R09, R40, R41, R43, R49, A13–A15 (A13 includes the R42 quality menu) |
+| Category map | `CategoryMapTest`, `BundledCategoryMapTest`, `LiveCategoryMapCheck` (opt-in) (core) | R14, R15, R17, R68, A08, A09 |
+| Adult filter | `AdultFilterTest` (core) | R71, A27 (R70 default), A41 |
+| Search | `SearchTest` (core) | R07, R22–R26, R28, R29, R71, A06, A07, A10 |
+| Network politeness | `ArchiveClientTest` (core) | R75, R76, A35 |
+| Playback rules | `PlaybackTest` (core) | R35–R37, A16, A17, A34 |
+| Playlists, sharing, export | `PlaylistsTest` (core) | R51, R52, R54, R57, R58, R74, A21, A23, A24, A29 |
+| Downloads and storage | `DownloadsTest` (core) | R59 (via A25), R60, R61, R85, A25, A39, A43–A45 |
+| Home | `HomeTest` (core) | R18–R21, R36, R44, A17 |
+| Shell | `ShellUiTest` (Android) | N01, N10, A38 |
+| Settings UI | `SettingsUiTest` (Android) | S01 (R50), S02, S03 (A42), S10 (R81) |
+| Element IDs | `ResourceIdUiAutomatorTest` (Android) | R69 |
+| Flavours | `CastFullUiTest` (full), `NoCastFossUiTest` (foss), `verifyFossDependencies` (Gradle) | R46, R80, R81, A37, N13 |
+
+**Not yet covered by automated tests** (to be added with the matching slice, or checked on a device):
+
+- UI slices whose `UI_<AREA>_SPEC.md` is still to be written: Home, Search, Item, Player, Library screens (R30–R33, R53 UI, A28, A30, A31, R62, R64, R84 logo assets).
+- Playback integration with Media3 on a device: R34 media session, R38/A32 picture-in-picture, R39 background video, A26 offline playback, R47/R48/A18–A20 Cast hand-over (real Chromecast, manual).
+- GitHub Pages share page and App Links: R55, R56, A22.
+- Android backup: R73. Performance targets: R77 (emulator with network shaping + phone).
+- Scope/architecture statements R01–R06, R16, R79 are checked by review, not tests.
 
 ## Evidence
 

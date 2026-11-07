@@ -1,8 +1,8 @@
 # ArchivePlayer — requirements and design specification
 
-Version: 0.2 (draft for final review), 7 November 2026.
+Version: 1.0 (approved), 7 November 2026.
 
-Status: **draft — awaiting final approval.** All requirement rows record decisions Thomas made in the requirements interview and the review of v0.1 (decision log D01–D28). All former open points are resolved (section 18). Per the SpecAndTestDrivenDevelopment workflow, no tests or production code are written against this document until it is approved; tests must then be written before the implementation they cover.
+Status: **approved by Thomas on 7 November 2026.** All requirement rows record decisions from the requirements interview and the review of v0.1 and v0.2 (decision log D01–D31). Changes from now on are made by pull request and recorded in the decision log. Per the SpecAndTestDrivenDevelopment workflow, tests are written before the implementation they cover (TESTING.md).
 
 Companion documents:
 
