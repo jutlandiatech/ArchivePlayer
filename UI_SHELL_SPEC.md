@@ -1,6 +1,6 @@
 # Navigation shell, theme and element-ID contract
 
-Status: **draft v0.2 for final review**, 7 November 2026. Companion to SPECIFICATION.md R18–R26, R34–R38, R46, R50, R62–R69, R80–R83 and decisions D17, D22, D23, D26. Not yet approved.
+Status: **approved v1.0**, 7 November 2026. Companion to SPECIFICATION.md R18–R26, R34–R38, R46, R50, R62–R69, R80–R83 and decisions D17, D22, D23, D26.
 
 ## Top-level structure
 

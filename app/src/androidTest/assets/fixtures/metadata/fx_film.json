@@ -1,0 +1,65 @@
+{
+ "metadata": {
+  "identifier": "fx_film",
+  "title": "Fixture Film",
+  "mediatype": "movies",
+  "creator": "Fixture Pictures",
+  "date": "1940",
+  "language": "eng",
+  "collection": [
+   "fx_films"
+  ],
+  "subject": [
+   "Comedy"
+  ]
+ },
+ "files": [
+  {
+   "name": "fx_film.mpeg",
+   "format": "MPEG2",
+   "source": "original",
+   "size": "1000",
+   "length": "180"
+  },
+  {
+   "name": "fx_film.mp4",
+   "format": "h.264",
+   "source": "derivative",
+   "size": "1000",
+   "length": "180",
+   "title": "Fixture Film"
+  },
+  {
+   "name": "fx_film_512kb.mp4",
+   "format": "512Kb MPEG4",
+   "source": "derivative",
+   "size": "1000",
+   "length": "180",
+   "title": "Fixture Film"
+  },
+  {
+   "name": "fx_film.eng.srt",
+   "format": "SubRip",
+   "source": "original",
+   "size": "1000"
+  },
+  {
+   "name": "fx_film.asr.vtt",
+   "format": "Web Video Text Tracks",
+   "source": "derivative",
+   "size": "1000"
+  },
+  {
+   "name": "fx_film.png",
+   "format": "PNG",
+   "source": "derivative",
+   "size": "1000"
+  },
+  {
+   "name": "fx_film_meta.xml",
+   "format": "Metadata",
+   "source": "original",
+   "size": "1000"
+  }
+ ]
+}

@@ -1,0 +1,131 @@
+{
+ "responseHeader": {
+  "status": 0
+ },
+ "response": {
+  "numFound": 10,
+  "start": 0,
+  "docs": [
+   {
+    "identifier": "fx_collection",
+    "title": "Fixture Collection",
+    "mediatype": "collection",
+    "downloads": 1000
+   },
+   {
+    "identifier": "fx_radio_show",
+    "title": "Fixture Radio Show",
+    "mediatype": "audio",
+    "creator": "Fixture Radio",
+    "date": "1950",
+    "language": "eng",
+    "collection": [
+     "fx_collection"
+    ],
+    "subject": [
+     "Radio",
+     "Drama"
+    ],
+    "downloads": 999
+   },
+   {
+    "identifier": "fx_film",
+    "title": "Fixture Film",
+    "mediatype": "movies",
+    "creator": "Fixture Pictures",
+    "date": "1940",
+    "language": "eng",
+    "collection": [
+     "fx_films"
+    ],
+    "subject": [
+     "Comedy"
+    ],
+    "downloads": 998
+   },
+   {
+    "identifier": "fx_series_40",
+    "title": "Fixture Series Forty",
+    "mediatype": "audio",
+    "creator": "Fixture Radio",
+    "date": "1951",
+    "language": "eng",
+    "collection": [
+     "fx_collection"
+    ],
+    "downloads": 997
+   },
+   {
+    "identifier": "fx_series_12",
+    "title": "Fixture Series Twelve",
+    "mediatype": "audio",
+    "creator": "Fixture Radio",
+    "date": "1952",
+    "language": "eng",
+    "collection": [
+     "fx_collection"
+    ],
+    "downloads": 996
+   },
+   {
+    "identifier": "fx_english",
+    "title": "Fixture English Talk",
+    "mediatype": "audio",
+    "creator": "Fixture Radio",
+    "date": "1953",
+    "language": "English",
+    "collection": [
+     "fx_collection"
+    ],
+    "downloads": 995
+   },
+   {
+    "identifier": "fx_french",
+    "title": "Fixture Causerie",
+    "mediatype": "audio",
+    "creator": "Radio Fixture",
+    "date": "1954",
+    "language": "fre",
+    "collection": [
+     "fx_collection"
+    ],
+    "downloads": 994
+   },
+   {
+    "identifier": "fx_untagged",
+    "title": "Fixture Untagged Recording",
+    "mediatype": "audio",
+    "creator": "Unknown",
+    "date": "1955",
+    "collection": [
+     "fx_collection"
+    ],
+    "downloads": 993
+   },
+   {
+    "identifier": "fx_adult",
+    "title": "Fixture Adult Film",
+    "mediatype": "movies",
+    "date": "1970",
+    "collection": [
+     "no-preview"
+    ],
+    "subject": [
+     "xxx"
+    ],
+    "downloads": 992
+   },
+   {
+    "identifier": "fx_nothing",
+    "title": "Fixture Text Only",
+    "mediatype": "movies",
+    "date": "1960",
+    "language": "eng",
+    "collection": [
+     "fx_films"
+    ],
+    "downloads": 991
+   }
+  ]
+ }
+}

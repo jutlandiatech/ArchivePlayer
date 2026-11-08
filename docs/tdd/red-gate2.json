@@ -1,0 +1,3532 @@
+{
+  "phase": "red",
+  "slice": "gate2",
+  "recordedAt": "2026-11-08T12:05:23+00:00",
+  "baseCommit": "6772abe1c131cf766bdbbf349e5f2731c646db98",
+  "command": "./gradlew :core:test --continue; ./gradlew --continue :app:connectedFullDebugAndroidTest :app:connectedFossDebugAndroidTest (emulator ap36: API 36 google_apis x86_64, phone language en-US)",
+  "summary": {
+    "total": 346,
+    "passed": 0,
+    "failed": 345,
+    "skipped": 1
+  },
+  "testSourceSha256": {
+    "core/src/test/kotlin/com/thomasnorlund/archiveplayer/core/catalog/CatalogUtilitiesTest.kt": "9d7eaa3f8494ad85c301c6121b7580548d174a1c2053f11e9166cb974f393b3c",
+    "core/src/test/kotlin/com/thomasnorlund/archiveplayer/core/catalog/MetadataParserTest.kt": "b002d98041510bc4ec6476ade0e98bdc9aeb2f0483c98d997d65e5e80d5f9518",
+    "core/src/test/kotlin/com/thomasnorlund/archiveplayer/core/category/BundledCategoryMapTest.kt": "4f94b4d1834e3994b579e22ded23cbbe1acab0dc70052de1d17b2585db0046b0",
+    "core/src/test/kotlin/com/thomasnorlund/archiveplayer/core/category/CategoryMapTest.kt": "a65970aa985b7fe69c7d6c9fb9b3a9ea7bfdf27ab24e7789a7785446291860e8",
+    "core/src/test/kotlin/com/thomasnorlund/archiveplayer/core/category/LiveCategoryMapCheck.kt": "ef3cc3fdbc874eb2e8a296a05955b43a63b11137a82e0f338101d69def03e16d",
+    "core/src/test/kotlin/com/thomasnorlund/archiveplayer/core/download/DownloadsTest.kt": "57c2f093c76a34a44da32726cce72f423b50e18838129579b3ad449a165cb50e",
+    "core/src/test/kotlin/com/thomasnorlund/archiveplayer/core/filter/AdultFilterTest.kt": "2b480f619baa1000c417376ff8a074852d1cfbff589a0eaba9f57a888e3fe247",
+    "core/src/test/kotlin/com/thomasnorlund/archiveplayer/core/format/FormatSelectorTest.kt": "cca81fce497ef9f9d0dbfea72a0d81613e9451d0de1312b2721119129deb927b",
+    "core/src/test/kotlin/com/thomasnorlund/archiveplayer/core/home/HomeTest.kt": "23b047dad6c5e5cb22a79e7ebc77cc66933b528a0b217ca5b7bf4241792066f3",
+    "core/src/test/kotlin/com/thomasnorlund/archiveplayer/core/language/LanguagesTest.kt": "2171e0cf9abdae81aa91299f6d2ada1d70cb08ed43270b5f75a040b0a363fa51",
+    "core/src/test/kotlin/com/thomasnorlund/archiveplayer/core/net/ArchiveClientTest.kt": "27a16aae5df27bb90f12a669bbd25b6b542e4ad3819c628ad9e8d67bdc449a14",
+    "core/src/test/kotlin/com/thomasnorlund/archiveplayer/core/playback/PlaybackTest.kt": "95c7e76be73d70bf99c0498ccffa5f7dd03400424a56b6362fb811f9298aaa7c",
+    "core/src/test/kotlin/com/thomasnorlund/archiveplayer/core/playlist/PlaylistsTest.kt": "0cc1ede655ca40b3dc5433abbc37f79344964b16f9036c8bc445b3281bbcc848",
+    "core/src/test/kotlin/com/thomasnorlund/archiveplayer/core/search/SearchTest.kt": "794a9b5cf3ade27f8543b28acdcce5ae54b297fe45d78b840e8270156e986833",
+    "core/src/test/kotlin/com/thomasnorlund/archiveplayer/core/settings/AppSettingsTest.kt": "3aa5ef3e0b8564f543ced2ff0aa49f30a1d3b6f2bfa3050dce79f653bd7d8a17",
+    "core/src/test/kotlin/com/thomasnorlund/archiveplayer/core/setup/SetupFlowTest.kt": "297be82c7f7123fe4cb5e2bd5aa0a2c18dd54596560482dc9af0bccee6b0d129",
+    "core/src/test/kotlin/com/thomasnorlund/archiveplayer/core/support/Fixtures.kt": "fdf90aed9f204abf55685906782a11013fbfc96b3eafecf5e5c25402d258c728",
+    "core/src/test/kotlin/com/thomasnorlund/archiveplayer/core/text/ShippedCatalogsTest.kt": "52913ca4983f09635e214ffe9078d87e8f5b1dfd8bdbb61c1854159dc61ce34f",
+    "core/src/test/kotlin/com/thomasnorlund/archiveplayer/core/text/TextCatalogTest.kt": "508b5cf161a7e5532d4b58d8274ab6ecf1c2540b106c2000f65e1fc34f12f51c",
+    "app/src/androidTest/java/com/thomasnorlund/archiveplayer/HomeUiTest.kt": "322cf2ab907dc914b4b20b3a3a65cc58bbb79b86494608c37661e5119b8f7c55",
+    "app/src/androidTest/java/com/thomasnorlund/archiveplayer/ItemUiTest.kt": "445e7a2a0a9329df0c58b8617711ff7e7851a5740ba5b6367f27f3079b651e2a",
+    "app/src/androidTest/java/com/thomasnorlund/archiveplayer/LibraryUiTest.kt": "9bcca9eeb912aba28c2c9bcd3ada554d0bc0f814067e647395e8fe40af096a61",
+    "app/src/androidTest/java/com/thomasnorlund/archiveplayer/PlayerUiTest.kt": "5db3beb0e261d4e6e0ab7d1b1fec306b7894a8b01d455e628009f5f5fdbd2af3",
+    "app/src/androidTest/java/com/thomasnorlund/archiveplayer/ResourceIdUiAutomatorTest.kt": "57fd2949ad10021daa6cb6b40b81e0ce057ccf2851da95d34faf6b214cb2eb3c",
+    "app/src/androidTest/java/com/thomasnorlund/archiveplayer/SearchUiTest.kt": "64d4cb354c703796975ebda7169892812d853a9e00fb0669bf20e0c54039b2e8",
+    "app/src/androidTest/java/com/thomasnorlund/archiveplayer/SettingsUiTest.kt": "180e2f32ddee82d1ee5ea845481cf549f3e601f2b5776599b5c014db6ec8f477",
+    "app/src/androidTest/java/com/thomasnorlund/archiveplayer/SetupUiTest.kt": "4127f3aa2b28a36ae3911bf579d7d29d870dfcc780d605e2aaff6bc135df3b01",
+    "app/src/androidTest/java/com/thomasnorlund/archiveplayer/ShellUiTest.kt": "9f367bdd1426c2858cd1cf7c07d6d8dba161149d32565dcd4c05530e465d8521",
+    "app/src/androidTest/java/com/thomasnorlund/archiveplayer/support/AppTestSupport.kt": "37963d592e3d1312bd0dafb02fe8f99c27df2bcc6ab925401a328b4a786ddad1",
+    "app/src/androidTest/java/com/thomasnorlund/archiveplayer/support/FixtureServer.kt": "62add47b314c67fa417a51dc1008577519006a89294ce68de5b560dde139c894",
+    "app/src/androidTest/java/com/thomasnorlund/archiveplayer/support/PlayerProbe.kt": "c5a9416337fc809bd526280704a7f45c19816ee1526087fd93a8a89c3392876d",
+    "app/src/androidTestFoss/java/com/thomasnorlund/archiveplayer/NoCastFossUiTest.kt": "68961989c3d0a59af3b32910fa19716bb3b49ddc5d614d9b9f4d63fbf58c9595",
+    "app/src/androidTestFull/java/com/thomasnorlund/archiveplayer/CastFullUiTest.kt": "616e094b8bdf1e6fc458d8af7de1509e1d1a749aed739658e8984891f2900eba"
+  },
+  "tests": [
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.catalog.CatalogUtilitiesTest",
+      "name": "R23_durationClasses",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.catalog.CatalogUtilitiesTest",
+      "name": "R45_subtitleClassification",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.catalog.CatalogUtilitiesTest",
+      "name": "R78_searchGarbageGivesEmptyPage",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.catalog.CatalogUtilitiesTest",
+      "name": "R12_R78_descriptionSanitized",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.catalog.CatalogUtilitiesTest",
+      "name": "A10_searchResponseParsed",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.catalog.CatalogUtilitiesTest",
+      "name": "R12_durationFormats",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.catalog.CatalogUtilitiesTest",
+      "name": "R07_mediaKinds",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.catalog.MetadataParserTest",
+      "name": "R45_autogeneratedVttAttachesToItsEntry",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.catalog.MetadataParserTest",
+      "name": "R12_displayMetadata",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.catalog.MetadataParserTest",
+      "name": "R08_R10_singleFilmIsOneVideoEntryWithAllFormats",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.catalog.MetadataParserTest",
+      "name": "R10_nonMediaFilesAreNotEntriesButArtworkIsUsed",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.catalog.MetadataParserTest",
+      "name": "R11_A11_largeShowOrderedByTrackThenFilename",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.catalog.MetadataParserTest",
+      "name": "R78_tolerantFieldShapes",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.catalog.MetadataParserTest",
+      "name": "R12_missingTitleFallsBackToIdentifier",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.catalog.MetadataParserTest",
+      "name": "R78_garbageNeverThrows",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.catalog.MetadataParserTest",
+      "name": "R07_unsupportedMediaTypesExcluded",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.catalog.MetadataParserTest",
+      "name": "A33_filmWithSrtOffersIt",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.catalog.MetadataParserTest",
+      "name": "A12_itemWithOnlyImagesAndTextIsNotPlayable",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.catalog.MetadataParserTest",
+      "name": "A40_humanAndMachineSubtitlesBothOfferedAndLabelled",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.catalog.MetadataParserTest",
+      "name": "R11_naturalFilenameOrderWithoutTrackField",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.catalog.MetadataParserTest",
+      "name": "R10_originalAndDerivativesGroupedPerTrack",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.catalog.MetadataParserTest",
+      "name": "R07_R11_etreeConcertIsAudioAlbumInTrackOrder",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.category.BundledCategoryMapTest",
+      "name": "R68_everyCategoryTranslatedToGermanAndDanish",
+      "status": "failed",
+      "failure": {
+        "type": "java.io.FileNotFoundException",
+        "message": "java.io.FileNotFoundException: ../app/src/main/assets/catalog/category-map.json (No such file or directory)"
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.category.BundledCategoryMapTest",
+      "name": "R17_initialMapContainsApprovedCategories",
+      "status": "failed",
+      "failure": {
+        "type": "java.io.FileNotFoundException",
+        "message": "java.io.FileNotFoundException: ../app/src/main/assets/catalog/category-map.json (No such file or directory)"
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.category.BundledCategoryMapTest",
+      "name": "R17_everyLeafHasAConcreteQuery",
+      "status": "failed",
+      "failure": {
+        "type": "java.io.FileNotFoundException",
+        "message": "java.io.FileNotFoundException: ../app/src/main/assets/catalog/category-map.json (No such file or directory)"
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.category.CategoryMapTest",
+      "name": "R15_validRemoteWins",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.category.CategoryMapTest",
+      "name": "A09_unsupportedOrInvalidRemoteFallsBack",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.category.CategoryMapTest",
+      "name": "R68_localizedNamesFallBackToEnglish",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.category.CategoryMapTest",
+      "name": "R14_parsesCategoriesWithQueries",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.category.CategoryMapTest",
+      "name": "A08_unreachableRemoteUsesBundled",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.category.CategoryMapTest",
+      "name": "R15_invalidMapsRejected",
+      "status": "failed",
+      "failure": {
+        "type": "java.lang.AssertionError",
+        "message": "java.lang.AssertionError: unexpected exception type thrown; expected:<com.thomasnorlund.archiveplayer.core.category.InvalidCategoryMapException> but was:<kotlin.NotImplementedError>"
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.category.LiveCategoryMapCheck",
+      "name": "R17_everyQueryReturnsPlayableResults",
+      "status": "skipped"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.download.DownloadsTest",
+      "name": "A44_switchLocationOffersMove",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.download.DownloadsTest",
+      "name": "A45_removedCardMarksDownloadsAndStreams",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.download.DownloadsTest",
+      "name": "R85_moveIsResumable",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.download.DownloadsTest",
+      "name": "R60_onWifiNoWaiting",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.download.DownloadsTest",
+      "name": "R61_lowSpaceWarningBelow500MbPerLocation",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.download.DownloadsTest",
+      "name": "R61_castAndMissingDownloadsStream",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.download.DownloadsTest",
+      "name": "A43_newDownloadsGoToChosenSdCard",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.download.DownloadsTest",
+      "name": "R85_sdCardOfferedOnlyWhenMounted",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.download.DownloadsTest",
+      "name": "A39_mobileDataOverrideStartsOneDownload",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.download.DownloadsTest",
+      "name": "A44_moveDeletesSourceOnlyAfterVerifiedCopy",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.download.DownloadsTest",
+      "name": "A25_mixedPlaylistOnMobileDataWithWifiOnly",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.download.DownloadsTest",
+      "name": "R85_missingCardFallsBackToInternal",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.filter.AdultFilterTest",
+      "name": "R71_bundledListCoversFourLanguages",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.filter.AdultFilterTest",
+      "name": "R71_invalidRemoteListFallsBack",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.filter.AdultFilterTest",
+      "name": "A41_remoteKeywordAddedTakesEffect",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.filter.AdultFilterTest",
+      "name": "A27_adultHitsRemovedOnlyWhileHidden",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.filter.AdultFilterTest",
+      "name": "R71_wholeWordsOnly",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.filter.AdultFilterTest",
+      "name": "R71_keywordInSubjectOrTitle",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.filter.AdultFilterTest",
+      "name": "R71_searchQueryExcludesNoPreview",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.filter.AdultFilterTest",
+      "name": "R71_noPreviewCollectionIsAdult",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.format.FormatSelectorTest",
+      "name": "A15_vbrMp3SelectedAndFlacNeverAuto",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.format.FormatSelectorTest",
+      "name": "R43_fallbackToNextSuitableFormatOnce",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.format.FormatSelectorTest",
+      "name": "R49_oggNeverSentToCast",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.format.FormatSelectorTest",
+      "name": "R09_playableFormats",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.format.FormatSelectorTest",
+      "name": "R40_audioPreferenceOrder",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.format.FormatSelectorTest",
+      "name": "R41_meteredDataSaverPicksLowestMp3",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.format.FormatSelectorTest",
+      "name": "A13_meteredWithDataSaverPicksLowBitrateVideo",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.format.FormatSelectorTest",
+      "name": "A13_qualityMenuListsBothVideoFormats",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.format.FormatSelectorTest",
+      "name": "A14_wifiPicksH264",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.format.FormatSelectorTest",
+      "name": "R41_dataSaverOffOnMeteredKeepsBestFormat",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.home.HomeTest",
+      "name": "R21_refreshAtMostEverySixHours",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.home.HomeTest",
+      "name": "R20_preferredLanguagesFirstUntaggedKept",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.home.HomeTest",
+      "name": "R18_emptyPersonalRowsHidden",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.home.HomeTest",
+      "name": "R44_pausedHistoryRecordsNothing",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.home.HomeTest",
+      "name": "A17_continueRowShowsUnfinishedNewestFirstOncePerEntry",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.home.HomeTest",
+      "name": "R19_becauseYouPlayedUsesLocalHistory",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.home.HomeTest",
+      "name": "R19_shortPlaysAreNoSeed",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.home.HomeTest",
+      "name": "R21_onlyItemsAddedSinceLastCheck",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.home.HomeTest",
+      "name": "R18_personalRowsFirstThenCurated",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.language.LanguagesTest",
+      "name": "A05_frenchVariantsNormalizeToFr",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.language.LanguagesTest",
+      "name": "A07_untaggedItemShownWithoutFilter",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.language.LanguagesTest",
+      "name": "A06_untaggedItemExcludedWhileFiltering",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.language.LanguagesTest",
+      "name": "A02_unsupportedPhoneLanguageFallsBackToEnglish",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.language.LanguagesTest",
+      "name": "R28_matchesAnyFilterLanguage",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.language.LanguagesTest",
+      "name": "R13_unmappedValuesAreIgnored",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.language.LanguagesTest",
+      "name": "R83_nativeNames",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.language.LanguagesTest",
+      "name": "A01_germanPhonePreselectsDeutsch",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.language.LanguagesTest",
+      "name": "R13_commonLanguagesNormalize",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.language.LanguagesTest",
+      "name": "SO1_contentLanguagesFromPhonePlusEnglish",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.language.LanguagesTest",
+      "name": "R13_tableCoversChipsAndMoreLanguages",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.language.LanguagesTest",
+      "name": "SO2_directContentChips",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.language.LanguagesTest",
+      "name": "U01_supportedLanguagesPreselected",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.net.ArchiveClientTest",
+      "name": "R75_allowList",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.net.ArchiveClientTest",
+      "name": "A35_backsOffExponentiallyThenSucceeds",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.net.ArchiveClientTest",
+      "name": "R76_honoursRetryAfter",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.net.ArchiveClientTest",
+      "name": "A35_noRequestStorm",
+      "status": "failed",
+      "failure": {
+        "type": "java.lang.AssertionError",
+        "message": "java.lang.AssertionError: unexpected exception type thrown; expected:<com.thomasnorlund.archiveplayer.core.net.RateLimitedException> but was:<kotlin.NotImplementedError>"
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.net.ArchiveClientTest",
+      "name": "R75_foreignHostsBlocked",
+      "status": "failed",
+      "failure": {
+        "type": "java.lang.AssertionError",
+        "message": "java.lang.AssertionError: unexpected exception type thrown; expected:<com.thomasnorlund.archiveplayer.core.net.BlockedHostException> but was:<kotlin.NotImplementedError>"
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.net.ArchiveClientTest",
+      "name": "R76_descriptiveUserAgentSent",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.net.ArchiveClientTest",
+      "name": "R76_serverErrorsRetriedClientErrorsNot",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.playback.PlaybackTest",
+      "name": "R37_sleepTimerMinutes",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.playback.PlaybackTest",
+      "name": "R37_skipAndSpeed",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.playback.PlaybackTest",
+      "name": "A34_sleepTimerEndOfEntry",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.playback.PlaybackTest",
+      "name": "A17_resumesAt40Minutes",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.playback.PlaybackTest",
+      "name": "R37_shuffleKeepsCurrentAndRestoresOrder",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.playback.PlaybackTest",
+      "name": "A16_mixedQueueKeepsOrderAndSwitchesLayout",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.playback.PlaybackTest",
+      "name": "R37_cancelledTimerNeverPauses",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.playback.PlaybackTest",
+      "name": "R35_replaceAndEdit",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.playback.PlaybackTest",
+      "name": "R37_repeatModes",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.playback.PlaybackTest",
+      "name": "R36_finishedRules",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.playback.PlaybackTest",
+      "name": "R36_storedAfter30Seconds",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.playlist.PlaylistsTest",
+      "name": "A21_shareLinkRoundTripKeepsOrder",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.playlist.PlaylistsTest",
+      "name": "R52_likedListCannotBeRenamedOrDeleted",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.playlist.PlaylistsTest",
+      "name": "R51_editing",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.playlist.PlaylistsTest",
+      "name": "R54_unicodeTitleRoundTrip",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.playlist.PlaylistsTest",
+      "name": "R74_mergeNeverSilentlyOverwrites",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.playlist.PlaylistsTest",
+      "name": "R58_invalidOrNewerFilesRejected",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.playlist.PlaylistsTest",
+      "name": "A24_playlistFileRoundTripCreatesNewPlaylist",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.playlist.PlaylistsTest",
+      "name": "A24_invalidEntriesReported",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.playlist.PlaylistsTest",
+      "name": "A29_libraryExportImportRoundTrip",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.playlist.PlaylistsTest",
+      "name": "A23_tooLongLinkRequiresFile",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.playlist.PlaylistsTest",
+      "name": "R54_foreignOrCorruptLinksRejected",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.playlist.PlaylistsTest",
+      "name": "R54_payloadOnlyInFragment",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.playlist.PlaylistsTest",
+      "name": "R57_linksStayWithinLimit",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.playlist.PlaylistsTest",
+      "name": "A29_importIntoClearedAppRestoresEverything",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.search.SearchTest",
+      "name": "R26_browseWithoutTextUsesCategoryOnly",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.search.SearchTest",
+      "name": "A10_resultsGrouped",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.search.SearchTest",
+      "name": "R24_sortOrders",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.search.SearchTest",
+      "name": "R22_debounceIs300ms",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.search.SearchTest",
+      "name": "R22_localSuggestions",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.search.SearchTest",
+      "name": "R29_recentSearches",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.search.SearchTest",
+      "name": "R07_mediaKindClauses",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.search.SearchTest",
+      "name": "R25_paging",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.search.SearchTest",
+      "name": "R71_adultExclusionOnlyWhileHidden",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.search.SearchTest",
+      "name": "A10_audioPopularityQuery",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.search.SearchTest",
+      "name": "R23_filtersCombine",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.search.SearchTest",
+      "name": "A06_A07_clientSideLanguageRule",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.settings.AppSettingsTest",
+      "name": "A38_lightEvenWhenPhoneIsDark",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.settings.AppSettingsTest",
+      "name": "A42_appLanguageChangeKeepsContentLanguages",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.settings.AppSettingsTest",
+      "name": "D30_defaultsComeFromPhoneNotAppLanguageChoice",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.settings.AppSettingsTest",
+      "name": "R82_followSystem",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.settings.AppSettingsTest",
+      "name": "R27_contentLanguagesMayBeEmpty",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.settings.AppSettingsTest",
+      "name": "A42_contentLanguageChangeKeepsAppLanguage",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.settings.AppSettingsTest",
+      "name": "R82_toggleFlipsWhatIsShown",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.settings.AppSettingsTest",
+      "name": "R72_freshInstallDefaults",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.setup.SetupFlowTest",
+      "name": "U04_backKeepsSelectionsAndLeavesOnFirstStep",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.setup.SetupFlowTest",
+      "name": "U01_startsOnLanguageStepWithPreselection",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.setup.SetupFlowTest",
+      "name": "U05_contentLanguagesIndependentOfAppLanguage",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.setup.SetupFlowTest",
+      "name": "U03_continueThroughSteps",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.setup.SetupFlowTest",
+      "name": "U07_startCompletesOnceAndReturnsSettings",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.setup.SetupFlowTest",
+      "name": "U02_unknownLanguageRejected",
+      "status": "failed",
+      "failure": {
+        "type": "java.lang.AssertionError",
+        "message": "java.lang.AssertionError: unexpected exception type thrown; expected:<java.lang.IllegalArgumentException> but was:<kotlin.NotImplementedError>"
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.setup.SetupFlowTest",
+      "name": "U07_startOnlyOnReadyStep",
+      "status": "failed",
+      "failure": {
+        "type": "java.lang.AssertionError",
+        "message": "java.lang.AssertionError: unexpected exception type thrown; expected:<java.lang.IllegalStateException> but was:<kotlin.NotImplementedError>"
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.setup.SetupFlowTest",
+      "name": "U02_selectingLanguageKeepsStep",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.text.ShippedCatalogsTest",
+      "name": "R65_englishGermanDanishCatalogsShipped",
+      "status": "failed",
+      "failure": {
+        "type": "java.lang.AssertionError",
+        "message": "java.lang.AssertionError: Catalogs in ../app/src/main/assets/texts expected:<[ENG, GER, DEN]> but was:<[]>"
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.text.ShippedCatalogsTest",
+      "name": "R66_A04_allCatalogsMatchEnglishReference",
+      "status": "failed",
+      "failure": {
+        "type": "java.lang.AssertionError",
+        "message": "java.lang.AssertionError: Catalogs in ../app/src/main/assets/texts expected:<[ENG, GER, DEN]> but was:<[]>"
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.text.ShippedCatalogsTest",
+      "name": "R72_settingsRowLabelsExistInAllCatalogs",
+      "status": "failed",
+      "failure": {
+        "type": "java.lang.AssertionError",
+        "message": "java.lang.AssertionError: Catalogs in ../app/src/main/assets/texts expected:<[ENG, GER, DEN]> but was:<[]>"
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.text.ShippedCatalogsTest",
+      "name": "R27_appLanguageAndContentLanguagesHaveDistinctLabels",
+      "status": "failed",
+      "failure": {
+        "type": "java.lang.AssertionError",
+        "message": "java.lang.AssertionError: Catalogs in ../app/src/main/assets/texts expected:<[ENG, GER, DEN]> but was:<[]>"
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.text.ShippedCatalogsTest",
+      "name": "U_setupTextContractInEnglish",
+      "status": "failed",
+      "failure": {
+        "type": "java.lang.AssertionError",
+        "message": "java.lang.AssertionError: Catalogs in ../app/src/main/assets/texts expected:<[ENG, GER, DEN]> but was:<[]>"
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.text.TextCatalogTest",
+      "name": "R66_consistentCatalogHasNoProblems",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.text.TextCatalogTest",
+      "name": "R65_missingPlaceholderArgumentThrows",
+      "status": "failed",
+      "failure": {
+        "type": "java.lang.AssertionError",
+        "message": "java.lang.AssertionError: unexpected exception type thrown; expected:<com.thomasnorlund.archiveplayer.core.text.PlaceholderException> but was:<kotlin.NotImplementedError>"
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.text.TextCatalogTest",
+      "name": "R66_A03_codeFromFileName",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.text.TextCatalogTest",
+      "name": "R66_catalogNamesItself",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.text.TextCatalogTest",
+      "name": "A04_missingKeyIsReported",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.text.TextCatalogTest",
+      "name": "R65_resolvesTextWithNamedPlaceholders",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.text.TextCatalogTest",
+      "name": "R65_plainTextWithoutArguments",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.text.TextCatalogTest",
+      "name": "R66_invalidCatalogsRejected",
+      "status": "failed",
+      "failure": {
+        "type": "java.lang.AssertionError",
+        "message": "java.lang.AssertionError: unexpected exception type thrown; expected:<com.thomasnorlund.archiveplayer.core.text.InvalidCatalogException> but was:<kotlin.NotImplementedError>"
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.text.TextCatalogTest",
+      "name": "R66_extraKeyBlankValueAndPlaceholderMismatchReported",
+      "status": "failed",
+      "failure": {
+        "type": "kotlin.NotImplementedError",
+        "message": "kotlin.NotImplementedError: An operation is not implemented."
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.text.TextCatalogTest",
+      "name": "R65_unexpectedArgumentThrows",
+      "status": "failed",
+      "failure": {
+        "type": "java.lang.AssertionError",
+        "message": "java.lang.AssertionError: unexpected exception type thrown; expected:<com.thomasnorlund.archiveplayer.core.text.PlaceholderException> but was:<kotlin.NotImplementedError>"
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.core.text.TextCatalogTest",
+      "name": "R65_unknownKeyThrows",
+      "status": "failed",
+      "failure": {
+        "type": "java.lang.AssertionError",
+        "message": "java.lang.AssertionError: unexpected exception type thrown; expected:<com.thomasnorlund.archiveplayer.core.text.MissingTextException> but was:<kotlin.NotImplementedError>"
+      }
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.HomeUiTest",
+      "name": "H10_cardOpensItemBackRestoresScroll",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.HomeUiTest",
+      "name": "H07_A05_contentLanguageRanksRowWithoutHidingUntagged",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.HomeUiTest",
+      "name": "H06_followedCollectionRefreshThrottled",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.HomeUiTest",
+      "name": "H01_freshInstallShowsCuratedRowsInMapOrder",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.HomeUiTest",
+      "name": "H09_A39_slowRowShowsStillLoadingRestUsable",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.HomeUiTest",
+      "name": "H03_continueCardResumesAtStoredPosition",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.HomeUiTest",
+      "name": "H05_playlistsRowLikedFirst",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.HomeUiTest",
+      "name": "H12_largeFontNarrowScreenAllLanguages",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.HomeUiTest",
+      "name": "H02_A17_continueRowFirstAfterPlayback",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.HomeUiTest",
+      "name": "H08_failingRowShowsRetryOthersRender",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.HomeUiTest",
+      "name": "H04_finishedEntryLeavesContinueStaysInRecent",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.HomeUiTest",
+      "name": "H11_S08_pausedHistoryAddsNoPersonalRows",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.ItemUiTest",
+      "name": "I06_A21_followCollectionListedInLibrary",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.ItemUiTest",
+      "name": "I09_R32_entryFilterOnlyAbove30Entries",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.ItemUiTest",
+      "name": "I08_addToNewPlaylistThenPickerListsIt",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.ItemUiTest",
+      "name": "I01_A11_headerAndGroupedOrderedEntries",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.ItemUiTest",
+      "name": "I14_R33_collectionPageWithFollowAndFilters",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.ItemUiTest",
+      "name": "I05_likeItemListsEntriesInLiked",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.ItemUiTest",
+      "name": "I16_shareSendsArchiveUrl",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.ItemUiTest",
+      "name": "I11_A26_downloadedAudioPlaysOffline",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.ItemUiTest",
+      "name": "I07_A13_playNextAndAddToQueue",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.ItemUiTest",
+      "name": "I04_shuffleQueuesAllInOtherOrder",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.ItemUiTest",
+      "name": "I13_errorThenRetry",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.ItemUiTest",
+      "name": "I10_R59_videoHasNoDownload",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.ItemUiTest",
+      "name": "I12_A12_nothingPlayableState",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.ItemUiTest",
+      "name": "I03_entryTapStartsFromThatEntry",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.ItemUiTest",
+      "name": "I02_playAllQueuesItemInOrder",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.LibraryUiTest",
+      "name": "L04_renameAndDescribe",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.LibraryUiTest",
+      "name": "L11_A21_R55_linkImportCreatesNewPlaylistNeverOverwrites",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.LibraryUiTest",
+      "name": "L06_R35_playAndShuffleReplaceQueue",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.LibraryUiTest",
+      "name": "L13_A25_mixedDownloadOnMobileWaitsForWifi",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.LibraryUiTest",
+      "name": "L15_R44_historyListClearAndPaused",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.LibraryUiTest",
+      "name": "L08_R53_unfollow",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.LibraryUiTest",
+      "name": "L14_R61_storageSummaryWarningRemove",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.LibraryUiTest",
+      "name": "I15_R70_adultItemFromShareLinkHidden",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.LibraryUiTest",
+      "name": "L07_R52_likedListFollowsHearts",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.LibraryUiTest",
+      "name": "L12_A24_fileImportReportsSkipped",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.LibraryUiTest",
+      "name": "L01_chipsOrderAndLikedPinned",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.LibraryUiTest",
+      "name": "L10_A23_tooLongLinkOffersFile",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.LibraryUiTest",
+      "name": "L02_newPlaylistAppearsEmpty",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.LibraryUiTest",
+      "name": "L09_A21_shareLinkEncodesEntries",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.LibraryUiTest",
+      "name": "L03_reorderAndRemovePersist",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.LibraryUiTest",
+      "name": "L05_deleteWithUndoLikedNotDeletable",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.LibraryUiTest",
+      "name": "L16_emptyStatesAllLanguages",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.NoCastFossUiTest",
+      "name": "L17_playlistCastButton",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.NoCastFossUiTest",
+      "name": "P19_playerCastButton",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.NoCastFossUiTest",
+      "name": "A37_N13_noCastElements",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.PlayerUiTest",
+      "name": "P15_A17_resumeAfterRelaunch",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.PlayerUiTest",
+      "name": "P03_skipForward30Back10",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.PlayerUiTest",
+      "name": "P09_A13_dataSaverMeteredPicks512kb",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.PlayerUiTest",
+      "name": "P11_A16_mixedQueueSwitchesLayout",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.PlayerUiTest",
+      "name": "P04_nextPreviousAndRestart",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.PlayerUiTest",
+      "name": "P18_swipeMiniPlayerStopsWithUndo",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.PlayerUiTest",
+      "name": "P14_formatFallbackThenError",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.PlayerUiTest",
+      "name": "P16_A32_videoEntersPictureInPicture",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.PlayerUiTest",
+      "name": "P01_miniPlayerOnAllTabsOpensFullPlayer",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.PlayerUiTest",
+      "name": "P08_sleepTimerShowsRemainingAndCancels",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.PlayerUiTest",
+      "name": "P13_A33_subtitleMenu",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.PlayerUiTest",
+      "name": "P10_A15_audioAutoVbrFlacListed",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.PlayerUiTest",
+      "name": "P02_playPauseOnMiniAndFullPlayer",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.PlayerUiTest",
+      "name": "P12_queueReorderRemoveJump",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.PlayerUiTest",
+      "name": "P20_R64_controlsLabelledAllLanguages",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.PlayerUiTest",
+      "name": "P06_speedSheet",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.PlayerUiTest",
+      "name": "P07_A34_sleepAtEndOfEntry",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.PlayerUiTest",
+      "name": "P05_repeatCyclesShuffleToggles",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.PlayerUiTest",
+      "name": "P17_R34_mediaSessionExposesQueueAndControls",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.ResourceIdUiAutomatorTest",
+      "name": "R69_setupElementsFoundByResourceId",
+      "status": "failed",
+      "failure": {
+        "type": "java.lang.AssertionError\n\tat org.junit.Assert.fail(Assert.java",
+        "message": "java.lang.AssertionError"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.SearchUiTest",
+      "name": "Q11_browseTileOpensCategoryWithSubcategories",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.SearchUiTest",
+      "name": "Q07_A35_backOffThenErrorWithRetry",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.SearchUiTest",
+      "name": "Q14_largeFontNarrowScreenChipsFit",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.SearchUiTest",
+      "name": "Q04_A05_A07_languageFilterExcludesUntagged",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.SearchUiTest",
+      "name": "Q12_stateSurvivesItemAndRotation",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.SearchUiTest",
+      "name": "Q01_browseGridShowsCategoryTiles",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.SearchUiTest",
+      "name": "Q13_ownPlaylistsInResults",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.SearchUiTest",
+      "name": "Q10_recentSearchesAddRemoveAndInSettings",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.SearchUiTest",
+      "name": "Q05_filtersVisibleIndividuallyRemovable",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.SearchUiTest",
+      "name": "Q06_pagingAppendsWithoutDuplicates",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.SearchUiTest",
+      "name": "Q08_emptyResultOffersClearFilters",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.SearchUiTest",
+      "name": "Q02_suggestionsAreLocalOnly",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.SearchUiTest",
+      "name": "Q03_A10_kindFilterAndPopularitySort",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.SearchUiTest",
+      "name": "Q09_A27_adultItemsHidden",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.SettingsUiTest",
+      "name": "S03_A42_appLanguageChangeKeepsContentLanguages",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.SettingsUiTest",
+      "name": "S10_aboutShowsFlavour",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.SettingsUiTest",
+      "name": "S01_settingsFromEveryTabRootWithAllRows",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.SettingsUiTest",
+      "name": "S02_detailAndAndroidBackReturnToList",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.SetupUiTest",
+      "name": "U03_continueThroughStepsOneRootAtATime",
+      "status": "failed",
+      "failure": {
+        "type": "java.lang.AssertionError",
+        "message": "java.lang.AssertionError: Failed to inject touch input."
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.SetupUiTest",
+      "name": "U06_recreationKeepsStepAndSelections",
+      "status": "failed",
+      "failure": {
+        "type": "java.lang.AssertionError",
+        "message": "java.lang.AssertionError: Failed to inject touch input."
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.SetupUiTest",
+      "name": "U02_selectingLanguageSwitchesTextImmediately",
+      "status": "failed",
+      "failure": {
+        "type": "java.lang.AssertionError",
+        "message": "java.lang.AssertionError: Failed to inject touch input."
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.SetupUiTest",
+      "name": "U07_startOpensHomeAndRelaunchSkipsSetup",
+      "status": "failed",
+      "failure": {
+        "type": "java.lang.AssertionError",
+        "message": "java.lang.AssertionError: Failed to inject touch input."
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.SetupUiTest",
+      "name": "U01_firstLaunchShowsLanguageStepWithPreselection",
+      "status": "failed",
+      "failure": {
+        "type": "java.lang.AssertionError",
+        "message": "java.lang.AssertionError: Assert failed: The component with TestTag = 'setup_root' is not displayed!"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.SetupUiTest",
+      "name": "U05_A42_contentLanguagesIndependentOfAppLanguage",
+      "status": "failed",
+      "failure": {
+        "type": "java.lang.AssertionError",
+        "message": "java.lang.AssertionError: Failed to inject touch input."
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.ShellUiTest",
+      "name": "N01_bottomBarWithThreeDestinations",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.ShellUiTest",
+      "name": "N10_A38_themeToggleSwitchesAndPersists",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.CastFullUiTest",
+      "name": "L17_playlistCastButton",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.CastFullUiTest",
+      "name": "P19_playerCastButton",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.CastFullUiTest",
+      "name": "R46_castButtonInTopBar",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.HomeUiTest",
+      "name": "H10_cardOpensItemBackRestoresScroll",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.HomeUiTest",
+      "name": "H07_A05_contentLanguageRanksRowWithoutHidingUntagged",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.HomeUiTest",
+      "name": "H06_followedCollectionRefreshThrottled",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.HomeUiTest",
+      "name": "H01_freshInstallShowsCuratedRowsInMapOrder",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.HomeUiTest",
+      "name": "H09_A39_slowRowShowsStillLoadingRestUsable",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.HomeUiTest",
+      "name": "H03_continueCardResumesAtStoredPosition",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.HomeUiTest",
+      "name": "H05_playlistsRowLikedFirst",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.HomeUiTest",
+      "name": "H12_largeFontNarrowScreenAllLanguages",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.HomeUiTest",
+      "name": "H02_A17_continueRowFirstAfterPlayback",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.HomeUiTest",
+      "name": "H08_failingRowShowsRetryOthersRender",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.HomeUiTest",
+      "name": "H04_finishedEntryLeavesContinueStaysInRecent",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.HomeUiTest",
+      "name": "H11_S08_pausedHistoryAddsNoPersonalRows",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.ItemUiTest",
+      "name": "I06_A21_followCollectionListedInLibrary",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.ItemUiTest",
+      "name": "I09_R32_entryFilterOnlyAbove30Entries",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.ItemUiTest",
+      "name": "I08_addToNewPlaylistThenPickerListsIt",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.ItemUiTest",
+      "name": "I01_A11_headerAndGroupedOrderedEntries",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.ItemUiTest",
+      "name": "I14_R33_collectionPageWithFollowAndFilters",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.ItemUiTest",
+      "name": "I05_likeItemListsEntriesInLiked",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.ItemUiTest",
+      "name": "I16_shareSendsArchiveUrl",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.ItemUiTest",
+      "name": "I11_A26_downloadedAudioPlaysOffline",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.ItemUiTest",
+      "name": "I07_A13_playNextAndAddToQueue",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.ItemUiTest",
+      "name": "I04_shuffleQueuesAllInOtherOrder",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.ItemUiTest",
+      "name": "I13_errorThenRetry",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.ItemUiTest",
+      "name": "I10_R59_videoHasNoDownload",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.ItemUiTest",
+      "name": "I12_A12_nothingPlayableState",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.ItemUiTest",
+      "name": "I03_entryTapStartsFromThatEntry",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.ItemUiTest",
+      "name": "I02_playAllQueuesItemInOrder",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.LibraryUiTest",
+      "name": "L04_renameAndDescribe",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.LibraryUiTest",
+      "name": "L11_A21_R55_linkImportCreatesNewPlaylistNeverOverwrites",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.LibraryUiTest",
+      "name": "L06_R35_playAndShuffleReplaceQueue",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.LibraryUiTest",
+      "name": "L13_A25_mixedDownloadOnMobileWaitsForWifi",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.LibraryUiTest",
+      "name": "L15_R44_historyListClearAndPaused",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.LibraryUiTest",
+      "name": "L08_R53_unfollow",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.LibraryUiTest",
+      "name": "L14_R61_storageSummaryWarningRemove",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.LibraryUiTest",
+      "name": "I15_R70_adultItemFromShareLinkHidden",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.LibraryUiTest",
+      "name": "L07_R52_likedListFollowsHearts",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.LibraryUiTest",
+      "name": "L12_A24_fileImportReportsSkipped",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.LibraryUiTest",
+      "name": "L01_chipsOrderAndLikedPinned",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.LibraryUiTest",
+      "name": "L10_A23_tooLongLinkOffersFile",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.LibraryUiTest",
+      "name": "L02_newPlaylistAppearsEmpty",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.LibraryUiTest",
+      "name": "L09_A21_shareLinkEncodesEntries",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.LibraryUiTest",
+      "name": "L03_reorderAndRemovePersist",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.LibraryUiTest",
+      "name": "L05_deleteWithUndoLikedNotDeletable",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.LibraryUiTest",
+      "name": "L16_emptyStatesAllLanguages",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.PlayerUiTest",
+      "name": "P15_A17_resumeAfterRelaunch",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.PlayerUiTest",
+      "name": "P03_skipForward30Back10",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.PlayerUiTest",
+      "name": "P09_A13_dataSaverMeteredPicks512kb",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.PlayerUiTest",
+      "name": "P11_A16_mixedQueueSwitchesLayout",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.PlayerUiTest",
+      "name": "P04_nextPreviousAndRestart",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.PlayerUiTest",
+      "name": "P18_swipeMiniPlayerStopsWithUndo",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.PlayerUiTest",
+      "name": "P14_formatFallbackThenError",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.PlayerUiTest",
+      "name": "P16_A32_videoEntersPictureInPicture",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.PlayerUiTest",
+      "name": "P01_miniPlayerOnAllTabsOpensFullPlayer",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.PlayerUiTest",
+      "name": "P08_sleepTimerShowsRemainingAndCancels",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.PlayerUiTest",
+      "name": "P13_A33_subtitleMenu",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.PlayerUiTest",
+      "name": "P10_A15_audioAutoVbrFlacListed",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.PlayerUiTest",
+      "name": "P02_playPauseOnMiniAndFullPlayer",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.PlayerUiTest",
+      "name": "P12_queueReorderRemoveJump",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.PlayerUiTest",
+      "name": "P20_R64_controlsLabelledAllLanguages",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.PlayerUiTest",
+      "name": "P06_speedSheet",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.PlayerUiTest",
+      "name": "P07_A34_sleepAtEndOfEntry",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.PlayerUiTest",
+      "name": "P05_repeatCyclesShuffleToggles",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.PlayerUiTest",
+      "name": "P17_R34_mediaSessionExposesQueueAndControls",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.ResourceIdUiAutomatorTest",
+      "name": "R69_setupElementsFoundByResourceId",
+      "status": "failed",
+      "failure": {
+        "type": "java.lang.AssertionError\n\tat org.junit.Assert.fail(Assert.java",
+        "message": "java.lang.AssertionError"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.SearchUiTest",
+      "name": "Q11_browseTileOpensCategoryWithSubcategories",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.SearchUiTest",
+      "name": "Q07_A35_backOffThenErrorWithRetry",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.SearchUiTest",
+      "name": "Q14_largeFontNarrowScreenChipsFit",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.SearchUiTest",
+      "name": "Q04_A05_A07_languageFilterExcludesUntagged",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.SearchUiTest",
+      "name": "Q12_stateSurvivesItemAndRotation",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.SearchUiTest",
+      "name": "Q01_browseGridShowsCategoryTiles",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.SearchUiTest",
+      "name": "Q13_ownPlaylistsInResults",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.SearchUiTest",
+      "name": "Q10_recentSearchesAddRemoveAndInSettings",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.SearchUiTest",
+      "name": "Q05_filtersVisibleIndividuallyRemovable",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.SearchUiTest",
+      "name": "Q06_pagingAppendsWithoutDuplicates",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.SearchUiTest",
+      "name": "Q08_emptyResultOffersClearFilters",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.SearchUiTest",
+      "name": "Q02_suggestionsAreLocalOnly",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.SearchUiTest",
+      "name": "Q03_A10_kindFilterAndPopularitySort",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.SearchUiTest",
+      "name": "Q09_A27_adultItemsHidden",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.SettingsUiTest",
+      "name": "S03_A42_appLanguageChangeKeepsContentLanguages",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.SettingsUiTest",
+      "name": "S10_aboutShowsFlavour",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.SettingsUiTest",
+      "name": "S01_settingsFromEveryTabRootWithAllRows",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.SettingsUiTest",
+      "name": "S02_detailAndAndroidBackReturnToList",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.SetupUiTest",
+      "name": "U03_continueThroughStepsOneRootAtATime",
+      "status": "failed",
+      "failure": {
+        "type": "java.lang.AssertionError",
+        "message": "java.lang.AssertionError: Failed to inject touch input."
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.SetupUiTest",
+      "name": "U06_recreationKeepsStepAndSelections",
+      "status": "failed",
+      "failure": {
+        "type": "java.lang.AssertionError",
+        "message": "java.lang.AssertionError: Failed to inject touch input."
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.SetupUiTest",
+      "name": "U02_selectingLanguageSwitchesTextImmediately",
+      "status": "failed",
+      "failure": {
+        "type": "java.lang.AssertionError",
+        "message": "java.lang.AssertionError: Failed to inject touch input."
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.SetupUiTest",
+      "name": "U07_startOpensHomeAndRelaunchSkipsSetup",
+      "status": "failed",
+      "failure": {
+        "type": "java.lang.AssertionError",
+        "message": "java.lang.AssertionError: Failed to inject touch input."
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.SetupUiTest",
+      "name": "U01_firstLaunchShowsLanguageStepWithPreselection",
+      "status": "failed",
+      "failure": {
+        "type": "java.lang.AssertionError",
+        "message": "java.lang.AssertionError: Assert failed: The component with TestTag = 'setup_root' is not displayed!"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.SetupUiTest",
+      "name": "U05_A42_contentLanguagesIndependentOfAppLanguage",
+      "status": "failed",
+      "failure": {
+        "type": "java.lang.AssertionError",
+        "message": "java.lang.AssertionError: Failed to inject touch input."
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.ShellUiTest",
+      "name": "N01_bottomBarWithThreeDestinations",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.ShellUiTest",
+      "name": "N10_A38_themeToggleSwitchesAndPersists",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+ "metadata": {
+  "identifier": "fx_collection",
+  "title": "Fixture Collection",
+  "mediatype": "collection",
+  "description": "Fixture collection."
+ },
+ "files": [
+  {
+   "name": "fx_collection.png",
+   "format": "PNG",
+   "source": "derivative",
+   "size": "1000"
+  },
+  {
+   "name": "fx_collection_meta.xml",
+   "format": "Metadata",
+   "source": "original",
+   "size": "1000"
+  }
+ ]
+}

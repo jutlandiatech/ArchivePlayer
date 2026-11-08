@@ -1,0 +1,135 @@
+{
+ "metadata": {
+  "identifier": "fx_series_12",
+  "title": "Fixture Series Twelve",
+  "mediatype": "audio",
+  "creator": "Fixture Radio",
+  "date": "1952",
+  "language": "eng",
+  "collection": [
+   "fx_collection"
+  ]
+ },
+ "files": [
+  {
+   "name": "fx_series_12_e01.mp3",
+   "format": "VBR MP3",
+   "source": "original",
+   "size": "1000",
+   "track": "1",
+   "title": "Episode 01",
+   "length": "180"
+  },
+  {
+   "name": "fx_series_12_e02.mp3",
+   "format": "VBR MP3",
+   "source": "original",
+   "size": "1000",
+   "track": "2",
+   "title": "Episode 02",
+   "length": "180"
+  },
+  {
+   "name": "fx_series_12_e03.mp3",
+   "format": "VBR MP3",
+   "source": "original",
+   "size": "1000",
+   "track": "3",
+   "title": "Episode 03",
+   "length": "180"
+  },
+  {
+   "name": "fx_series_12_e04.mp3",
+   "format": "VBR MP3",
+   "source": "original",
+   "size": "1000",
+   "track": "4",
+   "title": "Episode 04",
+   "length": "180"
+  },
+  {
+   "name": "fx_series_12_e05.mp3",
+   "format": "VBR MP3",
+   "source": "original",
+   "size": "1000",
+   "track": "5",
+   "title": "Episode 05",
+   "length": "180"
+  },
+  {
+   "name": "fx_series_12_e06.mp3",
+   "format": "VBR MP3",
+   "source": "original",
+   "size": "1000",
+   "track": "6",
+   "title": "Episode 06",
+   "length": "180"
+  },
+  {
+   "name": "fx_series_12_e07.mp3",
+   "format": "VBR MP3",
+   "source": "original",
+   "size": "1000",
+   "track": "7",
+   "title": "Episode 07",
+   "length": "180"
+  },
+  {
+   "name": "fx_series_12_e08.mp3",
+   "format": "VBR MP3",
+   "source": "original",
+   "size": "1000",
+   "track": "8",
+   "title": "Episode 08",
+   "length": "180"
+  },
+  {
+   "name": "fx_series_12_e09.mp3",
+   "format": "VBR MP3",
+   "source": "original",
+   "size": "1000",
+   "track": "9",
+   "title": "Episode 09",
+   "length": "180"
+  },
+  {
+   "name": "fx_series_12_e10.mp3",
+   "format": "VBR MP3",
+   "source": "original",
+   "size": "1000",
+   "track": "10",
+   "title": "Episode 10",
+   "length": "180"
+  },
+  {
+   "name": "fx_series_12_e11.mp3",
+   "format": "VBR MP3",
+   "source": "original",
+   "size": "1000",
+   "track": "11",
+   "title": "Episode 11",
+   "length": "180"
+  },
+  {
+   "name": "fx_series_12_e12.mp3",
+   "format": "VBR MP3",
+   "source": "original",
+   "size": "1000",
+   "track": "12",
+   "title": "Episode 12",
+   "length": "180"
+  },
+  {
+   "name": "fx_series_12.png",
+   "format": "PNG",
+   "source": "derivative",
+   "size": "1000"
+  },
+  {
+   "name": "fx_series_12_meta.xml",
+   "format": "Metadata",
+   "source": "original",
+   "size": "1000"
+  }
+ ]
+}

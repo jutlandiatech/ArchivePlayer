@@ -1,6 +1,6 @@
 # Settings design and automation contract
 
-Status: **draft v0.2 for final review**, 7 November 2026. Implements SPECIFICATION.md R27, R44–R45, R50, R60–R61, R67, R70, R72–R74, R82–R83, R85. Reference: [interactive mockup](design/archiveplayer-mockup.html) → gear icon. Not yet approved.
+Status: **approved v1.0**, 7 November 2026. Implements SPECIFICATION.md R27, R44–R45, R50, R60–R61, R67, R70, R72–R74, R82–R83, R85. Reference: [interactive mockup](design/archiveplayer-mockup.html) → gear icon.
 
 ## Layout and navigation
 
@@ -57,6 +57,7 @@ Same `testTag` / resource-ID approach as UI_SHELL_SPEC.md. Never select controls
 | `settings_history_pause_switch` / `settings_history_clear_button` | History |
 | `settings_search_history_remove_<index>` / `settings_search_history_clear_button` | Search history |
 | `settings_export_button` / `settings_import_button` | Library export/import |
+| `settings_about_flavour` | About: build flavour text (`full` / `foss`, R81) |
 | `settings_about_notices` / `settings_about_source` | About links |
 
 ## Acceptance scenarios

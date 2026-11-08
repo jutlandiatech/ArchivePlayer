@@ -1,6 +1,6 @@
 # First-launch setup
 
-Status: **draft v0.2 for final review**, 7 November 2026. Companion to SPECIFICATION.md R27, R65–R69, R70 and decision D15. The layout follows jutlandiatech/sim-warning-app's setup approach, in the Nordic light design language (R63, R83). Not yet approved.
+Status: **approved v1.0**, 7 November 2026. Companion to SPECIFICATION.md R27, R65–R69, R70 and decision D15. The layout follows jutlandiatech/sim-warning-app's setup approach, in the Nordic light design language (R63, R83).
 
 ## Flow
 

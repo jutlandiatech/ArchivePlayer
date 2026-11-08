@@ -1,0 +1,387 @@
+{
+ "metadata": {
+  "identifier": "fx_series_40",
+  "title": "Fixture Series Forty",
+  "mediatype": "audio",
+  "creator": "Fixture Radio",
+  "date": "1951",
+  "language": "eng",
+  "collection": [
+   "fx_collection"
+  ]
+ },
+ "files": [
+  {
+   "name": "fx_series_40_e01.mp3",
+   "format": "VBR MP3",
+   "source": "original",
+   "size": "1000",
+   "track": "1",
+   "title": "Episode 01",
+   "length": "180"
+  },
+  {
+   "name": "fx_series_40_e02.mp3",
+   "format": "VBR MP3",
+   "source": "original",
+   "size": "1000",
+   "track": "2",
+   "title": "Episode 02",
+   "length": "180"
+  },
+  {
+   "name": "fx_series_40_e03.mp3",
+   "format": "VBR MP3",
+   "source": "original",
+   "size": "1000",
+   "track": "3",
+   "title": "Episode 03",
+   "length": "180"
+  },
+  {
+   "name": "fx_series_40_e04.mp3",
+   "format": "VBR MP3",
+   "source": "original",
+   "size": "1000",
+   "track": "4",
+   "title": "Episode 04",
+   "length": "180"
+  },
+  {
+   "name": "fx_series_40_e05.mp3",
+   "format": "VBR MP3",
+   "source": "original",
+   "size": "1000",
+   "track": "5",
+   "title": "Episode 05",
+   "length": "180"
+  },
+  {
+   "name": "fx_series_40_e06.mp3",
+   "format": "VBR MP3",
+   "source": "original",
+   "size": "1000",
+   "track": "6",
+   "title": "Episode 06",
+   "length": "180"
+  },
+  {
+   "name": "fx_series_40_e07.mp3",
+   "format": "VBR MP3",
+   "source": "original",
+   "size": "1000",
+   "track": "7",
+   "title": "Episode 07",
+   "length": "180"
+  },
+  {
+   "name": "fx_series_40_e08.mp3",
+   "format": "VBR MP3",
+   "source": "original",
+   "size": "1000",
+   "track": "8",
+   "title": "Episode 08",
+   "length": "180"
+  },
+  {
+   "name": "fx_series_40_e09.mp3",
+   "format": "VBR MP3",
+   "source": "original",
+   "size": "1000",
+   "track": "9",
+   "title": "Episode 09",
+   "length": "180"
+  },
+  {
+   "name": "fx_series_40_e10.mp3",
+   "format": "VBR MP3",
+   "source": "original",
+   "size": "1000",
+   "track": "10",
+   "title": "Episode 10",
+   "length": "180"
+  },
+  {
+   "name": "fx_series_40_e11.mp3",
+   "format": "VBR MP3",
+   "source": "original",
+   "size": "1000",
+   "track": "11",
+   "title": "Episode 11",
+   "length": "180"
+  },
+  {
+   "name": "fx_series_40_e12.mp3",
+   "format": "VBR MP3",
+   "source": "original",
+   "size": "1000",
+   "track": "12",
+   "title": "Episode 12",
+   "length": "180"
+  },
+  {
+   "name": "fx_series_40_e13.mp3",
+   "format": "VBR MP3",
+   "source": "original",
+   "size": "1000",
+   "track": "13",
+   "title": "Episode 13",
+   "length": "180"
+  },
+  {
+   "name": "fx_series_40_e14.mp3",
+   "format": "VBR MP3",
+   "source": "original",
+   "size": "1000",
+   "track": "14",
+   "title": "Episode 14",
+   "length": "180"
+  },
+  {
+   "name": "fx_series_40_e15.mp3",
+   "format": "VBR MP3",
+   "source": "original",
+   "size": "1000",
+   "track": "15",
+   "title": "Episode 15",
+   "length": "180"
+  },
+  {
+   "name": "fx_series_40_e16.mp3",
+   "format": "VBR MP3",
+   "source": "original",
+   "size": "1000",
+   "track": "16",
+   "title": "Episode 16",
+   "length": "180"
+  },
+  {
+   "name": "fx_series_40_e17.mp3",
+   "format": "VBR MP3",
+   "source": "original",
+   "size": "1000",
+   "track": "17",
+   "title": "Episode 17",
+   "length": "180"
+  },
+  {
+   "name": "fx_series_40_e18.mp3",
+   "format": "VBR MP3",
+   "source": "original",
+   "size": "1000",
+   "track": "18",
+   "title": "Episode 18",
+   "length": "180"
+  },
+  {
+   "name": "fx_series_40_e19.mp3",
+   "format": "VBR MP3",
+   "source": "original",
+   "size": "1000",
+   "track": "19",
+   "title": "Episode 19",
+   "length": "180"
+  },
+  {
+   "name": "fx_series_40_e20.mp3",
+   "format": "VBR MP3",
+   "source": "original",
+   "size": "1000",
+   "track": "20",
+   "title": "Episode 20",
+   "length": "180"
+  },
+  {
+   "name": "fx_series_40_e21.mp3",
+   "format": "VBR MP3",
+   "source": "original",
+   "size": "1000",
+   "track": "21",
+   "title": "Episode 21",
+   "length": "180"
+  },
+  {
+   "name": "fx_series_40_e22.mp3",
+   "format": "VBR MP3",
+   "source": "original",
+   "size": "1000",
+   "track": "22",
+   "title": "Episode 22",
+   "length": "180"
+  },
+  {
+   "name": "fx_series_40_e23.mp3",
+   "format": "VBR MP3",
+   "source": "original",
+   "size": "1000",
+   "track": "23",
+   "title": "Episode 23",
+   "length": "180"
+  },
+  {
+   "name": "fx_series_40_e24.mp3",
+   "format": "VBR MP3",
+   "source": "original",
+   "size": "1000",
+   "track": "24",
+   "title": "Episode 24",
+   "length": "180"
+  },
+  {
+   "name": "fx_series_40_e25.mp3",
+   "format": "VBR MP3",
+   "source": "original",
+   "size": "1000",
+   "track": "25",
+   "title": "Episode 25",
+   "length": "180"
+  },
+  {
+   "name": "fx_series_40_e26.mp3",
+   "format": "VBR MP3",
+   "source": "original",
+   "size": "1000",
+   "track": "26",
+   "title": "Episode 26",
+   "length": "180"
+  },
+  {
+   "name": "fx_series_40_e27.mp3",
+   "format": "VBR MP3",
+   "source": "original",
+   "size": "1000",
+   "track": "27",
+   "title": "Episode 27",
+   "length": "180"
+  },
+  {
+   "name": "fx_series_40_e28.mp3",
+   "format": "VBR MP3",
+   "source": "original",
+   "size": "1000",
+   "track": "28",
+   "title": "Episode 28",
+   "length": "180"
+  },
+  {
+   "name": "fx_series_40_e29.mp3",
+   "format": "VBR MP3",
+   "source": "original",
+   "size": "1000",
+   "track": "29",
+   "title": "Episode 29",
+   "length": "180"
+  },
+  {
+   "name": "fx_series_40_e30.mp3",
+   "format": "VBR MP3",
+   "source": "original",
+   "size": "1000",
+   "track": "30",
+   "title": "Episode 30",
+   "length": "180"
+  },
+  {
+   "name": "fx_series_40_e31.mp3",
+   "format": "VBR MP3",
+   "source": "original",
+   "size": "1000",
+   "track": "31",
+   "title": "Episode 31",
+   "length": "180"
+  },
+  {
+   "name": "fx_series_40_e32.mp3",
+   "format": "VBR MP3",
+   "source": "original",
+   "size": "1000",
+   "track": "32",
+   "title": "Episode 32",
+   "length": "180"
+  },
+  {
+   "name": "fx_series_40_e33.mp3",
+   "format": "VBR MP3",
+   "source": "original",
+   "size": "1000",
+   "track": "33",
+   "title": "Episode 33",
+   "length": "180"
+  },
+  {
+   "name": "fx_series_40_e34.mp3",
+   "format": "VBR MP3",
+   "source": "original",
+   "size": "1000",
+   "track": "34",
+   "title": "Episode 34",
+   "length": "180"
+  },
+  {
+   "name": "fx_series_40_e35.mp3",
+   "format": "VBR MP3",
+   "source": "original",
+   "size": "1000",
+   "track": "35",
+   "title": "Episode 35",
+   "length": "180"
+  },
+  {
+   "name": "fx_series_40_e36.mp3",
+   "format": "VBR MP3",
+   "source": "original",
+   "size": "1000",
+   "track": "36",
+   "title": "Episode 36",
+   "length": "180"
+  },
+  {
+   "name": "fx_series_40_e37.mp3",
+   "format": "VBR MP3",
+   "source": "original",
+   "size": "1000",
+   "track": "37",
+   "title": "Episode 37",
+   "length": "180"
+  },
+  {
+   "name": "fx_series_40_e38.mp3",
+   "format": "VBR MP3",
+   "source": "original",
+   "size": "1000",
+   "track": "38",
+   "title": "Episode 38",
+   "length": "180"
+  },
+  {
+   "name": "fx_series_40_e39.mp3",
+   "format": "VBR MP3",
+   "source": "original",
+   "size": "1000",
+   "track": "39",
+   "title": "Episode 39",
+   "length": "180"
+  },
+  {
+   "name": "fx_series_40_e40.mp3",
+   "format": "VBR MP3",
+   "source": "original",
+   "size": "1000",
+   "track": "40",
+   "title": "Episode 40",
+   "length": "180"
+  },
+  {
+   "name": "fx_series_40.png",
+   "format": "PNG",
+   "source": "derivative",
+   "size": "1000"
+  },
+  {
+   "name": "fx_series_40_meta.xml",
+   "format": "Metadata",
+   "source": "original",
+   "size": "1000"
+  }
+ ]
+}
