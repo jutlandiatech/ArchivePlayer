@@ -1,5 +1,7 @@
 package com.thomasnorlund.archiveplayer.core.settings
 
+import com.thomasnorlund.archiveplayer.core.language.LanguagePreselection
+
 enum class ThemeMode { LIGHT, NOIR, SYSTEM }
 enum class DownloadLocation { INTERNAL, SD_CARD }
 enum class SubtitleDefault { OFF, CONTENT_LANGUAGES, ALWAYS }
@@ -17,19 +19,35 @@ data class AppSettings(
     val includeAutoSubtitles: Boolean,
     val historyPaused: Boolean,
 ) {
-    fun withAppLanguage(isoCode: String): AppSettings = TODO()
-    fun withContentLanguages(isoCodes: Set<String>): AppSettings = TODO()
+    fun withAppLanguage(isoCode: String): AppSettings = copy(appLanguage = isoCode)
+    fun withContentLanguages(isoCodes: Set<String>): AppSettings = copy(contentLanguages = isoCodes.toSet())
 
     companion object {
         /** Defaults for a fresh install on a phone with [phoneLanguage]. */
-        fun defaults(phoneLanguage: String, availableIsoCodes: Collection<String>): AppSettings = TODO()
+        fun defaults(phoneLanguage: String, availableIsoCodes: Collection<String>): AppSettings = AppSettings(
+            appLanguage = LanguagePreselection.appLanguage(phoneLanguage, availableIsoCodes),
+            contentLanguages = LanguagePreselection.contentLanguages(phoneLanguage),
+            theme = ThemeMode.LIGHT,
+            dataSaver = true,
+            wifiOnly = true,
+            showAdultContent = false,
+            downloadLocation = DownloadLocation.INTERNAL,
+            subtitleDefault = SubtitleDefault.OFF,
+            includeAutoSubtitles = true,
+            historyPaused = false,
+        )
     }
 }
 
 /** Theme resolution and the top-bar toggle (R63, R82). */
 object ThemeResolver {
-    fun isDark(mode: ThemeMode, systemDark: Boolean): Boolean = TODO()
+    fun isDark(mode: ThemeMode, systemDark: Boolean): Boolean = when (mode) {
+        ThemeMode.LIGHT -> false
+        ThemeMode.NOIR -> true
+        ThemeMode.SYSTEM -> systemDark
+    }
 
     /** Top-bar toggle: flips what is currently shown between LIGHT and NOIR. */
-    fun toggle(mode: ThemeMode, systemDark: Boolean): ThemeMode = TODO()
+    fun toggle(mode: ThemeMode, systemDark: Boolean): ThemeMode =
+        if (isDark(mode, systemDark)) ThemeMode.LIGHT else ThemeMode.NOIR
 }

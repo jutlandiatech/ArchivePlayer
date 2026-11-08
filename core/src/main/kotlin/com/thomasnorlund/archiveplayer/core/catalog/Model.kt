@@ -1,11 +1,17 @@
 package com.thomasnorlund.archiveplayer.core.catalog
 
+import com.thomasnorlund.archiveplayer.core.format.FormatSelector
+
 enum class MediaKind {
     AUDIO, VIDEO;
 
     companion object {
         /** `movies` → VIDEO; `audio`, `etree` → AUDIO; anything else null (R07). */
-        fun fromMediatype(mediatype: String?): MediaKind? = TODO()
+        fun fromMediatype(mediatype: String?): MediaKind? = when (mediatype?.trim()?.lowercase()) {
+            "movies" -> VIDEO
+            "audio", "etree" -> AUDIO
+            else -> null
+        }
     }
 }
 
@@ -39,8 +45,8 @@ data class ArchiveItem(
     val artworkFile: String?,
     val entries: List<Entry>,
 ) {
-    val isPlayable: Boolean get() = TODO()
-    val archiveUrl: String get() = TODO()
+    val isPlayable: Boolean get() = entries.any { e -> e.formats.any { FormatSelector.isLocallyPlayable(it) } }
+    val archiveUrl: String get() = "https://archive.org/details/$identifier"
 }
 
 data class SearchHit(
@@ -62,6 +68,10 @@ enum class DurationClass {
 
     companion object {
         /** short < 20 min, episode 20–60 min, feature > 60 min (R23). */
-        fun of(seconds: Double): DurationClass = TODO()
+        fun of(seconds: Double): DurationClass = when {
+            seconds < 20 * 60 -> SHORT
+            seconds <= 60 * 60 -> EPISODE
+            else -> FEATURE
+        }
     }
 }
