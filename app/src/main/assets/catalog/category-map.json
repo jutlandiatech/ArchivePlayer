@@ -1,0 +1,612 @@
+{
+  "schemaVersion": 1,
+  "version": "2026-11-08",
+  "categories": [
+    {
+      "id": "video",
+      "names": {
+        "en": "Video",
+        "de": "Video",
+        "da": "Video"
+      },
+      "kind": "video",
+      "children": [
+        {
+          "id": "video.movies",
+          "names": {
+            "en": "Movies",
+            "de": "Filme",
+            "da": "Film"
+          },
+          "kind": "video",
+          "children": [
+            {
+              "id": "video.movies.comedy",
+              "names": {
+                "en": "Comedy",
+                "de": "Komödie",
+                "da": "Komedie"
+              },
+              "kind": "video",
+              "query": {
+                "collections": [
+                  "Comedy_Films"
+                ],
+                "subjects": [
+                  "comedy"
+                ]
+              }
+            },
+            {
+              "id": "video.movies.drama",
+              "names": {
+                "en": "Drama",
+                "de": "Drama",
+                "da": "Drama"
+              },
+              "kind": "video",
+              "query": {
+                "collections": [
+                  "feature_films"
+                ],
+                "subjects": [
+                  "drama"
+                ]
+              }
+            },
+            {
+              "id": "video.movies.noir",
+              "names": {
+                "en": "Film Noir",
+                "de": "Film noir",
+                "da": "Film noir"
+              },
+              "kind": "video",
+              "query": {
+                "collections": [
+                  "Film_Noir"
+                ],
+                "subjects": [
+                  "film noir"
+                ]
+              }
+            },
+            {
+              "id": "video.movies.scifi_horror",
+              "names": {
+                "en": "Sci-Fi & Horror",
+                "de": "Sci-Fi & Horror",
+                "da": "Sci-fi & gys"
+              },
+              "kind": "video",
+              "query": {
+                "collections": [
+                  "SciFi_Horror"
+                ],
+                "subjects": [
+                  "science fiction",
+                  "horror"
+                ]
+              }
+            },
+            {
+              "id": "video.movies.westerns",
+              "names": {
+                "en": "Westerns",
+                "de": "Western",
+                "da": "Westerns"
+              },
+              "kind": "video",
+              "query": {
+                "collections": [
+                  "western_movies"
+                ],
+                "subjects": [
+                  "western"
+                ]
+              }
+            },
+            {
+              "id": "video.movies.silent",
+              "names": {
+                "en": "Silent films",
+                "de": "Stummfilme",
+                "da": "Stumfilm"
+              },
+              "kind": "video",
+              "query": {
+                "collections": [
+                  "silent_films"
+                ],
+                "subjects": [
+                  "silent film"
+                ]
+              }
+            }
+          ],
+          "query": {
+            "collections": [
+              "feature_films",
+              "moviesandfilms"
+            ],
+            "subjects": []
+          }
+        },
+        {
+          "id": "video.animation",
+          "names": {
+            "en": "Animation & cartoons",
+            "de": "Animation & Zeichentrick",
+            "da": "Animation & tegnefilm"
+          },
+          "kind": "video",
+          "query": {
+            "collections": [
+              "animationandcartoons"
+            ],
+            "subjects": [
+              "animation",
+              "cartoon"
+            ]
+          }
+        },
+        {
+          "id": "video.tv",
+          "names": {
+            "en": "TV",
+            "de": "Fernsehen",
+            "da": "TV"
+          },
+          "kind": "video",
+          "query": {
+            "collections": [
+              "classic_tv"
+            ],
+            "subjects": [
+              "television"
+            ]
+          }
+        },
+        {
+          "id": "video.decades",
+          "names": {
+            "en": "Decades",
+            "de": "Jahrzehnte",
+            "da": "Årtier"
+          },
+          "kind": "video",
+          "children": [
+            {
+              "id": "video.decades.1940s",
+              "names": {
+                "en": "1940s",
+                "de": "1940er",
+                "da": "1940'erne"
+              },
+              "kind": "video",
+              "query": {
+                "collections": [
+                  "feature_films",
+                  "moviesandfilms"
+                ],
+                "subjects": [],
+                "extra": "year:[1940 TO 1949]"
+              }
+            },
+            {
+              "id": "video.decades.1950s",
+              "names": {
+                "en": "1950s",
+                "de": "1950er",
+                "da": "1950'erne"
+              },
+              "kind": "video",
+              "query": {
+                "collections": [
+                  "feature_films",
+                  "moviesandfilms"
+                ],
+                "subjects": [],
+                "extra": "year:[1950 TO 1959]"
+              }
+            },
+            {
+              "id": "video.decades.1960s",
+              "names": {
+                "en": "1960s",
+                "de": "1960er",
+                "da": "1960'erne"
+              },
+              "kind": "video",
+              "query": {
+                "collections": [
+                  "feature_films",
+                  "moviesandfilms"
+                ],
+                "subjects": [],
+                "extra": "year:[1960 TO 1969]"
+              }
+            },
+            {
+              "id": "video.decades.1970s",
+              "names": {
+                "en": "1970s",
+                "de": "1970er",
+                "da": "1970'erne"
+              },
+              "kind": "video",
+              "query": {
+                "collections": [
+                  "feature_films",
+                  "moviesandfilms"
+                ],
+                "subjects": [],
+                "extra": "year:[1970 TO 1979]"
+              }
+            },
+            {
+              "id": "video.decades.1980s",
+              "names": {
+                "en": "1980s",
+                "de": "1980er",
+                "da": "1980'erne"
+              },
+              "kind": "video",
+              "query": {
+                "collections": [
+                  "feature_films",
+                  "moviesandfilms"
+                ],
+                "subjects": [],
+                "extra": "year:[1980 TO 1989]"
+              }
+            },
+            {
+              "id": "video.decades.1990s",
+              "names": {
+                "en": "1990s",
+                "de": "1990er",
+                "da": "1990'erne"
+              },
+              "kind": "video",
+              "query": {
+                "collections": [
+                  "feature_films",
+                  "moviesandfilms"
+                ],
+                "subjects": [],
+                "extra": "year:[1990 TO 1999]"
+              }
+            }
+          ]
+        },
+        {
+          "id": "video.documentaries",
+          "names": {
+            "en": "Documentaries",
+            "de": "Dokumentarfilme",
+            "da": "Dokumentarer"
+          },
+          "kind": "video",
+          "query": {
+            "collections": [
+              "documentaries"
+            ],
+            "subjects": [
+              "documentary"
+            ]
+          }
+        },
+        {
+          "id": "video.newsreels",
+          "names": {
+            "en": "Newsreels & historical footage",
+            "de": "Wochenschauen & historische Aufnahmen",
+            "da": "Ugerevyer & historiske optagelser"
+          },
+          "kind": "video",
+          "query": {
+            "collections": [
+              "newsandpublicaffairs",
+              "prelinger"
+            ],
+            "subjects": [
+              "newsreel"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "audio",
+      "names": {
+        "en": "Audio",
+        "de": "Audio",
+        "da": "Lyd"
+      },
+      "kind": "audio",
+      "children": [
+        {
+          "id": "audio.music",
+          "names": {
+            "en": "Music",
+            "de": "Musik",
+            "da": "Musik"
+          },
+          "kind": "audio",
+          "children": [
+            {
+              "id": "audio.music.rock",
+              "names": {
+                "en": "Rock",
+                "de": "Rock",
+                "da": "Rock"
+              },
+              "kind": "audio",
+              "query": {
+                "collections": [],
+                "subjects": [
+                  "rock"
+                ]
+              }
+            },
+            {
+              "id": "audio.music.pop",
+              "names": {
+                "en": "Pop",
+                "de": "Pop",
+                "da": "Pop"
+              },
+              "kind": "audio",
+              "query": {
+                "collections": [],
+                "subjects": [
+                  "pop"
+                ]
+              }
+            },
+            {
+              "id": "audio.music.jazz",
+              "names": {
+                "en": "Jazz",
+                "de": "Jazz",
+                "da": "Jazz"
+              },
+              "kind": "audio",
+              "query": {
+                "collections": [
+                  "jazz"
+                ],
+                "subjects": [
+                  "jazz"
+                ]
+              }
+            },
+            {
+              "id": "audio.music.classical",
+              "names": {
+                "en": "Classical",
+                "de": "Klassik",
+                "da": "Klassisk"
+              },
+              "kind": "audio",
+              "query": {
+                "collections": [
+                  "classicalmusic"
+                ],
+                "subjects": [
+                  "classical"
+                ]
+              }
+            },
+            {
+              "id": "audio.music.folk",
+              "names": {
+                "en": "Folk & World",
+                "de": "Folk & Weltmusik",
+                "da": "Folk & verdensmusik"
+              },
+              "kind": "audio",
+              "query": {
+                "collections": [],
+                "subjects": [
+                  "folk",
+                  "world music"
+                ]
+              }
+            },
+            {
+              "id": "audio.music.hiphop",
+              "names": {
+                "en": "Hip-hop",
+                "de": "Hip-Hop",
+                "da": "Hiphop"
+              },
+              "kind": "audio",
+              "query": {
+                "collections": [
+                  "hiphopmixtapes"
+                ],
+                "subjects": [
+                  "hip hop"
+                ]
+              }
+            },
+            {
+              "id": "audio.music.electronic",
+              "names": {
+                "en": "Electronic/Netlabels",
+                "de": "Elektronisch/Netlabels",
+                "da": "Elektronisk/netlabels"
+              },
+              "kind": "audio",
+              "query": {
+                "collections": [
+                  "netlabels"
+                ],
+                "subjects": [
+                  "electronic"
+                ]
+              }
+            },
+            {
+              "id": "audio.music.78rpm",
+              "names": {
+                "en": "78rpm records",
+                "de": "Schellackplatten (78 rpm)",
+                "da": "78-plader"
+              },
+              "kind": "audio",
+              "query": {
+                "collections": [
+                  "78rpm"
+                ],
+                "subjects": []
+              }
+            },
+            {
+              "id": "audio.music.live",
+              "names": {
+                "en": "Live concerts",
+                "de": "Livekonzerte",
+                "da": "Livekoncerter"
+              },
+              "kind": "audio",
+              "query": {
+                "collections": [
+                  "etree"
+                ],
+                "subjects": []
+              }
+            }
+          ],
+          "query": {
+            "collections": [
+              "audio_music"
+            ],
+            "subjects": []
+          }
+        },
+        {
+          "id": "audio.otr",
+          "names": {
+            "en": "Old Time Radio",
+            "de": "Altes Radio",
+            "da": "Gammel radio"
+          },
+          "kind": "audio",
+          "children": [
+            {
+              "id": "audio.otr.mystery",
+              "names": {
+                "en": "Mystery & Suspense",
+                "de": "Krimi & Spannung",
+                "da": "Krimi & spænding"
+              },
+              "kind": "audio",
+              "query": {
+                "collections": [
+                  "oldtimeradio"
+                ],
+                "subjects": [
+                  "mystery",
+                  "detective"
+                ]
+              }
+            },
+            {
+              "id": "audio.otr.scifi",
+              "names": {
+                "en": "Sci-Fi",
+                "de": "Science-Fiction",
+                "da": "Science fiction"
+              },
+              "kind": "audio",
+              "query": {
+                "collections": [
+                  "oldtimeradio"
+                ],
+                "subjects": [
+                  "science fiction"
+                ]
+              }
+            },
+            {
+              "id": "audio.otr.comedy",
+              "names": {
+                "en": "Comedy",
+                "de": "Komödie",
+                "da": "Komedie"
+              },
+              "kind": "audio",
+              "query": {
+                "collections": [
+                  "oldtimeradio"
+                ],
+                "subjects": [
+                  "comedy"
+                ]
+              }
+            },
+            {
+              "id": "audio.otr.westerns",
+              "names": {
+                "en": "Westerns",
+                "de": "Western",
+                "da": "Westerns"
+              },
+              "kind": "audio",
+              "query": {
+                "collections": [
+                  "oldtimeradio"
+                ],
+                "subjects": [
+                  "western"
+                ]
+              }
+            }
+          ],
+          "query": {
+            "collections": [
+              "oldtimeradio"
+            ],
+            "subjects": []
+          }
+        },
+        {
+          "id": "audio.podcasts",
+          "names": {
+            "en": "Podcasts",
+            "de": "Podcasts",
+            "da": "Podcasts"
+          },
+          "kind": "audio",
+          "query": {
+            "collections": [
+              "podcasts"
+            ],
+            "subjects": [
+              "podcast"
+            ]
+          }
+        },
+        {
+          "id": "audio.spoken",
+          "names": {
+            "en": "Audiobooks & spoken word",
+            "de": "Hörbücher & gesprochenes Wort",
+            "da": "Lydbøger & oplæsning"
+          },
+          "kind": "audio",
+          "query": {
+            "collections": [
+              "audio_bookspoetry",
+              "librivoxaudio"
+            ],
+            "subjects": []
+          }
+        }
+      ]
+    }
+  ]
+}
