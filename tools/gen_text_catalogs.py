@@ -203,12 +203,13 @@ T = {
  "playlist.deleted.undo": ("Playlist deleted. Undo", "Playlist gelöscht. Rückgängig", "Playliste slettet. Fortryd"),
  "playlist.remove": ("Remove from playlist", "Aus Playlist entfernen", "Fjern fra playliste"),
  "playlist.download": ("Download audio", "Audio herunterladen", "Download lyd"),
- "playlist.videoNotDownloaded": ("Video isn't downloaded", "Video wird nicht heruntergeladen", "Video downloades ikke"),
+ "playlist.videoNotDownloaded": ("{count} video entries can't be downloaded", "{count} Videoeinträge können nicht heruntergeladen werden", "{count} videoafsnit kan ikke downloades"),
  "share.tooLong": ("This playlist is too long for a link. Share it as a file instead.", "Diese Playlist ist zu lang für einen Link. Teile sie stattdessen als Datei.", "Playlisten er for lang til et link. Del den som fil i stedet."),
  "share.asFile": ("Share as file", "Als Datei teilen", "Del som fil"),
  "import.title": ("Import playlist", "Playlist importieren", "Importér playliste"),
  "import.skipped": ("{count} entries skipped", "{count} Einträge übersprungen", "{count} afsnit sprunget over"),
  "import.invalid": ("This link or file can't be read", "Dieser Link oder diese Datei kann nicht gelesen werden", "Linket eller filen kan ikke læses"),
+ "import.confirm": ("Import", "Importieren", "Importér"),
  "import.done": ("Playlist imported", "Playlist importiert", "Playliste importeret"),
 }
 LANGS = [("ENG", "English", "en", 0), ("GER", "Deutsch", "de", 1), ("DEN", "Dansk", "da", 2)]

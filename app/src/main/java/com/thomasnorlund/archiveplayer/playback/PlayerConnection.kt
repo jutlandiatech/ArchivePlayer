@@ -85,7 +85,9 @@ class PlayerConnection(context: Context) {
         }
         override fun onPlayerError(e: PlaybackException) {
             val c = controller ?: return
-            if (onError?.invoke(c, e) != true) error = e
+            val handled = onError?.invoke(c, e) == true
+            android.util.Log.w("ArchivePlayer", "playerError ${c.currentMediaItem?.mediaId} ${e.errorCodeName} handled=$handled")
+            if (!handled) error = e
         }
     }
 

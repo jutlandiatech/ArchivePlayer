@@ -102,7 +102,9 @@ fun HomeTab(vm: AppViewModel) {
                     HomeRowType.CURATED -> {
                         val category = roots.first { it.id == row.categoryId }
                         val status = vm.homeRowStatus[id]
-                        val hits = vm.homeRowHits[id]?.let { CuratedRanking.rank(it, preferred) }.orEmpty()
+                        // Stale cards are hidden while a row reloads or fails: a LazyRow keeps its first keyed card in place,
+                        // which would push a prepended status item out of view.
+                        val hits = if (status == null || status == "ok") vm.homeRowHits[id]?.let { CuratedRanking.rank(it, preferred) }.orEmpty() else emptyList()
                         HomeRowView(id, category.name(lang)) {
                             if (status == "loading" || status == "slow") item(key = "loading") {
                                 Column(Modifier.width(160.dp).height(160.dp).padding(8.dp).testTag(ElementIds.homeRowLoading(id)), verticalArrangement = Arrangement.Center) {

@@ -25,8 +25,12 @@ object AppEnvironment {
     /** When set, shuffle uses `Random(shuffleSeed)`. */
     @Volatile var shuffleSeed: Long? = null
 
+    /** Test seam: lower share-link limit so a fixture playlist exceeds it (R57). */
+    @Volatile var shareLinkMaxLength: Int? = null
+
     fun reset() {
         archiveBaseUrl = ARCHIVE_BASE_URL
+        shareLinkMaxLength = null
         pagesBaseUrl = PAGES_BASE_URL
         networkOverride = null
         freeBytesOverride = null

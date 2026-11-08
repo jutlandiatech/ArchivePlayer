@@ -120,6 +120,8 @@ fun ItemScreen(vm: AppViewModel, identifier: String) {
         when {
             failed -> ErrorState(ElementIds.ITEM_ERROR, t("item.error"), ElementIds.ITEM_RETRY_BUTTON) { attempt++ }
             loaded == null -> Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) { CircularProgressIndicator() }
+            vm.settings?.showAdultContent != true && vm.repo.adultFilter.isAdult(loaded) ->
+                Box(Modifier.fillMaxSize().padding(16.dp), contentAlignment = Alignment.Center) { TaggedText(ElementIds.ITEM_HIDDEN_ADULT, t("item.hiddenAdult")) }
             else -> ItemBody(vm, loaded)
         }
     }
@@ -214,7 +216,8 @@ private fun ItemBody(vm: AppViewModel, item: ArchiveItem) {
                         if (duration.isNotEmpty()) Text(duration, style = MaterialTheme.typography.bodySmall)
                     }
                 }
-                TagGlyphButton(ElementIds.itemEntryMenu(i), "⋮", t("item.more")) { menuFor = i }
+                val focus = androidx.compose.ui.platform.LocalFocusManager.current
+                TagGlyphButton(ElementIds.itemEntryMenu(i), "⋮", t("item.more")) { focus.clearFocus(); menuFor = i }
             }
         }
     }

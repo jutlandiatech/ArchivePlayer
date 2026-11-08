@@ -43,6 +43,7 @@ sealed interface Screen {
     data class Collection(val identifier: String) : Screen
     data class Category(val categoryId: String) : Screen
     data class Playlist(val playlistId: String) : Screen
+    data object Import : Screen
 }
 
 /** Survives configuration changes and activity recreation; owns settings, setup and navigation state. */
@@ -222,7 +223,95 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
             downloads.enqueue(resolved.mapNotNull { (item, e) -> downloadRecord(item, e) })
         }
     }
-    fun sharePlaylist(context: android.content.Context, playlist: com.thomasnorlund.archiveplayer.core.playlist.Playlist) = Unit
+    data class ImportPreview(
+        val title: String,
+        val description: String?,
+        val entries: List<com.thomasnorlund.archiveplayer.core.playlist.EntryRef>,
+        val skipped: Int = 0,
+        val invalid: Boolean = false,
+    )
+
+    var pendingImport by mutableStateOf<ImportPreview?>(null)
+    var shareTooLong by mutableStateOf<com.thomasnorlund.archiveplayer.core.playlist.Playlist?>(null)
+
+    private fun startChooser(context: android.content.Context, send: android.content.Intent) {
+        val chooser = android.content.Intent.createChooser(send, null)
+        if (context !is android.app.Activity) chooser.addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK)
+        context.startActivity(chooser)
+    }
+
+    fun sharePlaylist(context: android.content.Context, playlist: com.thomasnorlund.archiveplayer.core.playlist.Playlist) {
+        val limit = AppEnvironment.shareLinkMaxLength
+        val shared = com.thomasnorlund.archiveplayer.core.playlist.ShareLinkCodec.share(playlist).let { r ->
+            if (limit != null && r is com.thomasnorlund.archiveplayer.core.playlist.ShareResult.Link && r.url.length > limit)
+                com.thomasnorlund.archiveplayer.core.playlist.ShareResult.FileRequired(r.url.length) else r
+        }
+        when (val r = shared) {
+            is com.thomasnorlund.archiveplayer.core.playlist.ShareResult.Link -> startChooser(context,
+                android.content.Intent(android.content.Intent.ACTION_SEND).setType("text/plain")
+                    .putExtra(android.content.Intent.EXTRA_SUBJECT, playlist.title)
+                    .putExtra(android.content.Intent.EXTRA_TEXT, r.url))
+            is com.thomasnorlund.archiveplayer.core.playlist.ShareResult.FileRequired -> shareTooLong = playlist
+        }
+    }
+
+    fun sharePlaylistFile(context: android.content.Context, playlist: com.thomasnorlund.archiveplayer.core.playlist.Playlist) {
+        shareTooLong = null
+        val dir = java.io.File(context.cacheDir, "shared").apply { mkdirs() }
+        val name = playlist.title.replace(Regex("[^\\p{L}\\p{N} _-]"), "_").trim().ifBlank { "playlist" }
+        val file = java.io.File(dir, "$name.archiveplaylist")
+        file.writeText(com.thomasnorlund.archiveplayer.core.playlist.PlaylistFileCodec.encode(playlist))
+        val uri = androidx.core.content.FileProvider.getUriForFile(context, "${context.packageName}.files", file)
+        startChooser(context, android.content.Intent(android.content.Intent.ACTION_SEND).setType("application/json")
+            .putExtra(android.content.Intent.EXTRA_STREAM, uri)
+            .addFlags(android.content.Intent.FLAG_GRANT_READ_URI_PERMISSION))
+    }
+
+    /** Share links (App Link) and `.archiveplaylist` files open the import preview (R55, R56). */
+    @Suppress("DEPRECATION")
+    fun handleIntent(context: android.content.Context, intent: android.content.Intent?) {
+        intent ?: return
+        val uri: android.net.Uri? = when (intent.action) {
+            android.content.Intent.ACTION_VIEW -> intent.data
+            android.content.Intent.ACTION_SEND -> intent.getParcelableExtra<android.net.Uri>(android.content.Intent.EXTRA_STREAM)
+                ?: intent.getStringExtra(android.content.Intent.EXTRA_TEXT)?.let { Regex("https://\\S+").find(it)?.value }?.let(android.net.Uri::parse)
+            else -> null
+        }
+        uri ?: return
+        val preview = if (uri.scheme == "https" || uri.scheme == "http") {
+            com.thomasnorlund.archiveplayer.core.playlist.ShareLinkCodec.decode(uri.toString())?.let { ImportPreview(it.title, it.description, it.entries) }
+        } else {
+            runCatching { context.contentResolver.openInputStream(uri)!!.use { it.readBytes().toString(Charsets.UTF_8) } }.getOrNull()?.let { json ->
+                val report = com.thomasnorlund.archiveplayer.core.playlist.PlaylistFileCodec.decode(json, "import")
+                report.playlist?.let { ImportPreview(it.title, it.description, it.entries, report.skipped.size) }
+            }
+        }
+        pendingImport = preview ?: ImportPreview("", null, emptyList(), invalid = true)
+        stacks.getValue(tab).removeAll { it == Screen.Import }
+        push(Screen.Import)
+    }
+
+    private fun uniquePlaylistName(title: String): String {
+        val names = library.state.playlists.map { it.title }.toSet()
+        if (title !in names) return title
+        var n = 2
+        while ("$title ($n)" in names) n++
+        return "$title ($n)"
+    }
+
+    fun confirmImport() {
+        val p = pendingImport ?: return
+        if (!p.invalid) {
+            val id = createPlaylist(uniquePlaylistName(p.title), p.entries)
+            if (p.description != null) library.update { s -> s.copy(playlists = s.playlists.map { if (it.id == id) it.copy(description = p.description) else it }) }
+        }
+        cancelImport()
+    }
+
+    fun cancelImport() {
+        pendingImport = null
+        Tab.entries.forEach { t -> stacks.getValue(t).removeAll { it == Screen.Import } }
+    }
 
     val player = com.thomasnorlund.archiveplayer.playback.PlayerConnection(application)
     var playerOpen by mutableStateOf(false)
@@ -339,7 +428,9 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
         val failed = playingFormat[id] ?: return false
         val tried = triedFormats.getOrPut(id) { mutableSetOf() }.apply { add(failed) }
         var next = FormatSelector.fallback(e, failed, conditions())
-        while (next != null && next in tried) next = FormatSelector.fallback(e, next, conditions())
+        val seen = mutableSetOf<MediaFormat>()
+        while (next != null && next in tried && seen.add(next)) next = FormatSelector.fallback(e, next, conditions())
+        if (next != null && next in tried) next = null
         if (next == null) return false
         mediaItem(item, e, next)?.let { player.replaceCurrent(it, player.positionMs) } ?: return false
         return true
@@ -372,8 +463,10 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
     private fun recordHistory(item: ArchiveItem, e: Entry) {
         if (settings?.historyPaused == true) return
         val ref = e.ref()
+        // Keep the last saved position: a reconnecting controller reports the current entry as started again.
+        val previous = library.state.history.firstOrNull { it.ref == ref }
         val event = com.thomasnorlund.archiveplayer.core.home.HistoryEvent(ref, item.identifier, item.title, item.creator, item.collections, item.subjects,
-            System.currentTimeMillis(), 0L, ((e.durationSeconds ?: 0.0) * 1000).toLong())
+            System.currentTimeMillis(), previous?.positionMs ?: 0L, previous?.durationMs?.takeIf { it > 0 } ?: ((e.durationSeconds ?: 0.0) * 1000).toLong())
         library.update { s -> s.copy(history = (listOf(event) + s.history.filterNot { it.ref == ref }).take(500)) }
     }
 
@@ -390,6 +483,7 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
     private fun savePosition() {
         val pos = player.positionMs
         val dur = player.durationMs
+        android.util.Log.i("ArchivePlayer", "savePosition ${player.currentId} pos=$pos dur=$dur")
         updateHistory(player.currentId) { it.copy(positionMs = pos, durationMs = if (dur > 0) dur else it.durationMs) }
     }
 
@@ -413,17 +507,21 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
     private var homeLoaded = false
 
     fun loadHome(force: Boolean = false) {
+        android.util.Log.i("ArchivePlayer", "loadHome force=$force loaded=$homeLoaded")
         if (homeLoaded && !force) return
         homeLoaded = true
         repo.categoryMap.roots.forEach { loadHomeRow(it.id) }
         if (force) refreshFollowed(manual = true)
     }
 
+    private val homeRowJobs = mutableMapOf<String, kotlinx.coroutines.Job>()
+
     fun loadHomeRow(categoryId: String) {
         val c = repo.categoryMap.find(categoryId) ?: return
         val row = "category_$categoryId"
         homeRowStatus[row] = "loading"
-        viewModelScope.launch {
+        homeRowJobs[row]?.cancel()
+        homeRowJobs[row] = viewModelScope.launch {
             val slow = launch { delay(15_000); if (homeRowStatus[row] == "loading") homeRowStatus[row] = "slow" }
             val kind = when (c.kind) {
                 MediaKind.AUDIO -> com.thomasnorlund.archiveplayer.core.search.KindFilter.AUDIO
@@ -435,7 +533,11 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
             val result = runCatching { repo.search(request, settings?.showAdultContent == true).hits }
             slow.cancel()
             result.onSuccess { homeRowHits[row] = it; homeRowStatus[row] = "ok" }
-                .onFailure { homeRowStatus[row] = "error" }
+                .onFailure {
+                if (it is kotlinx.coroutines.CancellationException) throw it
+                android.util.Log.w("ArchivePlayer", "home row $row failed: ${it.message}")
+                homeRowStatus[row] = "error"
+            }
         }
     }
 

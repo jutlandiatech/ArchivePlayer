@@ -200,11 +200,12 @@
   "playlist.deleted.undo": "Playlist deleted. Undo",
   "playlist.remove": "Remove from playlist",
   "playlist.download": "Download audio",
-  "playlist.videoNotDownloaded": "Video isn't downloaded",
+  "playlist.videoNotDownloaded": "{count} video entries can't be downloaded",
   "share.tooLong": "This playlist is too long for a link. Share it as a file instead.",
   "share.asFile": "Share as file",
   "import.title": "Import playlist",
   "import.skipped": "{count} entries skipped",
   "import.invalid": "This link or file can't be read",
+  "import.confirm": "Import",
   "import.done": "Playlist imported"
 }

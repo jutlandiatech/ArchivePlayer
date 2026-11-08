@@ -33,6 +33,10 @@ Current status: specification v1.0 approved (7 November 2026). Gate 2 red baseli
 
 ## Build
 
+New here? [docs/GETTING_STARTED.md](docs/GETTING_STARTED.md) lists what to install (Android Studio, SDK 37, emulator), how to clone, build both flavours, run the tests, and (optionally) work with an AI coding agent.
+
+Ready-built APKs are in [dist/](dist/).
+
 Open the project in Android Studio, or use the helper from a PowerShell terminal:
 
 ```powershell

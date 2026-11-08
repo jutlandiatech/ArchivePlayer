@@ -22,6 +22,7 @@ import com.thomasnorlund.archiveplayer.ui.SettingsScreen
 import com.thomasnorlund.archiveplayer.ui.SearchTab
 import com.thomasnorlund.archiveplayer.ui.LibraryTab
 import com.thomasnorlund.archiveplayer.ui.PlaylistScreen
+import com.thomasnorlund.archiveplayer.ui.ImportScreen
 import com.thomasnorlund.archiveplayer.ui.CategoryScreen
 import com.thomasnorlund.archiveplayer.ui.SetupScreen
 import com.thomasnorlund.archiveplayer.ui.HomeTab
@@ -31,6 +32,11 @@ class MainActivity : ComponentActivity() {
     private val vm: AppViewModel by viewModels()
 
     /** Video keeps playing in picture-in-picture when the user leaves the app (UI_PLAYER_SPEC.md P16). */
+    override fun onNewIntent(intent: android.content.Intent) {
+        super.onNewIntent(intent)
+        vm.handleIntent(this, intent)
+    }
+
     override fun onUserLeaveHint() {
         super.onUserLeaveHint()
         if (vm.player.isVideo && vm.player.hasQueue && vm.player.isPlaying) {
@@ -44,6 +50,11 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // Outside touch mode Compose focuses the first text field that scrolls into view (e.g. the item
+        // filter), which pops the keyboard and yanks the list back up.
+        @OptIn(androidx.compose.ui.ExperimentalComposeUiApi::class)
+        androidx.compose.ui.ComposeUiFlags.isInitialFocusOnFocusableAvailable = false
+        if (savedInstanceState == null) vm.handleIntent(this, intent)
         enableEdgeToEdge()
         setContent {
             val settings = vm.settings
@@ -71,6 +82,7 @@ class MainActivity : ComponentActivity() {
                                     is Screen.Item -> ItemScreen(vm, screen.identifier)
                                     is Screen.Collection -> CollectionScreen(vm, screen.identifier)
                                     is Screen.Playlist -> PlaylistScreen(vm, screen.playlistId)
+                                    Screen.Import -> ImportScreen(vm)
     else -> Box(Modifier.fillMaxSize())
                                 }
                             },

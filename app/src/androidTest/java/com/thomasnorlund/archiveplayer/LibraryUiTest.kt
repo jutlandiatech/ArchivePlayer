@@ -8,6 +8,7 @@ import android.os.StrictMode
 import androidx.compose.ui.test.assertIsSelected
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithTag
+import androidx.compose.ui.test.swipe
 import androidx.compose.ui.test.performTextClearance
 import androidx.compose.ui.test.performTextInput
 import androidx.compose.ui.test.performTouchInput
@@ -79,11 +80,19 @@ class LibraryUiTest {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         context.startActivity(Intent(Intent.ACTION_VIEW).setDataAndType(uri, type).setClass(context, MainActivity::class.java)
             .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_GRANT_READ_URI_PERMISSION))
-        rule.waitForTag(ElementIds.IMPORT_SCREEN, 15_000)
+        InstrumentationRegistry.getInstrumentation().waitForIdleSync()
+        // The running activity is paused while it receives the new intent; its window regains focus asynchronously.
+        val deadline = android.os.SystemClock.uptimeMillis() + 15_000
+        while (true) {
+            try { rule.waitForTag(ElementIds.IMPORT_SCREEN, 15_000); break } catch (e: IllegalStateException) {
+                if (android.os.SystemClock.uptimeMillis() > deadline) throw e
+                Thread.sleep(200)
+            }
+        }
     }
 
     private fun shareLink(title: String, refs: List<EntryRef>) =
-        "${AppEnvironment.PAGES_BASE_URL}/p#" + ShareLinkCodec.encode(SharedPlaylist(title, null, refs))
+        ShareLinkCodec.encode(SharedPlaylist(title, null, refs))
 
     @Test fun L01_chipsOrderAndLikedPinned() {
         rule.openLibrary()
@@ -104,7 +113,11 @@ class LibraryUiTest {
         val id = playlistWith("Order", "fx_radio_show", listOf(0, 1, 2))
         openPlaylist(id)
         rule.tap(ElementIds.PLAYLIST_EDIT_BUTTON)
-        rule.onNodeWithTag(ElementIds.playlistEntryDrag(2)).performTouchInput { swipeUp(durationMillis = 800) }
+        // Drag the handle up by two row heights so entry 3 lands first.
+        val rowHeight = rule.onNodeWithTag(playlistEntryRow(0)).fetchSemanticsNode().size.height.toFloat()
+        rule.onNodeWithTag(ElementIds.playlistEntryDrag(2)).performTouchInput {
+            swipe(center, center - androidx.compose.ui.geometry.Offset(0f, 2 * rowHeight), durationMillis = 800)
+        }
         rule.waitUntil { rule.textOf(playlistEntryRow(0)).contains("Episode 03") }
         rule.tap(ElementIds.playlistEntryRemove(1))
         rule.waitForGone(playlistEntryRow(2))
@@ -204,6 +217,8 @@ class LibraryUiTest {
     }
 
     @Test fun L10_A23_tooLongLinkOffersFile() {
+        // The 105-entry fixture compresses below 8,000 chars (R57 estimates 300-500 entries fit); lower the limit.
+        AppEnvironment.shareLinkMaxLength = 1_000
         val id = playlistWith("Huge", "OTRR_Philip_Marlowe_Singles", emptyList())
         rule.openItem("OTRR_Philip_Marlowe_Singles")
         rule.tap(ElementIds.ITEM_OVERFLOW_BUTTON)

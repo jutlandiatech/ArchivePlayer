@@ -115,7 +115,8 @@ class PlayerUiTest {
             rule.tap(ElementIds.PLAYER_SLEEP_TIMER_BUTTON)
             rule.tap(ElementIds.sleepOption("end"))
             p.seekToEndMinus(3_000)
-            assertTrue(p.await(15_000) { !isPlaying })
+            // Seeking briefly reports !isPlaying while buffering; wait for the settled pause instead.
+            assertTrue(p.await(15_000) { !isPlaying && playbackState == androidx.media3.common.Player.STATE_READY })
             assertTrue(p.currentIndex == 0 || p.positionMs < 1_000)
             rule.waitUntil { state() == "paused" }
         }
@@ -201,6 +202,8 @@ class PlayerUiTest {
         openPlayer().close()
         assertFalse(rule.exists(ElementIds.PLAYER_ERROR))
         server.fail("^/download/", 404)
+        // The player pre-buffers the next entry, so skip past it to one that must be fetched after the failure rule.
+        rule.tap(ElementIds.PLAYER_NEXT_BUTTON)
         rule.tap(ElementIds.PLAYER_NEXT_BUTTON)
         rule.waitForTag(ElementIds.PLAYER_ERROR, 30_000)
         server.clearRules()
@@ -212,6 +215,8 @@ class PlayerUiTest {
         openPlayer("fx_film").use { p ->
             p.seekTo(80_000); p.await { positionMs >= 80_000 }; p.pause()
         }
+        // Collapse first: the expanded player covers the navigation bar and stays expanded across recreation.
+        rule.tap(ElementIds.PLAYER_COLLAPSE_BUTTON)
         rule.activityRule.scenario.recreate()
         rule.tap(ElementIds.NAV_HOME)
         rule.tapIn(ElementIds.HOME_LIST, ElementIds.homeCard(ElementIds.HOME_ROW_CONTINUE, "fx_film"))
@@ -270,6 +275,8 @@ class PlayerUiTest {
         openPlayer().close()
         listOf("en", "da", "de").forEach { iso ->
             rule.tap(ElementIds.PLAYER_COLLAPSE_BUTTON)
+            // Settings lives on tab roots (UI_SHELL_SPEC); the player was started from an item page.
+            rule.tap(ElementIds.NAV_HOME)
             rule.openSettingsRow("app_language")
             rule.tap(ElementIds.settingsLanguage(iso))
             pressBack(rule); pressBack(rule)

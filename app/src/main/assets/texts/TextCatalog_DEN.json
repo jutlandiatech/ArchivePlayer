@@ -200,11 +200,12 @@
   "playlist.deleted.undo": "Playliste slettet. Fortryd",
   "playlist.remove": "Fjern fra playliste",
   "playlist.download": "Download lyd",
-  "playlist.videoNotDownloaded": "Video downloades ikke",
+  "playlist.videoNotDownloaded": "{count} videoafsnit kan ikke downloades",
   "share.tooLong": "Playlisten er for lang til et link. Del den som fil i stedet.",
   "share.asFile": "Del som fil",
   "import.title": "Importér playliste",
   "import.skipped": "{count} afsnit sprunget over",
   "import.invalid": "Linket eller filen kan ikke læses",
+  "import.confirm": "Importér",
   "import.done": "Playliste importeret"
 }

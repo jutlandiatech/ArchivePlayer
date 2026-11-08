@@ -39,6 +39,7 @@ class FixtureServer(
     override fun before() {
         server.dispatcher = object : Dispatcher() {
             override fun dispatch(request: RecordedRequest): MockResponse {
+                android.util.Log.i("Fixture", "${request.method} ${request.path}")
                 requests += request
                 rules.firstOrNull { it.remaining > 0 && it.match(request) }?.let { rule ->
                     rule.remaining--
@@ -57,7 +58,8 @@ class FixtureServer(
 
     override fun after() {
         AppEnvironment.reset()
-        server.shutdown()
+        // A still-delayed response (H09) makes shutdown time out; the next test gets a fresh server anyway.
+        runCatching { server.shutdown() }
     }
 
     /** Responds with [code] to the next [times] requests whose path matches [pathRegex]. */

@@ -49,6 +49,7 @@ private fun parseObject(json: String): JsonObject? = try {
 /** GitHub Pages share links with a versioned, compressed fragment payload (R54–R57, A21, A23). */
 object ShareLinkCodec {
     private const val VERSION = "v1"
+    private const val PAGE = "p"
     val baseUrl: String get() = "https://jutlandiatech.github.io/ArchivePlayer/"
     val maxLength: Int get() = 8000
 
@@ -78,13 +79,14 @@ object ShareLinkCodec {
         while (!deflater.finished()) out.write(buffer, 0, deflater.deflate(buffer))
         deflater.end()
         val payload = Base64.getUrlEncoder().withoutPadding().encodeToString(out.toByteArray())
-        return base.trimEnd('/') + "/#$VERSION.$payload"
+        return base.trimEnd('/') + "/$PAGE#$VERSION.$payload"
     }
 
     /** Null for foreign URLs, unknown payload versions or corrupt payloads. */
     fun decode(url: String, base: String = baseUrl): SharedPlaylist? = try {
         val page = url.substringBefore('#').trimEnd('/')
-        if (page != base.trimEnd('/') || '#' !in url) null else {
+        val root = base.trimEnd('/')
+        if ((page != root && page != "$root/$PAGE") || '#' !in url) null else {
             val fragment = url.substringAfter('#')
             if (!fragment.startsWith("$VERSION.")) null else {
                 val bytes = Base64.getUrlDecoder().decode(fragment.removePrefix("$VERSION."))

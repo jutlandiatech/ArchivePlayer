@@ -44,6 +44,7 @@ class PlaybackService : MediaSessionService() {
                 ): ListenableFuture<SessionResult> {
                     if (customCommand.customAction != CMD_PAUSE_AT_END) return super.onCustomCommand(session, controller, customCommand, args)
                     player.pauseAtEndOfMediaItems = args.getBoolean(ARG_ON)
+                    android.util.Log.i("ArchivePlayer", "pauseAtEnd=${player.pauseAtEndOfMediaItems}")
                     return Futures.immediateFuture(SessionResult(SessionResult.RESULT_SUCCESS))
                 }
             })

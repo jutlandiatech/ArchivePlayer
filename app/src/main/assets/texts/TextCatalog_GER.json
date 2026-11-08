@@ -200,11 +200,12 @@
   "playlist.deleted.undo": "Playlist gelöscht. Rückgängig",
   "playlist.remove": "Aus Playlist entfernen",
   "playlist.download": "Audio herunterladen",
-  "playlist.videoNotDownloaded": "Video wird nicht heruntergeladen",
+  "playlist.videoNotDownloaded": "{count} Videoeinträge können nicht heruntergeladen werden",
   "share.tooLong": "Diese Playlist ist zu lang für einen Link. Teile sie stattdessen als Datei.",
   "share.asFile": "Als Datei teilen",
   "import.title": "Playlist importieren",
   "import.skipped": "{count} Einträge übersprungen",
   "import.invalid": "Dieser Link oder diese Datei kann nicht gelesen werden",
+  "import.confirm": "Importieren",
   "import.done": "Playlist importiert"
 }

@@ -12,6 +12,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
@@ -161,7 +162,8 @@ fun TextDialog(title: String, initial: String, onDismiss: () -> Unit, onSave: (S
         onDismissRequest = onDismiss,
         title = { Text(title) },
         text = { OutlinedTextField(value, { value = it }, modifier = Modifier.fillMaxWidth().testTag(ElementIds.DIALOG_PLAYLIST_NAME_FIELD)) },
-        confirmButton = { TextButton(onClick = { onDismiss(); onSave(value) }, modifier = Modifier.testTag(ElementIds.DIALOG_CONFIRM_BUTTON)) { Text(t("action.save")) } },
+        confirmButton = { val keyboard = androidx.compose.ui.platform.LocalSoftwareKeyboardController.current
+            TextButton(onClick = { keyboard?.hide(); onDismiss(); onSave(value) }, modifier = Modifier.testTag(ElementIds.DIALOG_CONFIRM_BUTTON)) { Text(t("action.save")) } },
         dismissButton = { TextButton(onClick = onDismiss, modifier = Modifier.testTag(ElementIds.DIALOG_CANCEL_BUTTON)) { Text(t("action.cancel")) } },
     )
 }
@@ -175,6 +177,18 @@ fun PlaylistScreen(vm: AppViewModel, playlistId: String) {
     var dialog by remember { mutableStateOf<String?>(null) }
     val title = playlistTitle(p)
     LaunchedEffect(playlistId) { vm.playlistVideoNotice = 0 }
+    val shareContext = androidx.compose.ui.platform.LocalContext.current
+    vm.shareTooLong?.let { pl ->
+        AlertDialog(
+            onDismissRequest = { vm.shareTooLong = null },
+            modifier = Modifier.testTag(ElementIds.DIALOG_SHARE_TOO_LONG),
+            text = { Text(t("share.tooLong")) },
+            confirmButton = {
+                TextButton(onClick = { vm.sharePlaylistFile(shareContext, pl) }, modifier = Modifier.heightIn(min = 48.dp).testTag(ElementIds.SHARE_AS_FILE_BUTTON)) { Text(t("share.asFile")) }
+            },
+            dismissButton = { TextButton(onClick = { vm.shareTooLong = null }, modifier = Modifier.heightIn(min = 48.dp)) { Text(t("action.cancel")) } },
+        )
+    }
     LazyColumn(Modifier.fillMaxSize().testTag(ElementIds.PLAYLIST_SCREEN)) {
         item {
             Row(verticalAlignment = Alignment.CenterVertically) {
@@ -222,11 +236,12 @@ fun PlaylistScreen(vm: AppViewModel, playlistId: String) {
             }
         }
         itemsIndexed(p.entries) { i, ref ->
-            Row(verticalAlignment = Alignment.CenterVertically) {
+            var rowHeight by remember { mutableIntStateOf(0) }
+            Row(Modifier.onSizeChanged { rowHeight = it.height }, verticalAlignment = Alignment.CenterVertically) {
                 if (editing) {
                     var dy by remember { mutableFloatStateOf(0f) }
                     Box(Modifier.size(48.dp).pointerInput(i, p.entries.size) {
-                        val row = 56.dp.toPx()
+                        val row = rowHeight.takeIf { it > 0 }?.toFloat() ?: 56.dp.toPx()
                         detectVerticalDragGestures(
                             onDragStart = { dy = 0f },
                             onDragEnd = {
@@ -251,4 +266,38 @@ fun formatBytes(bytes: Long): String = when {
     bytes >= 1_000_000_000L -> "%.1f GB".format(bytes / 1e9)
     bytes >= 1_000_000L -> "%.0f MB".format(bytes / 1e6)
     else -> "%.0f kB".format(bytes / 1e3)
+}
+
+@Composable
+fun ImportScreen(vm: AppViewModel) {
+    val p = vm.pendingImport
+    LazyColumn(Modifier.fillMaxSize().testTag(ElementIds.IMPORT_SCREEN)) {
+        item { Text(t("import.title"), style = MaterialTheme.typography.titleLarge, modifier = Modifier.padding(16.dp)) }
+        if (p == null || p.invalid) {
+            item { Text(t("import.invalid"), color = MaterialTheme.colorScheme.error, modifier = Modifier.padding(horizontal = 16.dp)) }
+            item {
+                TextButton(onClick = { vm.cancelImport() }, modifier = Modifier.padding(8.dp).heightIn(min = 48.dp).testTag(ElementIds.IMPORT_CANCEL_BUTTON)) { Text(t("action.cancel")) }
+            }
+            return@LazyColumn
+        }
+        item {
+            Column(Modifier.padding(horizontal = 16.dp)) {
+                Text(p.title, style = MaterialTheme.typography.headlineSmall, modifier = Modifier.tagged(ElementIds.IMPORT_TITLE, p.title))
+                p.description?.let { Text(it) }
+                val count = t("library.entries", "count" to p.entries.size.toString())
+                Text(count, modifier = Modifier.tagged(ElementIds.IMPORT_COUNT, count))
+                if (p.skipped > 0) {
+                    val skipped = t("import.skipped", "count" to p.skipped.toString())
+                    Text(skipped, color = MaterialTheme.colorScheme.error, modifier = Modifier.tagged(ElementIds.IMPORT_SKIPPED, skipped))
+                }
+                Row(horizontalArrangement = Arrangement.spacedBy(8.dp), modifier = Modifier.padding(vertical = 8.dp)) {
+                    Button(onClick = { vm.confirmImport() }, modifier = Modifier.heightIn(min = 48.dp).testTag(ElementIds.IMPORT_CONFIRM_BUTTON)) { Text(t("import.confirm")) }
+                    OutlinedButton(onClick = { vm.cancelImport() }, modifier = Modifier.heightIn(min = 48.dp).testTag(ElementIds.IMPORT_CANCEL_BUTTON)) { Text(t("action.cancel")) }
+                }
+            }
+        }
+        itemsIndexed(p.entries.take(100)) { i, e ->
+            RowLabel(ElementIds.importEntry(i), (e.title ?: e.fileName) + " · " + e.identifier) { vm.push(Screen.Item(e.identifier)) }
+        }
+    }
 }
