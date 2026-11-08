@@ -50,10 +50,6 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // Outside touch mode Compose focuses the first text field that scrolls into view (e.g. the item
-        // filter), which pops the keyboard and yanks the list back up.
-        @OptIn(androidx.compose.ui.ExperimentalComposeUiApi::class)
-        androidx.compose.ui.ComposeUiFlags.isInitialFocusOnFocusableAvailable = false
         if (savedInstanceState == null) vm.handleIntent(this, intent)
         enableEdgeToEdge()
         setContent {

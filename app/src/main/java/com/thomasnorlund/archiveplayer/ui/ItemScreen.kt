@@ -194,7 +194,8 @@ private fun ItemBody(vm: AppViewModel, item: ArchiveItem) {
                 }
             }
         }
-        if (playable.isNotEmpty()) stickyHeader {
+        // Not sticky: a pinned header covers the row a scroll-to brings to the top, so taps land on the filter.
+        if (playable.isNotEmpty()) item {
             Surface(color = MaterialTheme.colorScheme.background, modifier = Modifier.fillMaxWidth()) {
                 Column(Modifier.padding(vertical = 8.dp)) {
                     if (playable.size > 30) {
