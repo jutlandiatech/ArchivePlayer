@@ -155,7 +155,7 @@
   "player.quality.auto": "Automatic",
   "player.subtitles": "Subtitles",
   "player.subtitles.off": "Off",
-  "player.subtitles.auto": "{language} (automatic)",
+  "player.subtitles.auto": "Auto-generated",
   "player.queue": "Queue",
   "player.queue.clear": "Clear queue",
   "player.error": "Couldn't play this. Try again.",

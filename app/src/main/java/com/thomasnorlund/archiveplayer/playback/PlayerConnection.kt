@@ -67,6 +67,7 @@ class PlayerConnection(context: Context) {
     var error by mutableStateOf<PlaybackException?>(null); private set
     var canUndoStop by mutableStateOf(false); private set
     var onItemEnded: ((Player) -> Unit)? = null
+    var onStarted: ((String) -> Unit)? = null
     var onError: ((Player, PlaybackException) -> Boolean)? = null
 
     val player: Player? get() = controller
@@ -76,6 +77,7 @@ class PlayerConnection(context: Context) {
     private val listener = object : Player.Listener {
         override fun onEvents(player: Player, events: Player.Events) = sync(player)
         override fun onMediaItemTransition(mediaItem: MediaItem?, reason: Int) {
+            mediaItem?.mediaId?.let { onStarted?.invoke(it) }
             if (reason == Player.MEDIA_ITEM_TRANSITION_REASON_AUTO) controller?.let { onItemEnded?.invoke(it) }
         }
         override fun onPlaybackStateChanged(state: Int) {
@@ -161,6 +163,12 @@ class PlayerConnection(context: Context) {
         c.seekTo(i, positionMs)
         c.prepare()
         c.play()
+    }
+    fun setPauseAtEnd(on: Boolean) = withPlayer {
+        it.sendCustomCommand(
+            androidx.media3.session.SessionCommand(PlaybackService.CMD_PAUSE_AT_END, android.os.Bundle.EMPTY),
+            android.os.Bundle().apply { putBoolean(PlaybackService.ARG_ON, on) },
+        )
     }
     fun retry() = withPlayer { error = null; it.prepare(); it.play() }
 

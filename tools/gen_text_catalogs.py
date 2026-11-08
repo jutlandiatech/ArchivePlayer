@@ -158,7 +158,7 @@ T = {
  "player.quality.auto": ("Automatic", "Automatisch", "Automatisk"),
  "player.subtitles": ("Subtitles", "Untertitel", "Undertekster"),
  "player.subtitles.off": ("Off", "Aus", "Fra"),
- "player.subtitles.auto": ("{language} (automatic)", "{language} (automatisch)", "{language} (automatisk)"),
+ "player.subtitles.auto": ("Auto-generated", "Automatisch erstellt", "Autogenereret"),
  "player.queue": ("Queue", "Warteschlange", "Kø"),
  "player.queue.clear": ("Clear queue", "Warteschlange leeren", "Ryd kø"),
  "player.error": ("Couldn't play this. Try again.", "Wiedergabe nicht möglich. Erneut versuchen.", "Kunne ikke afspille. Prøv igen."),

@@ -61,6 +61,8 @@ dependencies {
     implementation(libs.androidx.media3.exoplayer)
     implementation(libs.androidx.media3.ui.compose.material3)
     "fullImplementation"(libs.androidx.media3.cast)
+    // Cast route dialogs (MediaRouteChooserDialog) extend AppCompat dialogs.
+    "fullImplementation"(libs.androidx.appcompat)
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
     testImplementation(libs.junit)

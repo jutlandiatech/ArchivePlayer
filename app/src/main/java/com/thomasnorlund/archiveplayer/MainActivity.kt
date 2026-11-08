@@ -29,6 +29,18 @@ import com.thomasnorlund.archiveplayer.ui.theme.ArchivePlayerTheme
 class MainActivity : ComponentActivity() {
     private val vm: AppViewModel by viewModels()
 
+    /** Video keeps playing in picture-in-picture when the user leaves the app (UI_PLAYER_SPEC.md P16). */
+    override fun onUserLeaveHint() {
+        super.onUserLeaveHint()
+        if (vm.player.isVideo && vm.player.hasQueue && vm.player.isPlaying) {
+            runCatching {
+                enterPictureInPictureMode(
+                    android.app.PictureInPictureParams.Builder().setAspectRatio(android.util.Rational(16, 9)).build()
+                )
+            }
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()

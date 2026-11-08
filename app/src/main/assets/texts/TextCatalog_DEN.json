@@ -155,7 +155,7 @@
   "player.quality.auto": "Automatisk",
   "player.subtitles": "Undertekster",
   "player.subtitles.off": "Fra",
-  "player.subtitles.auto": "{language} (automatisk)",
+  "player.subtitles.auto": "Autogenereret",
   "player.queue": "Kø",
   "player.queue.clear": "Ryd kø",
   "player.error": "Kunne ikke afspille. Prøv igen.",

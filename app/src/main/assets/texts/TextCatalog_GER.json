@@ -155,7 +155,7 @@
   "player.quality.auto": "Automatisch",
   "player.subtitles": "Untertitel",
   "player.subtitles.off": "Aus",
-  "player.subtitles.auto": "{language} (automatisch)",
+  "player.subtitles.auto": "Automatisch erstellt",
   "player.queue": "Warteschlange",
   "player.queue.clear": "Warteschlange leeren",
   "player.error": "Wiedergabe nicht möglich. Erneut versuchen.",

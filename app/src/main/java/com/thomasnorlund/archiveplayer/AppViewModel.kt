@@ -182,6 +182,7 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
     var chosenSubtitle by mutableStateOf<Int?>(null); private set
     private val queueInfo = java.util.concurrent.ConcurrentHashMap<String, Pair<ArchiveItem, Entry>>()
     private val playingFormat = java.util.concurrent.ConcurrentHashMap<String, MediaFormat>()
+    private val triedFormats = java.util.concurrent.ConcurrentHashMap<String, MutableSet<MediaFormat>>()
     private val qualityChoice = androidx.compose.runtime.mutableStateMapOf<String, String>()
 
     data class QualityOption(val key: String, val label: String, val auto: Boolean)
@@ -196,6 +197,7 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
     private fun mediaItem(item: ArchiveItem, e: Entry, format: MediaFormat? = null): MediaItem? {
         val f = format ?: FormatSelector.select(e, conditions()) ?: return null
         val ref = e.ref()
+        if (format == null) triedFormats.remove("${item.identifier}/${ref.fileName}")
         val subtitles = e.subtitles.map { st ->
             MediaItem.SubtitleConfiguration.Builder(android.net.Uri.parse(repo.downloadUrl(item.identifier, st.fileName)))
                 .setMimeType(if (st.type == SubtitleType.VTT) MimeTypes.TEXT_VTT else MimeTypes.APPLICATION_SUBRIP)
@@ -241,6 +243,7 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
     fun setSleep(option: String) {
         sleepOption = option
         sleepEndsAt = option.toIntOrNull()?.let { System.currentTimeMillis() + it * 60_000L }
+        player.setPauseAtEnd(option == "end")
     }
 
     private fun current(): Pair<ArchiveItem, Entry>? = player.currentId?.let { queueInfo[it] }
@@ -284,20 +287,32 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
         val id = player.currentId ?: return false
         val (item, e) = queueInfo[id] ?: return false
         val failed = playingFormat[id] ?: return false
-        val next = FormatSelector.fallback(e, failed, conditions()) ?: return false
+        val tried = triedFormats.getOrPut(id) { mutableSetOf() }.apply { add(failed) }
+        var next = FormatSelector.fallback(e, failed, conditions())
+        while (next != null && next in tried) next = FormatSelector.fallback(e, next, conditions())
+        if (next == null) return false
         mediaItem(item, e, next)?.let { player.replaceCurrent(it, player.positionMs) } ?: return false
         return true
     }
 
     init {
-        player.onItemEnded = { p -> if (sleepOption == "end") { p.pause(); sleepOption = "off" } }
         player.onError = { _, _ -> fallback() }
+        player.onStarted = { id -> queueInfo[id]?.let { (item, e) -> recordHistory(item, e) } }
         viewModelScope.launch {
             while (true) {
                 delay(1_000)
                 val end = sleepEndsAt
                 if (end != null && System.currentTimeMillis() >= end) { player.pause(); sleepOption = "off"; sleepEndsAt = null }
+                if (sleepOption == "end" && !player.isPlaying && player.durationMs > 0 && player.positionMs >= player.durationMs - 1_500) setSleep("off")
             }
         }
+    }
+
+    private fun recordHistory(item: ArchiveItem, e: Entry) {
+        if (settings?.historyPaused == true) return
+        val ref = e.ref()
+        val event = com.thomasnorlund.archiveplayer.core.home.HistoryEvent(ref, item.identifier, item.title, item.creator, item.collections, item.subjects,
+            System.currentTimeMillis(), 0L, ((e.durationSeconds ?: 0.0) * 1000).toLong())
+        library.update { s -> s.copy(history = (listOf(event) + s.history.filterNot { it.ref == ref }).take(500)) }
     }
 }
