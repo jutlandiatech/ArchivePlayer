@@ -86,10 +86,10 @@ fun ItemScreen(vm: AppViewModel, identifier: String) {
         var newPlaylist by remember { mutableStateOf(false) }
         val context = LocalContext.current
         Row(verticalAlignment = Alignment.CenterVertically) {
-            GlyphButton(ElementIds.ITEM_BACK_BUTTON, "←", t("action.back")) { vm.back() }
+            TagGlyphButton(ElementIds.ITEM_BACK_BUTTON, "←", t("action.back")) { vm.back() }
             Spacer(Modifier.weight(1f))
             if (loaded != null) Box {
-                GlyphButton(ElementIds.ITEM_OVERFLOW_BUTTON, "⋮", t("item.more")) { overflow = true }
+                TagGlyphButton(ElementIds.ITEM_OVERFLOW_BUTTON, "⋮", t("item.more")) { overflow = true }
                 DropdownMenu(expanded = overflow, onDismissRequest = { overflow = false }) {
                     DropdownMenuItem(text = { Text(t("entry.addToPlaylist")) }, modifier = Modifier.testTag(ElementIds.itemMenu("add_to_playlist")),
                         onClick = { overflow = false; picker = true })
@@ -212,7 +212,7 @@ private fun ItemBody(vm: AppViewModel, item: ArchiveItem) {
                         if (duration.isNotEmpty()) Text(duration, style = MaterialTheme.typography.bodySmall)
                     }
                 }
-                GlyphButton(ElementIds.itemEntryMenu(i), "⋮", t("item.more")) { menuFor = i }
+                TagGlyphButton(ElementIds.itemEntryMenu(i), "⋮", t("item.more")) { menuFor = i }
             }
         }
     }
@@ -229,7 +229,7 @@ private fun ItemBody(vm: AppViewModel, item: ArchiveItem) {
             action("add_to_queue", t("entry.addToQueue")) { vm.enqueue(item, entry, next = false) }
             action("add_to_playlist", t("entry.addToPlaylist")) { pickerFor = i }
             if (entry.kind == MediaKind.AUDIO) action("download", t("entry.download")) { vm.downloadEntry(item, entry) }
-            action(if (entryLiked) "unlike" else "like", t(if (entryLiked) "entry.unlike" else "entry.like")) { vm.setEntryLiked(entry, !entryLiked) }
+            action("like", t(if (entryLiked) "entry.unlike" else "entry.like")) { vm.setEntryLiked(entry, !entryLiked) }
             action("share", t("entry.share")) { shareText(context, entry.title + "\n" + item.archiveUrl) }
             Spacer(Modifier.height(24.dp))
         }
@@ -293,7 +293,7 @@ fun CollectionScreen(vm: AppViewModel, identifier: String) {
     val shownTitle = title ?: return Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) { CircularProgressIndicator() }
     Column(Modifier.fillMaxSize().testTag(ElementIds.COLLECTION_SCREEN)) {
         Row(verticalAlignment = Alignment.CenterVertically) {
-            GlyphButton(ElementIds.COLLECTION_BACK_BUTTON, "←", t("action.back")) { vm.back() }
+            TagGlyphButton(ElementIds.COLLECTION_BACK_BUTTON, "←", t("action.back")) { vm.back() }
             Text(shownTitle, style = MaterialTheme.typography.titleLarge, maxLines = 2, overflow = TextOverflow.Ellipsis,
                 modifier = Modifier.weight(1f).tagged(ElementIds.COLLECTION_TITLE, shownTitle))
         }

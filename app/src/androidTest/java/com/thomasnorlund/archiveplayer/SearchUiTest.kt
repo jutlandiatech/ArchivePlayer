@@ -31,7 +31,10 @@ class SearchUiTest {
     @Before fun setUp() = rule.completeSetup()
 
     private fun node(tag: String) = rule.onNodeWithTag(tag)
-    private fun results(id: String) = rule.waitForTag(searchResult(id), 15_000)
+    /** Waits until result [id] is listed, scrolling the lazy results list to it. */
+    private fun results(id: String) = rule.waitUntil(15_000) {
+        rule.exists(ElementIds.SEARCH_RESULTS) && runCatching { rule.scrollIn(ElementIds.SEARCH_RESULTS, searchResult(id)) }.isSuccess
+    }
 
     @Test fun Q01_browseGridShowsCategoryTiles() {
         rule.tap(ElementIds.NAV_SEARCH)

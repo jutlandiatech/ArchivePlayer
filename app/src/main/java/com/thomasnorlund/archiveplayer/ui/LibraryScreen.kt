@@ -138,11 +138,11 @@ fun PlaylistScreen(vm: AppViewModel, playlistId: String) {
     LazyColumn(Modifier.fillMaxSize().testTag(ElementIds.PLAYLIST_SCREEN)) {
         item {
             Row(verticalAlignment = Alignment.CenterVertically) {
-                GlyphButton(ElementIds.PLAYLIST_BACK_BUTTON, "←", t("action.back")) { vm.back() }
+                TagGlyphButton(ElementIds.PLAYLIST_BACK_BUTTON, "←", t("action.back")) { vm.back() }
                 Spacer(Modifier.weight(1f))
                 TextButton(onClick = { editing = !editing }, modifier = Modifier.heightIn(min = 48.dp).testTag(ElementIds.PLAYLIST_EDIT_BUTTON)) { Text(t("playlist.edit")) }
                 Box {
-                    GlyphButton(ElementIds.PLAYLIST_OVERFLOW_BUTTON, "⋮", t("item.more")) { menu = true }
+                    TagGlyphButton(ElementIds.PLAYLIST_OVERFLOW_BUTTON, "⋮", t("item.more")) { menu = true }
                     DropdownMenu(expanded = menu, onDismissRequest = { menu = false }) {
                         val actions = if (p.isLiked) listOf("export") else listOf("rename", "description", "export", "delete")
                         actions.forEach { a ->
@@ -193,7 +193,7 @@ fun PlaylistScreen(vm: AppViewModel, playlistId: String) {
                     }.tagged(ElementIds.playlistEntryDrag(i), "≡"), contentAlignment = Alignment.Center) { Text("≡") }
                 }
                 RowLabel(ElementIds.playlistEntryRow(i), ref.label(), Modifier.weight(1f)) { vm.playRefs(p.entries, i) }
-                if (editing) GlyphButton(ElementIds.playlistEntryRemove(i), "✕", t("playlist.remove")) { vm.removeFromPlaylist(p.id, i) }
+                if (editing) TagGlyphButton(ElementIds.playlistEntryRemove(i), "✕", t("playlist.remove")) { vm.removeFromPlaylist(p.id, i) }
             }
         }
     }

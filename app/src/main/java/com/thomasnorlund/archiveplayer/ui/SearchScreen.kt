@@ -85,7 +85,7 @@ fun SelectChip(tag: String, label: String, selected: Boolean, onClick: () -> Uni
 }
 
 @Composable
-fun GlyphButton(tag: String, glyph: String, description: String, onClick: () -> Unit) {
+fun TagGlyphButton(tag: String, glyph: String, description: String, onClick: () -> Unit) {
     IconButton(onClick = onClick, modifier = Modifier.testTag(tag).semantics { contentDescription = description }) {
         Text(glyph, style = MaterialTheme.typography.titleLarge)
     }
@@ -119,7 +119,7 @@ fun SearchTab(vm: AppViewModel) {
             keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
             keyboardActions = KeyboardActions(onSearch = { s.submit() }),
             trailingIcon = if (s.query.isNotEmpty() || s.submitted != null) {
-                { GlyphButton(ElementIds.SEARCH_CLEAR_BUTTON, "✕", t("action.cancel")) { s.clear() } }
+                { TagGlyphButton(ElementIds.SEARCH_CLEAR_BUTTON, "✕", t("action.cancel")) { s.clear() } }
             } else null,
             modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 8.dp).testTag(ElementIds.SEARCH_QUERY_FIELD),
         )
@@ -158,7 +158,7 @@ private fun BrowseGrid(vm: AppViewModel) {
                         modifier = Modifier.weight(1f).clickable { s.submit(q) }.padding(horizontal = 16.dp, vertical = 12.dp)
                             .testTag(ElementIds.searchRecent(i)),
                     )
-                    GlyphButton(ElementIds.searchRecentRemove(i), "✕", t("action.delete")) { s.removeRecent(i) }
+                    TagGlyphButton(ElementIds.searchRecentRemove(i), "✕", t("action.delete")) { s.removeRecent(i) }
                 }
             }
         }
@@ -253,7 +253,7 @@ private fun SearchFilters(vm: AppViewModel) {
 private fun FilterValueChip(tag: String, label: String, value: String?, open: Boolean, onClick: () -> Unit, onRemove: () -> Unit) {
     Row(verticalAlignment = Alignment.CenterVertically) {
         SelectChip(tag, if (value == null) "$label ▾" else "$label: $value", value != null || open, onClick)
-        if (value != null) GlyphButton(ElementIds.searchFilterRemove(tag), "✕", t("action.delete"), onRemove)
+        if (value != null) TagGlyphButton(ElementIds.searchFilterRemove(tag), "✕", t("action.delete"), onRemove)
     }
 }
 
@@ -325,7 +325,7 @@ fun ErrorState(tag: String, message: String, retryTag: String, onRetry: () -> Un
 @Composable
 fun BackBar(tag: String, title: String, titleTag: String, onBack: () -> Unit, actions: @Composable () -> Unit = {}) {
     Row(Modifier.fillMaxWidth().heightIn(min = 56.dp).padding(horizontal = 4.dp), verticalAlignment = Alignment.CenterVertically) {
-        GlyphButton(tag, "←", t("action.back"), onBack)
+        TagGlyphButton(tag, "←", t("action.back"), onBack)
         Text(title, style = MaterialTheme.typography.titleLarge, maxLines = 2, overflow = TextOverflow.Ellipsis,
             modifier = Modifier.weight(1f).testTag(titleTag))
         actions()

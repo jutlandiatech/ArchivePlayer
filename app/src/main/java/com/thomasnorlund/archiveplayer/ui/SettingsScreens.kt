@@ -151,7 +151,7 @@ fun SettingsDetailScreen(vm: AppViewModel, settings: AppSettings, row: String, e
                 "search_history" -> vm.library.state.recentSearches.forEachIndexed { i, q ->
                     Row(Modifier.fillMaxWidth().heightIn(min = 48.dp), verticalAlignment = Alignment.CenterVertically) {
                         Text(q, style = MaterialTheme.typography.bodyLarge, modifier = Modifier.weight(1f).testTag("settings_search_history_$i"))
-                        GlyphButton("settings_search_history_remove_$i", "✕", t("action.delete")) { vm.search.removeRecent(i) }
+                        TagGlyphButton("settings_search_history_remove_$i", "✕", t("action.delete")) { vm.search.removeRecent(i) }
                     }
                 }
                 "history" -> SwitchRow(t("settings.history.pause"), settings.historyPaused, ElementIds.settingsSwitch("history_pause")) { update(settings.copy(historyPaused = it)) }
