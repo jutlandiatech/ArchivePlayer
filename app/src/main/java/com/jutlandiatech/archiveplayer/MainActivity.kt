@@ -1,0 +1,91 @@
+package com.jutlandiatech.archiveplayer
+
+import com.jutlandiatech.archiveplayer.ui.CollectionScreen
+import com.jutlandiatech.archiveplayer.ui.ItemScreen
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
+import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
+import com.jutlandiatech.archiveplayer.core.settings.ThemeResolver
+import com.jutlandiatech.archiveplayer.ui.AppShell
+import com.jutlandiatech.archiveplayer.ui.ElementIds
+import com.jutlandiatech.archiveplayer.ui.LocalTexts
+import com.jutlandiatech.archiveplayer.ui.SettingsDetailScreen
+import com.jutlandiatech.archiveplayer.ui.SettingsScreen
+import com.jutlandiatech.archiveplayer.ui.SearchTab
+import com.jutlandiatech.archiveplayer.ui.LibraryTab
+import com.jutlandiatech.archiveplayer.ui.PlaylistScreen
+import com.jutlandiatech.archiveplayer.ui.ImportScreen
+import com.jutlandiatech.archiveplayer.ui.CategoryScreen
+import com.jutlandiatech.archiveplayer.ui.SetupScreen
+import com.jutlandiatech.archiveplayer.ui.HomeTab
+import com.jutlandiatech.archiveplayer.ui.theme.ArchivePlayerTheme
+
+class MainActivity : ComponentActivity() {
+    private val vm: AppViewModel by viewModels()
+
+    /** Video keeps playing in picture-in-picture when the user leaves the app (UI_PLAYER_SPEC.md P16). */
+    override fun onNewIntent(intent: android.content.Intent) {
+        super.onNewIntent(intent)
+        vm.handleIntent(this, intent)
+    }
+
+    override fun onUserLeaveHint() {
+        super.onUserLeaveHint()
+        if (vm.player.isVideo && vm.player.hasQueue && vm.player.isPlaying) {
+            runCatching {
+                enterPictureInPictureMode(
+                    android.app.PictureInPictureParams.Builder().setAspectRatio(android.util.Rational(16, 9)).build()
+                )
+            }
+        }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        if (savedInstanceState == null) vm.handleIntent(this, intent)
+        enableEdgeToEdge()
+        setContent {
+            val settings = vm.settings
+            val systemDark = isSystemInDarkTheme()
+            if (settings == null) {
+                ArchivePlayerTheme(darkTheme = false) { SetupScreen(vm) }
+            } else {
+                ArchivePlayerTheme(darkTheme = ThemeResolver.isDark(settings.theme, systemDark)) {
+                    CompositionLocalProvider(LocalTexts provides vm.texts.forLanguage(settings.appLanguage)) {
+                        AppShell(
+                            vm, settings, systemDark,
+                            tabContent = { tab ->
+                                val tag = when (tab) {
+                                    Tab.HOME -> ElementIds.HOME_SCREEN
+                                    Tab.SEARCH -> ElementIds.SEARCH_SCREEN
+                                    Tab.LIBRARY -> ElementIds.LIBRARY_SCREEN
+                                }
+                                when (tab) { Tab.HOME -> HomeTab(vm); Tab.SEARCH -> SearchTab(vm); Tab.LIBRARY -> LibraryTab(vm) }
+                            },
+                            screenContent = { screen ->
+                                when (screen) {
+                                    Screen.Settings -> SettingsScreen(vm, settings)
+                                    is Screen.SettingsDetail -> SettingsDetailScreen(vm, settings, screen.row)
+                                    is Screen.Category -> CategoryScreen(vm, screen.categoryId)
+                                    is Screen.Item -> ItemScreen(vm, screen.identifier)
+                                    is Screen.Collection -> CollectionScreen(vm, screen.identifier)
+                                    is Screen.Playlist -> PlaylistScreen(vm, screen.playlistId)
+                                    Screen.Import -> ImportScreen(vm)
+    else -> Box(Modifier.fillMaxSize())
+                                }
+                            },
+                        )
+                    }
+                }
+            }
+        }
+    }
+}

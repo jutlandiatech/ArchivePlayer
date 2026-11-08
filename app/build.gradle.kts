@@ -4,12 +4,12 @@ plugins {
 }
 
 android {
-    namespace = "com.thomasnorlund.archiveplayer"
+    namespace = "com.jutlandiatech.archiveplayer"
     compileSdk = 37
     buildToolsVersion = "37.0.0"
 
     defaultConfig {
-        applicationId = "com.thomasnorlund.archiveplayer"
+        applicationId = "com.jutlandiatech.archiveplayer"
         minSdk = 26
         targetSdk = 37
         versionCode = 1

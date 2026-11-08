@@ -48,10 +48,10 @@ VS Code users can open [ArchivePlayer.code-workspace](ArchivePlayer.code-workspa
 
 ## Code map
 
-- `core/src/main/kotlin/com/thomasnorlund/archiveplayer/core` — pure Kotlin/JVM domain logic (no Android dependency): catalog model, query building, format selection, language normalization, filtering, playlist codec, recommendations, settings and download policies.
+- `core/src/main/kotlin/com/jutlandiatech/archiveplayer/core` — pure Kotlin/JVM domain logic (no Android dependency): catalog model, query building, format selection, language normalization, filtering, playlist codec, recommendations, settings and download policies.
 - `core/src/test/kotlin/...` — specification-linked JUnit tests, named after requirement/acceptance IDs.
-- `app/src/main/java/com/thomasnorlund/archiveplayer/ui` — Compose screens, theme and stable element IDs.
-- `app/src/main/java/com/thomasnorlund/archiveplayer/playback` — Media3 player, session and (in `full`) Cast integration.
+- `app/src/main/java/com/jutlandiatech/archiveplayer/ui` — Compose screens, theme and stable element IDs.
+- `app/src/main/java/com/jutlandiatech/archiveplayer/playback` — Media3 player, session and (in `full`) Cast integration.
 - Planned in the implementation gate: `setup/`, `data/` (archive.org client, Room, DataStore), `platform/` (downloads, storage volumes, backup), `app/src/main/assets/texts` (TextCatalog JSON), `app/src/full` / `app/src/foss` flavour source sets, `app/src/androidTest` (Compose/UI Automator checks by element ID).
 - `design` — approved design references and logo masters.
 - `docs` — architecture and TDD evidence.
