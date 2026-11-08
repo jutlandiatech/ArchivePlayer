@@ -47,6 +47,8 @@ android {
 
 dependencies {
     implementation(project(":core"))
+    implementation(libs.kotlinx.serialization.json)
+    implementation(libs.androidx.media3.session)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
