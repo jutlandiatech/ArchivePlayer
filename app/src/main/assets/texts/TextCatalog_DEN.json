@@ -181,6 +181,7 @@
   "library.empty.history": "Ingen historik endnu",
   "library.unfollow": "Følg ikke længere",
   "library.downloads.removeAll": "Slet alle downloads",
+  "library.downloads.removeAll.confirm": "Fjern alle downloads?",
   "library.downloads.waitingWifi": "Venter på Wi-Fi",
   "library.downloads.useMobile": "Download nu via mobildata",
   "library.downloads.skippedVideo": "{count} videoer downloades ikke",

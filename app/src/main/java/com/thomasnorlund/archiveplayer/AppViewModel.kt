@@ -109,9 +109,49 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     // Playback/downloads are wired by the playback slice; these entry points are the UI contract.
-    fun downloadItem(item: com.thomasnorlund.archiveplayer.core.catalog.ArchiveItem) = Unit
-    fun downloadEntry(item: com.thomasnorlund.archiveplayer.core.catalog.ArchiveItem, entry: com.thomasnorlund.archiveplayer.core.catalog.Entry) = Unit
-    fun downloadLabelKey(item: com.thomasnorlund.archiveplayer.core.catalog.ArchiveItem): String = "item.download"
+    val downloads = com.thomasnorlund.archiveplayer.data.Downloads(application) { settings?.wifiOnly != false }
+    var playlistVideoNotice by mutableStateOf(0)
+
+    private fun downloadLocation(): com.thomasnorlund.archiveplayer.core.settings.DownloadLocation {
+        val selected = settings?.downloadLocation ?: com.thomasnorlund.archiveplayer.core.settings.DownloadLocation.INTERNAL
+        return if (selected == com.thomasnorlund.archiveplayer.core.settings.DownloadLocation.SD_CARD && !downloads.sdCardMounted())
+            com.thomasnorlund.archiveplayer.core.settings.DownloadLocation.INTERNAL else selected
+    }
+
+    private fun downloadRecord(item: ArchiveItem, e: Entry): com.thomasnorlund.archiveplayer.data.DownloadRecord? {
+        if (e.kind != MediaKind.AUDIO) return null
+        val f = FormatSelector.select(e, PlaybackConditions(metered = false, dataSaver = false, forCast = false)) ?: return null
+        return com.thomasnorlund.archiveplayer.data.DownloadRecord(item.identifier, e.ref().fileName, f.fileName, e.title, item.title,
+            repo.downloadUrl(item.identifier, f.fileName), downloadLocation())
+    }
+
+    private fun audioEntries(item: ArchiveItem) = item.entries.filter { it.kind == MediaKind.AUDIO && FormatSelector.select(it, conditions()) != null }
+
+    fun isItemDownloaded(item: ArchiveItem): Boolean {
+        val done = downloads.records.filter { it.identifier == item.identifier && it.state == com.thomasnorlund.archiveplayer.data.DownloadState.DONE }.map { it.fileName }.toSet()
+        val audio = audioEntries(item)
+        return audio.isNotEmpty() && audio.all { it.ref().fileName in done }
+    }
+
+    fun isEntryDownloaded(item: ArchiveItem, e: Entry) = downloads.playableFile(item.identifier, e.ref().fileName) != null
+
+    fun downloadItem(item: ArchiveItem) = downloads.enqueue(audioEntries(item).mapNotNull { downloadRecord(item, it) })
+
+    fun downloadEntry(item: ArchiveItem, entry: Entry) {
+        if (isEntryDownloaded(item, entry)) downloads.remove { it.identifier == item.identifier && it.fileName == entry.ref().fileName }
+        else downloads.enqueue(listOfNotNull(downloadRecord(item, entry)))
+    }
+
+    fun removeDownloads(identifier: String) = downloads.remove { it.identifier == identifier }
+
+    fun downloadLabelKey(item: ArchiveItem): String {
+        val mine = downloads.records.filter { it.identifier == item.identifier }
+        return when {
+            isItemDownloaded(item) -> "item.downloaded"
+            mine.any { it.state != com.thomasnorlund.archiveplayer.data.DownloadState.DONE && it.state != com.thomasnorlund.archiveplayer.data.DownloadState.FAILED } -> "item.downloading"
+            else -> "item.download"
+        }
+    }
 
     fun setLiked(item: com.thomasnorlund.archiveplayer.core.catalog.ArchiveItem, entries: List<com.thomasnorlund.archiveplayer.core.catalog.Entry>, on: Boolean) =
         library.update { s ->
@@ -172,7 +212,16 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
 
     fun clearHistory() = library.update { it.copy(history = emptyList()) }
 
-    fun downloadPlaylist(playlist: com.thomasnorlund.archiveplayer.core.playlist.Playlist) = Unit
+    fun downloadPlaylist(playlist: com.thomasnorlund.archiveplayer.core.playlist.Playlist) {
+        viewModelScope.launch {
+            val resolved = playlist.entries.mapNotNull { ref ->
+                val item = runCatching { repo.metadata(ref.identifier) }.getOrNull() ?: return@mapNotNull null
+                item.entries.firstOrNull { e -> e.formats.any { it.fileName == ref.fileName } }?.let { item to it }
+            }
+            playlistVideoNotice = resolved.count { it.second.kind == MediaKind.VIDEO }
+            downloads.enqueue(resolved.mapNotNull { (item, e) -> downloadRecord(item, e) })
+        }
+    }
     fun sharePlaylist(context: android.content.Context, playlist: com.thomasnorlund.archiveplayer.core.playlist.Playlist) = Unit
 
     val player = com.thomasnorlund.archiveplayer.playback.PlayerConnection(application)
@@ -205,7 +254,8 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
                 .build()
         }
         val entry = QueueEntry(item.identifier, ref.fileName, e.title, item.title, item.creator,
-            repo.downloadUrl(item.identifier, f.fileName), repo.thumbnailUrl(item.identifier), e.kind == MediaKind.VIDEO, subtitles)
+            downloads.playableFile(item.identifier, ref.fileName)?.takeIf { format == null }?.let { android.net.Uri.fromFile(it).toString() }
+                ?: repo.downloadUrl(item.identifier, f.fileName), repo.thumbnailUrl(item.identifier), e.kind == MediaKind.VIDEO, subtitles)
         val id = "${item.identifier}/${ref.fileName}"
         queueInfo[id] = item to e
         playingFormat[id] = f
@@ -297,10 +347,21 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
 
     init {
         player.onError = { _, _ -> fallback() }
-        player.onStarted = { id -> queueInfo[id]?.let { (item, e) -> recordHistory(item, e) } }
+        player.onStarted = { id ->
+            previousStartedId = currentStartedId
+            currentStartedId = id
+            queueInfo[id]?.let { (item, e) -> recordHistory(item, e) }
+        }
+        player.onItemEnded = { p -> markFinished(if (p.playbackState == androidx.media3.common.Player.STATE_ENDED) currentStartedId else previousStartedId) }
         viewModelScope.launch {
+            var tick = 0
+            var wasPlaying = false
             while (true) {
                 delay(1_000)
+                tick++
+                val playing = player.isPlaying
+                if (player.hasQueue && ((wasPlaying && !playing) || (playing && tick % 5 == 0))) savePosition()
+                wasPlaying = playing
                 val end = sleepEndsAt
                 if (end != null && System.currentTimeMillis() >= end) { player.pause(); sleepOption = "off"; sleepEndsAt = null }
                 if (sleepOption == "end" && !player.isPlaying && player.durationMs > 0 && player.positionMs >= player.durationMs - 1_500) setSleep("off")
@@ -314,5 +375,87 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
         val event = com.thomasnorlund.archiveplayer.core.home.HistoryEvent(ref, item.identifier, item.title, item.creator, item.collections, item.subjects,
             System.currentTimeMillis(), 0L, ((e.durationSeconds ?: 0.0) * 1000).toLong())
         library.update { s -> s.copy(history = (listOf(event) + s.history.filterNot { it.ref == ref }).take(500)) }
+    }
+
+    private var currentStartedId: String? = null
+    private var previousStartedId: String? = null
+
+    private fun updateHistory(id: String?, change: (com.thomasnorlund.archiveplayer.core.home.HistoryEvent) -> com.thomasnorlund.archiveplayer.core.home.HistoryEvent) {
+        if (settings?.historyPaused == true) return
+        val (_, e) = id?.let { queueInfo[it] } ?: return
+        val ref = e.ref()
+        library.update { s -> s.copy(history = s.history.map { if (it.ref == ref) change(it) else it }) }
+    }
+
+    private fun savePosition() {
+        val pos = player.positionMs
+        val dur = player.durationMs
+        updateHistory(player.currentId) { it.copy(positionMs = pos, durationMs = if (dur > 0) dur else it.durationMs) }
+    }
+
+    private fun markFinished(id: String?) = updateHistory(id) { it.copy(positionMs = it.durationMs) }
+
+    /** Continue card: queues the item and starts the entry at its stored position (A17). */
+    fun resume(event: com.thomasnorlund.archiveplayer.core.home.HistoryEvent) {
+        viewModelScope.launch {
+            val item = runCatching { repo.metadata(event.itemIdentifier) }.getOrNull() ?: return@launch
+            val pairs = item.entries.mapNotNull { e -> mediaItem(item, e)?.let { e to it } }
+            val start = pairs.indexOfFirst { it.first.ref() == event.ref }.coerceAtLeast(0)
+            if (pairs.isNotEmpty()) player.setQueue(pairs.map { it.second }, start, event.positionMs)
+        }
+    }
+
+    val homeListState = androidx.compose.foundation.lazy.LazyListState()
+    val homeRowHits = androidx.compose.runtime.mutableStateMapOf<String, List<com.thomasnorlund.archiveplayer.core.catalog.SearchHit>>()
+    val homeRowStatus = androidx.compose.runtime.mutableStateMapOf<String, String>()
+    var newInFollowed by mutableStateOf<List<com.thomasnorlund.archiveplayer.core.catalog.SearchHit>>(emptyList()); private set
+    var homeRefreshing by mutableStateOf(false); private set
+    private var homeLoaded = false
+
+    fun loadHome(force: Boolean = false) {
+        if (homeLoaded && !force) return
+        homeLoaded = true
+        repo.categoryMap.roots.forEach { loadHomeRow(it.id) }
+        if (force) refreshFollowed(manual = true)
+    }
+
+    fun loadHomeRow(categoryId: String) {
+        val c = repo.categoryMap.find(categoryId) ?: return
+        val row = "category_$categoryId"
+        homeRowStatus[row] = "loading"
+        viewModelScope.launch {
+            val slow = launch { delay(15_000); if (homeRowStatus[row] == "loading") homeRowStatus[row] = "slow" }
+            val kind = when (c.kind) {
+                MediaKind.AUDIO -> com.thomasnorlund.archiveplayer.core.search.KindFilter.AUDIO
+                MediaKind.VIDEO -> com.thomasnorlund.archiveplayer.core.search.KindFilter.VIDEO
+                null -> com.thomasnorlund.archiveplayer.core.search.KindFilter.ALL
+            }
+            val request = com.thomasnorlund.archiveplayer.core.search.SearchRequest("", kind = kind, category = c.query,
+                sort = com.thomasnorlund.archiveplayer.core.search.SortOrder.POPULARITY, rows = 30)
+            val result = runCatching { repo.search(request, settings?.showAdultContent == true).hits }
+            slow.cancel()
+            result.onSuccess { homeRowHits[row] = it; homeRowStatus[row] = "ok" }
+                .onFailure { homeRowStatus[row] = "error" }
+        }
+    }
+
+    /** New items in followed collections, at most once per throttle window unless pulled to refresh (H06). */
+    fun refreshFollowed(manual: Boolean) {
+        val s = library.state
+        if (s.follows.isEmpty()) return
+        val now = System.currentTimeMillis()
+        if (!com.thomasnorlund.archiveplayer.core.home.FollowRefreshPolicy.shouldRefresh(s.followCheckMs, now, manual)) return
+        if (manual) homeRefreshing = true
+        viewModelScope.launch {
+            val hits = s.follows.flatMap { id ->
+                val request = com.thomasnorlund.archiveplayer.core.search.SearchRequest("",
+                    category = com.thomasnorlund.archiveplayer.core.category.CategoryQuery(listOf(id), emptyList(), null),
+                    sort = com.thomasnorlund.archiveplayer.core.search.SortOrder.NEWEST, rows = 20)
+                runCatching { repo.search(request, settings?.showAdultContent == true).hits }.getOrDefault(emptyList())
+            }
+            newInFollowed = hits.distinctBy { it.identifier }
+            library.update { it.copy(followCheckMs = now) }
+            homeRefreshing = false
+        }
     }
 }

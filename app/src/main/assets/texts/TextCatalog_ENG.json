@@ -181,6 +181,7 @@
   "library.empty.history": "No history yet",
   "library.unfollow": "Unfollow",
   "library.downloads.removeAll": "Delete all downloads",
+  "library.downloads.removeAll.confirm": "Remove all downloads?",
   "library.downloads.waitingWifi": "Waiting for Wi-Fi",
   "library.downloads.useMobile": "Download now on mobile data",
   "library.downloads.skippedVideo": "{count} videos are not downloaded",

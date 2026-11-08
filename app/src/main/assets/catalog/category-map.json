@@ -315,7 +315,16 @@
             ]
           }
         }
-      ]
+      ],
+      "query": {
+        "collections": [
+          "feature_films",
+          "moviesandfilms",
+          "classic_tv",
+          "animationandcartoons"
+        ],
+        "subjects": []
+      }
     },
     {
       "id": "audio",
@@ -606,7 +615,17 @@
             "subjects": []
           }
         }
-      ]
+      ],
+      "query": {
+        "collections": [
+          "oldtimeradio",
+          "audio_music",
+          "netlabels",
+          "podcasts",
+          "librivoxaudio"
+        ],
+        "subjects": []
+      }
     }
   ]
 }

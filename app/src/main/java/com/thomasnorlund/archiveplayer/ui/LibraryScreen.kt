@@ -52,6 +52,7 @@ fun LibraryTab(vm: AppViewModel) {
     val filter = vm.libraryFilter
     var newPlaylist by remember { mutableStateOf(false) }
     var confirmClear by remember { mutableStateOf(false) }
+    var confirmRemoveAll by remember { mutableStateOf(false) }
     Column(Modifier.fillMaxSize().testTag(ElementIds.LIBRARY_SCREEN)) {
         Row(Modifier.horizontalScroll(rememberScrollState()).padding(horizontal = 16.dp, vertical = 4.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             ElementIds.LIBRARY_FILTERS.forEach { f -> SelectChip(ElementIds.libraryFilter(f), t("library.filter.$f"), filter == f) { vm.libraryFilter = f } }
@@ -86,7 +87,44 @@ fun LibraryTab(vm: AppViewModel) {
                             .testTag(ElementIds.libraryUnfollow(id))) { Text(t("library.unfollow")) }
                     }
                 }
-                "downloads" -> empty(filter)
+                "downloads" -> {
+                    val records = vm.downloads.records
+                    val location = vm.settings?.downloadLocation ?: com.thomasnorlund.archiveplayer.core.settings.DownloadLocation.INTERNAL
+                    val free = vm.downloads.freeBytes(location)
+                    item {
+                        Column(Modifier.padding(16.dp)) {
+                            val summary = t("library.storage", "used" to formatBytes(vm.downloads.usedBytes()), "free" to formatBytes(free))
+                            Text(summary, modifier = Modifier.tagged(ElementIds.LIBRARY_STORAGE_SUMMARY, summary))
+                            if (free < com.thomasnorlund.archiveplayer.core.download.StoragePolicy.lowSpaceThresholdBytes) {
+                                Text(t("library.storage.low"), color = MaterialTheme.colorScheme.error,
+                                    modifier = Modifier.tagged(ElementIds.LIBRARY_STORAGE_WARNING, t("library.storage.low")))
+                            }
+                        }
+                    }
+                    if (records.isEmpty()) empty(filter) else {
+                        item {
+                            TextButton(onClick = { confirmRemoveAll = true }, modifier = Modifier.padding(horizontal = 8.dp).heightIn(min = 48.dp)
+                                .testTag(ElementIds.LIBRARY_DOWNLOADS_REMOVE_ALL)) { Text(t("library.downloads.removeAll")) }
+                        }
+                        items(records.groupBy { it.identifier }.toList(), key = { it.first }) { (identifier, list) ->
+                            val waiting = list.any { it.state == com.thomasnorlund.archiveplayer.data.DownloadState.WAITING_WIFI }
+                            val size = list.sumOf { it.sizeBytes }
+                            Column(Modifier.padding(horizontal = 8.dp)) {
+                                Row(verticalAlignment = Alignment.CenterVertically) {
+                                    RowLabel(ElementIds.libraryDownload(identifier), list.first().itemTitle.ifBlank { identifier } + " · " +
+                                        t("library.entries", "count" to list.size.toString()) + (if (size > 0) " · " + formatBytes(size) else ""),
+                                        Modifier.weight(1f)) { vm.push(Screen.Item(identifier)) }
+                                    TagGlyphButton(ElementIds.libraryDownloadRemove(identifier), "✕", t("entry.removeDownload")) { vm.removeDownloads(identifier) }
+                                }
+                                if (waiting) Row(verticalAlignment = Alignment.CenterVertically) {
+                                    Text(t("library.downloads.waitingWifi"), style = MaterialTheme.typography.bodySmall, modifier = Modifier.padding(start = 8.dp).weight(1f))
+                                    TextButton(onClick = { vm.downloads.allowMobile(identifier) }, modifier = Modifier.heightIn(min = 48.dp)
+                                        .testTag(ElementIds.libraryDownloadMobileNow(identifier))) { Text(t("library.downloads.useMobile")) }
+                                }
+                            }
+                        }
+                    }
+                }
                 "history" -> {
                     if (vm.settings?.historyPaused == true) item {
                         Text(t("settings.history.pause"), modifier = Modifier.padding(16.dp).tagged(ElementIds.LIBRARY_HISTORY_PAUSED, t("settings.history.pause")))
@@ -107,6 +145,7 @@ fun LibraryTab(vm: AppViewModel) {
     }
     if (newPlaylist) NewPlaylistDialog(onDismiss = { newPlaylist = false }) { name -> vm.push(Screen.Playlist(vm.createPlaylist(name, emptyList()))) }
     if (confirmClear) ConfirmDialog(t("library.history.clear"), { confirmClear = false }) { vm.clearHistory() }
+    if (confirmRemoveAll) ConfirmDialog(t("library.downloads.removeAll.confirm"), { confirmRemoveAll = false }) { vm.downloads.removeAll() }
 }
 
 @Composable
@@ -135,6 +174,7 @@ fun PlaylistScreen(vm: AppViewModel, playlistId: String) {
     var menu by remember { mutableStateOf(false) }
     var dialog by remember { mutableStateOf<String?>(null) }
     val title = playlistTitle(p)
+    LaunchedEffect(playlistId) { vm.playlistVideoNotice = 0 }
     LazyColumn(Modifier.fillMaxSize().testTag(ElementIds.PLAYLIST_SCREEN)) {
         item {
             Row(verticalAlignment = Alignment.CenterVertically) {
@@ -175,6 +215,10 @@ fun PlaylistScreen(vm: AppViewModel, playlistId: String) {
                     OutlinedButton(onClick = { vm.downloadPlaylist(p) },
                         modifier = Modifier.heightIn(min = 48.dp).testTag(ElementIds.PLAYLIST_DOWNLOAD_BUTTON)) { Text(t("playlist.download")) }
                 }
+                if (vm.playlistVideoNotice > 0) {
+                    val notice = t("playlist.videoNotDownloaded", "count" to vm.playlistVideoNotice.toString())
+                    Text(notice, style = MaterialTheme.typography.bodySmall, modifier = Modifier.tagged(ElementIds.PLAYLIST_VIDEO_NOTICE, notice))
+                }
             }
         }
         itemsIndexed(p.entries) { i, ref ->
@@ -201,4 +245,10 @@ fun PlaylistScreen(vm: AppViewModel, playlistId: String) {
         "rename" -> TextDialog(t("playlist.rename"), p.title, { dialog = null }) { vm.renamePlaylist(p.id, it.trim()) }
         "description" -> TextDialog(t("playlist.description"), p.description.orEmpty(), { dialog = null }) { vm.describePlaylist(p.id, it) }
     }
+}
+
+fun formatBytes(bytes: Long): String = when {
+    bytes >= 1_000_000_000L -> "%.1f GB".format(bytes / 1e9)
+    bytes >= 1_000_000L -> "%.0f MB".format(bytes / 1e6)
+    else -> "%.0f kB".format(bytes / 1e3)
 }

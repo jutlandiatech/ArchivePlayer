@@ -24,6 +24,7 @@ import com.thomasnorlund.archiveplayer.ui.LibraryTab
 import com.thomasnorlund.archiveplayer.ui.PlaylistScreen
 import com.thomasnorlund.archiveplayer.ui.CategoryScreen
 import com.thomasnorlund.archiveplayer.ui.SetupScreen
+import com.thomasnorlund.archiveplayer.ui.HomeTab
 import com.thomasnorlund.archiveplayer.ui.theme.ArchivePlayerTheme
 
 class MainActivity : ComponentActivity() {
@@ -60,7 +61,7 @@ class MainActivity : ComponentActivity() {
                                     Tab.SEARCH -> ElementIds.SEARCH_SCREEN
                                     Tab.LIBRARY -> ElementIds.LIBRARY_SCREEN
                                 }
-                                when (tab) { Tab.SEARCH -> SearchTab(vm); Tab.LIBRARY -> LibraryTab(vm); else -> Box(Modifier.fillMaxSize().testTag(tag)) }
+                                when (tab) { Tab.HOME -> HomeTab(vm); Tab.SEARCH -> SearchTab(vm); Tab.LIBRARY -> LibraryTab(vm) }
                             },
                             screenContent = { screen ->
                                 when (screen) {

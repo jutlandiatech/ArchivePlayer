@@ -129,6 +129,8 @@ class HomeUiTest {
 
     @Test fun H08_failingRowShowsRetryOthersRender() {
         server.failSearch(audioTerm)
+        // Home loads its rows as soon as setup finishes, before a test can install server rules: refresh after.
+        rule.onNodeWithTag(ElementIds.HOME_LIST).performTouchInput { swipeDown() }
         rule.waitForTag(ElementIds.homeRowError(audioRow), 60_000)
         map.roots.filter { it.id != audioRoot.id }.take(1).forEach { rule.scrollIn(ElementIds.HOME_LIST, homeRow(homeCategoryRow(it.id))) }
         server.clearRules()
@@ -139,6 +141,8 @@ class HomeUiTest {
 
     @Test fun H09_A39_slowRowShowsStillLoadingRestUsable() {
         server.delaySearch(audioTerm, 25_000)
+        // Home loads its rows as soon as setup finishes, before a test can install server rules: refresh after.
+        rule.onNodeWithTag(ElementIds.HOME_LIST).performTouchInput { swipeDown() }
         rule.waitForTag(ElementIds.homeRowLoading(audioRow))
         rule.waitForTag(ElementIds.homeRowRetry(audioRow), 20_000)
         rule.tap(ElementIds.NAV_SEARCH)

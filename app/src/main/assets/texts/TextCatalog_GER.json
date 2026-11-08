@@ -181,6 +181,7 @@
   "library.empty.history": "Noch kein Verlauf",
   "library.unfollow": "Nicht mehr folgen",
   "library.downloads.removeAll": "Alle Downloads löschen",
+  "library.downloads.removeAll.confirm": "Alle Downloads entfernen?",
   "library.downloads.waitingWifi": "Warte auf WLAN",
   "library.downloads.useMobile": "Jetzt über mobile Daten laden",
   "library.downloads.skippedVideo": "{count} Videos werden nicht heruntergeladen",

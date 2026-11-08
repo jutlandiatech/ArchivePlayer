@@ -184,6 +184,7 @@ T = {
  "library.empty.history": ("No history yet", "Noch kein Verlauf", "Ingen historik endnu"),
  "library.unfollow": ("Unfollow", "Nicht mehr folgen", "Følg ikke længere"),
  "library.downloads.removeAll": ("Delete all downloads", "Alle Downloads löschen", "Slet alle downloads"),
+ "library.downloads.removeAll.confirm": ("Remove all downloads?", "Alle Downloads entfernen?", "Fjern alle downloads?"),
  "library.downloads.waitingWifi": ("Waiting for Wi-Fi", "Warte auf WLAN", "Venter på Wi-Fi"),
  "library.downloads.useMobile": ("Download now on mobile data", "Jetzt über mobile Daten laden", "Download nu via mobildata"),
  "library.downloads.skippedVideo": ("{count} videos are not downloaded", "{count} Videos werden nicht heruntergeladen", "{count} videoer downloades ikke"),

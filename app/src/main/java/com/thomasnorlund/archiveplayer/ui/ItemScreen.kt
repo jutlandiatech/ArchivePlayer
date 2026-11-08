@@ -128,6 +128,8 @@ fun ItemScreen(vm: AppViewModel, identifier: String) {
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class, androidx.compose.foundation.ExperimentalFoundationApi::class)
 @Composable
 private fun ItemBody(vm: AppViewModel, item: ArchiveItem) {
+    var confirmRemoveDownload by remember { mutableStateOf(false) }
+    if (confirmRemoveDownload) ConfirmDialog(t("item.removeDownload.confirm"), { confirmRemoveDownload = false }) { vm.removeDownloads(item.identifier) }
     val context = LocalContext.current
     val lib = vm.library.state
     val playable = remember(item) { item.playableEntries }
@@ -172,7 +174,7 @@ private fun ItemBody(vm: AppViewModel, item: ArchiveItem) {
                         modifier = Modifier.heightIn(min = 48.dp).testTag(ElementIds.ITEM_SHARE_BUTTON)) { Text(t("item.share")) }
                     if (isAudio && playable.isNotEmpty()) {
                         val label = t(vm.downloadLabelKey(item))
-                        OutlinedButton(onClick = { vm.downloadItem(item) },
+                        OutlinedButton(onClick = { if (vm.isItemDownloaded(item)) confirmRemoveDownload = true else vm.downloadItem(item) },
                             modifier = Modifier.heightIn(min = 48.dp).tagged(ElementIds.ITEM_DOWNLOAD_BUTTON, label)) { Text(label) }
                     }
                 }
@@ -228,7 +230,7 @@ private fun ItemBody(vm: AppViewModel, item: ArchiveItem) {
             action("play_next", t("entry.playNext")) { vm.enqueue(item, entry, next = true) }
             action("add_to_queue", t("entry.addToQueue")) { vm.enqueue(item, entry, next = false) }
             action("add_to_playlist", t("entry.addToPlaylist")) { pickerFor = i }
-            if (entry.kind == MediaKind.AUDIO) action("download", t("entry.download")) { vm.downloadEntry(item, entry) }
+            if (entry.kind == MediaKind.AUDIO) action("download", t(if (vm.isEntryDownloaded(item, entry)) "entry.removeDownload" else "entry.download")) { vm.downloadEntry(item, entry) }
             action("like", t(if (entryLiked) "entry.unlike" else "entry.like")) { vm.setEntryLiked(entry, !entryLiked) }
             action("share", t("entry.share")) { shareText(context, entry.title + "\n" + item.archiveUrl) }
             Spacer(Modifier.height(24.dp))

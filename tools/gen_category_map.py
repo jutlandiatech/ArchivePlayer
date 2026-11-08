@@ -13,6 +13,7 @@ def node(id, en, de, da, kind, children, **q):
     return n
 
 decades = [leaf(f"video.decades.{d}s", f"{d}s", f"{d}er", f"{d}'erne", "video", ["feature_films", "moviesandfilms"], extra=f"year:[{d} TO {d+9}]") for d in range(1940, 2000, 10)]
+video_root_query = {"collections": ["feature_films", "moviesandfilms", "classic_tv", "animationandcartoons"]}
 video = node("video", "Video", "Video", "Video", "video", [
     node("video.movies", "Movies", "Filme", "Film", "video", [
         leaf("video.movies.comedy", "Comedy", "Komödie", "Komedie", "video", ["Comedy_Films"], ["comedy"]),
@@ -27,7 +28,8 @@ video = node("video", "Video", "Video", "Video", "video", [
     node("video.decades", "Decades", "Jahrzehnte", "Årtier", "video", decades),
     leaf("video.documentaries", "Documentaries", "Dokumentarfilme", "Dokumentarer", "video", ["documentaries"], ["documentary"]),
     leaf("video.newsreels", "Newsreels & historical footage", "Wochenschauen & historische Aufnahmen", "Ugerevyer & historiske optagelser", "video", ["newsandpublicaffairs", "prelinger"], ["newsreel"]),
-])
+], **video_root_query)
+audio_root_query = {"collections": ["oldtimeradio", "audio_music", "netlabels", "podcasts", "librivoxaudio"]}
 audio = node("audio", "Audio", "Audio", "Lyd", "audio", [
     node("audio.music", "Music", "Musik", "Musik", "audio", [
         leaf("audio.music.rock", "Rock", "Rock", "Rock", "audio", [], ["rock"]),
@@ -48,7 +50,7 @@ audio = node("audio", "Audio", "Audio", "Lyd", "audio", [
     ], collections=["oldtimeradio"]),
     leaf("audio.podcasts", "Podcasts", "Podcasts", "Podcasts", "audio", ["podcasts"], ["podcast"]),
     leaf("audio.spoken", "Audiobooks & spoken word", "Hörbücher & gesprochenes Wort", "Lydbøger & oplæsning", "audio", ["audio_bookspoetry", "librivoxaudio"], []),
-])
+], **audio_root_query)
 data = {"schemaVersion": 1, "version": "2026-11-08", "categories": [video, audio]}
 out = pathlib.Path(__file__).resolve().parent.parent / "app/src/main/assets/catalog/category-map.json"
 out.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
