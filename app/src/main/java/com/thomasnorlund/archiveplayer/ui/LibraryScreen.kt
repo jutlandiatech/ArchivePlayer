@@ -1,0 +1,204 @@
+package com.thomasnorlund.archiveplayer.ui
+
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.detectVerticalDragGestures
+import androidx.compose.foundation.horizontalScroll
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.unit.dp
+import com.thomasnorlund.archiveplayer.AppViewModel
+import com.thomasnorlund.archiveplayer.Screen
+import com.thomasnorlund.archiveplayer.core.playlist.EntryRef
+import com.thomasnorlund.archiveplayer.core.playlist.Playlist
+import kotlinx.coroutines.delay
+import kotlin.math.roundToInt
+
+@Composable
+private fun RowLabel(tag: String, label: String, modifier: Modifier = Modifier, onClick: () -> Unit) {
+    Box(
+        modifier.fillMaxWidth().heightIn(min = 56.dp).clickable(onClick = onClick).tagged(tag, label).padding(horizontal = 16.dp),
+        contentAlignment = Alignment.CenterStart,
+    ) { Text(label, style = MaterialTheme.typography.bodyLarge) }
+}
+
+@Composable
+fun playlistTitle(p: Playlist) = if (p.isLiked) t("library.liked") else p.title
+
+private fun EntryRef.label() = title ?: fileName
+
+@Composable
+fun ConfirmDialog(message: String, onDismiss: () -> Unit, onConfirm: () -> Unit) {
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        text = { Text(message) },
+        confirmButton = { TextButton(onClick = { onDismiss(); onConfirm() }, modifier = Modifier.testTag(ElementIds.DIALOG_CONFIRM_BUTTON)) { Text(t("action.ok")) } },
+        dismissButton = { TextButton(onClick = onDismiss, modifier = Modifier.testTag(ElementIds.DIALOG_CANCEL_BUTTON)) { Text(t("action.cancel")) } },
+    )
+}
+
+@Composable
+fun LibraryTab(vm: AppViewModel) {
+    val lib = vm.library.state
+    val filter = vm.libraryFilter
+    var newPlaylist by remember { mutableStateOf(false) }
+    var confirmClear by remember { mutableStateOf(false) }
+    Column(Modifier.fillMaxSize().testTag(ElementIds.LIBRARY_SCREEN)) {
+        Row(Modifier.horizontalScroll(rememberScrollState()).padding(horizontal = 16.dp, vertical = 4.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            ElementIds.LIBRARY_FILTERS.forEach { f -> SelectChip(ElementIds.libraryFilter(f), t("library.filter.$f"), filter == f) { vm.libraryFilter = f } }
+        }
+        vm.deletedPlaylist?.let { deleted ->
+            LaunchedEffect(deleted) { delay(5_000); vm.dismissUndo() }
+            TextButton(onClick = { vm.undoDelete() }, modifier = Modifier.padding(horizontal = 16.dp).heightIn(min = 48.dp)
+                .tagged(ElementIds.PLAYLIST_UNDO_DELETE, t("playlist.deleted.undo"))) { Text(t("playlist.deleted.undo")) }
+        }
+        LazyColumn(Modifier.fillMaxSize().testTag(ElementIds.LIBRARY_LIST)) {
+            @Suppress("NAME_SHADOWING")
+            fun empty(filter: String) = item { Box(Modifier.padding(24.dp)) { EmptyText("library.empty.$filter") } }
+            when (filter) {
+                "playlists" -> {
+                    item {
+                        Button(onClick = { newPlaylist = true }, modifier = Modifier.padding(16.dp).heightIn(min = 48.dp)
+                            .testTag(ElementIds.LIBRARY_NEW_PLAYLIST_BUTTON)) { Text(t("library.newPlaylist")) }
+                    }
+                    items(listOf(lib.liked) + lib.playlists.filterNot { it.isLiked }, key = { it.id }) { p ->
+                        RowLabel(ElementIds.libraryPlaylist(p.id), playlistTitle(p) + " · " + t("library.entries", "count" to p.entries.size.toString())) {
+                            vm.push(Screen.Playlist(p.id))
+                        }
+                    }
+                }
+                "liked" -> if (lib.liked.entries.isEmpty()) empty(filter) else itemsIndexed(lib.liked.entries) { i, ref ->
+                    RowLabel(ElementIds.playlistEntryRow(i), ref.label()) { vm.playRefs(lib.liked.entries, i) }
+                }
+                "following" -> if (lib.follows.isEmpty()) empty(filter) else items(lib.follows, key = { it }) { id ->
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        RowLabel(ElementIds.libraryFollowing(id), id, Modifier.weight(1f)) { vm.push(Screen.Collection(id)) }
+                        TextButton(onClick = { vm.setFollowing(id, false) }, modifier = Modifier.heightIn(min = 48.dp)
+                            .testTag(ElementIds.libraryUnfollow(id))) { Text(t("library.unfollow")) }
+                    }
+                }
+                "downloads" -> empty(filter)
+                "history" -> {
+                    if (vm.settings?.historyPaused == true) item {
+                        Text(t("settings.history.pause"), modifier = Modifier.padding(16.dp).tagged(ElementIds.LIBRARY_HISTORY_PAUSED, t("settings.history.pause")))
+                    }
+                    val events = lib.history.sortedByDescending { it.playedAtMs }
+                    if (events.isEmpty()) empty(filter) else {
+                        item {
+                            TextButton(onClick = { confirmClear = true }, modifier = Modifier.padding(horizontal = 8.dp).heightIn(min = 48.dp)
+                                .testTag(ElementIds.LIBRARY_HISTORY_CLEAR)) { Text(t("library.history.clear")) }
+                        }
+                        itemsIndexed(events) { i, e ->
+                            RowLabel(ElementIds.libraryHistory(i), e.ref.label() + " · " + e.itemTitle) { vm.push(Screen.Item(e.itemIdentifier)) }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    if (newPlaylist) NewPlaylistDialog(onDismiss = { newPlaylist = false }) { name -> vm.push(Screen.Playlist(vm.createPlaylist(name, emptyList()))) }
+    if (confirmClear) ConfirmDialog(t("library.history.clear"), { confirmClear = false }) { vm.clearHistory() }
+}
+
+@Composable
+private fun EmptyText(key: String) {
+    val text = t(key)
+    Text(text, style = MaterialTheme.typography.bodyLarge, modifier = Modifier.tagged(ElementIds.LIBRARY_EMPTY, text))
+}
+
+@Composable
+fun TextDialog(title: String, initial: String, onDismiss: () -> Unit, onSave: (String) -> Unit) {
+    var value by remember { mutableStateOf(initial) }
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = { Text(title) },
+        text = { OutlinedTextField(value, { value = it }, modifier = Modifier.fillMaxWidth().testTag(ElementIds.DIALOG_PLAYLIST_NAME_FIELD)) },
+        confirmButton = { TextButton(onClick = { onDismiss(); onSave(value) }, modifier = Modifier.testTag(ElementIds.DIALOG_CONFIRM_BUTTON)) { Text(t("action.save")) } },
+        dismissButton = { TextButton(onClick = onDismiss, modifier = Modifier.testTag(ElementIds.DIALOG_CANCEL_BUTTON)) { Text(t("action.cancel")) } },
+    )
+}
+
+@Composable
+fun PlaylistScreen(vm: AppViewModel, playlistId: String) {
+    val p = vm.library.state.playlists.firstOrNull { it.id == playlistId } ?: return
+    val context = LocalContext.current
+    var editing by remember { mutableStateOf(false) }
+    var menu by remember { mutableStateOf(false) }
+    var dialog by remember { mutableStateOf<String?>(null) }
+    val title = playlistTitle(p)
+    LazyColumn(Modifier.fillMaxSize().testTag(ElementIds.PLAYLIST_SCREEN)) {
+        item {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                GlyphButton(ElementIds.PLAYLIST_BACK_BUTTON, "←", t("action.back")) { vm.back() }
+                Spacer(Modifier.weight(1f))
+                TextButton(onClick = { editing = !editing }, modifier = Modifier.heightIn(min = 48.dp).testTag(ElementIds.PLAYLIST_EDIT_BUTTON)) { Text(t("playlist.edit")) }
+                Box {
+                    GlyphButton(ElementIds.PLAYLIST_OVERFLOW_BUTTON, "⋮", t("item.more")) { menu = true }
+                    DropdownMenu(expanded = menu, onDismissRequest = { menu = false }) {
+                        val actions = if (p.isLiked) listOf("export") else listOf("rename", "description", "export", "delete")
+                        actions.forEach { a ->
+                            DropdownMenuItem(text = { Text(t("playlist.$a")) }, modifier = Modifier.testTag(ElementIds.playlistMenu(a)), onClick = {
+                                menu = false
+                                when (a) {
+                                    "delete" -> { vm.deletePlaylist(p.id); vm.back() }
+                                    "export" -> Unit
+                                    else -> dialog = a
+                                }
+                            })
+                        }
+                    }
+                }
+            }
+        }
+        item {
+            Column(Modifier.padding(horizontal = 16.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                Text(title, style = MaterialTheme.typography.headlineSmall, modifier = Modifier.tagged(ElementIds.PLAYLIST_TITLE, title))
+                p.description?.let { Text(it, modifier = Modifier.tagged(ElementIds.PLAYLIST_DESCRIPTION, it)) }
+                val count = t("library.entries", "count" to p.entries.size.toString())
+                Text(count, style = MaterialTheme.typography.bodySmall, modifier = Modifier.tagged(ElementIds.PLAYLIST_COUNT, count))
+                Row(Modifier.horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    Button(onClick = { vm.playRefs(p.entries, 0) }, enabled = p.entries.isNotEmpty(),
+                        modifier = Modifier.heightIn(min = 48.dp).testTag(ElementIds.PLAYLIST_PLAY_BUTTON)) { Text(t("playlist.play")) }
+                    OutlinedButton(onClick = { vm.playRefs(p.entries, 0, shuffle = true) }, enabled = p.entries.isNotEmpty(),
+                        modifier = Modifier.heightIn(min = 48.dp).testTag(ElementIds.PLAYLIST_SHUFFLE_BUTTON)) { Text(t("playlist.shuffle")) }
+                    OutlinedButton(onClick = { vm.sharePlaylist(context, p) },
+                        modifier = Modifier.heightIn(min = 48.dp).testTag(ElementIds.PLAYLIST_SHARE_BUTTON)) { Text(t("playlist.share")) }
+                    OutlinedButton(onClick = { vm.downloadPlaylist(p) },
+                        modifier = Modifier.heightIn(min = 48.dp).testTag(ElementIds.PLAYLIST_DOWNLOAD_BUTTON)) { Text(t("playlist.download")) }
+                }
+            }
+        }
+        itemsIndexed(p.entries) { i, ref ->
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                if (editing) {
+                    var dy by remember { mutableFloatStateOf(0f) }
+                    Box(Modifier.size(48.dp).pointerInput(i, p.entries.size) {
+                        val row = 56.dp.toPx()
+                        detectVerticalDragGestures(
+                            onDragStart = { dy = 0f },
+                            onDragEnd = {
+                                val target = (i + (dy / row).roundToInt()).coerceIn(0, p.entries.lastIndex)
+                                if (target != i) vm.reorderPlaylist(p.id, i, target)
+                            },
+                        ) { _, delta -> dy += delta }
+                    }.tagged(ElementIds.playlistEntryDrag(i), "≡"), contentAlignment = Alignment.Center) { Text("≡") }
+                }
+                RowLabel(ElementIds.playlistEntryRow(i), ref.label(), Modifier.weight(1f)) { vm.playRefs(p.entries, i) }
+                if (editing) GlyphButton(ElementIds.playlistEntryRemove(i), "✕", t("playlist.remove")) { vm.removeFromPlaylist(p.id, i) }
+            }
+        }
+    }
+    when (dialog) {
+        "rename" -> TextDialog(t("playlist.rename"), p.title, { dialog = null }) { vm.renamePlaylist(p.id, it.trim()) }
+        "description" -> TextDialog(t("playlist.description"), p.description.orEmpty(), { dialog = null }) { vm.describePlaylist(p.id, it) }
+    }
+}

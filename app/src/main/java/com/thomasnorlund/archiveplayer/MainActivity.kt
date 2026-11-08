@@ -1,5 +1,7 @@
 package com.thomasnorlund.archiveplayer
 
+import com.thomasnorlund.archiveplayer.ui.CollectionScreen
+import com.thomasnorlund.archiveplayer.ui.ItemScreen
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -17,6 +19,10 @@ import com.thomasnorlund.archiveplayer.ui.ElementIds
 import com.thomasnorlund.archiveplayer.ui.LocalTexts
 import com.thomasnorlund.archiveplayer.ui.SettingsDetailScreen
 import com.thomasnorlund.archiveplayer.ui.SettingsScreen
+import com.thomasnorlund.archiveplayer.ui.SearchTab
+import com.thomasnorlund.archiveplayer.ui.LibraryTab
+import com.thomasnorlund.archiveplayer.ui.PlaylistScreen
+import com.thomasnorlund.archiveplayer.ui.CategoryScreen
 import com.thomasnorlund.archiveplayer.ui.SetupScreen
 import com.thomasnorlund.archiveplayer.ui.theme.ArchivePlayerTheme
 
@@ -42,13 +48,17 @@ class MainActivity : ComponentActivity() {
                                     Tab.SEARCH -> ElementIds.SEARCH_SCREEN
                                     Tab.LIBRARY -> ElementIds.LIBRARY_SCREEN
                                 }
-                                Box(Modifier.fillMaxSize().testTag(tag))
+                                when (tab) { Tab.SEARCH -> SearchTab(vm); Tab.LIBRARY -> LibraryTab(vm); else -> Box(Modifier.fillMaxSize().testTag(tag)) }
                             },
                             screenContent = { screen ->
                                 when (screen) {
                                     Screen.Settings -> SettingsScreen(vm, settings)
                                     is Screen.SettingsDetail -> SettingsDetailScreen(vm, settings, screen.row)
-                                    else -> Box(Modifier.fillMaxSize())
+                                    is Screen.Category -> CategoryScreen(vm, screen.categoryId)
+                                    is Screen.Item -> ItemScreen(vm, screen.identifier)
+                                    is Screen.Collection -> CollectionScreen(vm, screen.identifier)
+                                    is Screen.Playlist -> PlaylistScreen(vm, screen.playlistId)
+    else -> Box(Modifier.fillMaxSize())
                                 }
                             },
                         )
