@@ -228,6 +228,7 @@ fun PlaylistScreen(vm: AppViewModel, playlistId: String) {
                         modifier = Modifier.heightIn(min = 48.dp).testTag(ElementIds.PLAYLIST_SHARE_BUTTON)) { Text(t("playlist.share")) }
                     OutlinedButton(onClick = { vm.downloadPlaylist(p) },
                         modifier = Modifier.heightIn(min = 48.dp).testTag(ElementIds.PLAYLIST_DOWNLOAD_BUTTON)) { Text(t("playlist.download")) }
+                    CastButton(Modifier.align(Alignment.CenterVertically).testTag(ElementIds.PLAYLIST_CAST_BUTTON))
                 }
                 if (vm.playlistVideoNotice > 0) {
                     val notice = t("playlist.videoNotDownloaded", "count" to vm.playlistVideoNotice.toString())
