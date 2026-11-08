@@ -2,6 +2,19 @@ package com.thomasnorlund.archiveplayer
 
 import com.thomasnorlund.archiveplayer.ui.ref
 import android.app.Application
+import androidx.media3.common.C
+import androidx.media3.common.MediaItem
+import androidx.media3.common.MimeTypes
+import com.thomasnorlund.archiveplayer.core.catalog.ArchiveItem
+import com.thomasnorlund.archiveplayer.core.catalog.Entry
+import com.thomasnorlund.archiveplayer.core.catalog.MediaFormat
+import com.thomasnorlund.archiveplayer.core.catalog.MediaKind
+import com.thomasnorlund.archiveplayer.core.catalog.SubtitleType
+import com.thomasnorlund.archiveplayer.core.format.FormatSelector
+import com.thomasnorlund.archiveplayer.core.format.PlaybackConditions
+import com.thomasnorlund.archiveplayer.playback.QueueEntry
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateListOf
@@ -96,8 +109,6 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     // Playback/downloads are wired by the playback slice; these entry points are the UI contract.
-    fun playEntries(item: com.thomasnorlund.archiveplayer.core.catalog.ArchiveItem, entries: List<com.thomasnorlund.archiveplayer.core.catalog.Entry>, start: Int, shuffle: Boolean = false) = Unit
-    fun enqueue(item: com.thomasnorlund.archiveplayer.core.catalog.ArchiveItem, entry: com.thomasnorlund.archiveplayer.core.catalog.Entry, next: Boolean) = Unit
     fun downloadItem(item: com.thomasnorlund.archiveplayer.core.catalog.ArchiveItem) = Unit
     fun downloadEntry(item: com.thomasnorlund.archiveplayer.core.catalog.ArchiveItem, entry: com.thomasnorlund.archiveplayer.core.catalog.Entry) = Unit
     fun downloadLabelKey(item: com.thomasnorlund.archiveplayer.core.catalog.ArchiveItem): String = "item.download"
@@ -161,7 +172,132 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
 
     fun clearHistory() = library.update { it.copy(history = emptyList()) }
 
-    fun playRefs(refs: List<com.thomasnorlund.archiveplayer.core.playlist.EntryRef>, start: Int, shuffle: Boolean = false) = Unit
     fun downloadPlaylist(playlist: com.thomasnorlund.archiveplayer.core.playlist.Playlist) = Unit
     fun sharePlaylist(context: android.content.Context, playlist: com.thomasnorlund.archiveplayer.core.playlist.Playlist) = Unit
+
+    val player = com.thomasnorlund.archiveplayer.playback.PlayerConnection(application)
+    var playerOpen by mutableStateOf(false)
+    var sleepOption by mutableStateOf("off"); private set
+    var sleepEndsAt by mutableStateOf<Long?>(null); private set
+    var chosenSubtitle by mutableStateOf<Int?>(null); private set
+    private val queueInfo = java.util.concurrent.ConcurrentHashMap<String, Pair<ArchiveItem, Entry>>()
+    private val playingFormat = java.util.concurrent.ConcurrentHashMap<String, MediaFormat>()
+    private val qualityChoice = androidx.compose.runtime.mutableStateMapOf<String, String>()
+
+    data class QualityOption(val key: String, val label: String, val auto: Boolean)
+
+    private fun metered(): Boolean = AppEnvironment.networkOverride?.let { it == NetworkKind.METERED }
+        ?: (getApplication<Application>().getSystemService(android.net.ConnectivityManager::class.java)?.isActiveNetworkMetered == true)
+
+    private fun conditions() = PlaybackConditions(metered = metered(), dataSaver = settings?.dataSaver == true, forCast = false)
+
+    private fun formatKey(f: MediaFormat) = f.format.trim().lowercase().replace(Regex("[^a-z0-9]+"), "_").trim('_')
+
+    private fun mediaItem(item: ArchiveItem, e: Entry, format: MediaFormat? = null): MediaItem? {
+        val f = format ?: FormatSelector.select(e, conditions()) ?: return null
+        val ref = e.ref()
+        val subtitles = e.subtitles.map { st ->
+            MediaItem.SubtitleConfiguration.Builder(android.net.Uri.parse(repo.downloadUrl(item.identifier, st.fileName)))
+                .setMimeType(if (st.type == SubtitleType.VTT) MimeTypes.TEXT_VTT else MimeTypes.APPLICATION_SUBRIP)
+                .setLanguage(st.language)
+                .build()
+        }
+        val entry = QueueEntry(item.identifier, ref.fileName, e.title, item.title, item.creator,
+            repo.downloadUrl(item.identifier, f.fileName), repo.thumbnailUrl(item.identifier), e.kind == MediaKind.VIDEO, subtitles)
+        val id = "${item.identifier}/${ref.fileName}"
+        queueInfo[id] = item to e
+        playingFormat[id] = f
+        return entry.toMediaItem()
+    }
+
+    private fun random() = AppEnvironment.shuffleSeed?.let { kotlin.random.Random(it) } ?: kotlin.random.Random.Default
+
+    private fun startQueue(pairs: List<Pair<Entry, MediaItem>>, startEntry: Entry?, shuffle: Boolean) {
+        if (pairs.isEmpty()) return
+        val list = if (shuffle) pairs.shuffled(random()) else pairs
+        val start = if (shuffle) 0 else list.indexOfFirst { it.first == startEntry }.coerceAtLeast(0)
+        player.setQueue(list.map { it.second }, start)
+    }
+
+    fun playEntries(item: ArchiveItem, entries: List<Entry>, start: Int, shuffle: Boolean = false) =
+        startQueue(entries.mapNotNull { e -> mediaItem(item, e)?.let { e to it } }, entries.getOrNull(start), shuffle)
+
+    fun enqueue(item: ArchiveItem, entry: Entry, next: Boolean) {
+        mediaItem(item, entry)?.let { player.add(listOf(it), next) }
+    }
+
+    fun playRefs(refs: List<com.thomasnorlund.archiveplayer.core.playlist.EntryRef>, start: Int, shuffle: Boolean = false) {
+        viewModelScope.launch {
+            val pairs = refs.mapNotNull { ref ->
+                val item = runCatching { repo.metadata(ref.identifier) }.getOrNull() ?: return@mapNotNull null
+                val e = item.entries.firstOrNull { e -> e.formats.any { it.fileName == ref.fileName } } ?: return@mapNotNull null
+                mediaItem(item, e)?.let { e to it }
+            }
+            val startRef = refs.getOrNull(start)
+            startQueue(pairs, pairs.firstOrNull { it.first.formats.any { f -> f.fileName == startRef?.fileName } }?.first, shuffle)
+        }
+    }
+
+    fun setSleep(option: String) {
+        sleepOption = option
+        sleepEndsAt = option.toIntOrNull()?.let { System.currentTimeMillis() + it * 60_000L }
+    }
+
+    private fun current(): Pair<ArchiveItem, Entry>? = player.currentId?.let { queueInfo[it] }
+
+    fun isCurrentLiked(): Boolean = player.currentId?.let { id -> library.state.liked.entries.any { "${it.identifier}/${it.fileName}" == id } } == true
+
+    fun toggleCurrentLike() { current()?.let { (_, e) -> setEntryLiked(e, !isCurrentLiked()) } }
+
+    fun currentSubtitles(): List<com.thomasnorlund.archiveplayer.core.catalog.SubtitleTrack> = current()?.second?.subtitles.orEmpty()
+
+    fun chooseSubtitle(index: Int?) {
+        chosenSubtitle = index
+        val track = index?.let { currentSubtitles().getOrNull(it) }
+        player.withPlayer { c ->
+            c.trackSelectionParameters = c.trackSelectionParameters.buildUpon()
+                .setTrackTypeDisabled(C.TRACK_TYPE_TEXT, track == null)
+                .setPreferredTextLanguage(track?.language)
+                .build()
+        }
+    }
+
+    fun qualityOptions(): List<QualityOption> {
+        val (_, e) = current() ?: return emptyList()
+        val auto = FormatSelector.select(e, conditions())
+        return FormatSelector.alternatives(e, forCast = false).map { QualityOption(formatKey(it), it.format, it == auto) }
+    }
+
+    fun chosenQuality(): String? = player.currentId?.let { qualityChoice[it] }
+
+    /** Applies to the current entry only (UI_PLAYER_SPEC.md P09). */
+    fun chooseQuality(key: String?) {
+        val id = player.currentId ?: return
+        val (item, e) = queueInfo[id] ?: return
+        if (key == null) qualityChoice.remove(id) else qualityChoice[id] = key
+        val format = key?.let { k -> e.formats.firstOrNull { formatKey(it) == k } }
+        mediaItem(item, e, format)?.let { player.replaceCurrent(it, player.positionMs) }
+    }
+
+    /** Silent fallback to the next format; false when nothing is left (P14). */
+    private fun fallback(): Boolean {
+        val id = player.currentId ?: return false
+        val (item, e) = queueInfo[id] ?: return false
+        val failed = playingFormat[id] ?: return false
+        val next = FormatSelector.fallback(e, failed, conditions()) ?: return false
+        mediaItem(item, e, next)?.let { player.replaceCurrent(it, player.positionMs) } ?: return false
+        return true
+    }
+
+    init {
+        player.onItemEnded = { p -> if (sleepOption == "end") { p.pause(); sleepOption = "off" } }
+        player.onError = { _, _ -> fallback() }
+        viewModelScope.launch {
+            while (true) {
+                delay(1_000)
+                val end = sleepEndsAt
+                if (end != null && System.currentTimeMillis() >= end) { player.pause(); sleepOption = "off"; sleepEndsAt = null }
+            }
+        }
+    }
 }

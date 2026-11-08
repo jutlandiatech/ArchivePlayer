@@ -61,6 +61,7 @@ fun AppShell(vm: AppViewModel, settings: AppSettings, systemDark: Boolean, tabCo
                     Box(Modifier.weight(1f).fillMaxWidth()) {
                         if (screen == null) tabContent(vm.tab) else screenContent(screen)
                     }
+                    MiniPlayer(vm)
                     if (!wide) {
                         NavigationBar(Modifier.testTag(ElementIds.NAV_BAR)) {
                             TAB_INFO.forEach { (info, glyph) ->
@@ -73,6 +74,7 @@ fun AppShell(vm: AppViewModel, settings: AppSettings, systemDark: Boolean, tabCo
                     }
                 }
             }
+            if (vm.playerOpen && vm.player.hasQueue) PlayerScreen(vm)
         }
     }
 }
