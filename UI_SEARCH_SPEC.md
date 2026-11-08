@@ -1,6 +1,6 @@
 # Search and browse
 
-Status: **draft for approval** (gate 2 addition), 8 November 2026. Implements SPECIFICATION.md R09, R14, R22–R29, R33, R62, R70–R71, R77. Reference: [interactive mockup](design/archiveplayer-mockup.html) → Search.
+Status: **approved** (gate 2), 8 November 2026. Implements SPECIFICATION.md R09, R14, R22–R29, R33, R62, R70–R71, R77. Reference: [interactive mockup](design/archiveplayer-mockup.html) → Search.
 
 ## Layout
 

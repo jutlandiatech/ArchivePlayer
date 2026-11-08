@@ -9,11 +9,11 @@ Companion documents:
 - [UI_SHELL_SPEC.md](UI_SHELL_SPEC.md) — navigation shell, mini-player, theme and theme toggle, flavour differences, element-ID conventions.
 - [UI_SETUP_SPEC.md](UI_SETUP_SPEC.md) — first-launch setup (language, content languages, adult-content default).
 - [UI_SETTINGS_SPEC.md](UI_SETTINGS_SPEC.md) — Settings menu, detail screens and their element IDs.
-- [UI_HOME_SPEC.md](UI_HOME_SPEC.md) — Home rows, cards and refresh (H01–H12). Draft, awaiting approval.
-- [UI_SEARCH_SPEC.md](UI_SEARCH_SPEC.md) — search, suggestions, filters, sorts, browse and category pages (Q01–Q14). Draft, awaiting approval.
-- [UI_ITEM_SPEC.md](UI_ITEM_SPEC.md) — item and collection pages, entry rows and menus (I01–I16). Draft, awaiting approval.
-- [UI_PLAYER_SPEC.md](UI_PLAYER_SPEC.md) — mini and full player, sheets, queue, PiP, errors (P01–P20). Draft, awaiting approval.
-- [UI_LIBRARY_SPEC.md](UI_LIBRARY_SPEC.md) — Library, playlists, likes, follows, downloads, history, share/import (L01–L17). Draft, awaiting approval.
+- [UI_HOME_SPEC.md](UI_HOME_SPEC.md) — Home rows, cards and refresh (H01–H12). Approved 8 November 2026.
+- [UI_SEARCH_SPEC.md](UI_SEARCH_SPEC.md) — search, suggestions, filters, sorts, browse and category pages (Q01–Q14). Approved 8 November 2026.
+- [UI_ITEM_SPEC.md](UI_ITEM_SPEC.md) — item and collection pages, entry rows and menus (I01–I16). Approved 8 November 2026.
+- [UI_PLAYER_SPEC.md](UI_PLAYER_SPEC.md) — mini and full player, sheets, queue, PiP, errors (P01–P20). Approved 8 November 2026.
+- [UI_LIBRARY_SPEC.md](UI_LIBRARY_SPEC.md) — Library, playlists, likes, follows, downloads, history, share/import (L01–L17). Approved 8 November 2026.
 - [ANDROID_FEASIBILITY.md](ANDROID_FEASIBILITY.md) — archive.org, Cast and Android findings behind these requirements; [docs/ARCHITECTURE_UML.md](docs/ARCHITECTURE_UML.md) — proposed architecture.
 - [TESTING.md](TESTING.md) and [TDD_EVIDENCE.md](TDD_EVIDENCE.md) — test strategy/traceability and recorded red→green runs (filled in the test gate).
 - Design references: [design/](design/README.md) (interactive mockup, logo).

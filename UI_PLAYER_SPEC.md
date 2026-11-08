@@ -1,6 +1,6 @@
 # Player
 
-Status: **draft for approval** (gate 2 addition), 8 November 2026. Extends the mini-player and full-player shell in UI_SHELL_SPEC.md. Implements SPECIFICATION.md R34–R45, R46–R49 (UI part), R62–R67. Reference: [interactive mockup](design/archiveplayer-mockup.html) → player.
+Status: **approved** (gate 2), 8 November 2026. Extends the mini-player and full-player shell in UI_SHELL_SPEC.md. Implements SPECIFICATION.md R34–R45, R46–R49 (UI part), R62–R67. Reference: [interactive mockup](design/archiveplayer-mockup.html) → player.
 
 ## Mini-player
 

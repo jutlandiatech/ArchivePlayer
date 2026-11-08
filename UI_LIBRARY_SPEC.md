@@ -1,6 +1,6 @@
 # Library, playlists, sharing and downloads
 
-Status: **draft for approval** (gate 2 addition), 8 November 2026. Implements SPECIFICATION.md R44, R50–R61, R85 (UI part), R62. Reference: [interactive mockup](design/archiveplayer-mockup.html) → Library.
+Status: **approved** (gate 2), 8 November 2026. Implements SPECIFICATION.md R44, R50–R61, R85 (UI part), R62. Reference: [interactive mockup](design/archiveplayer-mockup.html) → Library.
 
 ## Library tab
 

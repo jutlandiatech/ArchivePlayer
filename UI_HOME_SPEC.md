@@ -1,6 +1,6 @@
 # Home screen
 
-Status: **draft for approval** (gate 2 addition), 8 November 2026. Implements SPECIFICATION.md R18–R21, R36, R44, R53, R62, R77. Reference: [interactive mockup](design/archiveplayer-mockup.html) → Home.
+Status: **approved** (gate 2), 8 November 2026. Implements SPECIFICATION.md R18–R21, R36, R44, R53, R62, R77. Reference: [interactive mockup](design/archiveplayer-mockup.html) → Home.
 
 ## Layout
 

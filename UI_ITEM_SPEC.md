@@ -1,6 +1,6 @@
 # Item and collection pages
 
-Status: **draft for approval** (gate 2 addition), 8 November 2026. Implements SPECIFICATION.md R09–R12, R30–R33, R40, R45, R50–R53, R59, R62, R70. Reference: [interactive mockup](design/archiveplayer-mockup.html) → item page.
+Status: **approved** (gate 2), 8 November 2026. Implements SPECIFICATION.md R09–R12, R30–R33, R40, R45, R50–R53, R59, R62, R70. Reference: [interactive mockup](design/archiveplayer-mockup.html) → item page.
 
 ## Item page layout
 
