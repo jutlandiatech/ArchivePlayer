@@ -63,7 +63,7 @@ UI tests run with the test orchestrator and `clearPackageData`, so every test st
 | Downloads and storage | `DownloadsTest` (core) | R59 (via A25), R60, R61, R85, A25, A39, A43–A45 |
 | Home | `HomeTest` (core) | R18–R21, R36, R44, A17 |
 | Shell | `ShellUiTest` (Android) | N01, N10, A38 |
-| Settings UI | `SettingsUiTest` (Android) | S01 (R50), S02, S03 (A42), S10 (R81) |
+| Settings UI | `SettingsUiTest` (Android) | S01 (R50), S02, S03 (A42), S09 (R73, R74, A29), S10 (R81) |
 | Element IDs | `ResourceIdUiAutomatorTest` (Android) | R69 |
 | Home UI | `HomeUiTest` (Android, `UI_HOME_SPEC.md`) | H01–H12: R18–R21, R44, R62, R64, A05, A17, A39 |
 | Search UI | `SearchUiTest` (Android, `UI_SEARCH_SPEC.md`) | Q01–Q14: R22–R29, R62, R64, R71, A05, A07, A10, A27, A35 |

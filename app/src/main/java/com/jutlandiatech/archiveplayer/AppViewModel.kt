@@ -267,6 +267,53 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
             .addFlags(android.content.Intent.FLAG_GRANT_READ_URI_PERMISSION))
     }
 
+    /** Result of the last library import: conflicts kept as copies, or -1 when the file could not be read (R74). */
+    var libraryImportResult by mutableStateOf<Int?>(null)
+        private set
+
+    private fun currentLibrary() = library.state.let { s ->
+        com.jutlandiatech.archiveplayer.core.playlist.Library(
+            playlists = s.playlists.filterNot { it.isLiked },
+            likes = s.liked.entries,
+            follows = s.follows,
+            history = s.history.map { com.jutlandiatech.archiveplayer.core.playlist.LibraryHistoryRecord(it.ref, it.playedAtMs, it.positionMs) },
+            settings = settings,
+        )
+    }
+
+    fun writeLibrary(context: android.content.Context, uri: android.net.Uri) {
+        val json = com.jutlandiatech.archiveplayer.core.playlist.LibraryCodec.encode(currentLibrary())
+        runCatching { context.contentResolver.openOutputStream(uri, "wt")!!.use { it.write(json.toByteArray()) } }
+    }
+
+    /** Merges without silent overwrite (R74); settings come from the file so a clean install is restored (S09). */
+    fun readLibrary(context: android.content.Context, uri: android.net.Uri) {
+        libraryImportResult = runCatching {
+            val json = context.contentResolver.openInputStream(uri)!!.use { it.readBytes().toString(Charsets.UTF_8) }
+            val imported = com.jutlandiatech.archiveplayer.core.playlist.LibraryCodec.decode(json)
+            val merged = com.jutlandiatech.archiveplayer.core.playlist.LibraryMerger.merge(currentLibrary(), imported)
+            val m = merged.library
+            library.update { s ->
+                val known = s.history.map { it.ref to it.playedAtMs }.toSet()
+                val added = m.history.filter { (it.ref to it.playedAtMs) !in known }.map {
+                    com.jutlandiatech.archiveplayer.core.home.HistoryEvent(it.ref, it.ref.identifier, it.ref.title ?: it.ref.identifier,
+                        null, emptyList(), emptyList(), it.playedAtMs, it.positionMs, 0L)
+                }
+                s.copy(
+                    playlists = listOf(s.liked.copy(entries = m.likes)) + m.playlists.filterNot { it.isLiked },
+                    follows = m.follows,
+                    history = (s.history + added).sortedByDescending { it.playedAtMs }.take(500),
+                )
+            }
+            imported.settings?.let(::updateSettings)
+            merged.conflicts.size
+        }.getOrElse { -1 }
+    }
+
+    fun writePlaylistFile(context: android.content.Context, playlist: com.jutlandiatech.archiveplayer.core.playlist.Playlist, uri: android.net.Uri) {
+        runCatching { context.contentResolver.openOutputStream(uri, "wt")!!.use { it.write(com.jutlandiatech.archiveplayer.core.playlist.PlaylistFileCodec.encode(playlist).toByteArray()) } }
+    }
+
     /** Share links (App Link) and `.archiveplaylist` files open the import preview (R55, R56). */
     @Suppress("DEPRECATION")
     fun handleIntent(context: android.content.Context, intent: android.content.Intent?) {

@@ -174,6 +174,9 @@ fun PlaylistScreen(vm: AppViewModel, playlistId: String) {
     val context = LocalContext.current
     var editing by remember { mutableStateOf(false) }
     var menu by remember { mutableStateOf(false) }
+    val fileContext = LocalContext.current
+    val exportFile = androidx.activity.compose.rememberLauncherForActivityResult(
+        androidx.activity.result.contract.ActivityResultContracts.CreateDocument("application/json")) { uri -> uri?.let { vm.writePlaylistFile(fileContext, p, it) } }
     var dialog by remember { mutableStateOf<String?>(null) }
     val title = playlistTitle(p)
     LaunchedEffect(playlistId) { vm.playlistVideoNotice = 0 }
@@ -194,6 +197,8 @@ fun PlaylistScreen(vm: AppViewModel, playlistId: String) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 TagGlyphButton(ElementIds.PLAYLIST_BACK_BUTTON, "←", t("action.back")) { vm.back() }
                 Spacer(Modifier.weight(1f))
+                // In the top bar: the action row scrolls horizontally and would push Cast off-screen.
+                CastButton(Modifier.testTag(ElementIds.PLAYLIST_CAST_BUTTON))
                 TextButton(onClick = { editing = !editing }, modifier = Modifier.heightIn(min = 48.dp).testTag(ElementIds.PLAYLIST_EDIT_BUTTON)) { Text(t("playlist.edit")) }
                 Box {
                     TagGlyphButton(ElementIds.PLAYLIST_OVERFLOW_BUTTON, "⋮", t("item.more")) { menu = true }
@@ -204,7 +209,7 @@ fun PlaylistScreen(vm: AppViewModel, playlistId: String) {
                                 menu = false
                                 when (a) {
                                     "delete" -> { vm.deletePlaylist(p.id); vm.back() }
-                                    "export" -> Unit
+                                    "export" -> exportFile.launch(p.title.replace(Regex("[^\\p{L}\\p{N} _-]"), "_").trim().ifBlank { "liked" } + ".archiveplaylist")
                                     else -> dialog = a
                                 }
                             })
@@ -228,7 +233,6 @@ fun PlaylistScreen(vm: AppViewModel, playlistId: String) {
                         modifier = Modifier.heightIn(min = 48.dp).testTag(ElementIds.PLAYLIST_SHARE_BUTTON)) { Text(t("playlist.share")) }
                     OutlinedButton(onClick = { vm.downloadPlaylist(p) },
                         modifier = Modifier.heightIn(min = 48.dp).testTag(ElementIds.PLAYLIST_DOWNLOAD_BUTTON)) { Text(t("playlist.download")) }
-                    CastButton(Modifier.align(Alignment.CenterVertically).testTag(ElementIds.PLAYLIST_CAST_BUTTON))
                 }
                 if (vm.playlistVideoNotice > 0) {
                     val notice = t("playlist.videoNotDownloaded", "count" to vm.playlistVideoNotice.toString())

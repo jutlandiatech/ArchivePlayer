@@ -61,6 +61,8 @@ object ElementIds {
     const val SETTINGS_ABOUT_FLAVOUR = "settings_about_flavour"
     const val SETTINGS_ABOUT_NOTICES = "settings_about_notices"
     const val SETTINGS_ABOUT_SOURCE = "settings_about_source"
+    const val SETTINGS_EXPORT_BUTTON = "settings_export_button"
+    const val SETTINGS_IMPORT_BUTTON = "settings_import_button"
 
 
     // UI_HOME_SPEC.md

@@ -67,6 +67,7 @@ T = {
  "settings.import": ("Import library", "Bibliothek importieren", "Importér bibliotek"),
  "settings.import.done": ("Library imported", "Bibliothek importiert", "Bibliotek importeret"),
  "settings.import.conflicts": ("{count} playlists kept as copies", "{count} Playlists als Kopie behalten", "{count} playlister beholdt som kopier"),
+ "settings.backup.note": ("Your library is also included in Android backup. Downloads are not.", "Deine Bibliothek ist auch in der Android-Sicherung enthalten, Downloads nicht.", "Dit bibliotek er også med i Android-backup, downloads er ikke."),
  "settings.about.version": ("Version {version}", "Version {version}", "Version {version}"),
  "settings.about.flavour": ("Build: {flavour}", "Variante: {flavour}", "Variant: {flavour}"),
  "settings.about.source": ("Content from the Internet Archive (archive.org)", "Inhalte aus dem Internet Archive (archive.org)", "Indhold fra Internet Archive (archive.org)"),

@@ -20,7 +20,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
-/** UI_SETTINGS_SPEC.md scenarios S01–S03, S10 by element ID. */
+/** UI_SETTINGS_SPEC.md scenarios S01–S03, S09, S10 by element ID. */
 @RunWith(AndroidJUnit4::class)
 class SettingsUiTest {
     @get:Rule val rule = createAndroidComposeRule<MainActivity>()
@@ -53,6 +53,33 @@ class SettingsUiTest {
         node(ElementIds.SETTINGS_SCREEN).assertIsDisplayed()
         pressBack()
         node(ElementIds.HOME_SCREEN).assertIsDisplayed()
+    }
+
+    @Test fun S09_A29_exportThenImportRestoresLibrary() {
+        val vm = androidx.lifecycle.ViewModelProvider(rule.activity)[AppViewModel::class.java]
+        val file = java.io.File(InstrumentationRegistry.getInstrumentation().targetContext.cacheDir, "s09-library.json")
+        val uri = android.net.Uri.fromFile(file)
+        val noir = com.jutlandiatech.archiveplayer.core.settings.ThemeMode.NOIR
+        rule.runOnUiThread {
+            vm.library.update { it.copy(
+                playlists = it.playlists + com.jutlandiatech.archiveplayer.core.playlist.Playlist("s09", "Road trip", null,
+                    listOf(com.jutlandiatech.archiveplayer.core.playlist.EntryRef("fx_film", "fx_film.mp4"))),
+                follows = listOf("fx_collection")) }
+            vm.updateSettings(vm.settings!!.copy(theme = noir))
+            vm.writeLibrary(rule.activity, uri)
+            vm.library.update { com.jutlandiatech.archiveplayer.data.LibraryState() }
+            vm.updateSettings(vm.settings!!.copy(theme = com.jutlandiatech.archiveplayer.core.settings.ThemeMode.LIGHT))
+            vm.readLibrary(rule.activity, uri)
+        }
+        rule.waitForIdle()
+        org.junit.Assert.assertEquals(0, vm.libraryImportResult)
+        org.junit.Assert.assertEquals(listOf("Road trip"), vm.library.state.playlists.filterNot { it.isLiked }.map { it.title })
+        org.junit.Assert.assertEquals(listOf("fx_collection"), vm.library.state.follows)
+        org.junit.Assert.assertEquals(noir, vm.settings!!.theme)
+        node(ElementIds.TOP_BAR_SETTINGS_BUTTON).performClick()
+        node(ElementIds.settingsRow("export_import")).performScrollTo().performClick()
+        node(ElementIds.SETTINGS_EXPORT_BUTTON).assertIsDisplayed()
+        node(ElementIds.SETTINGS_IMPORT_BUTTON).assertIsDisplayed()
     }
 
     @Test fun S03_A42_appLanguageChangeKeepsContentLanguages() {

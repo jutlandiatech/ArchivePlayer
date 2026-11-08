@@ -155,6 +155,24 @@ fun SettingsDetailScreen(vm: AppViewModel, settings: AppSettings, row: String, e
                     }
                 }
                 "history" -> SwitchRow(t("settings.history.pause"), settings.historyPaused, ElementIds.settingsSwitch("history_pause")) { update(settings.copy(historyPaused = it)) }
+                "export_import" -> {
+                    val context = androidx.compose.ui.platform.LocalContext.current
+                    val exportLauncher = androidx.activity.compose.rememberLauncherForActivityResult(
+                        androidx.activity.result.contract.ActivityResultContracts.CreateDocument("application/json")) { uri -> uri?.let { vm.writeLibrary(context, it) } }
+                    val importLauncher = androidx.activity.compose.rememberLauncherForActivityResult(
+                        androidx.activity.result.contract.ActivityResultContracts.OpenDocument()) { uri -> uri?.let { vm.readLibrary(context, it) } }
+                    androidx.compose.material3.Button(onClick = { exportLauncher.launch("archiveplayer-library.json") },
+                        modifier = Modifier.heightIn(min = 48.dp).testTag(ElementIds.SETTINGS_EXPORT_BUTTON)) { Text(t("settings.export")) }
+                    androidx.compose.material3.OutlinedButton(onClick = { importLauncher.launch(arrayOf("application/json", "application/octet-stream", "*/*")) },
+                        modifier = Modifier.heightIn(min = 48.dp).testTag(ElementIds.SETTINGS_IMPORT_BUTTON)) { Text(t("settings.import")) }
+                    when (val r = vm.libraryImportResult) {
+                        null -> Unit
+                        -1 -> Text(t("import.invalid"), color = MaterialTheme.colorScheme.error)
+                        0 -> Text(t("settings.import.done"))
+                        else -> Text(t("settings.import.done") + " · " + t("settings.import.conflicts", "count" to r.toString()))
+                    }
+                    Text(t("settings.backup.note"), style = MaterialTheme.typography.bodyMedium)
+                }
                 "about" -> {
                     Text(t("app.name"), style = MaterialTheme.typography.headlineMedium)
                     Text(t("settings.about.version", "version" to BuildConfig.VERSION_NAME), style = MaterialTheme.typography.bodyLarge)

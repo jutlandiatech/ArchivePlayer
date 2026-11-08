@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- R73: library data is backed up; downloaded media is not (caches are never backed up). -->
+<full-backup-content>
+    <exclude domain="file" path="downloads/" />
+    <exclude domain="external" path="downloads/" />
+</full-backup-content>

@@ -64,6 +64,7 @@
   "settings.import": "Bibliothek importieren",
   "settings.import.done": "Bibliothek importiert",
   "settings.import.conflicts": "{count} Playlists als Kopie behalten",
+  "settings.backup.note": "Deine Bibliothek ist auch in der Android-Sicherung enthalten, Downloads nicht.",
   "settings.about.version": "Version {version}",
   "settings.about.flavour": "Variante: {flavour}",
   "settings.about.source": "Inhalte aus dem Internet Archive (archive.org)",
