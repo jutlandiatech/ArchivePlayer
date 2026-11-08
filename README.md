@@ -57,6 +57,7 @@ VS Code users can open [ArchivePlayer.code-workspace](ArchivePlayer.code-workspa
 - `app/src/full` / `app/src/foss` — flavour source sets (Cast only in `full`).
 - `app/src/androidTest` — Compose UI tests by element ID, run against a local fixture server (no live archive.org).
 - `design` — approved design references and logo masters.
+- `site` — GitHub Pages: landing page, share page for playlist links (`site/p/`) and the published category map, deployed by `.github/workflows/pages.yml` (see [docs/APP_LINKS.md](docs/APP_LINKS.md)).
 - `docs` — architecture and TDD evidence.
 - `tools` — terminal and build helpers.
 - `dist` — tested APKs and their SHA-256 checksums.
