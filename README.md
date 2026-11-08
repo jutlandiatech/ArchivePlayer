@@ -25,7 +25,7 @@ ArchivePlayer is developed specification-first: specifications are agreed before
 - [TDD_EVIDENCE.md](TDD_EVIDENCE.md) — recorded red→green runs (evidence files in `docs/tdd/`).
 - [DEVELOPMENT_ENVIRONMENT.md](DEVELOPMENT_ENVIRONMENT.md) — observed build environment and toolchain.
 
-Current status: specification v1.0 approved (7 November 2026). Gate 2 red baseline recorded: 346 tests written before the implementation (160 core, 93 Android UI per flavour), all failing or skipped against API skeletons (see TDD_EVIDENCE.md). The app module is still a scaffold (single sample stream; Cast only in the `full` flavour). Next: gate 3, implementation.
+Current status: version 0.1.0, implementation of specification v1.0 complete. 348 tests (160 core, 94 Android UI per flavour) run on an API 36 emulator; results and the one known flaky UI test are in [TDD_EVIDENCE.md](TDD_EVIDENCE.md). APKs for both flavours are in [dist/](dist/). Chromecast, SD cards, picture-in-picture, tablets and performance still need a check on real devices ([docs/GETTING_STARTED.md](docs/GETTING_STARTED.md#8-things-only-a-real-device-can-check)).
 
 ## Design
 

@@ -2,6 +2,26 @@
 
 Actual test runs, newest first. Machine-readable details (every test, its result and the SHA-256 of every test source) are in `docs/tdd/`.
 
+## Gate 3 — green, implementation complete (8 November 2026)
+
+- Evidence: [docs/tdd/green-gate3.json](docs/tdd/green-gate3.json) (results of the runs below, base commit `97d8b1d`, SHA-256 of every test source).
+- Environment: as for gate 2 (AVD `ap36`, API 36 `google_apis` x86_64; app compiled against and targeting SDK 37).
+- Commands: `./gradlew :core:test :app:verifyFossDependencies`, then `./gradlew :app:connectedFullDebugAndroidTest`, then `./gradlew :app:connectedFossDebugAndroidTest`.
+- Added since gate 2: S09 (library export/import round trip). The `full` and `foss` suites each gained this test, so 94 UI tests per flavour.
+
+| Layer | Tests | Passed | Failed | Skipped |
+|---|---|---|---|---|
+| Core JVM (`core/src/test`) | 160 | 159 | 0 | 1 (opt-in live check) |
+| Android UI, `full` | 94 | 93 | 1 | 0 |
+| Android UI, `foss` | 94 | 94 | 0 | 0 |
+| **Total** | **348** | **346** | **1** | **1** |
+
+Known flaky test: `I14_R33_collectionPageWithFollowAndFilters` (`full`) failed once in this run with a Compose-internal error ("Detected multithreaded access to SnapshotStateObserver" while drawing), not an assertion. It passed in the earlier full runs, in the `foss` run, and in 3 of 3 reruns on its own (`-Pandroid.testInstrumentationRunnerArguments.class=com.jutlandiatech.archiveplayer.ItemUiTest#I14_R33_collectionPageWithFollowAndFilters`).
+
+`verifyFossDependencies` passes, and the `foss` APK's dex files contain no `com.google.android.gms`, `com.google.firebase`, `androidx.mediarouter` or `androidx.media3.cast` references.
+
+Not covered by automated tests (check on real devices, see docs/GETTING_STARTED.md section 8): casting to a physical Chromecast, removable SD cards, the picture-in-picture window buttons, tablet layouts on hardware, performance targets (R77), App Link verification and the GitHub Pages deployment (docs/APP_LINKS.md).
+
 ## Gate 2 — red baseline, UI screens added (8 November 2026)
 
 - Evidence: [docs/tdd/red-gate2.json](docs/tdd/red-gate2.json) (replaces the 7 November file; same tool, all test-source hashes re-recorded).
