@@ -1,0 +1,36 @@
+{
+ "metadata": {
+  "identifier": "fx_french",
+  "title": "Fixture Causerie",
+  "mediatype": "audio",
+  "creator": "Radio Fixture",
+  "date": "1954",
+  "language": "fre",
+  "collection": [
+   "fx_collection"
+  ]
+ },
+ "files": [
+  {
+   "name": "fx_french_e01.mp3",
+   "format": "VBR MP3",
+   "source": "original",
+   "size": "1000",
+   "track": "1",
+   "title": "Episode 01",
+   "length": "180"
+  },
+  {
+   "name": "fx_french.png",
+   "format": "PNG",
+   "source": "derivative",
+   "size": "1000"
+  },
+  {
+   "name": "fx_french_meta.xml",
+   "format": "Metadata",
+   "source": "original",
+   "size": "1000"
+  }
+ ]
+}

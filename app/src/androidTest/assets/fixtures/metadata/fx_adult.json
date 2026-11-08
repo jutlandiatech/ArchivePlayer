@@ -1,0 +1,51 @@
+{
+ "metadata": {
+  "identifier": "fx_adult",
+  "title": "Fixture Adult Film",
+  "mediatype": "movies",
+  "date": "1970",
+  "collection": [
+   "no-preview"
+  ],
+  "subject": [
+   "xxx"
+  ]
+ },
+ "files": [
+  {
+   "name": "fx_adult.mpeg",
+   "format": "MPEG2",
+   "source": "original",
+   "size": "1000",
+   "length": "180"
+  },
+  {
+   "name": "fx_adult.mp4",
+   "format": "h.264",
+   "source": "derivative",
+   "size": "1000",
+   "length": "180",
+   "title": "Fixture Adult Film"
+  },
+  {
+   "name": "fx_adult_512kb.mp4",
+   "format": "512Kb MPEG4",
+   "source": "derivative",
+   "size": "1000",
+   "length": "180",
+   "title": "Fixture Adult Film"
+  },
+  {
+   "name": "fx_adult.png",
+   "format": "PNG",
+   "source": "derivative",
+   "size": "1000"
+  },
+  {
+   "name": "fx_adult_meta.xml",
+   "format": "Metadata",
+   "source": "original",
+   "size": "1000"
+  }
+ ]
+}

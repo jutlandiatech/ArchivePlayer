@@ -1,0 +1,35 @@
+{
+ "metadata": {
+  "identifier": "fx_untagged",
+  "title": "Fixture Untagged Recording",
+  "mediatype": "audio",
+  "creator": "Unknown",
+  "date": "1955",
+  "collection": [
+   "fx_collection"
+  ]
+ },
+ "files": [
+  {
+   "name": "fx_untagged_e01.mp3",
+   "format": "VBR MP3",
+   "source": "original",
+   "size": "1000",
+   "track": "1",
+   "title": "Episode 01",
+   "length": "180"
+  },
+  {
+   "name": "fx_untagged.png",
+   "format": "PNG",
+   "source": "derivative",
+   "size": "1000"
+  },
+  {
+   "name": "fx_untagged_meta.xml",
+   "format": "Metadata",
+   "source": "original",
+   "size": "1000"
+  }
+ ]
+}

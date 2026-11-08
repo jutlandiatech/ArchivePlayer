@@ -1,0 +1,36 @@
+{
+ "metadata": {
+  "identifier": "fx_english",
+  "title": "Fixture English Talk",
+  "mediatype": "audio",
+  "creator": "Fixture Radio",
+  "date": "1953",
+  "language": "English",
+  "collection": [
+   "fx_collection"
+  ]
+ },
+ "files": [
+  {
+   "name": "fx_english_e01.mp3",
+   "format": "VBR MP3",
+   "source": "original",
+   "size": "1000",
+   "track": "1",
+   "title": "Episode 01",
+   "length": "180"
+  },
+  {
+   "name": "fx_english.png",
+   "format": "PNG",
+   "source": "derivative",
+   "size": "1000"
+  },
+  {
+   "name": "fx_english_meta.xml",
+   "format": "Metadata",
+   "source": "original",
+   "size": "1000"
+  }
+ ]
+}

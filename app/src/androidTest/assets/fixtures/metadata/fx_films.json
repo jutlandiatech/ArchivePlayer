@@ -1,0 +1,22 @@
+{
+ "metadata": {
+  "identifier": "fx_films",
+  "title": "Fixture Films",
+  "mediatype": "collection",
+  "description": "Fixture film collection."
+ },
+ "files": [
+  {
+   "name": "fx_films.png",
+   "format": "PNG",
+   "source": "derivative",
+   "size": "1000"
+  },
+  {
+   "name": "fx_films_meta.xml",
+   "format": "Metadata",
+   "source": "original",
+   "size": "1000"
+  }
+ ]
+}

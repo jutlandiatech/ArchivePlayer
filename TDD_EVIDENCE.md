@@ -2,6 +2,22 @@
 
 Actual test runs, newest first. Machine-readable details (every test, its result and the SHA-256 of every test source) are in `docs/tdd/`.
 
+## Gate 2 — red baseline, UI screens added (8 November 2026)
+
+- Evidence: [docs/tdd/red-gate2.json](docs/tdd/red-gate2.json) (replaces the 7 November file; same tool, all test-source hashes re-recorded).
+- Adds UI specs and tests for Home (H01–H12), Search (Q01–Q14), Item/collection (I01–I16), Player (P01–P20) and Library (L01–L17), with the `FixtureServer` / `AppEnvironment` / `PlayerProbe` test seams (see TESTING.md).
+- Environment: as below, except the emulator is `ap36` = API 36 `google_apis` x86_64 (6 GB data partition). The API 37 image crash-loops in the VM (surfaceflinger assertion `hasReadColorBufferDma`), so installs failed. The app still compiles and targets SDK 37.
+- Commands: unchanged (below).
+
+| Layer | Tests | Passed | Failed | Skipped |
+|---|---|---|---|---|
+| Core JVM (`core/src/test`) | 160 | 0 | 159 | 1 (opt-in live check) |
+| Android UI, `full` | 93 | 0 | 93 | 0 |
+| Android UI, `foss` | 93 | 0 | 93 | 0 |
+| **Total** | **346** | **0** | **345** | **1** |
+
+Why the Android tests fail (checked per test): the screens do not exist yet. 86 per flavour time out waiting for a screen's element ID (`waitForTag`), 7 per flavour (setup and UI Automator tests) fail on a missing ID directly. Core failures are unchanged from 7 November. `verifyFossDependencies` still passes.
+
 ## Gate 2 — red baseline (7 November 2026)
 
 - Evidence: [docs/tdd/red-gate2.json](docs/tdd/red-gate2.json), written by `tools/record-tdd-evidence.py`.

@@ -1,0 +1,851 @@
+{
+ "responseHeader": {
+  "status": 0
+ },
+ "response": {
+  "numFound": 120,
+  "start": 0,
+  "docs": [
+   {
+    "identifier": "fx_page_001",
+    "title": "Fixture Page Item 001",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 499
+   },
+   {
+    "identifier": "fx_page_002",
+    "title": "Fixture Page Item 002",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 498
+   },
+   {
+    "identifier": "fx_page_003",
+    "title": "Fixture Page Item 003",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 497
+   },
+   {
+    "identifier": "fx_page_004",
+    "title": "Fixture Page Item 004",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 496
+   },
+   {
+    "identifier": "fx_page_005",
+    "title": "Fixture Page Item 005",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 495
+   },
+   {
+    "identifier": "fx_page_006",
+    "title": "Fixture Page Item 006",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 494
+   },
+   {
+    "identifier": "fx_page_007",
+    "title": "Fixture Page Item 007",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 493
+   },
+   {
+    "identifier": "fx_page_008",
+    "title": "Fixture Page Item 008",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 492
+   },
+   {
+    "identifier": "fx_page_009",
+    "title": "Fixture Page Item 009",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 491
+   },
+   {
+    "identifier": "fx_page_010",
+    "title": "Fixture Page Item 010",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 490
+   },
+   {
+    "identifier": "fx_page_011",
+    "title": "Fixture Page Item 011",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 489
+   },
+   {
+    "identifier": "fx_page_012",
+    "title": "Fixture Page Item 012",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 488
+   },
+   {
+    "identifier": "fx_page_013",
+    "title": "Fixture Page Item 013",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 487
+   },
+   {
+    "identifier": "fx_page_014",
+    "title": "Fixture Page Item 014",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 486
+   },
+   {
+    "identifier": "fx_page_015",
+    "title": "Fixture Page Item 015",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 485
+   },
+   {
+    "identifier": "fx_page_016",
+    "title": "Fixture Page Item 016",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 484
+   },
+   {
+    "identifier": "fx_page_017",
+    "title": "Fixture Page Item 017",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 483
+   },
+   {
+    "identifier": "fx_page_018",
+    "title": "Fixture Page Item 018",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 482
+   },
+   {
+    "identifier": "fx_page_019",
+    "title": "Fixture Page Item 019",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 481
+   },
+   {
+    "identifier": "fx_page_020",
+    "title": "Fixture Page Item 020",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 480
+   },
+   {
+    "identifier": "fx_page_021",
+    "title": "Fixture Page Item 021",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 479
+   },
+   {
+    "identifier": "fx_page_022",
+    "title": "Fixture Page Item 022",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 478
+   },
+   {
+    "identifier": "fx_page_023",
+    "title": "Fixture Page Item 023",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 477
+   },
+   {
+    "identifier": "fx_page_024",
+    "title": "Fixture Page Item 024",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 476
+   },
+   {
+    "identifier": "fx_page_025",
+    "title": "Fixture Page Item 025",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 475
+   },
+   {
+    "identifier": "fx_page_026",
+    "title": "Fixture Page Item 026",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 474
+   },
+   {
+    "identifier": "fx_page_027",
+    "title": "Fixture Page Item 027",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 473
+   },
+   {
+    "identifier": "fx_page_028",
+    "title": "Fixture Page Item 028",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 472
+   },
+   {
+    "identifier": "fx_page_029",
+    "title": "Fixture Page Item 029",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 471
+   },
+   {
+    "identifier": "fx_page_030",
+    "title": "Fixture Page Item 030",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 470
+   },
+   {
+    "identifier": "fx_page_031",
+    "title": "Fixture Page Item 031",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 469
+   },
+   {
+    "identifier": "fx_page_032",
+    "title": "Fixture Page Item 032",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 468
+   },
+   {
+    "identifier": "fx_page_033",
+    "title": "Fixture Page Item 033",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 467
+   },
+   {
+    "identifier": "fx_page_034",
+    "title": "Fixture Page Item 034",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 466
+   },
+   {
+    "identifier": "fx_page_035",
+    "title": "Fixture Page Item 035",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 465
+   },
+   {
+    "identifier": "fx_page_036",
+    "title": "Fixture Page Item 036",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 464
+   },
+   {
+    "identifier": "fx_page_037",
+    "title": "Fixture Page Item 037",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 463
+   },
+   {
+    "identifier": "fx_page_038",
+    "title": "Fixture Page Item 038",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 462
+   },
+   {
+    "identifier": "fx_page_039",
+    "title": "Fixture Page Item 039",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 461
+   },
+   {
+    "identifier": "fx_page_040",
+    "title": "Fixture Page Item 040",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 460
+   },
+   {
+    "identifier": "fx_page_041",
+    "title": "Fixture Page Item 041",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 459
+   },
+   {
+    "identifier": "fx_page_042",
+    "title": "Fixture Page Item 042",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 458
+   },
+   {
+    "identifier": "fx_page_043",
+    "title": "Fixture Page Item 043",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 457
+   },
+   {
+    "identifier": "fx_page_044",
+    "title": "Fixture Page Item 044",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 456
+   },
+   {
+    "identifier": "fx_page_045",
+    "title": "Fixture Page Item 045",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 455
+   },
+   {
+    "identifier": "fx_page_046",
+    "title": "Fixture Page Item 046",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 454
+   },
+   {
+    "identifier": "fx_page_047",
+    "title": "Fixture Page Item 047",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 453
+   },
+   {
+    "identifier": "fx_page_048",
+    "title": "Fixture Page Item 048",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 452
+   },
+   {
+    "identifier": "fx_page_049",
+    "title": "Fixture Page Item 049",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 451
+   },
+   {
+    "identifier": "fx_page_050",
+    "title": "Fixture Page Item 050",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 450
+   },
+   {
+    "identifier": "fx_page_051",
+    "title": "Fixture Page Item 051",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 449
+   },
+   {
+    "identifier": "fx_page_052",
+    "title": "Fixture Page Item 052",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 448
+   },
+   {
+    "identifier": "fx_page_053",
+    "title": "Fixture Page Item 053",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 447
+   },
+   {
+    "identifier": "fx_page_054",
+    "title": "Fixture Page Item 054",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 446
+   },
+   {
+    "identifier": "fx_page_055",
+    "title": "Fixture Page Item 055",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 445
+   },
+   {
+    "identifier": "fx_page_056",
+    "title": "Fixture Page Item 056",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 444
+   },
+   {
+    "identifier": "fx_page_057",
+    "title": "Fixture Page Item 057",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 443
+   },
+   {
+    "identifier": "fx_page_058",
+    "title": "Fixture Page Item 058",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 442
+   },
+   {
+    "identifier": "fx_page_059",
+    "title": "Fixture Page Item 059",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 441
+   },
+   {
+    "identifier": "fx_page_060",
+    "title": "Fixture Page Item 060",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 440
+   },
+   {
+    "identifier": "fx_page_061",
+    "title": "Fixture Page Item 061",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 439
+   },
+   {
+    "identifier": "fx_page_062",
+    "title": "Fixture Page Item 062",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 438
+   },
+   {
+    "identifier": "fx_page_063",
+    "title": "Fixture Page Item 063",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 437
+   },
+   {
+    "identifier": "fx_page_064",
+    "title": "Fixture Page Item 064",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 436
+   },
+   {
+    "identifier": "fx_page_065",
+    "title": "Fixture Page Item 065",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 435
+   },
+   {
+    "identifier": "fx_page_066",
+    "title": "Fixture Page Item 066",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 434
+   },
+   {
+    "identifier": "fx_page_067",
+    "title": "Fixture Page Item 067",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 433
+   },
+   {
+    "identifier": "fx_page_068",
+    "title": "Fixture Page Item 068",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 432
+   },
+   {
+    "identifier": "fx_page_069",
+    "title": "Fixture Page Item 069",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 431
+   },
+   {
+    "identifier": "fx_page_070",
+    "title": "Fixture Page Item 070",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 430
+   },
+   {
+    "identifier": "fx_page_071",
+    "title": "Fixture Page Item 071",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 429
+   },
+   {
+    "identifier": "fx_page_072",
+    "title": "Fixture Page Item 072",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 428
+   },
+   {
+    "identifier": "fx_page_073",
+    "title": "Fixture Page Item 073",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 427
+   },
+   {
+    "identifier": "fx_page_074",
+    "title": "Fixture Page Item 074",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 426
+   },
+   {
+    "identifier": "fx_page_075",
+    "title": "Fixture Page Item 075",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 425
+   },
+   {
+    "identifier": "fx_page_076",
+    "title": "Fixture Page Item 076",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 424
+   },
+   {
+    "identifier": "fx_page_077",
+    "title": "Fixture Page Item 077",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 423
+   },
+   {
+    "identifier": "fx_page_078",
+    "title": "Fixture Page Item 078",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 422
+   },
+   {
+    "identifier": "fx_page_079",
+    "title": "Fixture Page Item 079",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 421
+   },
+   {
+    "identifier": "fx_page_080",
+    "title": "Fixture Page Item 080",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 420
+   },
+   {
+    "identifier": "fx_page_081",
+    "title": "Fixture Page Item 081",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 419
+   },
+   {
+    "identifier": "fx_page_082",
+    "title": "Fixture Page Item 082",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 418
+   },
+   {
+    "identifier": "fx_page_083",
+    "title": "Fixture Page Item 083",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 417
+   },
+   {
+    "identifier": "fx_page_084",
+    "title": "Fixture Page Item 084",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 416
+   },
+   {
+    "identifier": "fx_page_085",
+    "title": "Fixture Page Item 085",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 415
+   },
+   {
+    "identifier": "fx_page_086",
+    "title": "Fixture Page Item 086",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 414
+   },
+   {
+    "identifier": "fx_page_087",
+    "title": "Fixture Page Item 087",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 413
+   },
+   {
+    "identifier": "fx_page_088",
+    "title": "Fixture Page Item 088",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 412
+   },
+   {
+    "identifier": "fx_page_089",
+    "title": "Fixture Page Item 089",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 411
+   },
+   {
+    "identifier": "fx_page_090",
+    "title": "Fixture Page Item 090",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 410
+   },
+   {
+    "identifier": "fx_page_091",
+    "title": "Fixture Page Item 091",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 409
+   },
+   {
+    "identifier": "fx_page_092",
+    "title": "Fixture Page Item 092",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 408
+   },
+   {
+    "identifier": "fx_page_093",
+    "title": "Fixture Page Item 093",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 407
+   },
+   {
+    "identifier": "fx_page_094",
+    "title": "Fixture Page Item 094",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 406
+   },
+   {
+    "identifier": "fx_page_095",
+    "title": "Fixture Page Item 095",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 405
+   },
+   {
+    "identifier": "fx_page_096",
+    "title": "Fixture Page Item 096",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 404
+   },
+   {
+    "identifier": "fx_page_097",
+    "title": "Fixture Page Item 097",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 403
+   },
+   {
+    "identifier": "fx_page_098",
+    "title": "Fixture Page Item 098",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 402
+   },
+   {
+    "identifier": "fx_page_099",
+    "title": "Fixture Page Item 099",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 401
+   },
+   {
+    "identifier": "fx_page_100",
+    "title": "Fixture Page Item 100",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 400
+   },
+   {
+    "identifier": "fx_page_101",
+    "title": "Fixture Page Item 101",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 399
+   },
+   {
+    "identifier": "fx_page_102",
+    "title": "Fixture Page Item 102",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 398
+   },
+   {
+    "identifier": "fx_page_103",
+    "title": "Fixture Page Item 103",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 397
+   },
+   {
+    "identifier": "fx_page_104",
+    "title": "Fixture Page Item 104",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 396
+   },
+   {
+    "identifier": "fx_page_105",
+    "title": "Fixture Page Item 105",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 395
+   },
+   {
+    "identifier": "fx_page_106",
+    "title": "Fixture Page Item 106",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 394
+   },
+   {
+    "identifier": "fx_page_107",
+    "title": "Fixture Page Item 107",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 393
+   },
+   {
+    "identifier": "fx_page_108",
+    "title": "Fixture Page Item 108",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 392
+   },
+   {
+    "identifier": "fx_page_109",
+    "title": "Fixture Page Item 109",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 391
+   },
+   {
+    "identifier": "fx_page_110",
+    "title": "Fixture Page Item 110",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 390
+   },
+   {
+    "identifier": "fx_page_111",
+    "title": "Fixture Page Item 111",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 389
+   },
+   {
+    "identifier": "fx_page_112",
+    "title": "Fixture Page Item 112",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 388
+   },
+   {
+    "identifier": "fx_page_113",
+    "title": "Fixture Page Item 113",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 387
+   },
+   {
+    "identifier": "fx_page_114",
+    "title": "Fixture Page Item 114",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 386
+   },
+   {
+    "identifier": "fx_page_115",
+    "title": "Fixture Page Item 115",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 385
+   },
+   {
+    "identifier": "fx_page_116",
+    "title": "Fixture Page Item 116",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 384
+   },
+   {
+    "identifier": "fx_page_117",
+    "title": "Fixture Page Item 117",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 383
+   },
+   {
+    "identifier": "fx_page_118",
+    "title": "Fixture Page Item 118",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 382
+   },
+   {
+    "identifier": "fx_page_119",
+    "title": "Fixture Page Item 119",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 381
+   },
+   {
+    "identifier": "fx_page_120",
+    "title": "Fixture Page Item 120",
+    "mediatype": "audio",
+    "language": "eng",
+    "downloads": 380
+   }
+  ]
+ }
+}

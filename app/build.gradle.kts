@@ -69,6 +69,9 @@ dependencies {
     androidTestImplementation(libs.androidx.test.uiautomator)
     // Compose testing pulls espresso-core 3.5, which fails on API 37 (InputManager.getInstance removed).
     androidTestImplementation(libs.androidx.test.espresso.core)
+    androidTestImplementation(libs.androidx.test.espresso.intents)
+    androidTestImplementation(libs.okhttp.mockwebserver)
+    androidTestImplementation(libs.androidx.media3.session)
     androidTestUtil(libs.androidx.test.orchestrator)
 }
 

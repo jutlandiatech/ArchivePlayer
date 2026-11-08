@@ -22,8 +22,8 @@ Observed November 2026. Historical entries stay; new findings are appended with 
 
 ## Devin VM
 
-- Android SDK in `~/android-sdk` (platform 37, build-tools 37.0.0, emulator, system image `android-37.0;google_apis;x86_64`) with AVD `ap37`; KVM available. Core tests, both flavour builds and the connected UI tests run here; `local.properties` points at the SDK (not committed).
-- Start the emulator headless: `emulator -avd ap37 -no-window -no-audio -no-boot-anim -gpu swiftshader_indirect -no-snapshot`.
+- Android SDK in `~/android-sdk` (platform 37, build-tools 37.0.0, emulator, system image `android-36;google_apis;x86_64`) with AVD `ap36` (6 GB data partition; the API 37 image crash-loops in this VM with a surfaceflinger `hasReadColorBufferDma` assertion); KVM available. Core tests, both flavour builds and the connected UI tests run here; `local.properties` points at the SDK (not committed).
+- Start the emulator headless: `emulator -avd ap36 -no-window -no-audio -no-boot-anim -gpu swiftshader_indirect -no-snapshot`.
 - Maven Central answered HTTP 429 from the VM. A VM-only Gradle init script redirects Maven Central to Google's mirror; it is not part of the repository and not needed on normal machines.
 
 ## Known gotchas

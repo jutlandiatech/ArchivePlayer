@@ -1,13 +1,13 @@
 {
   "phase": "red",
   "slice": "gate2",
-  "recordedAt": "2026-11-07T21:54:37+00:00",
-  "baseCommit": "10a805d85921de914553b43be3f40dacf0112739",
-  "command": "./gradlew :core:test --continue; ./gradlew --continue :app:connectedFullDebugAndroidTest :app:connectedFossDebugAndroidTest (emulator ap37: API 37 google_apis x86_64, phone language en-US)",
+  "recordedAt": "2026-11-08T12:05:23+00:00",
+  "baseCommit": "6772abe1c131cf766bdbbf349e5f2731c646db98",
+  "command": "./gradlew :core:test --continue; ./gradlew --continue :app:connectedFullDebugAndroidTest :app:connectedFossDebugAndroidTest (emulator ap36: API 36 google_apis x86_64, phone language en-US)",
   "summary": {
-    "total": 188,
+    "total": 346,
     "passed": 0,
-    "failed": 187,
+    "failed": 345,
     "skipped": 1
   },
   "testSourceSha256": {
@@ -30,13 +30,20 @@
     "core/src/test/kotlin/com/thomasnorlund/archiveplayer/core/support/Fixtures.kt": "fdf90aed9f204abf55685906782a11013fbfc96b3eafecf5e5c25402d258c728",
     "core/src/test/kotlin/com/thomasnorlund/archiveplayer/core/text/ShippedCatalogsTest.kt": "52913ca4983f09635e214ffe9078d87e8f5b1dfd8bdbb61c1854159dc61ce34f",
     "core/src/test/kotlin/com/thomasnorlund/archiveplayer/core/text/TextCatalogTest.kt": "508b5cf161a7e5532d4b58d8274ab6ecf1c2540b106c2000f65e1fc34f12f51c",
+    "app/src/androidTest/java/com/thomasnorlund/archiveplayer/HomeUiTest.kt": "322cf2ab907dc914b4b20b3a3a65cc58bbb79b86494608c37661e5119b8f7c55",
+    "app/src/androidTest/java/com/thomasnorlund/archiveplayer/ItemUiTest.kt": "445e7a2a0a9329df0c58b8617711ff7e7851a5740ba5b6367f27f3079b651e2a",
+    "app/src/androidTest/java/com/thomasnorlund/archiveplayer/LibraryUiTest.kt": "9bcca9eeb912aba28c2c9bcd3ada554d0bc0f814067e647395e8fe40af096a61",
+    "app/src/androidTest/java/com/thomasnorlund/archiveplayer/PlayerUiTest.kt": "5db3beb0e261d4e6e0ab7d1b1fec306b7894a8b01d455e628009f5f5fdbd2af3",
     "app/src/androidTest/java/com/thomasnorlund/archiveplayer/ResourceIdUiAutomatorTest.kt": "57fd2949ad10021daa6cb6b40b81e0ce057ccf2851da95d34faf6b214cb2eb3c",
+    "app/src/androidTest/java/com/thomasnorlund/archiveplayer/SearchUiTest.kt": "64d4cb354c703796975ebda7169892812d853a9e00fb0669bf20e0c54039b2e8",
     "app/src/androidTest/java/com/thomasnorlund/archiveplayer/SettingsUiTest.kt": "180e2f32ddee82d1ee5ea845481cf549f3e601f2b5776599b5c014db6ec8f477",
     "app/src/androidTest/java/com/thomasnorlund/archiveplayer/SetupUiTest.kt": "4127f3aa2b28a36ae3911bf579d7d29d870dfcc780d605e2aaff6bc135df3b01",
     "app/src/androidTest/java/com/thomasnorlund/archiveplayer/ShellUiTest.kt": "9f367bdd1426c2858cd1cf7c07d6d8dba161149d32565dcd4c05530e465d8521",
-    "app/src/androidTest/java/com/thomasnorlund/archiveplayer/support/AppTestSupport.kt": "ed67a20155216afa1b45019997600b7107c8057b675d1449b5264ba942aa5bea",
-    "app/src/androidTestFoss/java/com/thomasnorlund/archiveplayer/NoCastFossUiTest.kt": "7347f18450e2fd2bd077911df4322b659cc9e03ea55b37f559dd4a3a4dc8ccee",
-    "app/src/androidTestFull/java/com/thomasnorlund/archiveplayer/CastFullUiTest.kt": "e68da7e1b25c3b365213c8173ff30f782244e1c891d948ca09f73aa5a558be19"
+    "app/src/androidTest/java/com/thomasnorlund/archiveplayer/support/AppTestSupport.kt": "37963d592e3d1312bd0dafb02fe8f99c27df2bcc6ab925401a328b4a786ddad1",
+    "app/src/androidTest/java/com/thomasnorlund/archiveplayer/support/FixtureServer.kt": "62add47b314c67fa417a51dc1008577519006a89294ce68de5b560dde139c894",
+    "app/src/androidTest/java/com/thomasnorlund/archiveplayer/support/PlayerProbe.kt": "c5a9416337fc809bd526280704a7f45c19816ee1526087fd93a8a89c3392876d",
+    "app/src/androidTestFoss/java/com/thomasnorlund/archiveplayer/NoCastFossUiTest.kt": "68961989c3d0a59af3b32910fa19716bb3b49ddc5d614d9b9f4d63fbf58c9595",
+    "app/src/androidTestFull/java/com/thomasnorlund/archiveplayer/CastFullUiTest.kt": "616e094b8bdf1e6fc458d8af7de1509e1d1a749aed739658e8984891f2900eba"
   },
   "tests": [
     {
@@ -1476,12 +1483,727 @@
       }
     },
     {
+      "class": "com.thomasnorlund.archiveplayer.HomeUiTest",
+      "name": "H10_cardOpensItemBackRestoresScroll",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.HomeUiTest",
+      "name": "H07_A05_contentLanguageRanksRowWithoutHidingUntagged",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.HomeUiTest",
+      "name": "H06_followedCollectionRefreshThrottled",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.HomeUiTest",
+      "name": "H01_freshInstallShowsCuratedRowsInMapOrder",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.HomeUiTest",
+      "name": "H09_A39_slowRowShowsStillLoadingRestUsable",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.HomeUiTest",
+      "name": "H03_continueCardResumesAtStoredPosition",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.HomeUiTest",
+      "name": "H05_playlistsRowLikedFirst",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.HomeUiTest",
+      "name": "H12_largeFontNarrowScreenAllLanguages",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.HomeUiTest",
+      "name": "H02_A17_continueRowFirstAfterPlayback",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.HomeUiTest",
+      "name": "H08_failingRowShowsRetryOthersRender",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.HomeUiTest",
+      "name": "H04_finishedEntryLeavesContinueStaysInRecent",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.HomeUiTest",
+      "name": "H11_S08_pausedHistoryAddsNoPersonalRows",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.ItemUiTest",
+      "name": "I06_A21_followCollectionListedInLibrary",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.ItemUiTest",
+      "name": "I09_R32_entryFilterOnlyAbove30Entries",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.ItemUiTest",
+      "name": "I08_addToNewPlaylistThenPickerListsIt",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.ItemUiTest",
+      "name": "I01_A11_headerAndGroupedOrderedEntries",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.ItemUiTest",
+      "name": "I14_R33_collectionPageWithFollowAndFilters",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.ItemUiTest",
+      "name": "I05_likeItemListsEntriesInLiked",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.ItemUiTest",
+      "name": "I16_shareSendsArchiveUrl",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.ItemUiTest",
+      "name": "I11_A26_downloadedAudioPlaysOffline",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.ItemUiTest",
+      "name": "I07_A13_playNextAndAddToQueue",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.ItemUiTest",
+      "name": "I04_shuffleQueuesAllInOtherOrder",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.ItemUiTest",
+      "name": "I13_errorThenRetry",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.ItemUiTest",
+      "name": "I10_R59_videoHasNoDownload",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.ItemUiTest",
+      "name": "I12_A12_nothingPlayableState",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.ItemUiTest",
+      "name": "I03_entryTapStartsFromThatEntry",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.ItemUiTest",
+      "name": "I02_playAllQueuesItemInOrder",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.LibraryUiTest",
+      "name": "L04_renameAndDescribe",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.LibraryUiTest",
+      "name": "L11_A21_R55_linkImportCreatesNewPlaylistNeverOverwrites",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.LibraryUiTest",
+      "name": "L06_R35_playAndShuffleReplaceQueue",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.LibraryUiTest",
+      "name": "L13_A25_mixedDownloadOnMobileWaitsForWifi",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.LibraryUiTest",
+      "name": "L15_R44_historyListClearAndPaused",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.LibraryUiTest",
+      "name": "L08_R53_unfollow",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.LibraryUiTest",
+      "name": "L14_R61_storageSummaryWarningRemove",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.LibraryUiTest",
+      "name": "I15_R70_adultItemFromShareLinkHidden",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.LibraryUiTest",
+      "name": "L07_R52_likedListFollowsHearts",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.LibraryUiTest",
+      "name": "L12_A24_fileImportReportsSkipped",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.LibraryUiTest",
+      "name": "L01_chipsOrderAndLikedPinned",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.LibraryUiTest",
+      "name": "L10_A23_tooLongLinkOffersFile",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.LibraryUiTest",
+      "name": "L02_newPlaylistAppearsEmpty",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.LibraryUiTest",
+      "name": "L09_A21_shareLinkEncodesEntries",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.LibraryUiTest",
+      "name": "L03_reorderAndRemovePersist",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.LibraryUiTest",
+      "name": "L05_deleteWithUndoLikedNotDeletable",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.LibraryUiTest",
+      "name": "L16_emptyStatesAllLanguages",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.NoCastFossUiTest",
+      "name": "L17_playlistCastButton",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.NoCastFossUiTest",
+      "name": "P19_playerCastButton",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
       "class": "com.thomasnorlund.archiveplayer.NoCastFossUiTest",
       "name": "A37_N13_noCastElements",
       "status": "failed",
       "failure": {
-        "type": "java.lang.AssertionError",
-        "message": "java.lang.AssertionError: Failed to inject touch input."
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.PlayerUiTest",
+      "name": "P15_A17_resumeAfterRelaunch",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.PlayerUiTest",
+      "name": "P03_skipForward30Back10",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.PlayerUiTest",
+      "name": "P09_A13_dataSaverMeteredPicks512kb",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.PlayerUiTest",
+      "name": "P11_A16_mixedQueueSwitchesLayout",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.PlayerUiTest",
+      "name": "P04_nextPreviousAndRestart",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.PlayerUiTest",
+      "name": "P18_swipeMiniPlayerStopsWithUndo",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.PlayerUiTest",
+      "name": "P14_formatFallbackThenError",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.PlayerUiTest",
+      "name": "P16_A32_videoEntersPictureInPicture",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.PlayerUiTest",
+      "name": "P01_miniPlayerOnAllTabsOpensFullPlayer",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.PlayerUiTest",
+      "name": "P08_sleepTimerShowsRemainingAndCancels",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.PlayerUiTest",
+      "name": "P13_A33_subtitleMenu",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.PlayerUiTest",
+      "name": "P10_A15_audioAutoVbrFlacListed",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.PlayerUiTest",
+      "name": "P02_playPauseOnMiniAndFullPlayer",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.PlayerUiTest",
+      "name": "P12_queueReorderRemoveJump",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.PlayerUiTest",
+      "name": "P20_R64_controlsLabelledAllLanguages",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.PlayerUiTest",
+      "name": "P06_speedSheet",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.PlayerUiTest",
+      "name": "P07_A34_sleepAtEndOfEntry",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.PlayerUiTest",
+      "name": "P05_repeatCyclesShuffleToggles",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.PlayerUiTest",
+      "name": "P17_R34_mediaSessionExposesQueueAndControls",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
       },
       "device": "emulator-5554",
       "flavour": "foss"
@@ -1498,12 +2220,166 @@
       "flavour": "foss"
     },
     {
+      "class": "com.thomasnorlund.archiveplayer.SearchUiTest",
+      "name": "Q11_browseTileOpensCategoryWithSubcategories",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.SearchUiTest",
+      "name": "Q07_A35_backOffThenErrorWithRetry",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.SearchUiTest",
+      "name": "Q14_largeFontNarrowScreenChipsFit",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.SearchUiTest",
+      "name": "Q04_A05_A07_languageFilterExcludesUntagged",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.SearchUiTest",
+      "name": "Q12_stateSurvivesItemAndRotation",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.SearchUiTest",
+      "name": "Q01_browseGridShowsCategoryTiles",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.SearchUiTest",
+      "name": "Q13_ownPlaylistsInResults",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.SearchUiTest",
+      "name": "Q10_recentSearchesAddRemoveAndInSettings",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.SearchUiTest",
+      "name": "Q05_filtersVisibleIndividuallyRemovable",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.SearchUiTest",
+      "name": "Q06_pagingAppendsWithoutDuplicates",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.SearchUiTest",
+      "name": "Q08_emptyResultOffersClearFilters",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.SearchUiTest",
+      "name": "Q02_suggestionsAreLocalOnly",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.SearchUiTest",
+      "name": "Q03_A10_kindFilterAndPopularitySort",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.SearchUiTest",
+      "name": "Q09_A27_adultItemsHidden",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
       "class": "com.thomasnorlund.archiveplayer.SettingsUiTest",
       "name": "S03_A42_appLanguageChangeKeepsContentLanguages",
       "status": "failed",
       "failure": {
-        "type": "java.lang.AssertionError",
-        "message": "java.lang.AssertionError: Failed to inject touch input."
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
       },
       "device": "emulator-5554",
       "flavour": "foss"
@@ -1513,8 +2389,8 @@
       "name": "S10_aboutShowsFlavour",
       "status": "failed",
       "failure": {
-        "type": "java.lang.AssertionError",
-        "message": "java.lang.AssertionError: Failed to inject touch input."
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
       },
       "device": "emulator-5554",
       "flavour": "foss"
@@ -1524,8 +2400,8 @@
       "name": "S01_settingsFromEveryTabRootWithAllRows",
       "status": "failed",
       "failure": {
-        "type": "java.lang.AssertionError",
-        "message": "java.lang.AssertionError: Failed to inject touch input."
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
       },
       "device": "emulator-5554",
       "flavour": "foss"
@@ -1535,8 +2411,8 @@
       "name": "S02_detailAndAndroidBackReturnToList",
       "status": "failed",
       "failure": {
-        "type": "java.lang.AssertionError",
-        "message": "java.lang.AssertionError: Failed to inject touch input."
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
       },
       "device": "emulator-5554",
       "flavour": "foss"
@@ -1612,8 +2488,8 @@
       "name": "N01_bottomBarWithThreeDestinations",
       "status": "failed",
       "failure": {
-        "type": "java.lang.AssertionError",
-        "message": "java.lang.AssertionError: Failed to inject touch input."
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
       },
       "device": "emulator-5554",
       "flavour": "foss"
@@ -1623,19 +2499,734 @@
       "name": "N10_A38_themeToggleSwitchesAndPersists",
       "status": "failed",
       "failure": {
-        "type": "java.lang.AssertionError",
-        "message": "java.lang.AssertionError: Failed to inject touch input."
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
       },
       "device": "emulator-5554",
       "flavour": "foss"
     },
     {
       "class": "com.thomasnorlund.archiveplayer.CastFullUiTest",
+      "name": "L17_playlistCastButton",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.CastFullUiTest",
+      "name": "P19_playerCastButton",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.CastFullUiTest",
       "name": "R46_castButtonInTopBar",
       "status": "failed",
       "failure": {
-        "type": "java.lang.AssertionError",
-        "message": "java.lang.AssertionError: Failed to inject touch input."
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.HomeUiTest",
+      "name": "H10_cardOpensItemBackRestoresScroll",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.HomeUiTest",
+      "name": "H07_A05_contentLanguageRanksRowWithoutHidingUntagged",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.HomeUiTest",
+      "name": "H06_followedCollectionRefreshThrottled",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.HomeUiTest",
+      "name": "H01_freshInstallShowsCuratedRowsInMapOrder",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.HomeUiTest",
+      "name": "H09_A39_slowRowShowsStillLoadingRestUsable",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.HomeUiTest",
+      "name": "H03_continueCardResumesAtStoredPosition",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.HomeUiTest",
+      "name": "H05_playlistsRowLikedFirst",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.HomeUiTest",
+      "name": "H12_largeFontNarrowScreenAllLanguages",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.HomeUiTest",
+      "name": "H02_A17_continueRowFirstAfterPlayback",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.HomeUiTest",
+      "name": "H08_failingRowShowsRetryOthersRender",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.HomeUiTest",
+      "name": "H04_finishedEntryLeavesContinueStaysInRecent",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.HomeUiTest",
+      "name": "H11_S08_pausedHistoryAddsNoPersonalRows",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.ItemUiTest",
+      "name": "I06_A21_followCollectionListedInLibrary",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.ItemUiTest",
+      "name": "I09_R32_entryFilterOnlyAbove30Entries",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.ItemUiTest",
+      "name": "I08_addToNewPlaylistThenPickerListsIt",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.ItemUiTest",
+      "name": "I01_A11_headerAndGroupedOrderedEntries",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.ItemUiTest",
+      "name": "I14_R33_collectionPageWithFollowAndFilters",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.ItemUiTest",
+      "name": "I05_likeItemListsEntriesInLiked",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.ItemUiTest",
+      "name": "I16_shareSendsArchiveUrl",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.ItemUiTest",
+      "name": "I11_A26_downloadedAudioPlaysOffline",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.ItemUiTest",
+      "name": "I07_A13_playNextAndAddToQueue",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.ItemUiTest",
+      "name": "I04_shuffleQueuesAllInOtherOrder",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.ItemUiTest",
+      "name": "I13_errorThenRetry",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.ItemUiTest",
+      "name": "I10_R59_videoHasNoDownload",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.ItemUiTest",
+      "name": "I12_A12_nothingPlayableState",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.ItemUiTest",
+      "name": "I03_entryTapStartsFromThatEntry",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.ItemUiTest",
+      "name": "I02_playAllQueuesItemInOrder",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.LibraryUiTest",
+      "name": "L04_renameAndDescribe",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.LibraryUiTest",
+      "name": "L11_A21_R55_linkImportCreatesNewPlaylistNeverOverwrites",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.LibraryUiTest",
+      "name": "L06_R35_playAndShuffleReplaceQueue",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.LibraryUiTest",
+      "name": "L13_A25_mixedDownloadOnMobileWaitsForWifi",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.LibraryUiTest",
+      "name": "L15_R44_historyListClearAndPaused",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.LibraryUiTest",
+      "name": "L08_R53_unfollow",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.LibraryUiTest",
+      "name": "L14_R61_storageSummaryWarningRemove",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.LibraryUiTest",
+      "name": "I15_R70_adultItemFromShareLinkHidden",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.LibraryUiTest",
+      "name": "L07_R52_likedListFollowsHearts",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.LibraryUiTest",
+      "name": "L12_A24_fileImportReportsSkipped",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.LibraryUiTest",
+      "name": "L01_chipsOrderAndLikedPinned",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.LibraryUiTest",
+      "name": "L10_A23_tooLongLinkOffersFile",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.LibraryUiTest",
+      "name": "L02_newPlaylistAppearsEmpty",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.LibraryUiTest",
+      "name": "L09_A21_shareLinkEncodesEntries",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.LibraryUiTest",
+      "name": "L03_reorderAndRemovePersist",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.LibraryUiTest",
+      "name": "L05_deleteWithUndoLikedNotDeletable",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.LibraryUiTest",
+      "name": "L16_emptyStatesAllLanguages",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.PlayerUiTest",
+      "name": "P15_A17_resumeAfterRelaunch",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.PlayerUiTest",
+      "name": "P03_skipForward30Back10",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.PlayerUiTest",
+      "name": "P09_A13_dataSaverMeteredPicks512kb",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.PlayerUiTest",
+      "name": "P11_A16_mixedQueueSwitchesLayout",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.PlayerUiTest",
+      "name": "P04_nextPreviousAndRestart",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.PlayerUiTest",
+      "name": "P18_swipeMiniPlayerStopsWithUndo",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.PlayerUiTest",
+      "name": "P14_formatFallbackThenError",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.PlayerUiTest",
+      "name": "P16_A32_videoEntersPictureInPicture",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.PlayerUiTest",
+      "name": "P01_miniPlayerOnAllTabsOpensFullPlayer",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.PlayerUiTest",
+      "name": "P08_sleepTimerShowsRemainingAndCancels",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.PlayerUiTest",
+      "name": "P13_A33_subtitleMenu",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.PlayerUiTest",
+      "name": "P10_A15_audioAutoVbrFlacListed",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.PlayerUiTest",
+      "name": "P02_playPauseOnMiniAndFullPlayer",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.PlayerUiTest",
+      "name": "P12_queueReorderRemoveJump",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.PlayerUiTest",
+      "name": "P20_R64_controlsLabelledAllLanguages",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.PlayerUiTest",
+      "name": "P06_speedSheet",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.PlayerUiTest",
+      "name": "P07_A34_sleepAtEndOfEntry",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.PlayerUiTest",
+      "name": "P05_repeatCyclesShuffleToggles",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.PlayerUiTest",
+      "name": "P17_R34_mediaSessionExposesQueueAndControls",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
       },
       "device": "emulator-5554",
       "flavour": "full"
@@ -1652,12 +3243,166 @@
       "flavour": "full"
     },
     {
+      "class": "com.thomasnorlund.archiveplayer.SearchUiTest",
+      "name": "Q11_browseTileOpensCategoryWithSubcategories",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.SearchUiTest",
+      "name": "Q07_A35_backOffThenErrorWithRetry",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.SearchUiTest",
+      "name": "Q14_largeFontNarrowScreenChipsFit",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.SearchUiTest",
+      "name": "Q04_A05_A07_languageFilterExcludesUntagged",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.SearchUiTest",
+      "name": "Q12_stateSurvivesItemAndRotation",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.SearchUiTest",
+      "name": "Q01_browseGridShowsCategoryTiles",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.SearchUiTest",
+      "name": "Q13_ownPlaylistsInResults",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.SearchUiTest",
+      "name": "Q10_recentSearchesAddRemoveAndInSettings",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.SearchUiTest",
+      "name": "Q05_filtersVisibleIndividuallyRemovable",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.SearchUiTest",
+      "name": "Q06_pagingAppendsWithoutDuplicates",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.SearchUiTest",
+      "name": "Q08_emptyResultOffersClearFilters",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.SearchUiTest",
+      "name": "Q02_suggestionsAreLocalOnly",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.SearchUiTest",
+      "name": "Q03_A10_kindFilterAndPopularitySort",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.thomasnorlund.archiveplayer.SearchUiTest",
+      "name": "Q09_A27_adultItemsHidden",
+      "status": "failed",
+      "failure": {
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
+      },
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
       "class": "com.thomasnorlund.archiveplayer.SettingsUiTest",
       "name": "S03_A42_appLanguageChangeKeepsContentLanguages",
       "status": "failed",
       "failure": {
-        "type": "java.lang.AssertionError",
-        "message": "java.lang.AssertionError: Failed to inject touch input."
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
       },
       "device": "emulator-5554",
       "flavour": "full"
@@ -1667,8 +3412,8 @@
       "name": "S10_aboutShowsFlavour",
       "status": "failed",
       "failure": {
-        "type": "java.lang.AssertionError",
-        "message": "java.lang.AssertionError: Failed to inject touch input."
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
       },
       "device": "emulator-5554",
       "flavour": "full"
@@ -1678,8 +3423,8 @@
       "name": "S01_settingsFromEveryTabRootWithAllRows",
       "status": "failed",
       "failure": {
-        "type": "java.lang.AssertionError",
-        "message": "java.lang.AssertionError: Failed to inject touch input."
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
       },
       "device": "emulator-5554",
       "flavour": "full"
@@ -1689,8 +3434,8 @@
       "name": "S02_detailAndAndroidBackReturnToList",
       "status": "failed",
       "failure": {
-        "type": "java.lang.AssertionError",
-        "message": "java.lang.AssertionError: Failed to inject touch input."
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
       },
       "device": "emulator-5554",
       "flavour": "full"
@@ -1766,8 +3511,8 @@
       "name": "N01_bottomBarWithThreeDestinations",
       "status": "failed",
       "failure": {
-        "type": "java.lang.AssertionError",
-        "message": "java.lang.AssertionError: Failed to inject touch input."
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
       },
       "device": "emulator-5554",
       "flavour": "full"
@@ -1777,8 +3522,8 @@
       "name": "N10_A38_themeToggleSwitchesAndPersists",
       "status": "failed",
       "failure": {
-        "type": "java.lang.AssertionError",
-        "message": "java.lang.AssertionError: Failed to inject touch input."
+        "type": "androidx.compose.ui.test.ComposeTimeoutException",
+        "message": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 10000 ms"
       },
       "device": "emulator-5554",
       "flavour": "full"

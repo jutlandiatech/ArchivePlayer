@@ -1,0 +1,248 @@
+{
+ "metadata": {
+  "identifier": "fx_radio_show",
+  "title": "Fixture Radio Show",
+  "mediatype": "audio",
+  "creator": "Fixture Radio",
+  "date": "1950",
+  "language": "eng",
+  "collection": [
+   "fx_collection"
+  ],
+  "subject": [
+   "Radio",
+   "Drama"
+  ],
+  "description": "<p>A <b>fixture</b> radio show.</p>"
+ },
+ "files": [
+  {
+   "name": "fx_radio_show_e01.mp3",
+   "format": "VBR MP3",
+   "source": "derivative",
+   "size": "1000",
+   "track": "1",
+   "title": "Episode 01",
+   "length": "180"
+  },
+  {
+   "name": "fx_radio_show_e01.flac",
+   "format": "Flac",
+   "source": "original",
+   "size": "1000",
+   "track": "1",
+   "title": "Episode 01",
+   "length": "180"
+  },
+  {
+   "name": "fx_radio_show_e01_128kb.mp3",
+   "format": "128Kbps MP3",
+   "source": "derivative",
+   "size": "1000",
+   "track": "1",
+   "title": "Episode 01",
+   "length": "180"
+  },
+  {
+   "name": "fx_radio_show_e01.ogg",
+   "format": "Ogg Vorbis",
+   "source": "derivative",
+   "size": "1000",
+   "track": "1",
+   "title": "Episode 01",
+   "length": "180"
+  },
+  {
+   "name": "fx_radio_show_e02.mp3",
+   "format": "VBR MP3",
+   "source": "derivative",
+   "size": "1000",
+   "track": "2",
+   "title": "Episode 02",
+   "length": "180"
+  },
+  {
+   "name": "fx_radio_show_e02.flac",
+   "format": "Flac",
+   "source": "original",
+   "size": "1000",
+   "track": "2",
+   "title": "Episode 02",
+   "length": "180"
+  },
+  {
+   "name": "fx_radio_show_e02_128kb.mp3",
+   "format": "128Kbps MP3",
+   "source": "derivative",
+   "size": "1000",
+   "track": "2",
+   "title": "Episode 02",
+   "length": "180"
+  },
+  {
+   "name": "fx_radio_show_e02.ogg",
+   "format": "Ogg Vorbis",
+   "source": "derivative",
+   "size": "1000",
+   "track": "2",
+   "title": "Episode 02",
+   "length": "180"
+  },
+  {
+   "name": "fx_radio_show_e03.mp3",
+   "format": "VBR MP3",
+   "source": "derivative",
+   "size": "1000",
+   "track": "3",
+   "title": "Episode 03",
+   "length": "180"
+  },
+  {
+   "name": "fx_radio_show_e03.flac",
+   "format": "Flac",
+   "source": "original",
+   "size": "1000",
+   "track": "3",
+   "title": "Episode 03",
+   "length": "180"
+  },
+  {
+   "name": "fx_radio_show_e03_128kb.mp3",
+   "format": "128Kbps MP3",
+   "source": "derivative",
+   "size": "1000",
+   "track": "3",
+   "title": "Episode 03",
+   "length": "180"
+  },
+  {
+   "name": "fx_radio_show_e03.ogg",
+   "format": "Ogg Vorbis",
+   "source": "derivative",
+   "size": "1000",
+   "track": "3",
+   "title": "Episode 03",
+   "length": "180"
+  },
+  {
+   "name": "fx_radio_show_e04.mp3",
+   "format": "VBR MP3",
+   "source": "derivative",
+   "size": "1000",
+   "track": "4",
+   "title": "Episode 04",
+   "length": "180"
+  },
+  {
+   "name": "fx_radio_show_e04.flac",
+   "format": "Flac",
+   "source": "original",
+   "size": "1000",
+   "track": "4",
+   "title": "Episode 04",
+   "length": "180"
+  },
+  {
+   "name": "fx_radio_show_e04_128kb.mp3",
+   "format": "128Kbps MP3",
+   "source": "derivative",
+   "size": "1000",
+   "track": "4",
+   "title": "Episode 04",
+   "length": "180"
+  },
+  {
+   "name": "fx_radio_show_e04.ogg",
+   "format": "Ogg Vorbis",
+   "source": "derivative",
+   "size": "1000",
+   "track": "4",
+   "title": "Episode 04",
+   "length": "180"
+  },
+  {
+   "name": "fx_radio_show_e05.mp3",
+   "format": "VBR MP3",
+   "source": "derivative",
+   "size": "1000",
+   "track": "5",
+   "title": "Episode 05",
+   "length": "180"
+  },
+  {
+   "name": "fx_radio_show_e05.flac",
+   "format": "Flac",
+   "source": "original",
+   "size": "1000",
+   "track": "5",
+   "title": "Episode 05",
+   "length": "180"
+  },
+  {
+   "name": "fx_radio_show_e05_128kb.mp3",
+   "format": "128Kbps MP3",
+   "source": "derivative",
+   "size": "1000",
+   "track": "5",
+   "title": "Episode 05",
+   "length": "180"
+  },
+  {
+   "name": "fx_radio_show_e05.ogg",
+   "format": "Ogg Vorbis",
+   "source": "derivative",
+   "size": "1000",
+   "track": "5",
+   "title": "Episode 05",
+   "length": "180"
+  },
+  {
+   "name": "fx_radio_show_e06.mp3",
+   "format": "VBR MP3",
+   "source": "derivative",
+   "size": "1000",
+   "track": "6",
+   "title": "Episode 06",
+   "length": "180"
+  },
+  {
+   "name": "fx_radio_show_e06.flac",
+   "format": "Flac",
+   "source": "original",
+   "size": "1000",
+   "track": "6",
+   "title": "Episode 06",
+   "length": "180"
+  },
+  {
+   "name": "fx_radio_show_e06_128kb.mp3",
+   "format": "128Kbps MP3",
+   "source": "derivative",
+   "size": "1000",
+   "track": "6",
+   "title": "Episode 06",
+   "length": "180"
+  },
+  {
+   "name": "fx_radio_show_e06.ogg",
+   "format": "Ogg Vorbis",
+   "source": "derivative",
+   "size": "1000",
+   "track": "6",
+   "title": "Episode 06",
+   "length": "180"
+  },
+  {
+   "name": "fx_radio_show.png",
+   "format": "PNG",
+   "source": "derivative",
+   "size": "1000"
+  },
+  {
+   "name": "fx_radio_show_meta.xml",
+   "format": "Metadata",
+   "source": "original",
+   "size": "1000"
+  }
+ ]
+}

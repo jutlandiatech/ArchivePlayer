@@ -1,0 +1,32 @@
+{
+ "metadata": {
+  "identifier": "fx_nothing",
+  "title": "Fixture Text Only",
+  "mediatype": "movies",
+  "date": "1960",
+  "language": "eng",
+  "collection": [
+   "fx_films"
+  ]
+ },
+ "files": [
+  {
+   "name": "fx_nothing.pdf",
+   "format": "Text PDF",
+   "source": "original",
+   "size": "1000"
+  },
+  {
+   "name": "fx_nothing.png",
+   "format": "PNG",
+   "source": "derivative",
+   "size": "1000"
+  },
+  {
+   "name": "fx_nothing_meta.xml",
+   "format": "Metadata",
+   "source": "original",
+   "size": "1000"
+  }
+ ]
+}
