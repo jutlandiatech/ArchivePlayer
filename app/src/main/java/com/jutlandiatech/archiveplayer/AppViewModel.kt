@@ -491,6 +491,10 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
             queueInfo[id]?.let { (item, e) -> recordHistory(item, e) }
         }
         player.onItemEnded = { p -> markFinished(if (p.playbackState == androidx.media3.common.Player.STATE_ENDED) currentStartedId else previousStartedId) }
+        // Save the moment playback pauses, not on the next 1 s tick: Home reads the position right away (A17).
+        viewModelScope.launch {
+            androidx.compose.runtime.snapshotFlow { player.isPlaying }.collect { playing -> if (!playing && player.hasQueue) savePosition() }
+        }
         viewModelScope.launch {
             var tick = 0
             var wasPlaying = false

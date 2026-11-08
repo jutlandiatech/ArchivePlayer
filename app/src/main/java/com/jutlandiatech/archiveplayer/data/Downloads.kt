@@ -108,6 +108,7 @@ class Downloads(context: Context, private val wifiOnly: () -> Boolean) {
 
     private fun pump() {
         if (worker?.isActive == true) return
+        if (records.none { it.state == DownloadState.QUEUED || it.state == DownloadState.WAITING_WIFI }) return
         worker = scope.launch {
             while (isActive) {
                 val net = network()
@@ -121,6 +122,9 @@ class Downloads(context: Context, private val wifiOnly: () -> Boolean) {
                 }
                 fetch(next)
             }
+        }.also { job ->
+            DownloadKeepAlive.start(app)
+            job.invokeOnCompletion { DownloadKeepAlive.active = false }
         }
     }
 
@@ -133,13 +137,18 @@ class Downloads(context: Context, private val wifiOnly: () -> Boolean) {
             val conn = URL(r.url).openConnection() as HttpURLConnection
             conn.connectTimeout = 15_000
             conn.readTimeout = 30_000
+            val have = if (part.exists()) part.length() else 0L
+            if (have > 0) conn.setRequestProperty("Range", "bytes=$have-")
             try {
-                if (conn.responseCode !in 200..299) error("HTTP ${conn.responseCode}")
-                val total = conn.contentLengthLong.coerceAtLeast(0)
-                var done = 0L
+                val code = conn.responseCode
+                if (code !in 200..299) error("HTTP $code")
+                // Resume after a network drop when the server honours the byte range (R60).
+                val resumed = code == 206 && have > 0
+                val total = conn.contentLengthLong.coerceAtLeast(0) + if (resumed) have else 0L
+                var done = if (resumed) have else 0L
                 var lastReport = 0L
                 conn.inputStream.use { input ->
-                    part.outputStream().use { out ->
+                    java.io.FileOutputStream(part, resumed).use { out ->
                         val buf = ByteArray(64 * 1024)
                         while (true) {
                             val n = input.read(buf)
@@ -159,7 +168,7 @@ class Downloads(context: Context, private val wifiOnly: () -> Boolean) {
                 conn.disconnect()
             }
         }.isSuccess
-        if (!ok) set(r.key) { it.copy(state = DownloadState.FAILED) }
+        if (!ok) set(r.key) { it.copy(state = if (network().connected) DownloadState.FAILED else DownloadState.QUEUED) }
     }
 
     private fun set(key: String, transform: (DownloadRecord) -> DownloadRecord) =

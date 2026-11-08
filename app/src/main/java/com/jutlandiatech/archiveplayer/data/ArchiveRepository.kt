@@ -49,7 +49,32 @@ class ArchiveRepository(context: Context) {
     private val client = ArchiveClient(UrlConnectionTransport, Sleeper { Thread.sleep(it) }, BuildConfig.VERSION_NAME)
     private val metadataCache = ConcurrentHashMap<String, ArchiveItem>()
 
-    val categoryMap: CategoryMap by lazy { CategoryMapParser.parse(asset("catalog/category-map.json")) }
+    private val cachedMapFile = java.io.File(context.applicationContext.filesDir, "category-map.json")
+
+    /** Cached copy of the published map when valid, else the bundled one; a fetched map applies from the next launch (R15). */
+    val categoryMap: CategoryMap by lazy {
+        com.jutlandiatech.archiveplayer.core.category.CategoryMapSelector.choose(
+            remote = null,
+            cached = runCatching { cachedMapFile.readText() }.getOrNull(),
+            bundled = asset("catalog/category-map.json"),
+        ).map
+    }
+
+    /** Fetches the published category map and caches it only if it parses completely (R15, A08, A09). */
+    fun refreshCategoryMap() {
+        runCatching {
+            base
+            val json = client.get("${AppEnvironment.pagesBaseUrl.trimEnd('/')}/catalog/category-map.json")
+            CategoryMapParser.parse(json)
+            val tmp = java.io.File(cachedMapFile.path + ".tmp")
+            tmp.writeText(json)
+            tmp.renameTo(cachedMapFile)
+        }
+    }
+
+    init {
+        kotlin.concurrent.thread(isDaemon = true, name = "category-map") { refreshCategoryMap() }
+    }
     val adultFilter: AdultFilter by lazy { AdultFilter(KeywordListParser.parse(asset("catalog/adult-keywords.json"))) }
 
     val base: String

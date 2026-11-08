@@ -65,6 +65,8 @@
   "settings.import.done": "Bibliotek importeret",
   "settings.import.conflicts": "{count} playlister beholdt som kopier",
   "settings.backup.note": "Dit bibliotek er også med i Android-backup, downloads er ikke.",
+  "download.channel": "Downloads",
+  "download.notification": "Downloader til offline-afspilning",
   "settings.about.version": "Version {version}",
   "settings.about.flavour": "Variant: {flavour}",
   "settings.about.source": "Indhold fra Internet Archive (archive.org)",

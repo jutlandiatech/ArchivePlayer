@@ -1,0 +1,14 @@
+body { margin: 0; font-family: system-ui, sans-serif; background: #ffffff; color: #1b1f24; }
+main { max-width: 720px; margin: 0 auto; padding: 24px 16px 48px; }
+a { color: #1f5fa8; }
+h1 { font-size: 1.6rem; margin-bottom: 4px; }
+ol { padding-left: 1.4rem; }
+li { margin: 10px 0; line-height: 1.4; }
+.muted { color: #5b6470; font-size: 0.9rem; }
+.app { margin-top: 32px; padding: 12px 16px; background: #eef3f9; border-radius: 12px; }
+@media (prefers-color-scheme: dark) {
+  body { background: #0f1419; color: #e6e9ed; }
+  a { color: #8ab8ec; }
+  .muted { color: #9aa4b0; }
+  .app { background: #1b2430; }
+}

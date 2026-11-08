@@ -65,6 +65,8 @@
   "settings.import.done": "Library imported",
   "settings.import.conflicts": "{count} playlists kept as copies",
   "settings.backup.note": "Your library is also included in Android backup. Downloads are not.",
+  "download.channel": "Downloads",
+  "download.notification": "Downloading for offline playback",
   "settings.about.version": "Version {version}",
   "settings.about.flavour": "Build: {flavour}",
   "settings.about.source": "Content from the Internet Archive (archive.org)",
