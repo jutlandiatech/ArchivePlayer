@@ -73,6 +73,12 @@ class ArchiveRepository(context: Context) {
         }
     }
 
+    /** Title from the raw metadata record; also works for collections, which MetadataParser does not model. */
+    suspend fun title(identifier: String): String? = metadataCache[identifier]?.title ?: withContext(Dispatchers.IO) {
+        runCatching { org.json.JSONObject(client.get("$base/metadata/$identifier")).optJSONObject("metadata")?.optString("title") }
+            .getOrNull()?.takeIf { it.isNotBlank() }
+    }
+
     fun downloadUrl(identifier: String, fileName: String) = "$base/download/$identifier/${fileName.split('/').joinToString("/") { android.net.Uri.encode(it) }}"
     fun thumbnailUrl(identifier: String) = "$base/services/img/$identifier"
 }

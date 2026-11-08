@@ -119,6 +119,17 @@ class FixtureServer(
         val root = JSONObject(text("fixtures/search/$fixture.json"))
         val docs = root.getJSONObject("response").getJSONArray("docs")
         val q = request.query()
+        // A query naming a recorded metadata fixture also finds that item (e.g. OTRR_Philip_Marlowe_Singles).
+        Regex("^\\(([^()\\s]+)\\)").find(q)?.groupValues?.get(1)?.let { term ->
+            val known = (0 until docs.length()).any { docs.getJSONObject(it).optString("identifier") == term }
+            val meta = if (known) null else runCatching { JSONObject(text("fixtures/metadata/$term.json")).getJSONObject("metadata") }.getOrNull()
+            if (meta != null) {
+                val doc = JSONObject().put("identifier", term).put("title", meta.optString("title", term))
+                    .put("mediatype", meta.optString("mediatype", "audio"))
+                listOf("creator", "language", "collection", "date", "subject").forEach { k -> meta.opt(k)?.let { doc.put(k, it) } }
+                docs.put(doc)
+            }
+        }
         val kinds = when {
             q.contains("mediatype:(movies)") -> setOf("movies")
             q.contains("mediatype:(audio OR etree)") -> setOf("audio", "etree")

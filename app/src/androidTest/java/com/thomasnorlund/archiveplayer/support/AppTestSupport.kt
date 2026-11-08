@@ -128,6 +128,9 @@ fun ComposeTestRule.completeSetup() {
 /** Runs a search from the Search tab root (UI_SEARCH_SPEC.md). */
 fun ComposeTestRule.search(query: String) {
     tap(ElementIds.NAV_SEARCH)
+    // Tabs keep their back stacks (UI_SHELL_SPEC.md N04): a second tap pops Search to its root.
+    waitForIdle()
+    if (!exists(ElementIds.SEARCH_QUERY_FIELD)) tap(ElementIds.NAV_SEARCH)
     waitForTag(ElementIds.SEARCH_QUERY_FIELD)
     onNodeWithTag(ElementIds.SEARCH_QUERY_FIELD).performTextClearance()
     onNodeWithTag(ElementIds.SEARCH_QUERY_FIELD).performTextInput(query)

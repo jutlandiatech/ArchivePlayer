@@ -80,10 +80,43 @@ fun ItemScreen(vm: AppViewModel, identifier: String) {
         failed = item == null
     }
     Column(Modifier.fillMaxSize().testTag(ElementIds.ITEM_SCREEN)) {
+        val loaded = item
+        var overflow by remember { mutableStateOf(false) }
+        var picker by remember { mutableStateOf(false) }
+        var newPlaylist by remember { mutableStateOf(false) }
+        val context = LocalContext.current
         Row(verticalAlignment = Alignment.CenterVertically) {
             GlyphButton(ElementIds.ITEM_BACK_BUTTON, "←", t("action.back")) { vm.back() }
+            Spacer(Modifier.weight(1f))
+            if (loaded != null) Box {
+                GlyphButton(ElementIds.ITEM_OVERFLOW_BUTTON, "⋮", t("item.more")) { overflow = true }
+                DropdownMenu(expanded = overflow, onDismissRequest = { overflow = false }) {
+                    DropdownMenuItem(text = { Text(t("entry.addToPlaylist")) }, modifier = Modifier.testTag(ElementIds.itemMenu("add_to_playlist")),
+                        onClick = { overflow = false; picker = true })
+                    DropdownMenuItem(text = { Text(t("item.openArchive")) }, modifier = Modifier.testTag(ElementIds.itemMenu("open_archive")), onClick = {
+                        overflow = false
+                        context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(loaded.archiveUrl)).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
+                    })
+                }
+            }
         }
-        val loaded = item
+        if (loaded != null && picker) {
+            val refs = loaded.playableEntries.map { it.ref() }
+            ModalBottomSheet(onDismissRequest = { picker = false }, modifier = Modifier.testTag(ElementIds.SHEET_PLAYLIST_PICKER)) {
+                Box(Modifier.fillMaxWidth().heightIn(min = 48.dp).clickable { picker = false; newPlaylist = true }
+                    .tagged(ElementIds.PLAYLIST_PICKER_NEW, t("library.newPlaylist")).padding(horizontal = 24.dp), contentAlignment = Alignment.CenterStart) {
+                    Text(t("library.newPlaylist"))
+                }
+                vm.library.state.playlists.filterNot { it.isLiked }.forEach { p ->
+                    Box(Modifier.fillMaxWidth().heightIn(min = 48.dp).clickable { picker = false; vm.addToPlaylist(p.id, refs) }
+                        .tagged(ElementIds.playlistPicker(p.id), p.title).padding(horizontal = 24.dp), contentAlignment = Alignment.CenterStart) { Text(p.title) }
+                }
+                Spacer(Modifier.height(24.dp))
+            }
+        }
+        if (loaded != null && newPlaylist) NewPlaylistDialog(onDismiss = { newPlaylist = false }) { name ->
+            vm.createPlaylist(name, loaded.playableEntries.map { it.ref() })
+        }
         when {
             failed -> ErrorState(ElementIds.ITEM_ERROR, t("item.error"), ElementIds.ITEM_RETRY_BUTTON) { attempt++ }
             loaded == null -> Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) { CircularProgressIndicator() }
@@ -248,7 +281,7 @@ fun CollectionScreen(vm: AppViewModel, identifier: String) {
     var attempt by remember(identifier) { mutableIntStateOf(0) }
     val showAdult = vm.settings?.showAdultContent == true
     val context = LocalContext.current
-    LaunchedEffect(identifier) { title = runCatching { vm.repo.metadata(identifier) }.getOrNull()?.title ?: identifier }
+    LaunchedEffect(identifier) { title = runCatching { vm.repo.title(identifier) }.getOrNull() ?: identifier }
     LaunchedEffect(identifier, kind, attempt) {
         failed = false
         hits = null
