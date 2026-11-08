@@ -54,6 +54,7 @@ private fun rowValue(row: String, s: AppSettings, vm: AppViewModel): String = wh
     "storage" -> t(if (s.downloadLocation == DownloadLocation.SD_CARD) "settings.storage.sd" else "settings.storage.internal")
     "subtitles" -> t(subtitleKey(s.subtitleDefault))
     "history" -> t(onOff(!s.historyPaused))
+    "search_history" -> vm.library.state.recentSearches.size.toString()
     "about" -> t("settings.about.version", "version" to BuildConfig.VERSION_NAME)
     else -> ""
 }
@@ -146,6 +147,12 @@ fun SettingsDetailScreen(vm: AppViewModel, settings: AppSettings, row: String, e
                         Choice(settings.subtitleDefault == d, t(subtitleKey(d)), "settings_subtitles_${d.name.lowercase()}") { update(settings.copy(subtitleDefault = d)) }
                     }
                     SwitchRow(t("settings.subtitles.auto"), settings.includeAutoSubtitles, ElementIds.settingsSwitch("auto_subtitles")) { update(settings.copy(includeAutoSubtitles = it)) }
+                }
+                "search_history" -> vm.library.state.recentSearches.forEachIndexed { i, q ->
+                    Row(Modifier.fillMaxWidth().heightIn(min = 48.dp), verticalAlignment = Alignment.CenterVertically) {
+                        Text(q, style = MaterialTheme.typography.bodyLarge, modifier = Modifier.weight(1f).testTag("settings_search_history_$i"))
+                        GlyphButton("settings_search_history_remove_$i", "✕", t("action.delete")) { vm.search.removeRecent(i) }
+                    }
                 }
                 "history" -> SwitchRow(t("settings.history.pause"), settings.historyPaused, ElementIds.settingsSwitch("history_pause")) { update(settings.copy(historyPaused = it)) }
                 "about" -> {

@@ -120,8 +120,8 @@ class FixtureServer(
         val docs = root.getJSONObject("response").getJSONArray("docs")
         val q = request.query()
         val kinds = when {
-            Regex("mediatype:\\(?\\s*movies").containsMatchIn(q) -> setOf("movies")
-            Regex("mediatype:\\(?\\s*(audio|etree)").containsMatchIn(q) -> setOf("audio", "etree")
+            q.contains("mediatype:(movies)") -> setOf("movies")
+            q.contains("mediatype:(audio OR etree)") -> setOf("audio", "etree")
             else -> null
         }
         val filtered = (0 until docs.length()).map { docs.getJSONObject(it) }
