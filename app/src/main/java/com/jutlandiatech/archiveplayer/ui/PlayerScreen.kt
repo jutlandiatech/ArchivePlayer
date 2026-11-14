@@ -300,7 +300,7 @@ private fun FullscreenVideo(vm: AppViewModel, force: Boolean, exit: () -> Unit) 
         if (controls) {
             Row(Modifier.align(Alignment.BottomCenter).fillMaxWidth().background(black.copy(alpha = 0.5f)).padding(8.dp), verticalAlignment = Alignment.CenterVertically) {
                 GlyphButton(if (p.isPlaying) "⏸" else "▶", t(if (p.isPlaying) "player.pause" else "player.play"), ElementIds.PLAYER_FULLSCREEN + "_play") {
-                    p.player?.let { if (it.isPlaying) it.pause() else it.play() }
+                    p.togglePlay()
                 }
                 Spacer(Modifier.weight(1f))
                 GlyphButton("⛶", t("player.exit_fullscreen"), ElementIds.PLAYER_FULLSCREEN_BUTTON) { exit() }
