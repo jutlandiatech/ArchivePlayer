@@ -166,6 +166,8 @@
   "player.stopped.undo": "Undo",
   "player.stopped": "Playback stopped",
   "player.close": "Close player",
+  "player.fullscreen": "Full screen",
+  "player.exit_fullscreen": "Exit full screen",
   "player.expand": "Open player",
   "library.title": "Library",
   "library.filter.playlists": "Playlists",

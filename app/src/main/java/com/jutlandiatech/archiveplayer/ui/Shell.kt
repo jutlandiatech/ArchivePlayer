@@ -40,7 +40,7 @@ private val TAB_INFO = listOf(
 /** App shell: top bar on tab roots, bottom bar (< 600 dp) or rail (≥ 600 dp), per-tab back stacks (UI_SHELL_SPEC.md). */
 @Composable
 fun AppShell(vm: AppViewModel, settings: AppSettings, systemDark: Boolean, tabContent: @Composable (Tab) -> Unit, screenContent: @Composable (Screen) -> Unit) {
-    BackHandler(enabled = vm.current != null || vm.tab != Tab.HOME) { vm.back() }
+    BackHandler(enabled = !vm.playerOpen && (vm.current != null || vm.tab != Tab.HOME)) { vm.back() }
     Surface(Modifier.fillMaxSize().idRoot(ElementIds.APP_ROOT)) {
         BoxWithConstraints(Modifier.fillMaxSize()) {
             val wide = maxWidth >= 600.dp

@@ -319,6 +319,9 @@ class PlayerUiTest {
     }
 
     private fun maximize(identifier: String) {
+        // The one-time system "Viewing full screen" hint takes window focus (and the first Back) on a fresh device.
+        InstrumentationRegistry.getInstrumentation().uiAutomation
+            .executeShellCommand("settings put secure immersive_mode_confirmations confirmed").close()
         openPlayer(identifier).close()
         rule.waitForTag(ElementIds.PLAYER_FULLSCREEN_BUTTON)
         rule.onNodeWithTag(ElementIds.PLAYER_FULLSCREEN_BUTTON).performClick()
@@ -333,6 +336,8 @@ class PlayerUiTest {
 
     @Test fun P22_R86_backLeavesFullScreen() {
         maximize("fx_film")
+        var focus = false
+        assertTrue(eventually { rule.activityRule.scenario.onActivity { focus = it.hasWindowFocus() }; focus })
         UiDevice.getInstance(InstrumentationRegistry.getInstrumentation()).pressBack()
         assertTrue(eventually { rule.onAllNodesWithTag(ElementIds.PLAYER_FULLSCREEN).fetchSemanticsNodes().isEmpty() })
         rule.waitForTag(ElementIds.PLAYER_SCREEN)

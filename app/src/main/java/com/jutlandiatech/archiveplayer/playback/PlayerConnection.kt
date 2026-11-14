@@ -64,6 +64,9 @@ class PlayerConnection(context: Context) {
     var creator by mutableStateOf<String?>(null); private set
     var currentId by mutableStateOf<String?>(null); private set
     var isVideo by mutableStateOf(false); private set
+    var videoWidth by mutableIntStateOf(0); private set
+    var videoHeight by mutableIntStateOf(0); private set
+    var casting by mutableStateOf(false); private set
     var index by mutableIntStateOf(0); private set
     var queue by mutableStateOf<List<MediaItem>>(emptyList()); private set
     var repeatMode by mutableIntStateOf(Player.REPEAT_MODE_OFF); private set
@@ -122,6 +125,10 @@ class PlayerConnection(context: Context) {
         creator = meta.artist?.toString()
         currentId = p.currentMediaItem?.mediaId
         isVideo = meta.mediaType == MediaMetadata.MEDIA_TYPE_VIDEO
+        val size = p.videoSize
+        videoWidth = (size.width * size.pixelWidthHeightRatio).toInt()
+        videoHeight = size.height
+        casting = p.deviceInfo.playbackType == androidx.media3.common.DeviceInfo.PLAYBACK_TYPE_REMOTE
         index = p.currentMediaItemIndex
         queue = (0 until p.mediaItemCount).map { p.getMediaItemAt(it) }
         repeatMode = p.repeatMode

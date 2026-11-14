@@ -169,6 +169,8 @@ T = {
  "player.stopped.undo": ("Undo", "Rückgängig", "Fortryd"),
  "player.stopped": ("Playback stopped", "Wiedergabe beendet", "Afspilning stoppet"),
  "player.close": ("Close player", "Player schließen", "Luk afspiller"),
+ "player.fullscreen": ("Full screen", "Vollbild", "Fuld skærm"),
+ "player.exit_fullscreen": ("Exit full screen", "Vollbild beenden", "Afslut fuld skærm"),
  "player.expand": ("Open player", "Player öffnen", "Åbn afspiller"),
  "library.title": ("Library", "Bibliothek", "Bibliotek"),
  "library.filter.playlists": ("Playlists", "Playlists", "Playlister"),

@@ -166,6 +166,8 @@
   "player.stopped.undo": "Rückgängig",
   "player.stopped": "Wiedergabe beendet",
   "player.close": "Player schließen",
+  "player.fullscreen": "Vollbild",
+  "player.exit_fullscreen": "Vollbild beenden",
   "player.expand": "Player öffnen",
   "library.title": "Bibliothek",
   "library.filter.playlists": "Playlists",
