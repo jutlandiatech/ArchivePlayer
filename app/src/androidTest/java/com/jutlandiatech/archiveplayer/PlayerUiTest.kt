@@ -355,4 +355,24 @@ class PlayerUiTest {
         rule.waitForTag(ElementIds.PLAYER_ARTWORK)
         assertTrue(rule.onAllNodesWithTag(ElementIds.PLAYER_FULLSCREEN_BUTTON).fetchSemanticsNodes().isEmpty())
     }
+
+    @Test fun P25_R86_castingNeverGoesLandscape() {
+        AppEnvironment.forceCasting = true
+        val device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
+        try {
+            openPlayer("fx_film").close()
+            rule.waitForTag(ElementIds.PLAYER_VIDEO_SURFACE)
+            assertTrue(rule.onAllNodesWithTag(ElementIds.PLAYER_FULLSCREEN_BUTTON).fetchSemanticsNodes().isEmpty())
+            device.setOrientationLandscape()
+            rule.waitForIdle()
+            Thread.sleep(1_000)
+            rule.waitForIdle()
+            assertTrue(rule.onAllNodesWithTag(ElementIds.PLAYER_FULLSCREEN).fetchSemanticsNodes().isEmpty())
+            assertEquals(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED, requestedOrientation())
+        } finally {
+            device.setOrientationNatural()
+            device.unfreezeRotation()
+            AppEnvironment.forceCasting = false
+        }
+    }
 }

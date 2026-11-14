@@ -128,7 +128,7 @@ class PlayerConnection(context: Context) {
         val size = p.videoSize
         videoWidth = (size.width * size.pixelWidthHeightRatio).toInt()
         videoHeight = size.height
-        casting = p.deviceInfo.playbackType == androidx.media3.common.DeviceInfo.PLAYBACK_TYPE_REMOTE
+        casting = com.jutlandiatech.archiveplayer.AppEnvironment.forceCasting || p.deviceInfo.playbackType == androidx.media3.common.DeviceInfo.PLAYBACK_TYPE_REMOTE
         index = p.currentMediaItemIndex
         queue = (0 until p.mediaItemCount).map { p.getMediaItemAt(it) }
         repeatMode = p.repeatMode

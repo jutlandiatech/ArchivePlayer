@@ -17,7 +17,7 @@ ArchivePlayer is developed specification-first: specifications are agreed before
 - [UI_HOME_SPEC.md](UI_HOME_SPEC.md) — Home rows, cards and refresh (H01–H12). Approved 8 November 2026.
 - [UI_SEARCH_SPEC.md](UI_SEARCH_SPEC.md) — search, suggestions, filters, sorts, browse and category pages (Q01–Q14). Approved 8 November 2026.
 - [UI_ITEM_SPEC.md](UI_ITEM_SPEC.md) — item and collection pages, entry rows and menus (I01–I16). Approved 8 November 2026.
-- [UI_PLAYER_SPEC.md](UI_PLAYER_SPEC.md) — mini and full player, sheets, queue, PiP, errors (P01–P20). Approved 8 November 2026.
+- [UI_PLAYER_SPEC.md](UI_PLAYER_SPEC.md) — mini and full player, sheets, queue, PiP, errors, full-screen video (P01–P25). Approved 8 November 2026.
 - [UI_LIBRARY_SPEC.md](UI_LIBRARY_SPEC.md) — Library, playlists, likes, follows, downloads, history, share/import (L01–L17). Approved 8 November 2026.
 - [ANDROID_FEASIBILITY.md](ANDROID_FEASIBILITY.md) — archive.org, Cast and Android findings and validation gates.
 - [docs/ARCHITECTURE_UML.md](docs/ARCHITECTURE_UML.md) — proposed module/component architecture.
