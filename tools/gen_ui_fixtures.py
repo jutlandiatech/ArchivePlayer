@@ -55,6 +55,7 @@ def film(ident, title, subtitles=True, **kw):
 
 
 ITEMS = {
+    "fx_vertical": film("fx_vertical", "Fixture Vertical Clip", subtitles=False),
     "fx_radio_show": audio_item("fx_radio_show", "Fixture Radio Show", 6, rich=True, creator="Fixture Radio", date="1950",
                                 language="eng", collection=["fx_collection"], subject=["Radio", "Drama"],
                                 description="<p>A <b>fixture</b> radio show.</p>"),
@@ -123,6 +124,9 @@ def main():
     ffmpeg("-f", "lavfi", "-i", f"testsrc=size=160x90:rate=1:duration={LENGTH}", "-f", "lavfi", "-i",
            f"anullsrc=r=22050:cl=mono", "-t", str(LENGTH), "-c:v", "libx264", "-pix_fmt", "yuv420p", "-g", "10",
            "-c:a", "aac", "-b:a", "16k", "-movflags", "+faststart", os.path.join(media, "clip.mp4"))
+    ffmpeg("-f", "lavfi", "-i", f"testsrc=size=90x160:rate=1:duration={LENGTH}", "-f", "lavfi", "-i",
+           f"anullsrc=r=22050:cl=mono", "-t", str(LENGTH), "-c:v", "libx264", "-pix_fmt", "yuv420p", "-g", "10",
+           "-c:a", "aac", "-b:a", "16k", "-movflags", "+faststart", os.path.join(media, "clip_vertical.mp4"))
     ffmpeg("-f", "lavfi", "-i", "color=c=0x2769AD:size=64x64:duration=1", "-frames:v", "1", os.path.join(media, "art.png"))
     with open(os.path.join(media, "subs.srt"), "w") as fh:
         fh.write("1\n00:00:01,000 --> 00:00:05,000\nFixture subtitle\n")
