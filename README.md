@@ -17,7 +17,7 @@ ArchivePlayer is developed specification-first: specifications are agreed before
 - [UI_HOME_SPEC.md](UI_HOME_SPEC.md) — Home rows, cards and refresh (H01–H12). Approved 8 November 2026.
 - [UI_SEARCH_SPEC.md](UI_SEARCH_SPEC.md) — search, suggestions, filters, sorts, browse and category pages (Q01–Q14). Approved 8 November 2026.
 - [UI_ITEM_SPEC.md](UI_ITEM_SPEC.md) — item and collection pages, entry rows and menus (I01–I16). Approved 8 November 2026.
-- [UI_PLAYER_SPEC.md](UI_PLAYER_SPEC.md) — mini and full player, sheets, queue, PiP, errors (P01–P20). Approved 8 November 2026.
+- [UI_PLAYER_SPEC.md](UI_PLAYER_SPEC.md) — mini and full player, sheets, queue, PiP, errors, full-screen video (P01–P25). Approved 8 November 2026.
 - [UI_LIBRARY_SPEC.md](UI_LIBRARY_SPEC.md) — Library, playlists, likes, follows, downloads, history, share/import (L01–L17). Approved 8 November 2026.
 - [ANDROID_FEASIBILITY.md](ANDROID_FEASIBILITY.md) — archive.org, Cast and Android findings and validation gates.
 - [docs/ARCHITECTURE_UML.md](docs/ARCHITECTURE_UML.md) — proposed module/component architecture.
@@ -25,7 +25,7 @@ ArchivePlayer is developed specification-first: specifications are agreed before
 - [TDD_EVIDENCE.md](TDD_EVIDENCE.md) — recorded red→green runs (evidence files in `docs/tdd/`).
 - [DEVELOPMENT_ENVIRONMENT.md](DEVELOPMENT_ENVIRONMENT.md) — observed build environment and toolchain.
 
-Current status: version 0.1.0, implementation of specification v1.0 complete. 348 tests (160 core, 94 Android UI per flavour) run on an API 36 emulator; results and the one known flaky UI test are in [TDD_EVIDENCE.md](TDD_EVIDENCE.md). APKs for both flavours are in [dist/](dist/). Chromecast, SD cards, picture-in-picture, tablets and performance still need a check on real devices ([docs/GETTING_STARTED.md](docs/GETTING_STARTED.md#8-things-only-a-real-device-can-check)).
+Current status: version 0.2.0, specification v1.0 plus full-screen video (R86), archive.org website search (R87) and the Cast fix (R46). 372 tests (172 core, 101 Android UI in `full`, 99 in `foss`) run on an API 36 emulator; results are in [TDD_EVIDENCE.md](TDD_EVIDENCE.md). APKs for both flavours are in [dist/](dist/). Chromecast, SD cards, picture-in-picture, tablets and performance still need a check on real devices ([docs/GETTING_STARTED.md](docs/GETTING_STARTED.md#8-things-only-a-real-device-can-check)).
 
 ## Design
 

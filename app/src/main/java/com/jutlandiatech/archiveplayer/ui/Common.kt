@@ -1,6 +1,7 @@
 package com.jutlandiatech.archiveplayer.ui
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -32,3 +33,31 @@ fun GlyphButton(glyph: String, label: String, tag: String, modifier: Modifier = 
 
 @Composable
 fun Glyph(glyph: String) = Box { Text(glyph, fontSize = 20.sp, color = MaterialTheme.colorScheme.primary) }
+
+/** "Signal A" glyph plus the Archive**Player** wordmark (R84). */
+@Composable
+fun AppLogoLockup(name: String, glyphSize: androidx.compose.ui.unit.Dp, style: androidx.compose.ui.text.TextStyle, modifier: Modifier = Modifier) {
+    val primary = MaterialTheme.colorScheme.primary
+    androidx.compose.foundation.layout.Row(
+        modifier,
+        verticalAlignment = androidx.compose.ui.Alignment.CenterVertically,
+        horizontalArrangement = androidx.compose.foundation.layout.Arrangement.spacedBy(12.dp),
+    ) {
+        androidx.compose.foundation.Image(
+            androidx.compose.ui.res.painterResource(com.jutlandiatech.archiveplayer.R.drawable.ic_logo),
+            contentDescription = null,
+            colorFilter = androidx.compose.ui.graphics.ColorFilter.tint(primary),
+            modifier = Modifier.size(glyphSize),
+        )
+        val split = name.indexOf("Player")
+        Text(
+            androidx.compose.ui.text.buildAnnotatedString {
+                if (split > 0) {
+                    append(name.substring(0, split))
+                    pushStyle(androidx.compose.ui.text.SpanStyle(color = primary)); append(name.substring(split)); pop()
+                } else append(name)
+            },
+            style = style,
+        )
+    }
+}

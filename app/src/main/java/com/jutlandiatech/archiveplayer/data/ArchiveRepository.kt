@@ -88,6 +88,14 @@ class ArchiveRepository(context: Context) {
 
     suspend fun search(request: SearchRequest, showAdult: Boolean): SearchPage = withContext(Dispatchers.IO) {
         val filter = if (showAdult) null else adultFilter
+        // R87: archive.org's website ranking first; its endpoint is undocumented, so any failure falls back to advancedsearch.
+        if (com.jutlandiatech.archiveplayer.core.search.WebSearchUrl.applies(request)) {
+            val web = runCatching {
+                com.jutlandiatech.archiveplayer.core.catalog.WebSearchResponseParser.parse(
+                    client.get(com.jutlandiatech.archiveplayer.core.search.WebSearchUrl.build(request, base), mapOf("Accept" to "application/json")))
+            }.getOrNull()
+            if (web != null) return@withContext web.copy(hits = com.jutlandiatech.archiveplayer.core.search.ResultFilter.apply(web.hits, request, filter))
+        }
         SearchResponseParser.parse(client.get(AdvancedSearchUrl.build(request, filter, base)))
     }
 

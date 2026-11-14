@@ -69,6 +69,7 @@ archive.org facts that shape these requirements (observed November 2026; counts 
 | R23 | Filters (chips): media kind (all/audio/video), category, language, decade, duration class (short < 20 min, episode 20–60 min, feature > 60 min). Filters combine with AND; selected filters remain visible and individually removable. |
 | R24 | Sort: relevance (default), popularity (archive.org download counts), newest added, original date. |
 | R25 | Results are grouped: Collections, Items, and the user's own playlists matching the query. Results page incrementally (infinite scroll) and show a clear empty state and error/retry state. |
+| R87 | Text search uses archive.org's own website search (the relevance-ranked endpoint behind archive.org/search, metadata backend) restricted to the media kinds in R07, so results match what archive.org users see. When that endpoint fails or returns an unparseable response, the app falls back to `advancedsearch.php` with title-weighted relevance. Third-party search engines are not used (Google's Custom Search JSON API is closed to new customers and ends 1 January 2027; see docs/proposals/2026-11-13-fullscreen-search-cast.md). |
 | R26 | Without a query, the Search tab shows the category map as browsable tiles (browse). Opening a category shows its sub-categories and a results list using the same filters and sorts. |
 | R27 | Preferred content languages: chosen during setup (UI_SETUP_SPEC.md) and in Settings; zero or more ISO languages. They are a separate setting from the app (UI) language: changing one never changes the other, and they have distinct names ("App language" vs "Content languages"). |
 | R28 | When a language filter is active, only items tagged with a matching normalized language are shown; untagged items are excluded. Without a language filter, untagged items are shown normally. |
@@ -93,6 +94,7 @@ archive.org facts that shape these requirements (observed November 2026; counts 
 | R37 | Controls: play/pause, seek bar, previous/next, skip back/forward (back 10 s / forward 30 s), playback speed 0.5–2.0×, shuffle, repeat off/all/one, sleep timer (minutes or end of current entry). |
 | R38 | Picture-in-picture for video when the user leaves the app during video playback (Android 8+), with play/pause and skip actions. |
 | R39 | Background audio continues with the screen off. When a video entry plays in the background without PiP, its audio continues and the video resumes on return. |
+| R86 | Full-screen video: the full player offers a maximize button for video entries. The video surface follows the video's real aspect ratio. For videos 4:3 or wider, maximize switches to landscape (sensor-following), hides the system bars and shows the video edge to edge with auto-hiding overlaid controls; narrower videos go full screen in portrait. Tilting the phone to landscape while a 4:3-or-wider video plays in the full player also enters full screen; tilting back, Back or the minimize button leaves it and restores orientation and system bars. Landscape is only for video playing on the phone in full screen: while casting (R46), the app never forces or auto-enters landscape, and the maximize button is hidden. Layout and IDs in UI_PLAYER_SPEC.md. |
 | R40 | Format selection: automatically pick the best format playable both locally and on the default Cast receiver — video: h.264 MP4 (preferred over "512Kb MPEG4" and others); audio: VBR MP3, then 128 kbps MP3, then Ogg Vorbis (local only, never sent to Cast). FLAC is never auto-selected in v1. |
 | R41 | Data saver setting: on metered networks prefer the lower-bitrate video derivative ("512Kb MPEG4") and the lowest-bitrate MP3. Default: on; applies to metered networks only. |
 | R42 | Quality menu in the player lists the entry's alternative playable formats; a manual choice applies to the current entry only. |
@@ -104,7 +106,7 @@ archive.org facts that shape these requirements (observed November 2026; counts 
 
 | ID | Requirement |
 |---|---|
-| R46 | Full Cast support (`full` flavour, R80) with Google's Default Media Receiver: a Cast button in the top bar and player; any entry, item, playlist or queue can be cast. |
+| R46 | Full Cast support (`full` flavour, R80) with Google's Default Media Receiver: a Cast button in the top bar and player; any entry, item, playlist or queue can be cast. Every item sent to the receiver carries its MIME type (derived from the archive.org format), always the https archive.org URL (never a downloaded local file), and only WebVTT subtitles. |
 | R47 | The whole queue is handed to the receiver so playback continues when the phone is locked, the app is backgrounded, or its process is killed. |
 | R48 | Playback transfers seamlessly between phone and Chromecast in both directions, preserving queue, current entry and position. |
 | R49 | While casting, the app, notification and lock screen control the Cast session (play/pause, seek, next/previous, volume). Cast-only limitations (e.g. picture-in-picture, local subtitles if unsupported) are handled gracefully. Formats sent to Cast must satisfy R40; Ogg Vorbis is never sent to Cast (MP3 is used instead). |
@@ -240,6 +242,9 @@ These scenarios define intended behavior, not completed tests. Each must be tran
 | A43 | SD card inserted; user picks "SD card" as download location and downloads an album | Files are stored in ArchivePlayer's folder on the SD card; Storage & downloads shows the usage under SD card | R85 |
 | A44 | 2 downloads (416 MB) on internal storage; user switches the location to SD card | Prompt "Move 2 downloads (416 MB) to SD card?". Move: both are moved and still play offline. Keep: they stay; new downloads go to the SD card | R85 |
 | A45 | Downloads on the SD card; card is removed, later reinserted | Entries are marked "SD card removed" and play by streaming, nothing is deleted; after reinsertion they play offline again | R85 |
+| A46 | Play a 16:9 film, tap maximize | Landscape, system bars hidden, video fills the screen; Back returns to portrait with bars | R86 |
+| A47 | Search "his girl friday" | The 1940 film item is among the first results | R87 |
+| A48 | Cast a downloaded MP3 and a streamed MP4 | The receiver gets https URLs with `audio/mpeg` and `video/mp4`; playback starts on the Chromecast | R46 |
 | A36 | Run the setup scenarios in UI_SETUP_SPEC.md and shell scenarios in UI_SHELL_SPEC.md | Stable IDs, correct navigation, localization and accessibility | R62–R69 |
 
 ## 18. Resolved open points

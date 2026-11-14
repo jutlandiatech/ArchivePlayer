@@ -1,5 +1,7 @@
 package com.jutlandiatech.archiveplayer.ui
 
+import com.jutlandiatech.archiveplayer.core.player.FullscreenOrientation
+import com.jutlandiatech.archiveplayer.core.player.FullscreenPolicy
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -106,6 +108,24 @@ fun PlayerScreen(vm: AppViewModel) {
     var sheet by remember { mutableStateOf<String?>(null) }
     val position by positionState(vm, 250)
     val duration = p.durationMs
+    var fullscreen by androidx.compose.runtime.saveable.rememberSaveable { mutableStateOf(false) }
+    var byRotation by androidx.compose.runtime.saveable.rememberSaveable { mutableStateOf(false) }
+    val landscape = androidx.compose.ui.platform.LocalConfiguration.current.orientation == android.content.res.Configuration.ORIENTATION_LANDSCAPE
+    var wasLandscape by remember { mutableStateOf(landscape) }
+    LaunchedEffect(p.isVideo, p.casting) {
+        if (!p.isVideo || p.casting) { fullscreen = false; byRotation = false }
+    }
+    LaunchedEffect(landscape) {
+        // Only a rotation into landscape enters full screen; leaving full screen while still landscape must not re-enter it.
+        if (landscape && !wasLandscape && !fullscreen && p.isVideo &&
+            FullscreenPolicy.enterOnLandscapeRotation(p.videoWidth, p.videoHeight, p.casting)) { fullscreen = true; byRotation = true }
+        else if (!landscape && fullscreen && byRotation) { fullscreen = false; byRotation = false }
+        wasLandscape = landscape
+    }
+    if (fullscreen) {
+        FullscreenVideo(vm, force = !byRotation) { fullscreen = false; byRotation = false }
+        return
+    }
     Surface(Modifier.fillMaxSize().testTag(ElementIds.PLAYER_SCREEN)) {
         Column(Modifier.fillMaxSize().safeDrawingPadding().verticalScroll(rememberScrollState()).padding(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
             Row(verticalAlignment = Alignment.CenterVertically) {
@@ -114,7 +134,13 @@ fun PlayerScreen(vm: AppViewModel) {
                 CastButton(Modifier.testTag(ElementIds.PLAYER_CAST_BUTTON))
             }
             if (p.isVideo) {
-                PlayerSurface(player = p.player, modifier = Modifier.fillMaxWidth().aspectRatio(16f / 9f).background(androidx.compose.ui.graphics.Color.Black).testTag(ElementIds.PLAYER_VIDEO_SURFACE))
+                val ratio = videoRatio(p.videoWidth, p.videoHeight)
+                Box(Modifier.fillMaxWidth().aspectRatio(maxOf(ratio, 0.75f)).background(androidx.compose.ui.graphics.Color.Black), contentAlignment = Alignment.Center) {
+                    PlayerSurface(player = p.player, modifier = Modifier.aspectRatio(ratio).testTag(ElementIds.PLAYER_VIDEO_SURFACE))
+                    if (FullscreenPolicy.offersFullscreen(p.isVideo, p.casting)) {
+                        GlyphButton("⛶", t("player.fullscreen"), ElementIds.PLAYER_FULLSCREEN_BUTTON, Modifier.align(Alignment.BottomEnd)) { fullscreen = true }
+                    }
+                }
             } else {
                 Box(Modifier.fillMaxWidth().aspectRatio(1f).background(MaterialTheme.colorScheme.surfaceVariant).testTag(ElementIds.PLAYER_ARTWORK), contentAlignment = Alignment.Center) {
                     Text("♪", style = MaterialTheme.typography.displayLarge)
@@ -230,4 +256,55 @@ fun PlayerScreen(vm: AppViewModel) {
 @Composable
 fun CastButton(modifier: Modifier = Modifier) {
     if (FlavourCast.isAvailable) Box(modifier) { FlavourCast.RouteButton(Modifier) }
+}
+
+private fun videoRatio(width: Int, height: Int): Float = if (width > 0 && height > 0) width.toFloat() / height else 16f / 9f
+
+/** Full-screen video (R86): forced landscape for 4:3-or-wider video, hidden system bars, auto-hiding overlay controls. */
+@Composable
+private fun FullscreenVideo(vm: AppViewModel, force: Boolean, exit: () -> Unit) {
+    val p = vm.player
+    BackHandler(onBack = exit)
+    val context = androidx.compose.ui.platform.LocalContext.current
+    val activity = remember(context) {
+        generateSequence(context) { (it as? android.content.ContextWrapper)?.baseContext }.filterIsInstance<android.app.Activity>().firstOrNull()
+    }
+    val orientation = FullscreenPolicy.orientation(p.videoWidth, p.videoHeight, p.casting)
+    androidx.compose.runtime.DisposableEffect(activity, orientation, force) {
+        val a = activity
+        val controller = a?.let { androidx.core.view.WindowCompat.getInsetsController(it.window, it.window.decorView) }
+        if (a != null && force && orientation == FullscreenOrientation.LANDSCAPE) {
+            a.requestedOrientation = android.content.pm.ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE
+        }
+        controller?.systemBarsBehavior = androidx.core.view.WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+        controller?.hide(androidx.core.view.WindowInsetsCompat.Type.systemBars())
+        onDispose {
+            a?.requestedOrientation = android.content.pm.ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
+            controller?.show(androidx.core.view.WindowInsetsCompat.Type.systemBars())
+        }
+    }
+    var controls by remember { mutableStateOf(true) }
+    LaunchedEffect(controls) {
+        if (controls) {
+            kotlinx.coroutines.delay(3000)
+            controls = false
+        }
+    }
+    val black = androidx.compose.ui.graphics.Color.Black
+    Box(
+        Modifier.fillMaxSize().background(black).testTag(ElementIds.PLAYER_FULLSCREEN)
+            .clickable(interactionSource = remember { androidx.compose.foundation.interaction.MutableInteractionSource() }, indication = null) { controls = !controls },
+        contentAlignment = Alignment.Center,
+    ) {
+        PlayerSurface(player = p.player, modifier = Modifier.aspectRatio(videoRatio(p.videoWidth, p.videoHeight)).testTag(ElementIds.PLAYER_VIDEO_SURFACE))
+        if (controls) {
+            Row(Modifier.align(Alignment.BottomCenter).fillMaxWidth().background(black.copy(alpha = 0.5f)).padding(8.dp), verticalAlignment = Alignment.CenterVertically) {
+                GlyphButton(if (p.isPlaying) "⏸" else "▶", t(if (p.isPlaying) "player.pause" else "player.play"), ElementIds.PLAYER_FULLSCREEN + "_play") {
+                    p.player?.let { if (it.isPlaying) it.pause() else it.play() }
+                }
+                Spacer(Modifier.weight(1f))
+                GlyphButton("⛶", t("player.exit_fullscreen"), ElementIds.PLAYER_FULLSCREEN_BUTTON) { exit() }
+            }
+        }
+    }
 }

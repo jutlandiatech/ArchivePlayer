@@ -1,0 +1,44 @@
+{
+ "metadata": {
+  "identifier": "fx_vertical",
+  "title": "Fixture Vertical Clip",
+  "mediatype": "movies"
+ },
+ "files": [
+  {
+   "name": "fx_vertical.mpeg",
+   "format": "MPEG2",
+   "source": "original",
+   "size": "1000",
+   "length": "180"
+  },
+  {
+   "name": "fx_vertical.mp4",
+   "format": "h.264",
+   "source": "derivative",
+   "size": "1000",
+   "length": "180",
+   "title": "Fixture Vertical Clip"
+  },
+  {
+   "name": "fx_vertical_512kb.mp4",
+   "format": "512Kb MPEG4",
+   "source": "derivative",
+   "size": "1000",
+   "length": "180",
+   "title": "Fixture Vertical Clip"
+  },
+  {
+   "name": "fx_vertical.png",
+   "format": "PNG",
+   "source": "derivative",
+   "size": "1000"
+  },
+  {
+   "name": "fx_vertical_meta.xml",
+   "format": "Metadata",
+   "source": "original",
+   "size": "1000"
+  }
+ ]
+}

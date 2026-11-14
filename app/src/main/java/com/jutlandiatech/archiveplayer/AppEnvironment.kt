@@ -28,7 +28,11 @@ object AppEnvironment {
     /** Test seam: lower share-link limit so a fixture playlist exceeds it (R57). */
     @Volatile var shareLinkMaxLength: Int? = null
 
+    /** Test seam: report playback as remote (casting) without a Cast device (R86, P25). */
+    @Volatile var forceCasting: Boolean = false
+
     fun reset() {
+        forceCasting = false
         archiveBaseUrl = ARCHIVE_BASE_URL
         shareLinkMaxLength = null
         pagesBaseUrl = PAGES_BASE_URL

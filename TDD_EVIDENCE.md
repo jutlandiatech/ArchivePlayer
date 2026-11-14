@@ -2,6 +2,24 @@
 
 Actual test runs, newest first. Machine-readable details (every test, its result and the SHA-256 of every test source) are in `docs/tdd/`.
 
+## Version 0.2.0 — full-screen video, website search, Cast fix (14 November 2026)
+
+- Evidence: [docs/tdd/green-v0.2.0.json](docs/tdd/green-v0.2.0.json) (results of the runs below, SHA-256 of every test source).
+- Environment: as for gate 3 (AVD `ap36`, API 36 `google_apis` x86_64; app compiled against and targeting SDK 37).
+- Commands: `./gradlew :core:test --rerun-tasks :app:verifyFossDependencies`, `./gradlew :app:connectedFullDebugAndroidTest`, `./gradlew :app:connectedFossDebugAndroidTest`. P25 was added after the two suites and ran on its own in each flavour (`-Pandroid.testInstrumentationRunnerArguments.class=com.jutlandiatech.archiveplayer.PlayerUiTest#P25_R86_castingNeverGoesLandscape`).
+- Added: website search URL, parser and fallback (R87, A47), format → MIME type (R46), full-screen policy (R86) in core; P21–P25 (R86) in both flavours; `CastConverterTest` A48 (`full` only).
+
+| Layer | Tests | Passed | Failed | Skipped |
+|---|---|---|---|---|
+| Core JVM (`core/src/test`) | 172 | 171 | 0 | 1 (opt-in live check) |
+| Android UI, `full` | 101 | 101 | 0 | 0 |
+| Android UI, `foss` | 99 | 99 | 0 | 0 |
+| **Total** | **372** | **371** | **0** | **1** |
+
+The known flaky test `I14_R33_collectionPageWithFollowAndFilters` passed in both flavours in this run. `verifyFossDependencies` passes.
+
+Not covered by automated tests: actual playback on a physical Chromecast (the receiver side of R46/A48), plus the device checks listed for gate 3.
+
 ## Gate 3 — green, implementation complete (8 November 2026)
 
 - Evidence: [docs/tdd/green-gate3.json](docs/tdd/green-gate3.json) (results of the runs below, base commit `97d8b1d`, SHA-256 of every test source).

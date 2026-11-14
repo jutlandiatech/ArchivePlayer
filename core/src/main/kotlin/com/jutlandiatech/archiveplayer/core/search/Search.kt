@@ -81,6 +81,31 @@ object AdvancedSearchUrl {
     }
 }
 
+/** archive.org's own website search, relevance-ranked like archive.org/search (R87); undocumented, so callers fall back to [AdvancedSearchUrl]. */
+object WebSearchUrl {
+    fun applies(request: SearchRequest): Boolean =
+        request.text.isNotBlank() && request.sort == SortOrder.RELEVANCE && request.category == null
+
+    fun build(request: SearchRequest, baseUrl: String = "https://archive.org"): String {
+        val kinds = when (request.kind) {
+            KindFilter.ALL -> listOf("movies", "audio", "etree")
+            KindFilter.AUDIO -> listOf("audio", "etree")
+            KindFilter.VIDEO -> listOf("movies")
+        }
+        val filter = "{\"mediatype\":{" + kinds.joinToString(",") { "\"$it\":\"inc\"" } + "}}"
+        val params = listOf(
+            "user_query" to request.text.trim(),
+            "service_backend" to "metadata",
+            "hits_per_page" to request.rows.toString(),
+            "page" to request.page.toString(),
+            "filter_map" to filter,
+        )
+        return "${baseUrl.trimEnd('/')}/services/search/beta/page_production/?" + params.joinToString("&") { (k, v) ->
+            URLEncoder.encode(k, "UTF-8") + "=" + URLEncoder.encode(v, "UTF-8")
+        }
+    }
+}
+
 /** Client-side result rules applied after parsing (R28, R71). */
 object ResultFilter {
     fun apply(hits: List<SearchHit>, request: SearchRequest, adultFilter: AdultFilter?): List<SearchHit> = hits.filter { hit ->

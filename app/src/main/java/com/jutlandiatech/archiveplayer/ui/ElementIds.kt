@@ -166,6 +166,8 @@ object ElementIds {
     const val MINI_PLAYER_PROGRESS = "mini_player_progress"
     const val PLAYER_COLLAPSE_BUTTON = "player_collapse_button"
     const val PLAYER_VIDEO_SURFACE = "player_video_surface"
+    const val PLAYER_FULLSCREEN_BUTTON = "player_fullscreen_button"
+    const val PLAYER_FULLSCREEN = "player_fullscreen"
     const val PLAYER_ARTWORK = "player_artwork"
     const val PLAYER_PLAY_PAUSE_BUTTON = "player_play_pause_button"
     const val PLAYER_PREVIOUS_BUTTON = "player_previous_button"

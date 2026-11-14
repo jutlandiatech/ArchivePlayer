@@ -49,6 +49,8 @@ fun SetupScreen(vm: AppViewModel) {
     CompositionLocalProvider(LocalTexts provides catalog) {
         Surface(Modifier.fillMaxSize().idRoot(ElementIds.SETUP_ROOT)) {
             Column(Modifier.fillMaxSize().safeDrawingPadding().padding(24.dp)) {
+                AppLogoLockup(t("app.name"), 36.dp, MaterialTheme.typography.headlineSmall)
+                Spacer(Modifier.padding(8.dp))
                 Text(
                     t("setup.progress", "current" to flow.stepNumber, "total" to flow.stepCount),
                     style = MaterialTheme.typography.labelLarge,

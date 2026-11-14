@@ -166,6 +166,8 @@
   "player.stopped.undo": "Fortryd",
   "player.stopped": "Afspilning stoppet",
   "player.close": "Luk afspiller",
+  "player.fullscreen": "Fuld skærm",
+  "player.exit_fullscreen": "Afslut fuld skærm",
   "player.expand": "Åbn afspiller",
   "library.title": "Bibliotek",
   "library.filter.playlists": "Playlister",
