@@ -11,7 +11,7 @@ Defined in UI_SHELL_SPEC.md (above the bottom bar/at the bottom of the content a
 - Opens as a full-screen layer over the current tab; `player_collapse_button` or Android Back returns to the tab.
 - **Audio entry:** large artwork (`player_artwork`), title, item title/creator (tap opens the item page and collapses the player).
 - **Video entry:** video surface (`player_video_surface`) in the video's real aspect ratio; tap toggles control visibility.
-- **Full screen (R86):** `player_fullscreen_button` on the video surface toggles full screen (`player_fullscreen` root while active). Video 4:3 or wider: landscape (sensor-following), system bars hidden, video edge to edge, overlaid controls auto-hide after 3 s. Narrower video: full screen in portrait. Rotating to landscape while a 4:3-or-wider video plays in the full player enters full screen; rotating back, Back or the button leaves it and restores orientation and system bars.
+- **Full screen (R86):** `player_fullscreen_button` on the video surface toggles full screen (`player_fullscreen` root while active). Video 4:3 or wider: landscape (sensor-following), system bars hidden, video edge to edge, overlaid controls auto-hide after 3 s. Narrower video: full screen in portrait. Rotating to landscape while a 4:3-or-wider video plays in the full player enters full screen; rotating back, Back or the button leaves it and restores orientation and system bars. While casting, `player_fullscreen_button` is hidden and the app never changes orientation (no auto full screen on rotation).
 - Mixed queues switch layout per entry without leaving the player (R35).
 - Controls (R37): seek bar with elapsed/remaining time, skip back 10 s, previous, play/pause, next, skip forward 30 s, shuffle (on/off), repeat (off → all → one), like (current entry).
 - Secondary row: Queue, Quality, Subtitles (shown only when the entry has subtitle files), Speed, Sleep timer, Cast (`full` only).
@@ -104,3 +104,4 @@ Shuffle and repeat expose their mode as a state description (`on`/`off`; `off`/`
 | P22 | In full screen, Android Back: `player_fullscreen` gone, orientation back to unspecified/portrait, `player_screen` shown, system bars visible. |
 | P23 | Full player, 9:16 video: tap `player_fullscreen_button`: `player_fullscreen` shown, requested orientation stays portrait. |
 | P24 | Audio entry: no `player_fullscreen_button`. |
+| P25 | `full`, casting a video: no `player_fullscreen_button`; rotating to landscape does not show `player_fullscreen`; requested orientation unchanged. |
