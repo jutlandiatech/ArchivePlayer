@@ -21,7 +21,7 @@ class CastConverterTest {
         assertEquals("https://archive.org/download/fx_radio_show/e01.mp3", item.localConfiguration!!.uri.toString())
         assertEquals(MimeTypes.AUDIO_MPEG, item.localConfiguration!!.mimeType)
         ArchiveCastConverter().toMediaQueueItem(entry.toMediaItem()).media!!.let {
-            assertEquals("https://archive.org/download/fx_radio_show/e01.mp3", it.contentId.ifEmpty { it.contentUrl })
+            assertEquals("https://archive.org/download/fx_radio_show/e01.mp3", it.contentUrl)
             assertEquals(MimeTypes.AUDIO_MPEG, it.contentType)
         }
     }
