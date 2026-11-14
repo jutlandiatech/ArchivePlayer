@@ -53,3 +53,17 @@ object FormatSelector {
     /** True if the app can play [format] on the phone (adds Ogg Vorbis and FLAC). */
     fun isLocallyPlayable(format: MediaFormat): Boolean = isPlayable(format) || key(format) == OGG || key(format) == FLAC
 }
+
+/** MIME type for an archive.org format name; Cast receivers need it to load an item (R46). */
+object FormatMime {
+    fun of(format: String): String? {
+        val f = format.trim().lowercase()
+        return when {
+            f.startsWith("h.264") || f == "mpeg4" || f == "512kb mpeg4" -> "video/mp4"
+            f.endsWith("mp3") -> "audio/mpeg"
+            f == "ogg vorbis" -> "audio/ogg"
+            f == "flac" -> "audio/flac"
+            else -> null
+        }
+    }
+}

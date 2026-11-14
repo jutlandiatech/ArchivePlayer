@@ -28,10 +28,14 @@ data class QueueEntry(
     val artworkUrl: String?,
     val video: Boolean,
     val subtitles: List<MediaItem.SubtitleConfiguration> = emptyList(),
+    val mimeType: String? = null,
+    /** https URL the Cast receiver streams from; [url] may be a downloaded local file (R46, R61). */
+    val castUrl: String? = null,
 ) {
     fun toMediaItem(): MediaItem = MediaItem.Builder()
         .setMediaId("$identifier/$fileName")
         .setUri(url)
+        .setMimeType(mimeType)
         .setSubtitleConfigurations(subtitles)
         .setMediaMetadata(
             MediaMetadata.Builder()
@@ -40,6 +44,7 @@ data class QueueEntry(
                 .setAlbumTitle(itemTitle)
                 .setArtworkUri(artworkUrl?.let(Uri::parse))
                 .setMediaType(if (video) MediaMetadata.MEDIA_TYPE_VIDEO else MediaMetadata.MEDIA_TYPE_MUSIC)
+                .setExtras(castUrl?.let { android.os.Bundle().apply { putString(CAST_URL, it) } })
                 .build(),
         )
         .build()
@@ -191,3 +196,5 @@ class PlayerConnection(context: Context) {
 
     fun dismissUndo() { stopped = null; canUndoStop = false }
 }
+
+const val CAST_URL = "castUrl"

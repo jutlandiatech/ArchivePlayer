@@ -391,7 +391,8 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
         }
         val entry = QueueEntry(item.identifier, ref.fileName, e.title, item.title, item.creator,
             downloads.playableFile(item.identifier, ref.fileName)?.takeIf { format == null }?.let { android.net.Uri.fromFile(it).toString() }
-                ?: repo.downloadUrl(item.identifier, f.fileName), repo.thumbnailUrl(item.identifier), e.kind == MediaKind.VIDEO, subtitles)
+                ?: repo.downloadUrl(item.identifier, f.fileName), repo.thumbnailUrl(item.identifier), e.kind == MediaKind.VIDEO, subtitles,
+            mimeType = com.jutlandiatech.archiveplayer.core.format.FormatMime.of(f.format), castUrl = repo.downloadUrl(item.identifier, f.fileName))
         val id = "${item.identifier}/${ref.fileName}"
         queueInfo[id] = item to e
         playingFormat[id] = f
