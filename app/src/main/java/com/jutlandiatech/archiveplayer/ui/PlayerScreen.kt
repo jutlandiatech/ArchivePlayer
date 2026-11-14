@@ -273,8 +273,10 @@ private fun FullscreenVideo(vm: AppViewModel, force: Boolean, exit: () -> Unit) 
     androidx.compose.runtime.DisposableEffect(activity, orientation, force) {
         val a = activity
         val controller = a?.let { androidx.core.view.WindowCompat.getInsetsController(it.window, it.window.decorView) }
-        if (a != null && force && orientation == FullscreenOrientation.LANDSCAPE) {
-            a.requestedOrientation = android.content.pm.ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE
+        if (a != null && force) when (orientation) {
+            FullscreenOrientation.LANDSCAPE -> a.requestedOrientation = android.content.pm.ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE
+            FullscreenOrientation.PORTRAIT -> a.requestedOrientation = android.content.pm.ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT
+            FullscreenOrientation.NONE -> Unit
         }
         controller?.systemBarsBehavior = androidx.core.view.WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
         controller?.hide(androidx.core.view.WindowInsetsCompat.Type.systemBars())
