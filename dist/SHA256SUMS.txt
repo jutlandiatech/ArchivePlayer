@@ -1,2 +1,2 @@
-67e747b5503ebed867213e5d9db4952bba4de3cbdb385a47f5fcaab6c6ca924b  ArchivePlayer-full-0.2.0.apk
-b1ac1454d519785462ee2d44cdc6e6cb5a5f261fb7729609029f7f42d6272536  ArchivePlayer-foss-0.2.0.apk
+85ac38fbbf5a60e1aa150f82f61e513202eb861937a6db37c58ebd12194fbb49  ArchivePlayer-full-0.2.0.apk
+140c1eb49ea475ae03872eef432a702e76a7472b9a79bbc64170cc2ea4f99b18  ArchivePlayer-foss-0.2.0.apk

@@ -174,7 +174,7 @@ fun SettingsDetailScreen(vm: AppViewModel, settings: AppSettings, row: String, e
                     Text(t("settings.backup.note"), style = MaterialTheme.typography.bodyMedium)
                 }
                 "about" -> {
-                    Text(t("app.name"), style = MaterialTheme.typography.headlineMedium)
+                    AppLogoLockup(t("app.name"), 48.dp, MaterialTheme.typography.headlineMedium)
                     Text(t("settings.about.version", "version" to BuildConfig.VERSION_NAME), style = MaterialTheme.typography.bodyLarge)
                     Text(t("settings.about.flavour", "flavour" to BuildConfig.FLAVOR), style = MaterialTheme.typography.bodyLarge, modifier = Modifier.testTag(ElementIds.SETTINGS_ABOUT_FLAVOUR))
                     Text(t("settings.about.license"), style = MaterialTheme.typography.bodyLarge, modifier = Modifier.testTag(ElementIds.SETTINGS_ABOUT_NOTICES))
