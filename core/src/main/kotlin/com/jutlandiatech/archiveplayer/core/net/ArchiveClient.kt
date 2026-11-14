@@ -24,13 +24,13 @@ class ArchiveClient(
 ) {
     val userAgent: String get() = "ArchivePlayer/$appVersion (+https://github.com/jutlandiatech/ArchivePlayer)"
 
-    fun get(url: String): String {
+    fun get(url: String, headers: Map<String, String> = emptyMap()): String {
         val host = runCatching { URI(url).host }.getOrNull().orEmpty()
         if (!NetworkPolicy.isAllowedHost(host)) throw BlockedHostException(host)
         var attempt = 0
         while (true) {
             attempt++
-            val response = transport.get(url, mapOf("User-Agent" to userAgent))
+            val response = transport.get(url, headers + ("User-Agent" to userAgent))
             val code = response.code
             if (code in 200..299) return response.body
             val retryable = code == 429 || code in 500..599

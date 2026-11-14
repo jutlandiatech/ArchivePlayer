@@ -191,6 +191,34 @@ object SearchResponseParser {
     }
 }
 
+/** Parses archive.org website-search responses (`services/search/beta/page_production`, R87). Null means "fall back". */
+object WebSearchResponseParser {
+    fun parse(json: String): SearchPage? = try {
+        val body = ((JsonValues.parseObject(json)?.get("response") as? JsonObject)?.get("body") as? JsonObject)?.get("hits") as? JsonObject
+        val list = body?.get("hits") as? JsonArray
+        if (body == null || list == null) null else {
+            val hits = list.mapNotNull { el ->
+                val d = (el as? JsonObject)?.get("fields") as? JsonObject ?: return@mapNotNull null
+                val id = JsonValues.first(d["identifier"]) ?: return@mapNotNull null
+                SearchHit(
+                    identifier = id,
+                    title = JsonValues.first(d["title"]) ?: id,
+                    creator = JsonValues.first(d["creator"]),
+                    kind = MediaKind.fromMediatype(JsonValues.first(d["mediatype"])),
+                    languages = LanguageNormalizer.normalizeAll(JsonValues.strings(d["language"])),
+                    collections = JsonValues.strings(d["collection"]),
+                    subjects = JsonValues.strings(d["subject"]).flatMap { it.split(';') }.map { it.trim() }.filter { it.isNotEmpty() },
+                    downloads = JsonValues.long(d["downloads"]) ?: 0L,
+                    date = JsonValues.first(d["date"]) ?: JsonValues.first(d["year"]),
+                )
+            }
+            SearchPage(JsonValues.long(body["total"])?.toInt() ?: hits.size, hits)
+        }
+    } catch (e: Exception) {
+        null
+    }
+}
+
 /** Subtitle-file classification (R45, A33, A40). */
 object SubtitleDetector {
     /** Null if [fileName] is not a SubRip/WebVTT file. */
