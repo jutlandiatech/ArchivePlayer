@@ -84,7 +84,8 @@ object AdvancedSearchUrl {
 /** archive.org's own website search, relevance-ranked like archive.org/search (R87); undocumented, so callers fall back to [AdvancedSearchUrl]. */
 object WebSearchUrl {
     fun applies(request: SearchRequest): Boolean =
-        request.text.isNotBlank() && request.sort == SortOrder.RELEVANCE && request.category == null
+        request.text.isNotBlank() && request.sort == SortOrder.RELEVANCE && request.category == null &&
+            request.languages.isEmpty() && request.decade == null
 
     fun build(request: SearchRequest, baseUrl: String = "https://archive.org"): String {
         val kinds = when (request.kind) {

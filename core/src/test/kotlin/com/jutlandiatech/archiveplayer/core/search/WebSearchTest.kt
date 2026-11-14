@@ -45,6 +45,8 @@ class WebSearchTest {
         assertFalse(WebSearchUrl.applies(SearchRequest("   ")))
         assertFalse(WebSearchUrl.applies(SearchRequest("marlowe", sort = SortOrder.POPULARITY)))
         assertFalse(WebSearchUrl.applies(SearchRequest("marlowe", category = CategoryQuery(listOf("oldtimeradio"), emptyList(), null))))
+        assertFalse(WebSearchUrl.applies(SearchRequest("marlowe", languages = setOf("de"))))
+        assertFalse(WebSearchUrl.applies(SearchRequest("marlowe", decade = 1940)))
     }
 
     @Test fun A47_parsesWebsiteSearchResponseInRankOrder() {
