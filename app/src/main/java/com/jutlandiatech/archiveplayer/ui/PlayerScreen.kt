@@ -77,6 +77,7 @@ fun MiniPlayer(vm: AppViewModel) {
                     Text(title, maxLines = 1, overflow = TextOverflow.Ellipsis, modifier = Modifier.tagged(ElementIds.MINI_PLAYER_TITLE, title))
                     p.itemTitle?.let { Text(it, style = MaterialTheme.typography.bodySmall, maxLines = 1, overflow = TextOverflow.Ellipsis) }
                 }
+                if (p.casting) Text("📡", modifier = Modifier.testTag(ElementIds.MINI_PLAYER_CAST_INDICATOR))
                 GlyphButton(if (p.isPlaying) "❚❚" else "▶", t(if (p.isPlaying) "player.pause" else "player.play"), ElementIds.MINI_PLAYER_PLAY_PAUSE_BUTTON) { p.togglePlay() }
             }
         }
@@ -137,13 +138,17 @@ fun PlayerScreen(vm: AppViewModel) {
                 val ratio = videoRatio(p.videoWidth, p.videoHeight)
                 Box(Modifier.fillMaxWidth().aspectRatio(maxOf(ratio, 0.75f)).background(androidx.compose.ui.graphics.Color.Black), contentAlignment = Alignment.Center) {
                     PlayerSurface(player = p.player, modifier = Modifier.aspectRatio(ratio).testTag(ElementIds.PLAYER_VIDEO_SURFACE))
+                    if (p.casting) CastingLabel(color = androidx.compose.ui.graphics.Color.White)
                     if (FullscreenPolicy.offersFullscreen(p.isVideo, p.casting)) {
                         GlyphButton("⛶", t("player.fullscreen"), ElementIds.PLAYER_FULLSCREEN_BUTTON, Modifier.align(Alignment.BottomEnd)) { fullscreen = true }
                     }
                 }
             } else {
                 Box(Modifier.fillMaxWidth().aspectRatio(1f).background(MaterialTheme.colorScheme.surfaceVariant).testTag(ElementIds.PLAYER_ARTWORK), contentAlignment = Alignment.Center) {
-                    Text("♪", style = MaterialTheme.typography.displayLarge)
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        Text("♪", style = MaterialTheme.typography.displayLarge)
+                        if (p.casting) CastingLabel()
+                    }
                 }
             }
             val title = p.title.orEmpty()
@@ -256,6 +261,14 @@ fun PlayerScreen(vm: AppViewModel) {
 @Composable
 fun CastButton(modifier: Modifier = Modifier) {
     if (FlavourCast.isAvailable) Box(modifier) { FlavourCast.RouteButton(Modifier) }
+}
+
+/** "Casting to {device}" overlay while playback is remote (UI_PLAYER_SPEC.md). */
+@Composable
+private fun CastingLabel(modifier: Modifier = Modifier, color: androidx.compose.ui.graphics.Color = androidx.compose.ui.graphics.Color.Unspecified) {
+    val context = androidx.compose.ui.platform.LocalContext.current
+    Text(t("player.castingTo", "device" to (FlavourCast.castDeviceName(context) ?: "Chromecast")),
+        color = color, modifier = modifier.testTag(ElementIds.PLAYER_CASTING_LABEL))
 }
 
 private fun videoRatio(width: Int, height: Int): Float = if (width > 0 && height > 0) width.toFloat() / height else 16f / 9f

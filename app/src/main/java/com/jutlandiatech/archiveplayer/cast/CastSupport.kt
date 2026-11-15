@@ -1,6 +1,7 @@
 package com.jutlandiatech.archiveplayer.cast
 
 import android.app.Application
+import android.content.Context
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.media3.common.Player
@@ -11,6 +12,9 @@ interface CastSupport {
     val isAvailable: Boolean
     fun initialize(application: Application)
     fun wrapPlayer(application: Application, localPlayer: ExoPlayer): Player
+
+    /** Friendly name of the receiver in the active Cast session, null when not casting. */
+    fun castDeviceName(context: Context): String?
 
     @Composable
     fun RouteButton(modifier: Modifier)

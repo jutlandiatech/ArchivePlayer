@@ -124,7 +124,9 @@ class PlayerConnection(context: Context) {
         itemTitle = meta.albumTitle?.toString()
         creator = meta.artist?.toString()
         currentId = p.currentMediaItem?.mediaId
+        // mediaType does not survive a Cast round-trip (DefaultMediaItemConverter drops it); mimeType is kept.
         isVideo = meta.mediaType == MediaMetadata.MEDIA_TYPE_VIDEO
+            || p.currentMediaItem?.localConfiguration?.mimeType?.startsWith("video/") == true
         val size = p.videoSize
         videoWidth = (size.width * size.pixelWidthHeightRatio).toInt()
         videoHeight = size.height

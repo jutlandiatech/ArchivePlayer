@@ -76,7 +76,7 @@ class MainActivity : ComponentActivity() {
 
     override fun onUserLeaveHint() {
         super.onUserLeaveHint()
-        if (vm.player.isVideo && vm.player.hasQueue && vm.player.isPlaying) {
+        if (vm.player.isVideo && vm.player.hasQueue && vm.player.isPlaying && !vm.player.casting) {
             runCatching {
                 enterPictureInPictureMode(
                     pipParams()

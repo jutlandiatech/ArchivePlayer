@@ -13,6 +13,7 @@ import android.os.Bundle
 import com.google.common.util.concurrent.Futures
 import com.google.common.util.concurrent.ListenableFuture
 import com.jutlandiatech.archiveplayer.MainActivity
+import com.jutlandiatech.archiveplayer.cast.FlavourCast
 
 /** Media3 session service: notification, lock-screen and external controllers (UI_PLAYER_SPEC.md R34). */
 class PlaybackService : MediaSessionService() {
@@ -21,10 +22,12 @@ class PlaybackService : MediaSessionService() {
     override fun onCreate() {
         super.onCreate()
         val attributes = AudioAttributes.Builder().setUsage(C.USAGE_MEDIA).setContentType(C.AUDIO_CONTENT_TYPE_MUSIC).build()
-        val player = ExoPlayer.Builder(this)
+        val local = ExoPlayer.Builder(this)
             .setAudioAttributes(attributes, true)
             .setHandleAudioBecomingNoisy(true)
             .build()
+        // R46/R81: CastPlayer moves the queue to the receiver when a Cast session starts and stops local playback.
+        val player = FlavourCast.wrapPlayer(application, local)
         val open = PendingIntent.getActivity(
             this, 0, Intent(this, MainActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP),
             PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT,
@@ -43,8 +46,8 @@ class PlaybackService : MediaSessionService() {
                     session: MediaSession, controller: MediaSession.ControllerInfo, customCommand: SessionCommand, args: Bundle,
                 ): ListenableFuture<SessionResult> {
                     if (customCommand.customAction != CMD_PAUSE_AT_END) return super.onCustomCommand(session, controller, customCommand, args)
-                    player.pauseAtEndOfMediaItems = args.getBoolean(ARG_ON)
-                    android.util.Log.i("ArchivePlayer", "pauseAtEnd=${player.pauseAtEndOfMediaItems}")
+                    local.pauseAtEndOfMediaItems = args.getBoolean(ARG_ON)
+                    android.util.Log.i("ArchivePlayer", "pauseAtEnd=${local.pauseAtEndOfMediaItems}")
                     return Futures.immediateFuture(SessionResult(SessionResult.RESULT_SUCCESS))
                 }
             })

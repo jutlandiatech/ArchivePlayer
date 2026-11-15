@@ -11,6 +11,7 @@ object FlavourCast : CastSupport {
     override val isAvailable = false
     override fun initialize(application: Application) = Unit
     override fun wrapPlayer(application: Application, localPlayer: ExoPlayer): Player = localPlayer
+    override fun castDeviceName(context: android.content.Context): String? = null
 
     @Composable
     override fun RouteButton(modifier: Modifier) = Unit

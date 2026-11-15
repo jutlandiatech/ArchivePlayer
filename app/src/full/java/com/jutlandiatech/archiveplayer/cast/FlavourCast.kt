@@ -31,6 +31,9 @@ object FlavourCast : CastSupport {
             .setRemotePlayer(androidx.media3.cast.RemoteCastPlayer.Builder(application).setMediaItemConverter(ArchiveCastConverter()).build())
             .build()
 
+    override fun castDeviceName(context: android.content.Context): String? =
+        runCatching { Cast.getSingletonInstance(context).currentCastSession?.castDevice?.friendlyName }.getOrNull()
+
     /**
      * Own route button: media3-cast's composable removes its MediaRouter callback from a coroutine that can resume
      * off the main thread when the composition is torn down, which MediaRouter rejects.
