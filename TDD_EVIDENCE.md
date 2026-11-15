@@ -2,6 +2,21 @@
 
 Actual test runs, newest first. Machine-readable details (every test, its result and the SHA-256 of every test source) are in `docs/tdd/`.
 
+## Version 0.2.0 — storage screen, review fixes, private files (15 November 2026)
+
+- Evidence: [docs/tdd/green-v0.2.0-storage.json](docs/tdd/green-v0.2.0-storage.json).
+- Commands: `./gradlew :core:test :app:verifyFossDependencies`, `./gradlew :app:connectedFullDebugAndroidTest`, `./gradlew :app:connectedFossDebugAndroidTest` (AVD `ap36`, API 36).
+- Added: `SettingsStorageUiTest` S06 (R61, R85, A43–A45; SD card faked through `AppEnvironment.sdCardOverride`/`sdCardDir`) in both flavours; `MetadataParserTest.R10_privateFilesAreNotPlayable` in core. Also covers the four review fixes (website search not used with language/decade filters, shell Back after the queue is cleared, portrait full screen, replay after the end).
+
+| Layer | Tests | Passed | Failed | Skipped |
+|---|---|---|---|---|
+| Core JVM (`core/src/test`) | 173 | 172 | 0 | 1 (opt-in live check) |
+| Android UI, `full` | 103 | 103 | 0 | 0 |
+| Android UI, `foss` | 101 | 101 | 0 | 0 |
+| **Total** | **377** | **376** | **0** | **1** |
+
+`verifyFossDependencies` passes, and the rebuilt `foss` APK contains no `com/google/android/gms` classes.
+
 ## Version 0.2.0 — full-screen video, website search, Cast fix (14 November 2026)
 
 - Evidence: [docs/tdd/green-v0.2.0.json](docs/tdd/green-v0.2.0.json) (results of the runs below, SHA-256 of every test source).

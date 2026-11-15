@@ -25,7 +25,7 @@ ArchivePlayer is developed specification-first: specifications are agreed before
 - [TDD_EVIDENCE.md](TDD_EVIDENCE.md) — recorded red→green runs (evidence files in `docs/tdd/`).
 - [DEVELOPMENT_ENVIRONMENT.md](DEVELOPMENT_ENVIRONMENT.md) — observed build environment and toolchain.
 
-Current status: version 0.2.0, specification v1.0 plus full-screen video (R86), archive.org website search (R87) and the Cast fix (R46). 372 tests (172 core, 101 Android UI in `full`, 99 in `foss`) run on an API 36 emulator; results are in [TDD_EVIDENCE.md](TDD_EVIDENCE.md). APKs for both flavours are in [dist/](dist/). Chromecast, SD cards, picture-in-picture, tablets and performance still need a check on real devices ([docs/GETTING_STARTED.md](docs/GETTING_STARTED.md#8-things-only-a-real-device-can-check)).
+Current status: version 0.2.0, specification v1.0 plus full-screen video (R86), archive.org website search (R87) and the Cast fix (R46). 377 tests (173 core, 103 Android UI in `full`, 101 in `foss`) run on an API 36 emulator; results are in [TDD_EVIDENCE.md](TDD_EVIDENCE.md). APKs for both flavours are in [dist/](dist/). Chromecast, SD cards, picture-in-picture, tablets and performance still need a check on real devices ([docs/GETTING_STARTED.md](docs/GETTING_STARTED.md#8-things-only-a-real-device-can-check)).
 
 ## Design
 
