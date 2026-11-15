@@ -509,7 +509,14 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
             currentStartedId = id
             queueInfo[id]?.let { (item, e) -> recordHistory(item, e) }
         }
-        player.onItemEnded = { p -> markFinished(if (p.playbackState == androidx.media3.common.Player.STATE_ENDED) currentStartedId else previousStartedId) }
+        player.onItemEnded = { p ->
+            markFinished(if (p.playbackState == androidx.media3.common.Player.STATE_ENDED) currentStartedId else previousStartedId)
+            // pauseAtEndOfMediaItems is local-only; on the receiver the next item has just started, so pause it (A34).
+            if (player.casting && sleepOption == "end" && p.playbackState != androidx.media3.common.Player.STATE_ENDED) {
+                player.pause()
+                setSleep("off")
+            }
+        }
         // Save the moment playback pauses, not on the next 1 s tick: Home reads the position right away (A17).
         viewModelScope.launch {
             androidx.compose.runtime.snapshotFlow { player.isPlaying }.collect { playing -> if (!playing && player.hasQueue) savePosition() }

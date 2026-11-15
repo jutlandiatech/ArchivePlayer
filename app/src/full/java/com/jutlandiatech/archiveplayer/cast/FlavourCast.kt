@@ -28,7 +28,10 @@ object FlavourCast : CastSupport {
     override fun wrapPlayer(application: Application, localPlayer: ExoPlayer): Player =
         CastPlayer.Builder(application)
             .setLocalPlayer(localPlayer)
-            .setRemotePlayer(androidx.media3.cast.RemoteCastPlayer.Builder(application).setMediaItemConverter(ArchiveCastConverter()).build())
+            .setRemotePlayer(androidx.media3.cast.RemoteCastPlayer.Builder(application)
+                .setMediaItemConverter(ArchiveCastConverter())
+                .setTrackSelector(ArchiveCastTrackSelector())
+                .build())
             .build()
 
     override fun castDeviceName(context: android.content.Context): String? =
@@ -79,11 +82,54 @@ private fun Modifier.androidxSemantics(label: String): Modifier =
 @OptIn(UnstableApi::class)
 class ArchiveCastConverter(private val delegate: androidx.media3.cast.DefaultMediaItemConverter = androidx.media3.cast.DefaultMediaItemConverter()) :
     androidx.media3.cast.MediaItemConverter {
-    override fun toMediaQueueItem(mediaItem: androidx.media3.common.MediaItem): com.google.android.gms.cast.MediaQueueItem =
-        delegate.toMediaQueueItem(forReceiver(mediaItem))
+    override fun toMediaQueueItem(mediaItem: androidx.media3.common.MediaItem): com.google.android.gms.cast.MediaQueueItem {
+        val item = forReceiver(mediaItem)
+        val queueItem = delegate.toMediaQueueItem(item)
+        val info = queueItem.media ?: return queueItem
+        // The default converter drops subtitle configurations; the receiver needs them as MediaTracks (R49).
+        val tracks = item.localConfiguration?.subtitleConfigurations.orEmpty().mapIndexed { i, s ->
+            com.google.android.gms.cast.MediaTrack.Builder((i + 1).toLong(), com.google.android.gms.cast.MediaTrack.TYPE_TEXT)
+                .setName(s.label?.toString() ?: s.language ?: "Subtitle ${i + 1}")
+                .setSubtype(com.google.android.gms.cast.MediaTrack.SUBTYPE_SUBTITLES)
+                .setContentId(s.uri.toString())
+                .setContentType(s.mimeType)
+                .setLanguage(s.language)
+                .build()
+        }
+        if (tracks.isEmpty()) return queueItem
+        val infoBuilder = com.google.android.gms.cast.MediaInfo.Builder(info.contentId ?: return queueItem)
+            .setContentType(info.contentType)
+            .setStreamType(info.streamType)
+            .setStreamDuration(info.streamDuration)
+            .setMetadata(info.metadata)
+            .setMediaTracks(tracks)
+        info.contentUrl?.let { infoBuilder.setContentUrl(it) }
+        info.customData?.let { infoBuilder.setCustomData(it) }
+        val withTracks = infoBuilder.build()
+        val itemBuilder = com.google.android.gms.cast.MediaQueueItem.Builder(withTracks)
+            .setAutoplay(queueItem.autoplay)
+            .setStartTime(queueItem.startTime)
+            .setPlaybackDuration(queueItem.playbackDuration)
+            .setPreloadTime(queueItem.preloadTime)
+        queueItem.customData?.let { itemBuilder.setCustomData(it) }
+        return itemBuilder.build()
+    }
 
-    override fun toMediaItem(mediaQueueItem: com.google.android.gms.cast.MediaQueueItem): androidx.media3.common.MediaItem =
-        delegate.toMediaItem(mediaQueueItem)
+    override fun toMediaItem(mediaQueueItem: com.google.android.gms.cast.MediaQueueItem): androidx.media3.common.MediaItem {
+        val item = delegate.toMediaItem(mediaQueueItem)
+        val subs = mediaQueueItem.media?.mediaTracks.orEmpty()
+            .filter { it.type == com.google.android.gms.cast.MediaTrack.TYPE_TEXT && it.subtype == com.google.android.gms.cast.MediaTrack.SUBTYPE_SUBTITLES }
+            .mapNotNull { t ->
+                t.contentId?.let {
+                    androidx.media3.common.MediaItem.SubtitleConfiguration.Builder(android.net.Uri.parse(it))
+                        .setMimeType(t.contentType)
+                        .setLanguage(t.language)
+                        .setLabel(t.name)
+                        .build()
+                }
+            }
+        return if (subs.isEmpty()) item else item.buildUpon().setSubtitleConfigurations(subs).build()
+    }
 
     companion object {
         fun forReceiver(item: androidx.media3.common.MediaItem): androidx.media3.common.MediaItem {
@@ -95,5 +141,40 @@ class ArchiveCastConverter(private val delegate: androidx.media3.cast.DefaultMed
                 .setSubtitleConfigurations(config.subtitleConfigurations.filter { it.mimeType == androidx.media3.common.MimeTypes.TEXT_VTT })
                 .build()
         }
+    }
+}
+
+/**
+ * Turns the app's text-track parameters (player.subtitles sheet) into `setActiveMediaTracks` calls on the
+ * receiver: enabled text tracks pick the preferred language, disabled means none (R49).
+ */
+@OptIn(UnstableApi::class)
+class ArchiveCastTrackSelector : androidx.media3.cast.CastTrackSelector() {
+    override fun evaluate(request: androidx.media3.cast.CastTrackSelector.CastTrackSelectorRequest): androidx.media3.cast.CastTrackSelector.CastTrackSelectorResult {
+        val keep = request.currentlySelectedTrackGroups.filter { it.type != androidx.media3.common.C.TRACK_TYPE_TEXT }
+        val chosen = pickTextTrack(request)
+        return request.buildResultUpon()
+            .setSelections(com.google.common.collect.ImmutableSet.copyOf(keep + listOfNotNull(chosen)))
+            .build()
+    }
+
+    private fun pickTextTrack(request: androidx.media3.cast.CastTrackSelector.CastTrackSelectorRequest): androidx.media3.common.TrackGroup? {
+        val params = request.trackSelectionParameters
+        if (params.disabledTrackTypes.contains(androidx.media3.common.C.TRACK_TYPE_TEXT)) return null
+        for (lang in params.preferredTextLanguages) {
+            val i = request.mediaTracks.indexOfFirst {
+                it.type == com.google.android.gms.cast.MediaTrack.TYPE_TEXT && languageMatches(it.language, lang)
+            }
+            if (i >= 0) return request.trackGroupList[i]
+        }
+        val first = request.mediaTracks.indexOfFirst { it.type == com.google.android.gms.cast.MediaTrack.TYPE_TEXT }
+        return if (first >= 0) request.trackGroupList[first] else null
+    }
+
+    private fun languageMatches(trackLanguage: String?, preferred: String?): Boolean {
+        if (trackLanguage.isNullOrBlank() || preferred.isNullOrBlank()) return false
+        val t = trackLanguage.lowercase()
+        val p = preferred.lowercase()
+        return t == p || t.startsWith("$p-") || p.startsWith("$t-") || t.substringBefore('-') == p.substringBefore('-')
     }
 }
