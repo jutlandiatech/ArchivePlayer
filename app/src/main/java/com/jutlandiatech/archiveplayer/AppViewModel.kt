@@ -145,6 +145,24 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
 
     fun removeDownloads(identifier: String) = downloads.remove { it.identifier == identifier }
 
+    /** Move prompt shown after the download location changes (R85, A44); null when nothing needs moving. */
+    var movePrompt by mutableStateOf<com.jutlandiatech.archiveplayer.core.download.MovePrompt?>(null)
+        private set
+
+    fun chooseDownloadLocation(location: com.jutlandiatech.archiveplayer.core.settings.DownloadLocation) {
+        val s = settings ?: return
+        if (s.downloadLocation == location) return
+        updateSettings(s.copy(downloadLocation = location))
+        movePrompt = com.jutlandiatech.archiveplayer.core.download.StoragePolicy.movePrompt(downloads.stored(), location)
+            ?.takeIf { downloads.dir(location) != null }
+    }
+
+    fun answerMovePrompt(move: Boolean) {
+        val p = movePrompt ?: return
+        movePrompt = null
+        if (move) downloads.moveTo(p.target)
+    }
+
     fun downloadLabelKey(item: ArchiveItem): String {
         val mine = downloads.records.filter { it.identifier == item.identifier }
         return when {

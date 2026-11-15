@@ -29,7 +29,7 @@ Each row opens its own detail screen. Changes apply immediately (no Save). In-ap
 - **Appearance:** Nordic light (default), Nordic noir, Follow system; kept in sync with the top-bar toggle (R82).
 - **Content languages:** explanation text, then multi-select chips with native names plus "More languages"; never changes the app language.
 - **Data saver / Wi-Fi only / Adult content:** one switch each with an explanation. Adult content states that filtering is best-effort (R70). Wi-Fi only mentions the per-download "Download now on mobile data" action (R60).
-- **Storage & downloads:** "Download location" (Internal storage / SD card with free space; SD card disabled with "No SD card inserted" when absent), move prompt after a location change, uninstall note, used/free bar, 500 MB warning text, list of downloaded items with location and delete, "Delete all downloads" (R61, R85).
+- **Storage & downloads:** "Download location" (Internal storage / SD card with free space; SD card disabled with "No SD card inserted" when absent), move prompt after a location change, uninstall note, used/free bar, 500 MB warning text, list of downloaded items with location and delete, "Delete all downloads" (R61, R85). App-specific folders only (`filesDir`, `getExternalFilesDirs`), so no storage permission is requested (D31).
 - **Subtitles:** Off (default) / Show when available in my content languages / Always show when available, plus "Include auto-generated subtitles" switch (R45).
 - **History:** explanation that history stays on the phone, "Pause history" switch, "Clear history" with confirmation (R44).
 - **Search history:** list of recent searches with remove buttons, "Clear all".
@@ -53,6 +53,9 @@ Same `testTag` / resource-ID approach as UI_SHELL_SPEC.md. Never select controls
 | `settings_storage_location_<int\|sd>` | Download-location options |
 | `settings_storage_move_prompt` / `_move_button` / `_keep_button` | Move prompt after location change |
 | `settings_storage_delete_<identifier>` / `settings_storage_delete_all` | Delete actions |
+| `settings_storage_item_<identifier>` | Downloaded item row: title, location ("SD card removed" while its card is missing), size |
+| `settings_storage_summary` / `settings_storage_warning` | Used/free text of the effective location and the 500 MB warning |
+| `settings_storage_sd_missing` / `settings_storage_uninstall_note` | "SD card not found, new downloads go to internal storage" note and the uninstall note |
 | `settings_subtitles_<off\|subLang\|subAlways>` / `settings_subtitles_auto_switch` | Subtitle defaults |
 | `settings_history_pause_switch` / `settings_history_clear_button` | History |
 | `settings_search_history_remove_<index>` / `settings_search_history_clear_button` | Search history |
