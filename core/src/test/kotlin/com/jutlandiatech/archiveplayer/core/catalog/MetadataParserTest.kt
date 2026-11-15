@@ -22,6 +22,14 @@ class MetadataParserTest {
         assertTrue(film.isPlayable)
     }
 
+    @Test fun R10_privateFilesAreNotPlayable() {
+        val json = """{"metadata":{"identifier":"restricted_pod","mediatype":"audio","title":"Restricted","access-restricted-item":"true"},
+            "files":[{"name":"ep.mp3","format":"VBR MP3","source":"original","private":"true"},
+                     {"name":"open.mp3","format":"VBR MP3","source":"original"}]}"""
+        val pod = requireNotNull(MetadataParser.parse(json))
+        assertEquals(listOf("open.mp3"), pod.entries.flatMap { e -> e.formats.map { it.fileName } })
+    }
+
     @Test fun R10_nonMediaFilesAreNotEntriesButArtworkIsUsed() {
         val film = item("AboutBan1935.metadata.json")
         val all = film.entries.flatMap { e -> e.formats.map { it.fileName } }

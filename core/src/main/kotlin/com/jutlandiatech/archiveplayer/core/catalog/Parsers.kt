@@ -60,6 +60,7 @@ object MetadataParser {
         val files = (root["files"] as? JsonArray).orEmpty().mapNotNull { el ->
             val o = el as? JsonObject ?: return@mapNotNull null
             val name = JsonValues.first(o["name"]) ?: return@mapNotNull null
+            if (JsonValues.first(o["private"]).equals("true", ignoreCase = true)) return@mapNotNull null
             FileRec(
                 name = name,
                 format = JsonValues.first(o["format"]) ?: "",
