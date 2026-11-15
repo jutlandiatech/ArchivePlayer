@@ -26,7 +26,10 @@ object FlavourCast : CastSupport {
 
     // CastPlayer plays on the local ExoPlayer and hands playback over when a Cast session starts or ends.
     override fun wrapPlayer(application: Application, localPlayer: ExoPlayer): Player =
-        CastPlayer.Builder(application).setLocalPlayer(localPlayer).build()
+        CastPlayer.Builder(application)
+            .setLocalPlayer(localPlayer)
+            .setRemotePlayer(androidx.media3.cast.RemoteCastPlayer.Builder(application).setMediaItemConverter(ArchiveCastConverter()).build())
+            .build()
 
     /**
      * Own route button: media3-cast's composable removes its MediaRouter callback from a coroutine that can resume
@@ -65,3 +68,29 @@ object FlavourCast : CastSupport {
 
 private fun Modifier.androidxSemantics(label: String): Modifier =
     this.then(Modifier.semantics { contentDescription = label })
+
+/**
+ * Receiver-ready items (R46): the https archive.org URL instead of a downloaded local file, the MIME type set by the app,
+ * and only WebVTT subtitles, which is all the Default Media Receiver can render.
+ */
+@OptIn(UnstableApi::class)
+class ArchiveCastConverter(private val delegate: androidx.media3.cast.DefaultMediaItemConverter = androidx.media3.cast.DefaultMediaItemConverter()) :
+    androidx.media3.cast.MediaItemConverter {
+    override fun toMediaQueueItem(mediaItem: androidx.media3.common.MediaItem): com.google.android.gms.cast.MediaQueueItem =
+        delegate.toMediaQueueItem(forReceiver(mediaItem))
+
+    override fun toMediaItem(mediaQueueItem: com.google.android.gms.cast.MediaQueueItem): androidx.media3.common.MediaItem =
+        delegate.toMediaItem(mediaQueueItem)
+
+    companion object {
+        fun forReceiver(item: androidx.media3.common.MediaItem): androidx.media3.common.MediaItem {
+            val config = item.localConfiguration ?: return item
+            val castUrl = item.mediaMetadata.extras?.getString(com.jutlandiatech.archiveplayer.playback.CAST_URL)
+            return item.buildUpon()
+                .setUri(castUrl ?: config.uri.toString())
+                .setMimeType(config.mimeType)
+                .setSubtitleConfigurations(config.subtitleConfigurations.filter { it.mimeType == androidx.media3.common.MimeTypes.TEXT_VTT })
+                .build()
+        }
+    }
+}

@@ -145,6 +145,24 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
 
     fun removeDownloads(identifier: String) = downloads.remove { it.identifier == identifier }
 
+    /** Move prompt shown after the download location changes (R85, A44); null when nothing needs moving. */
+    var movePrompt by mutableStateOf<com.jutlandiatech.archiveplayer.core.download.MovePrompt?>(null)
+        private set
+
+    fun chooseDownloadLocation(location: com.jutlandiatech.archiveplayer.core.settings.DownloadLocation) {
+        val s = settings ?: return
+        if (s.downloadLocation == location) return
+        updateSettings(s.copy(downloadLocation = location))
+        movePrompt = com.jutlandiatech.archiveplayer.core.download.StoragePolicy.movePrompt(downloads.stored(), location)
+            ?.takeIf { downloads.dir(location) != null }
+    }
+
+    fun answerMovePrompt(move: Boolean) {
+        val p = movePrompt ?: return
+        movePrompt = null
+        if (move) downloads.moveTo(p.target)
+    }
+
     fun downloadLabelKey(item: ArchiveItem): String {
         val mine = downloads.records.filter { it.identifier == item.identifier }
         return when {
@@ -391,7 +409,8 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
         }
         val entry = QueueEntry(item.identifier, ref.fileName, e.title, item.title, item.creator,
             downloads.playableFile(item.identifier, ref.fileName)?.takeIf { format == null }?.let { android.net.Uri.fromFile(it).toString() }
-                ?: repo.downloadUrl(item.identifier, f.fileName), repo.thumbnailUrl(item.identifier), e.kind == MediaKind.VIDEO, subtitles)
+                ?: repo.downloadUrl(item.identifier, f.fileName), repo.thumbnailUrl(item.identifier), e.kind == MediaKind.VIDEO, subtitles,
+            mimeType = com.jutlandiatech.archiveplayer.core.format.FormatMime.of(f.format), castUrl = repo.downloadUrl(item.identifier, f.fileName))
         val id = "${item.identifier}/${ref.fileName}"
         queueInfo[id] = item to e
         playingFormat[id] = f

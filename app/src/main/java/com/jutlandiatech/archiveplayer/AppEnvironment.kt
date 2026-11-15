@@ -28,7 +28,17 @@ object AppEnvironment {
     /** Test seam: lower share-link limit so a fixture playlist exceeds it (R57). */
     @Volatile var shareLinkMaxLength: Int? = null
 
+    /** Test seam: report playback as remote (casting) without a Cast device (R86, P25). */
+    @Volatile var forceCasting: Boolean = false
+
+    /** Test seam: when true, [sdCardDir] replaces the removable volume's app folder (null = no card inserted). */
+    @Volatile var sdCardOverride: Boolean = false
+    @Volatile var sdCardDir: java.io.File? = null
+
     fun reset() {
+        sdCardOverride = false
+        sdCardDir = null
+        forceCasting = false
         archiveBaseUrl = ARCHIVE_BASE_URL
         shareLinkMaxLength = null
         pagesBaseUrl = PAGES_BASE_URL

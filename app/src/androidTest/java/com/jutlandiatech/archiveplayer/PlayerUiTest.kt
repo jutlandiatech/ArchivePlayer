@@ -1,5 +1,8 @@
 package com.jutlandiatech.archiveplayer
 
+import androidx.compose.ui.test.onAllNodesWithTag
+import androidx.compose.ui.test.performClick
+import android.content.pm.ActivityInfo
 import androidx.compose.ui.test.assertIsSelected
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithTag
@@ -288,6 +291,88 @@ class PlayerUiTest {
                 val density = InstrumentationRegistry.getInstrumentation().targetContext.resources.displayMetrics.density
                 assertTrue("$tag ≥ 48 dp", node.size.width >= 48 * density - 1 && node.size.height >= 48 * density - 1)
             }
+        }
+    }
+
+    private fun requestedOrientation(): Int {
+        var o = 0
+        rule.activityRule.scenario.onActivity { o = it.requestedOrientation }
+        return o
+    }
+
+    private fun statusBarVisible(): Boolean {
+        var v = true
+        rule.activityRule.scenario.onActivity {
+            v = androidx.core.view.ViewCompat.getRootWindowInsets(it.window.decorView)
+                ?.isVisible(androidx.core.view.WindowInsetsCompat.Type.statusBars()) ?: true
+        }
+        return v
+    }
+
+    private fun eventually(timeoutMs: Long = 10_000, check: () -> Boolean): Boolean {
+        val end = System.currentTimeMillis() + timeoutMs
+        while (System.currentTimeMillis() < end) {
+            if (check()) return true
+            Thread.sleep(200)
+        }
+        return check()
+    }
+
+    private fun maximize(identifier: String) {
+        // The one-time system "Viewing full screen" hint takes window focus (and the first Back) on a fresh device.
+        InstrumentationRegistry.getInstrumentation().uiAutomation
+            .executeShellCommand("settings put secure immersive_mode_confirmations confirmed").close()
+        openPlayer(identifier).close()
+        rule.waitForTag(ElementIds.PLAYER_FULLSCREEN_BUTTON)
+        rule.onNodeWithTag(ElementIds.PLAYER_FULLSCREEN_BUTTON).performClick()
+        rule.waitForTag(ElementIds.PLAYER_FULLSCREEN)
+    }
+
+    @Test fun P21_R86_wideVideoMaximizesToLandscape() {
+        maximize("fx_film")
+        assertEquals(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE, requestedOrientation())
+        assertTrue(eventually { !statusBarVisible() })
+    }
+
+    @Test fun P22_R86_backLeavesFullScreen() {
+        maximize("fx_film")
+        var focus = false
+        assertTrue(eventually { rule.activityRule.scenario.onActivity { focus = it.hasWindowFocus() }; focus })
+        UiDevice.getInstance(InstrumentationRegistry.getInstrumentation()).pressBack()
+        assertTrue(eventually { rule.onAllNodesWithTag(ElementIds.PLAYER_FULLSCREEN).fetchSemanticsNodes().isEmpty() })
+        rule.waitForTag(ElementIds.PLAYER_SCREEN)
+        assertEquals(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED, requestedOrientation())
+        assertTrue(eventually { statusBarVisible() })
+    }
+
+    @Test fun P23_R86_portraitVideoStaysPortrait() {
+        maximize("fx_vertical")
+        assertFalse(requestedOrientation() == ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE)
+    }
+
+    @Test fun P24_R86_audioHasNoMaximize() {
+        openPlayer("fx_radio_show").close()
+        rule.waitForTag(ElementIds.PLAYER_ARTWORK)
+        assertTrue(rule.onAllNodesWithTag(ElementIds.PLAYER_FULLSCREEN_BUTTON).fetchSemanticsNodes().isEmpty())
+    }
+
+    @Test fun P25_R86_castingNeverGoesLandscape() {
+        AppEnvironment.forceCasting = true
+        val device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
+        try {
+            openPlayer("fx_film").close()
+            rule.waitForTag(ElementIds.PLAYER_VIDEO_SURFACE)
+            assertTrue(rule.onAllNodesWithTag(ElementIds.PLAYER_FULLSCREEN_BUTTON).fetchSemanticsNodes().isEmpty())
+            device.setOrientationLandscape()
+            rule.waitForIdle()
+            Thread.sleep(1_000)
+            rule.waitForIdle()
+            assertTrue(rule.onAllNodesWithTag(ElementIds.PLAYER_FULLSCREEN).fetchSemanticsNodes().isEmpty())
+            assertEquals(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED, requestedOrientation())
+        } finally {
+            device.setOrientationNatural()
+            device.unfreezeRotation()
+            AppEnvironment.forceCasting = false
         }
     }
 }

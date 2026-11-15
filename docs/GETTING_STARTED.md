@@ -86,7 +86,8 @@ Keep the specification-first workflow: let the agent update the spec and tests b
 
 Automated tests cover the logic and the UI on an emulator. Before a release, check on real hardware:
 
-- Casting to a physical Chromecast (`full` flavour): connect, play, pause, seek, queue, disconnect and resume locally.
+- Casting to a physical Chromecast (`full` flavour): connect, play, pause, seek, queue, disconnect and resume locally. Check both a video and an audio entry, including one you have downloaded (the Chromecast must stream it from archive.org), and that the phone stays in portrait while casting (R46, R86).
+- Full-screen video: maximize a widescreen film (phone turns to landscape, bars hide, controls fade after about 3 s), tilt back to portrait or press Back to leave; a portrait video stays portrait (R86).
 - Downloads to a removable SD card: choose the SD card in Settings, download, remove the card, re-insert it.
 - Picture-in-picture for video: home button during playback, controls in the PiP window, return to the app.
 - Phone and tablet layouts (bottom bar below 600 dp width, navigation rail above), portrait and landscape.

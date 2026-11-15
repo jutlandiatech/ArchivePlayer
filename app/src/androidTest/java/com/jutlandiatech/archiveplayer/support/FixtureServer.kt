@@ -150,7 +150,7 @@ class FixtureServer(
     private fun media(request: RecordedRequest, file: String): MockResponse = when (file.substringAfterLast('.').lowercase()) {
         "mp3", "flac" -> bytes("fixtures/media/tone.mp3", "audio/mpeg", request)
         "ogg" -> bytes("fixtures/media/tone.ogg", "audio/ogg", request)
-        "mp4" -> bytes("fixtures/media/clip.mp4", "video/mp4", request)
+        "mp4" -> bytes(if (file.contains("vertical")) "fixtures/media/clip_vertical.mp4" else "fixtures/media/clip.mp4", "video/mp4", request)
         "srt" -> bytes("fixtures/media/subs.srt", "application/x-subrip", request)
         "vtt" -> bytes("fixtures/media/subs.vtt", "text/vtt", request)
         "png", "jpg", "gif" -> bytes("fixtures/media/art.png", "image/png", request)

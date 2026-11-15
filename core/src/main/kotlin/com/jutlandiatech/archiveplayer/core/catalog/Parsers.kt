@@ -60,6 +60,7 @@ object MetadataParser {
         val files = (root["files"] as? JsonArray).orEmpty().mapNotNull { el ->
             val o = el as? JsonObject ?: return@mapNotNull null
             val name = JsonValues.first(o["name"]) ?: return@mapNotNull null
+            if (JsonValues.first(o["private"]).equals("true", ignoreCase = true)) return@mapNotNull null
             FileRec(
                 name = name,
                 format = JsonValues.first(o["format"]) ?: "",
@@ -188,6 +189,34 @@ object SearchResponseParser {
         }
     } catch (e: Exception) {
         SearchPage(0, emptyList())
+    }
+}
+
+/** Parses archive.org website-search responses (`services/search/beta/page_production`, R87). Null means "fall back". */
+object WebSearchResponseParser {
+    fun parse(json: String): SearchPage? = try {
+        val body = ((JsonValues.parseObject(json)?.get("response") as? JsonObject)?.get("body") as? JsonObject)?.get("hits") as? JsonObject
+        val list = body?.get("hits") as? JsonArray
+        if (body == null || list == null) null else {
+            val hits = list.mapNotNull { el ->
+                val d = (el as? JsonObject)?.get("fields") as? JsonObject ?: return@mapNotNull null
+                val id = JsonValues.first(d["identifier"]) ?: return@mapNotNull null
+                SearchHit(
+                    identifier = id,
+                    title = JsonValues.first(d["title"]) ?: id,
+                    creator = JsonValues.first(d["creator"]),
+                    kind = MediaKind.fromMediatype(JsonValues.first(d["mediatype"])),
+                    languages = LanguageNormalizer.normalizeAll(JsonValues.strings(d["language"])),
+                    collections = JsonValues.strings(d["collection"]),
+                    subjects = JsonValues.strings(d["subject"]).flatMap { it.split(';') }.map { it.trim() }.filter { it.isNotEmpty() },
+                    downloads = JsonValues.long(d["downloads"]) ?: 0L,
+                    date = JsonValues.first(d["date"]) ?: JsonValues.first(d["year"]),
+                )
+            }
+            SearchPage(JsonValues.long(body["total"])?.toInt() ?: hits.size, hits)
+        }
+    } catch (e: Exception) {
+        null
     }
 }
 

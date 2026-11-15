@@ -1,0 +1,2314 @@
+{
+  "phase": "green",
+  "slice": "v0.2.0",
+  "recordedAt": "2026-11-14T09:49:57+00:00",
+  "baseCommit": "412f52e036b2d824c36158f8514769f492478b56",
+  "command": "./gradlew :core:test --rerun-tasks :app:verifyFossDependencies && ./gradlew :app:connectedFullDebugAndroidTest && ./gradlew :app:connectedFossDebugAndroidTest; P25 (added after the suites) run on its own per flavour with -Pandroid.testInstrumentationRunnerArguments.class=com.jutlandiatech.archiveplayer.PlayerUiTest#P25_R86_castingNeverGoesLandscape (AVD ap36, API 36)",
+  "summary": {
+    "total": 372,
+    "passed": 371,
+    "failed": 0,
+    "skipped": 1
+  },
+  "testSourceSha256": {
+    "core/src/test/kotlin/com/jutlandiatech/archiveplayer/core/catalog/CatalogUtilitiesTest.kt": "27b21069b1a9c8cf58561b15b24829e2da53f072c5103e65aaa50fc35a844499",
+    "core/src/test/kotlin/com/jutlandiatech/archiveplayer/core/catalog/MetadataParserTest.kt": "74072365bc335072ccfcdc38970fab70c6da6a985ad978496dafef5f63a27bde",
+    "core/src/test/kotlin/com/jutlandiatech/archiveplayer/core/category/BundledCategoryMapTest.kt": "31b8636ce5511583b71108a12a15fa88a64b06b9bc90628a14673b73ef2e51c4",
+    "core/src/test/kotlin/com/jutlandiatech/archiveplayer/core/category/CategoryMapTest.kt": "d2ed6c7aa41d2075c5c4b0b4159c0c8db6cac7eee0e978922686b37b65d79970",
+    "core/src/test/kotlin/com/jutlandiatech/archiveplayer/core/category/LiveCategoryMapCheck.kt": "49b3c84304d02a9b3fa5313527ee90ab2956ddc7436e15d60e54488916a1f924",
+    "core/src/test/kotlin/com/jutlandiatech/archiveplayer/core/download/DownloadsTest.kt": "f624984e4f441c43f7b9a22a40c4c5a97e29da8adcabe6911393d53ff29f0ec1",
+    "core/src/test/kotlin/com/jutlandiatech/archiveplayer/core/filter/AdultFilterTest.kt": "fae3594e9a4c0db318d6cfe244c9e5882d3b781cf6556bb19d1633bc2e9fc5ed",
+    "core/src/test/kotlin/com/jutlandiatech/archiveplayer/core/format/FormatMimeTest.kt": "c0ad2683868657ee18b6aaf34700139790b61d11191daf12338cd2a76cfeb0e6",
+    "core/src/test/kotlin/com/jutlandiatech/archiveplayer/core/format/FormatSelectorTest.kt": "a26dece9cd4361f7623477d5ed273ce62512a9c39ac553c8c43a50edb81103ee",
+    "core/src/test/kotlin/com/jutlandiatech/archiveplayer/core/home/HomeTest.kt": "9b92721e191fdb333b5bdc67b2c9ed5b562ff712ebc3d793f7038fb1cdf3ddf3",
+    "core/src/test/kotlin/com/jutlandiatech/archiveplayer/core/language/LanguagesTest.kt": "a0f0c91b69ffb8618529be4e4da252286a2741ef14f69a6f4a98e10bcef746ed",
+    "core/src/test/kotlin/com/jutlandiatech/archiveplayer/core/net/ArchiveClientTest.kt": "772f3878bfcef15c31082351d435522dc6607217845bb76973507b3f3c96dd5b",
+    "core/src/test/kotlin/com/jutlandiatech/archiveplayer/core/playback/PlaybackTest.kt": "9c6f37de88fb6e819efb054a08227e6a21f9ed3a3bdb76f245e59ea001aa646d",
+    "core/src/test/kotlin/com/jutlandiatech/archiveplayer/core/player/FullscreenPolicyTest.kt": "5416a60bb15b42e8f460974dc9da2b2c2ddc5c983495bf4c4756f21661b67172",
+    "core/src/test/kotlin/com/jutlandiatech/archiveplayer/core/playlist/PlaylistsTest.kt": "6ef1a67b0a94fceb0e5d43717404bd4c41b320384d499033ff5519159b2a9e75",
+    "core/src/test/kotlin/com/jutlandiatech/archiveplayer/core/search/SearchTest.kt": "1264ebe042ddedb0c954b95c3ebe64ada50cc951fb580dd49c4a0d9949562043",
+    "core/src/test/kotlin/com/jutlandiatech/archiveplayer/core/search/WebSearchTest.kt": "85e4d979c2970e6aec756c25d013660dffc660e84ec6014085d8dbba91ca4212",
+    "core/src/test/kotlin/com/jutlandiatech/archiveplayer/core/settings/AppSettingsTest.kt": "15c3ae636520a0dc10378e5d71612e4b5c14d914bb47497aab46525681b9e797",
+    "core/src/test/kotlin/com/jutlandiatech/archiveplayer/core/setup/SetupFlowTest.kt": "8488a0c2a9e946be7ef5b7a9dd2c3d8ed89bdc91f570505f5fe658f6e85b3ed8",
+    "core/src/test/kotlin/com/jutlandiatech/archiveplayer/core/support/Fixtures.kt": "23d3a50ee33281a8e727bc63bdb423e1a2f91817da39d7ead72a23a1847c8760",
+    "core/src/test/kotlin/com/jutlandiatech/archiveplayer/core/text/ShippedCatalogsTest.kt": "2c8644235ada6f95c99fc0763c4c5f8ae0e35e6650492d936d4298c9f519fb0a",
+    "core/src/test/kotlin/com/jutlandiatech/archiveplayer/core/text/TextCatalogTest.kt": "f008856781139bd362b2a80df5abc1ee250ac99cb2e2982bca4d5919e1b58d40",
+    "app/src/androidTest/java/com/jutlandiatech/archiveplayer/HomeUiTest.kt": "ba107aacf4bad5f482986d82b17ff2fb65152b9cf10f781d960ef94edfe571ab",
+    "app/src/androidTest/java/com/jutlandiatech/archiveplayer/ItemUiTest.kt": "37372852f0a5959f3721f02ee15d2bd4edb391b18b4a23f9aa809952b35dfbd6",
+    "app/src/androidTest/java/com/jutlandiatech/archiveplayer/LibraryUiTest.kt": "b016df200aac45cedf1cb33d4b0bb17bc084509476046d7378bf322efc5c9d93",
+    "app/src/androidTest/java/com/jutlandiatech/archiveplayer/PlayerUiTest.kt": "5fc49e7c5158755a2f1656f2caf6e3ac16ee42beecc04cba9399ec41a203540c",
+    "app/src/androidTest/java/com/jutlandiatech/archiveplayer/ResourceIdUiAutomatorTest.kt": "bc93d0c8601fc14175bb0c5ddb32df27d50dde359b5ec5f5dbeefbac86c3796e",
+    "app/src/androidTest/java/com/jutlandiatech/archiveplayer/SearchUiTest.kt": "8bfab44d70433119b99e4c7fc8d9f0a45e1605b880d630e5cfc07193f18d422c",
+    "app/src/androidTest/java/com/jutlandiatech/archiveplayer/SettingsUiTest.kt": "0d6fe3da58fa2651619afe9611bf4f76424e3c5f9ff624ae94df494f429e2095",
+    "app/src/androidTest/java/com/jutlandiatech/archiveplayer/SetupUiTest.kt": "195e5ddefb325e40611a2f78c3a445cb8d5ed1de95d314631abc5e0e038bb568",
+    "app/src/androidTest/java/com/jutlandiatech/archiveplayer/ShellUiTest.kt": "b5db5caa718dd4b22cfc4379c3b4300916c319fed2ad9951d16243de643d3585",
+    "app/src/androidTest/java/com/jutlandiatech/archiveplayer/support/AppTestSupport.kt": "bada698a0548051cffccd0b3c9876b2018c200c827967422c293f18dd7ec3361",
+    "app/src/androidTest/java/com/jutlandiatech/archiveplayer/support/FixtureServer.kt": "87db853e259c1bcc061db5138f12fcddaa323ae494f0574c39e3546ca6b1e499",
+    "app/src/androidTest/java/com/jutlandiatech/archiveplayer/support/PlayerProbe.kt": "00f17e9179e1237297c06401eb83516b5cba52cfd947eaf53a8ad3ab2c2148bc",
+    "app/src/androidTestFoss/java/com/jutlandiatech/archiveplayer/NoCastFossUiTest.kt": "120e15b49b3477a68eb5962dcf18c52864b5f2d906d86154dda31742c4298915",
+    "app/src/androidTestFull/java/com/jutlandiatech/archiveplayer/CastConverterTest.kt": "dede77431530c489679e9b7a2c2bc42b6092dcbdb6448ba6c76de4fe242550b0",
+    "app/src/androidTestFull/java/com/jutlandiatech/archiveplayer/CastFullUiTest.kt": "6f91715829718fa5dd555d67fb4fac69616d38dda301268870c63befe7e64f32"
+  },
+  "tests": [
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.catalog.CatalogUtilitiesTest",
+      "name": "R23_durationClasses",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.catalog.CatalogUtilitiesTest",
+      "name": "R45_subtitleClassification",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.catalog.CatalogUtilitiesTest",
+      "name": "R78_searchGarbageGivesEmptyPage",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.catalog.CatalogUtilitiesTest",
+      "name": "R12_R78_descriptionSanitized",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.catalog.CatalogUtilitiesTest",
+      "name": "A10_searchResponseParsed",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.catalog.CatalogUtilitiesTest",
+      "name": "R12_durationFormats",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.catalog.CatalogUtilitiesTest",
+      "name": "R07_mediaKinds",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.catalog.MetadataParserTest",
+      "name": "R45_autogeneratedVttAttachesToItsEntry",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.catalog.MetadataParserTest",
+      "name": "R12_displayMetadata",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.catalog.MetadataParserTest",
+      "name": "R08_R10_singleFilmIsOneVideoEntryWithAllFormats",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.catalog.MetadataParserTest",
+      "name": "R10_nonMediaFilesAreNotEntriesButArtworkIsUsed",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.catalog.MetadataParserTest",
+      "name": "R11_A11_largeShowOrderedByTrackThenFilename",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.catalog.MetadataParserTest",
+      "name": "R78_tolerantFieldShapes",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.catalog.MetadataParserTest",
+      "name": "R12_missingTitleFallsBackToIdentifier",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.catalog.MetadataParserTest",
+      "name": "R78_garbageNeverThrows",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.catalog.MetadataParserTest",
+      "name": "R07_unsupportedMediaTypesExcluded",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.catalog.MetadataParserTest",
+      "name": "A33_filmWithSrtOffersIt",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.catalog.MetadataParserTest",
+      "name": "A12_itemWithOnlyImagesAndTextIsNotPlayable",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.catalog.MetadataParserTest",
+      "name": "A40_humanAndMachineSubtitlesBothOfferedAndLabelled",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.catalog.MetadataParserTest",
+      "name": "R11_naturalFilenameOrderWithoutTrackField",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.catalog.MetadataParserTest",
+      "name": "R10_originalAndDerivativesGroupedPerTrack",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.catalog.MetadataParserTest",
+      "name": "R07_R11_etreeConcertIsAudioAlbumInTrackOrder",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.category.BundledCategoryMapTest",
+      "name": "R68_everyCategoryTranslatedToGermanAndDanish",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.category.BundledCategoryMapTest",
+      "name": "R17_initialMapContainsApprovedCategories",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.category.BundledCategoryMapTest",
+      "name": "R17_everyLeafHasAConcreteQuery",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.category.CategoryMapTest",
+      "name": "R15_validRemoteWins",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.category.CategoryMapTest",
+      "name": "A09_unsupportedOrInvalidRemoteFallsBack",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.category.CategoryMapTest",
+      "name": "R68_localizedNamesFallBackToEnglish",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.category.CategoryMapTest",
+      "name": "R14_parsesCategoriesWithQueries",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.category.CategoryMapTest",
+      "name": "A08_unreachableRemoteUsesBundled",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.category.CategoryMapTest",
+      "name": "R15_invalidMapsRejected",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.category.LiveCategoryMapCheck",
+      "name": "R17_everyQueryReturnsPlayableResults",
+      "status": "skipped"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.download.DownloadsTest",
+      "name": "A44_switchLocationOffersMove",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.download.DownloadsTest",
+      "name": "A45_removedCardMarksDownloadsAndStreams",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.download.DownloadsTest",
+      "name": "R85_moveIsResumable",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.download.DownloadsTest",
+      "name": "R60_onWifiNoWaiting",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.download.DownloadsTest",
+      "name": "R61_lowSpaceWarningBelow500MbPerLocation",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.download.DownloadsTest",
+      "name": "R61_castAndMissingDownloadsStream",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.download.DownloadsTest",
+      "name": "A43_newDownloadsGoToChosenSdCard",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.download.DownloadsTest",
+      "name": "R85_sdCardOfferedOnlyWhenMounted",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.download.DownloadsTest",
+      "name": "A39_mobileDataOverrideStartsOneDownload",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.download.DownloadsTest",
+      "name": "A44_moveDeletesSourceOnlyAfterVerifiedCopy",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.download.DownloadsTest",
+      "name": "A25_mixedPlaylistOnMobileDataWithWifiOnly",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.download.DownloadsTest",
+      "name": "R85_missingCardFallsBackToInternal",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.filter.AdultFilterTest",
+      "name": "R71_bundledListCoversFourLanguages",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.filter.AdultFilterTest",
+      "name": "R71_invalidRemoteListFallsBack",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.filter.AdultFilterTest",
+      "name": "A41_remoteKeywordAddedTakesEffect",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.filter.AdultFilterTest",
+      "name": "A27_adultHitsRemovedOnlyWhileHidden",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.filter.AdultFilterTest",
+      "name": "R71_wholeWordsOnly",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.filter.AdultFilterTest",
+      "name": "R71_keywordInSubjectOrTitle",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.filter.AdultFilterTest",
+      "name": "R71_searchQueryExcludesNoPreview",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.filter.AdultFilterTest",
+      "name": "R71_noPreviewCollectionIsAdult",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.format.FormatMimeTest",
+      "name": "R46_audioFormats",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.format.FormatMimeTest",
+      "name": "R46_unknownFormatHasNoMime",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.format.FormatMimeTest",
+      "name": "R46_videoFormatsAreMp4",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.format.FormatSelectorTest",
+      "name": "A15_vbrMp3SelectedAndFlacNeverAuto",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.format.FormatSelectorTest",
+      "name": "R43_fallbackToNextSuitableFormatOnce",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.format.FormatSelectorTest",
+      "name": "R49_oggNeverSentToCast",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.format.FormatSelectorTest",
+      "name": "R09_playableFormats",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.format.FormatSelectorTest",
+      "name": "R40_audioPreferenceOrder",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.format.FormatSelectorTest",
+      "name": "R41_meteredDataSaverPicksLowestMp3",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.format.FormatSelectorTest",
+      "name": "A13_meteredWithDataSaverPicksLowBitrateVideo",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.format.FormatSelectorTest",
+      "name": "A13_qualityMenuListsBothVideoFormats",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.format.FormatSelectorTest",
+      "name": "A14_wifiPicksH264",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.format.FormatSelectorTest",
+      "name": "R41_dataSaverOffOnMeteredKeepsBestFormat",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.home.HomeTest",
+      "name": "R21_refreshAtMostEverySixHours",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.home.HomeTest",
+      "name": "R20_preferredLanguagesFirstUntaggedKept",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.home.HomeTest",
+      "name": "R18_emptyPersonalRowsHidden",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.home.HomeTest",
+      "name": "R44_pausedHistoryRecordsNothing",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.home.HomeTest",
+      "name": "A17_continueRowShowsUnfinishedNewestFirstOncePerEntry",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.home.HomeTest",
+      "name": "R19_becauseYouPlayedUsesLocalHistory",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.home.HomeTest",
+      "name": "R19_shortPlaysAreNoSeed",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.home.HomeTest",
+      "name": "R21_onlyItemsAddedSinceLastCheck",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.home.HomeTest",
+      "name": "R18_personalRowsFirstThenCurated",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.language.LanguagesTest",
+      "name": "A05_frenchVariantsNormalizeToFr",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.language.LanguagesTest",
+      "name": "A07_untaggedItemShownWithoutFilter",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.language.LanguagesTest",
+      "name": "A06_untaggedItemExcludedWhileFiltering",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.language.LanguagesTest",
+      "name": "A02_unsupportedPhoneLanguageFallsBackToEnglish",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.language.LanguagesTest",
+      "name": "R28_matchesAnyFilterLanguage",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.language.LanguagesTest",
+      "name": "R13_unmappedValuesAreIgnored",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.language.LanguagesTest",
+      "name": "R83_nativeNames",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.language.LanguagesTest",
+      "name": "A01_germanPhonePreselectsDeutsch",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.language.LanguagesTest",
+      "name": "R13_commonLanguagesNormalize",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.language.LanguagesTest",
+      "name": "SO1_contentLanguagesFromPhonePlusEnglish",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.language.LanguagesTest",
+      "name": "R13_tableCoversChipsAndMoreLanguages",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.language.LanguagesTest",
+      "name": "SO2_directContentChips",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.language.LanguagesTest",
+      "name": "U01_supportedLanguagesPreselected",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.net.ArchiveClientTest",
+      "name": "R75_allowList",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.net.ArchiveClientTest",
+      "name": "A35_backsOffExponentiallyThenSucceeds",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.net.ArchiveClientTest",
+      "name": "R76_honoursRetryAfter",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.net.ArchiveClientTest",
+      "name": "A35_noRequestStorm",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.net.ArchiveClientTest",
+      "name": "R75_foreignHostsBlocked",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.net.ArchiveClientTest",
+      "name": "R76_descriptiveUserAgentSent",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.net.ArchiveClientTest",
+      "name": "R76_serverErrorsRetriedClientErrorsNot",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.playback.PlaybackTest",
+      "name": "R37_sleepTimerMinutes",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.playback.PlaybackTest",
+      "name": "R37_skipAndSpeed",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.playback.PlaybackTest",
+      "name": "A34_sleepTimerEndOfEntry",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.playback.PlaybackTest",
+      "name": "A17_resumesAt40Minutes",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.playback.PlaybackTest",
+      "name": "R37_shuffleKeepsCurrentAndRestoresOrder",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.playback.PlaybackTest",
+      "name": "A16_mixedQueueKeepsOrderAndSwitchesLayout",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.playback.PlaybackTest",
+      "name": "R37_cancelledTimerNeverPauses",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.playback.PlaybackTest",
+      "name": "R35_replaceAndEdit",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.playback.PlaybackTest",
+      "name": "R37_repeatModes",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.playback.PlaybackTest",
+      "name": "R36_finishedRules",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.playback.PlaybackTest",
+      "name": "R36_storedAfter30Seconds",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.player.FullscreenPolicyTest",
+      "name": "R86_fourByThreeOrWiderIsLandscape",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.player.FullscreenPolicyTest",
+      "name": "R86_narrowerThanFourByThreeIsPortrait",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.player.FullscreenPolicyTest",
+      "name": "P25_castingNeverChangesOrientation",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.player.FullscreenPolicyTest",
+      "name": "R86_rotationEntersOnlyForWideLocalVideo",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.playlist.PlaylistsTest",
+      "name": "A21_shareLinkRoundTripKeepsOrder",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.playlist.PlaylistsTest",
+      "name": "R52_likedListCannotBeRenamedOrDeleted",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.playlist.PlaylistsTest",
+      "name": "R51_editing",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.playlist.PlaylistsTest",
+      "name": "R54_unicodeTitleRoundTrip",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.playlist.PlaylistsTest",
+      "name": "R74_mergeNeverSilentlyOverwrites",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.playlist.PlaylistsTest",
+      "name": "R58_invalidOrNewerFilesRejected",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.playlist.PlaylistsTest",
+      "name": "A24_playlistFileRoundTripCreatesNewPlaylist",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.playlist.PlaylistsTest",
+      "name": "A24_invalidEntriesReported",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.playlist.PlaylistsTest",
+      "name": "A29_libraryExportImportRoundTrip",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.playlist.PlaylistsTest",
+      "name": "A23_tooLongLinkRequiresFile",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.playlist.PlaylistsTest",
+      "name": "R54_foreignOrCorruptLinksRejected",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.playlist.PlaylistsTest",
+      "name": "R54_payloadOnlyInFragment",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.playlist.PlaylistsTest",
+      "name": "R57_linksStayWithinLimit",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.playlist.PlaylistsTest",
+      "name": "A29_importIntoClearedAppRestoresEverything",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.search.SearchTest",
+      "name": "R26_browseWithoutTextUsesCategoryOnly",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.search.SearchTest",
+      "name": "A10_resultsGrouped",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.search.SearchTest",
+      "name": "R24_sortOrders",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.search.SearchTest",
+      "name": "R22_debounceIs300ms",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.search.SearchTest",
+      "name": "R22_localSuggestions",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.search.SearchTest",
+      "name": "R29_recentSearches",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.search.SearchTest",
+      "name": "R07_mediaKindClauses",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.search.SearchTest",
+      "name": "R25_paging",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.search.SearchTest",
+      "name": "R71_adultExclusionOnlyWhileHidden",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.search.SearchTest",
+      "name": "A10_audioPopularityQuery",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.search.SearchTest",
+      "name": "R23_filtersCombine",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.search.SearchTest",
+      "name": "A06_A07_clientSideLanguageRule",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.search.WebSearchTest",
+      "name": "R87_unparseableResponseMeansFallback",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.search.WebSearchTest",
+      "name": "A47_parsesWebsiteSearchResponseInRankOrder",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.search.WebSearchTest",
+      "name": "R87_kindFilterNarrowsMediaTypes",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.search.WebSearchTest",
+      "name": "R87_urlUsesWebsiteSearchWithMediaKinds",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.search.WebSearchTest",
+      "name": "R87_usedForRelevanceTextSearchOnly",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.settings.AppSettingsTest",
+      "name": "A38_lightEvenWhenPhoneIsDark",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.settings.AppSettingsTest",
+      "name": "A42_appLanguageChangeKeepsContentLanguages",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.settings.AppSettingsTest",
+      "name": "D30_defaultsComeFromPhoneNotAppLanguageChoice",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.settings.AppSettingsTest",
+      "name": "R82_followSystem",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.settings.AppSettingsTest",
+      "name": "R27_contentLanguagesMayBeEmpty",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.settings.AppSettingsTest",
+      "name": "A42_contentLanguageChangeKeepsAppLanguage",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.settings.AppSettingsTest",
+      "name": "R82_toggleFlipsWhatIsShown",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.settings.AppSettingsTest",
+      "name": "R72_freshInstallDefaults",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.setup.SetupFlowTest",
+      "name": "U04_backKeepsSelectionsAndLeavesOnFirstStep",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.setup.SetupFlowTest",
+      "name": "U01_startsOnLanguageStepWithPreselection",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.setup.SetupFlowTest",
+      "name": "U05_contentLanguagesIndependentOfAppLanguage",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.setup.SetupFlowTest",
+      "name": "U03_continueThroughSteps",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.setup.SetupFlowTest",
+      "name": "U07_startCompletesOnceAndReturnsSettings",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.setup.SetupFlowTest",
+      "name": "U02_unknownLanguageRejected",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.setup.SetupFlowTest",
+      "name": "U07_startOnlyOnReadyStep",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.setup.SetupFlowTest",
+      "name": "U02_selectingLanguageKeepsStep",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.text.ShippedCatalogsTest",
+      "name": "R65_englishGermanDanishCatalogsShipped",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.text.ShippedCatalogsTest",
+      "name": "R66_A04_allCatalogsMatchEnglishReference",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.text.ShippedCatalogsTest",
+      "name": "R72_settingsRowLabelsExistInAllCatalogs",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.text.ShippedCatalogsTest",
+      "name": "R27_appLanguageAndContentLanguagesHaveDistinctLabels",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.text.ShippedCatalogsTest",
+      "name": "U_setupTextContractInEnglish",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.text.TextCatalogTest",
+      "name": "R66_consistentCatalogHasNoProblems",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.text.TextCatalogTest",
+      "name": "R65_missingPlaceholderArgumentThrows",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.text.TextCatalogTest",
+      "name": "R66_A03_codeFromFileName",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.text.TextCatalogTest",
+      "name": "R66_catalogNamesItself",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.text.TextCatalogTest",
+      "name": "A04_missingKeyIsReported",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.text.TextCatalogTest",
+      "name": "R65_resolvesTextWithNamedPlaceholders",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.text.TextCatalogTest",
+      "name": "R65_plainTextWithoutArguments",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.text.TextCatalogTest",
+      "name": "R66_invalidCatalogsRejected",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.text.TextCatalogTest",
+      "name": "R66_extraKeyBlankValueAndPlaceholderMismatchReported",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.text.TextCatalogTest",
+      "name": "R65_unexpectedArgumentThrows",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.core.text.TextCatalogTest",
+      "name": "R65_unknownKeyThrows",
+      "status": "passed"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.CastConverterTest",
+      "name": "A48_streamedMp4KeepsOnlyWebVtt",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.CastConverterTest",
+      "name": "A48_downloadedMp3IsStreamedWithMime",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.CastFullUiTest",
+      "name": "L17_playlistCastButton",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.CastFullUiTest",
+      "name": "P19_playerCastButton",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.CastFullUiTest",
+      "name": "R46_castButtonInTopBar",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.HomeUiTest",
+      "name": "H10_cardOpensItemBackRestoresScroll",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.HomeUiTest",
+      "name": "H07_A05_contentLanguageRanksRowWithoutHidingUntagged",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.HomeUiTest",
+      "name": "H06_followedCollectionRefreshThrottled",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.HomeUiTest",
+      "name": "H01_freshInstallShowsCuratedRowsInMapOrder",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.HomeUiTest",
+      "name": "H09_A39_slowRowShowsStillLoadingRestUsable",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.HomeUiTest",
+      "name": "H03_continueCardResumesAtStoredPosition",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.HomeUiTest",
+      "name": "H05_playlistsRowLikedFirst",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.HomeUiTest",
+      "name": "H12_largeFontNarrowScreenAllLanguages",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.HomeUiTest",
+      "name": "H02_A17_continueRowFirstAfterPlayback",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.HomeUiTest",
+      "name": "H08_failingRowShowsRetryOthersRender",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.HomeUiTest",
+      "name": "H04_finishedEntryLeavesContinueStaysInRecent",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.HomeUiTest",
+      "name": "H11_S08_pausedHistoryAddsNoPersonalRows",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.ItemUiTest",
+      "name": "I06_A21_followCollectionListedInLibrary",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.ItemUiTest",
+      "name": "I09_R32_entryFilterOnlyAbove30Entries",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.ItemUiTest",
+      "name": "I08_addToNewPlaylistThenPickerListsIt",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.ItemUiTest",
+      "name": "I01_A11_headerAndGroupedOrderedEntries",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.ItemUiTest",
+      "name": "I14_R33_collectionPageWithFollowAndFilters",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.ItemUiTest",
+      "name": "I05_likeItemListsEntriesInLiked",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.ItemUiTest",
+      "name": "I16_shareSendsArchiveUrl",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.ItemUiTest",
+      "name": "I11_A26_downloadedAudioPlaysOffline",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.ItemUiTest",
+      "name": "I07_A13_playNextAndAddToQueue",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.ItemUiTest",
+      "name": "I04_shuffleQueuesAllInOtherOrder",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.ItemUiTest",
+      "name": "I13_errorThenRetry",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.ItemUiTest",
+      "name": "I10_R59_videoHasNoDownload",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.ItemUiTest",
+      "name": "I12_A12_nothingPlayableState",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.ItemUiTest",
+      "name": "I03_entryTapStartsFromThatEntry",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.ItemUiTest",
+      "name": "I02_playAllQueuesItemInOrder",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.LibraryUiTest",
+      "name": "L04_renameAndDescribe",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.LibraryUiTest",
+      "name": "L11_A21_R55_linkImportCreatesNewPlaylistNeverOverwrites",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.LibraryUiTest",
+      "name": "L06_R35_playAndShuffleReplaceQueue",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.LibraryUiTest",
+      "name": "L13_A25_mixedDownloadOnMobileWaitsForWifi",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.LibraryUiTest",
+      "name": "L15_R44_historyListClearAndPaused",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.LibraryUiTest",
+      "name": "L08_R53_unfollow",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.LibraryUiTest",
+      "name": "L14_R61_storageSummaryWarningRemove",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.LibraryUiTest",
+      "name": "I15_R70_adultItemFromShareLinkHidden",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.LibraryUiTest",
+      "name": "L07_R52_likedListFollowsHearts",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.LibraryUiTest",
+      "name": "L12_A24_fileImportReportsSkipped",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.LibraryUiTest",
+      "name": "L01_chipsOrderAndLikedPinned",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.LibraryUiTest",
+      "name": "L10_A23_tooLongLinkOffersFile",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.LibraryUiTest",
+      "name": "L02_newPlaylistAppearsEmpty",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.LibraryUiTest",
+      "name": "L09_A21_shareLinkEncodesEntries",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.LibraryUiTest",
+      "name": "L03_reorderAndRemovePersist",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.LibraryUiTest",
+      "name": "L05_deleteWithUndoLikedNotDeletable",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.LibraryUiTest",
+      "name": "L16_emptyStatesAllLanguages",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.PlayerUiTest",
+      "name": "P15_A17_resumeAfterRelaunch",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.PlayerUiTest",
+      "name": "P03_skipForward30Back10",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.PlayerUiTest",
+      "name": "P09_A13_dataSaverMeteredPicks512kb",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.PlayerUiTest",
+      "name": "P11_A16_mixedQueueSwitchesLayout",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.PlayerUiTest",
+      "name": "P04_nextPreviousAndRestart",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.PlayerUiTest",
+      "name": "P23_R86_portraitVideoStaysPortrait",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.PlayerUiTest",
+      "name": "P18_swipeMiniPlayerStopsWithUndo",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.PlayerUiTest",
+      "name": "P14_formatFallbackThenError",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.PlayerUiTest",
+      "name": "P21_R86_wideVideoMaximizesToLandscape",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.PlayerUiTest",
+      "name": "P16_A32_videoEntersPictureInPicture",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.PlayerUiTest",
+      "name": "P01_miniPlayerOnAllTabsOpensFullPlayer",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.PlayerUiTest",
+      "name": "P08_sleepTimerShowsRemainingAndCancels",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.PlayerUiTest",
+      "name": "P13_A33_subtitleMenu",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.PlayerUiTest",
+      "name": "P24_R86_audioHasNoMaximize",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.PlayerUiTest",
+      "name": "P10_A15_audioAutoVbrFlacListed",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.PlayerUiTest",
+      "name": "P02_playPauseOnMiniAndFullPlayer",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.PlayerUiTest",
+      "name": "P12_queueReorderRemoveJump",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.PlayerUiTest",
+      "name": "P20_R64_controlsLabelledAllLanguages",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.PlayerUiTest",
+      "name": "P06_speedSheet",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.PlayerUiTest",
+      "name": "P22_R86_backLeavesFullScreen",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.PlayerUiTest",
+      "name": "P07_A34_sleepAtEndOfEntry",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.PlayerUiTest",
+      "name": "P05_repeatCyclesShuffleToggles",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.PlayerUiTest",
+      "name": "P17_R34_mediaSessionExposesQueueAndControls",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.ResourceIdUiAutomatorTest",
+      "name": "R69_setupElementsFoundByResourceId",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.SearchUiTest",
+      "name": "Q11_browseTileOpensCategoryWithSubcategories",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.SearchUiTest",
+      "name": "Q07_A35_backOffThenErrorWithRetry",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.SearchUiTest",
+      "name": "Q14_largeFontNarrowScreenChipsFit",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.SearchUiTest",
+      "name": "Q04_A05_A07_languageFilterExcludesUntagged",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.SearchUiTest",
+      "name": "Q12_stateSurvivesItemAndRotation",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.SearchUiTest",
+      "name": "Q01_browseGridShowsCategoryTiles",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.SearchUiTest",
+      "name": "Q13_ownPlaylistsInResults",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.SearchUiTest",
+      "name": "Q10_recentSearchesAddRemoveAndInSettings",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.SearchUiTest",
+      "name": "Q05_filtersVisibleIndividuallyRemovable",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.SearchUiTest",
+      "name": "Q06_pagingAppendsWithoutDuplicates",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.SearchUiTest",
+      "name": "Q08_emptyResultOffersClearFilters",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.SearchUiTest",
+      "name": "Q02_suggestionsAreLocalOnly",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.SearchUiTest",
+      "name": "Q03_A10_kindFilterAndPopularitySort",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.SearchUiTest",
+      "name": "Q09_A27_adultItemsHidden",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.SettingsUiTest",
+      "name": "S03_A42_appLanguageChangeKeepsContentLanguages",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.SettingsUiTest",
+      "name": "S09_A29_exportThenImportRestoresLibrary",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.SettingsUiTest",
+      "name": "S10_aboutShowsFlavour",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.SettingsUiTest",
+      "name": "S01_settingsFromEveryTabRootWithAllRows",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.SettingsUiTest",
+      "name": "S02_detailAndAndroidBackReturnToList",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.SetupUiTest",
+      "name": "U03_continueThroughStepsOneRootAtATime",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.SetupUiTest",
+      "name": "U06_recreationKeepsStepAndSelections",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.SetupUiTest",
+      "name": "U02_selectingLanguageSwitchesTextImmediately",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.SetupUiTest",
+      "name": "U07_startOpensHomeAndRelaunchSkipsSetup",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.SetupUiTest",
+      "name": "U01_firstLaunchShowsLanguageStepWithPreselection",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.SetupUiTest",
+      "name": "U05_A42_contentLanguagesIndependentOfAppLanguage",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.ShellUiTest",
+      "name": "N01_bottomBarWithThreeDestinations",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.ShellUiTest",
+      "name": "N10_A38_themeToggleSwitchesAndPersists",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "full"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.HomeUiTest",
+      "name": "H10_cardOpensItemBackRestoresScroll",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.HomeUiTest",
+      "name": "H07_A05_contentLanguageRanksRowWithoutHidingUntagged",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.HomeUiTest",
+      "name": "H06_followedCollectionRefreshThrottled",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.HomeUiTest",
+      "name": "H01_freshInstallShowsCuratedRowsInMapOrder",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.HomeUiTest",
+      "name": "H09_A39_slowRowShowsStillLoadingRestUsable",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.HomeUiTest",
+      "name": "H03_continueCardResumesAtStoredPosition",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.HomeUiTest",
+      "name": "H05_playlistsRowLikedFirst",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.HomeUiTest",
+      "name": "H12_largeFontNarrowScreenAllLanguages",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.HomeUiTest",
+      "name": "H02_A17_continueRowFirstAfterPlayback",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.HomeUiTest",
+      "name": "H08_failingRowShowsRetryOthersRender",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.HomeUiTest",
+      "name": "H04_finishedEntryLeavesContinueStaysInRecent",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.HomeUiTest",
+      "name": "H11_S08_pausedHistoryAddsNoPersonalRows",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.ItemUiTest",
+      "name": "I06_A21_followCollectionListedInLibrary",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.ItemUiTest",
+      "name": "I09_R32_entryFilterOnlyAbove30Entries",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.ItemUiTest",
+      "name": "I08_addToNewPlaylistThenPickerListsIt",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.ItemUiTest",
+      "name": "I01_A11_headerAndGroupedOrderedEntries",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.ItemUiTest",
+      "name": "I14_R33_collectionPageWithFollowAndFilters",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.ItemUiTest",
+      "name": "I05_likeItemListsEntriesInLiked",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.ItemUiTest",
+      "name": "I16_shareSendsArchiveUrl",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.ItemUiTest",
+      "name": "I11_A26_downloadedAudioPlaysOffline",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.ItemUiTest",
+      "name": "I07_A13_playNextAndAddToQueue",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.ItemUiTest",
+      "name": "I04_shuffleQueuesAllInOtherOrder",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.ItemUiTest",
+      "name": "I13_errorThenRetry",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.ItemUiTest",
+      "name": "I10_R59_videoHasNoDownload",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.ItemUiTest",
+      "name": "I12_A12_nothingPlayableState",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.ItemUiTest",
+      "name": "I03_entryTapStartsFromThatEntry",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.ItemUiTest",
+      "name": "I02_playAllQueuesItemInOrder",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.LibraryUiTest",
+      "name": "L04_renameAndDescribe",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.LibraryUiTest",
+      "name": "L11_A21_R55_linkImportCreatesNewPlaylistNeverOverwrites",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.LibraryUiTest",
+      "name": "L06_R35_playAndShuffleReplaceQueue",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.LibraryUiTest",
+      "name": "L13_A25_mixedDownloadOnMobileWaitsForWifi",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.LibraryUiTest",
+      "name": "L15_R44_historyListClearAndPaused",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.LibraryUiTest",
+      "name": "L08_R53_unfollow",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.LibraryUiTest",
+      "name": "L14_R61_storageSummaryWarningRemove",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.LibraryUiTest",
+      "name": "I15_R70_adultItemFromShareLinkHidden",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.LibraryUiTest",
+      "name": "L07_R52_likedListFollowsHearts",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.LibraryUiTest",
+      "name": "L12_A24_fileImportReportsSkipped",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.LibraryUiTest",
+      "name": "L01_chipsOrderAndLikedPinned",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.LibraryUiTest",
+      "name": "L10_A23_tooLongLinkOffersFile",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.LibraryUiTest",
+      "name": "L02_newPlaylistAppearsEmpty",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.LibraryUiTest",
+      "name": "L09_A21_shareLinkEncodesEntries",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.LibraryUiTest",
+      "name": "L03_reorderAndRemovePersist",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.LibraryUiTest",
+      "name": "L05_deleteWithUndoLikedNotDeletable",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.LibraryUiTest",
+      "name": "L16_emptyStatesAllLanguages",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.NoCastFossUiTest",
+      "name": "L17_playlistCastButton",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.NoCastFossUiTest",
+      "name": "P19_playerCastButton",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.NoCastFossUiTest",
+      "name": "A37_N13_noCastElements",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.PlayerUiTest",
+      "name": "P15_A17_resumeAfterRelaunch",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.PlayerUiTest",
+      "name": "P03_skipForward30Back10",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.PlayerUiTest",
+      "name": "P09_A13_dataSaverMeteredPicks512kb",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.PlayerUiTest",
+      "name": "P11_A16_mixedQueueSwitchesLayout",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.PlayerUiTest",
+      "name": "P04_nextPreviousAndRestart",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.PlayerUiTest",
+      "name": "P23_R86_portraitVideoStaysPortrait",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.PlayerUiTest",
+      "name": "P18_swipeMiniPlayerStopsWithUndo",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.PlayerUiTest",
+      "name": "P14_formatFallbackThenError",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.PlayerUiTest",
+      "name": "P21_R86_wideVideoMaximizesToLandscape",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.PlayerUiTest",
+      "name": "P16_A32_videoEntersPictureInPicture",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.PlayerUiTest",
+      "name": "P01_miniPlayerOnAllTabsOpensFullPlayer",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.PlayerUiTest",
+      "name": "P08_sleepTimerShowsRemainingAndCancels",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.PlayerUiTest",
+      "name": "P13_A33_subtitleMenu",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.PlayerUiTest",
+      "name": "P24_R86_audioHasNoMaximize",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.PlayerUiTest",
+      "name": "P10_A15_audioAutoVbrFlacListed",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.PlayerUiTest",
+      "name": "P02_playPauseOnMiniAndFullPlayer",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.PlayerUiTest",
+      "name": "P12_queueReorderRemoveJump",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.PlayerUiTest",
+      "name": "P20_R64_controlsLabelledAllLanguages",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.PlayerUiTest",
+      "name": "P06_speedSheet",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.PlayerUiTest",
+      "name": "P22_R86_backLeavesFullScreen",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.PlayerUiTest",
+      "name": "P07_A34_sleepAtEndOfEntry",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.PlayerUiTest",
+      "name": "P05_repeatCyclesShuffleToggles",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.PlayerUiTest",
+      "name": "P17_R34_mediaSessionExposesQueueAndControls",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.ResourceIdUiAutomatorTest",
+      "name": "R69_setupElementsFoundByResourceId",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.SearchUiTest",
+      "name": "Q11_browseTileOpensCategoryWithSubcategories",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.SearchUiTest",
+      "name": "Q07_A35_backOffThenErrorWithRetry",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.SearchUiTest",
+      "name": "Q14_largeFontNarrowScreenChipsFit",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.SearchUiTest",
+      "name": "Q04_A05_A07_languageFilterExcludesUntagged",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.SearchUiTest",
+      "name": "Q12_stateSurvivesItemAndRotation",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.SearchUiTest",
+      "name": "Q01_browseGridShowsCategoryTiles",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.SearchUiTest",
+      "name": "Q13_ownPlaylistsInResults",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.SearchUiTest",
+      "name": "Q10_recentSearchesAddRemoveAndInSettings",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.SearchUiTest",
+      "name": "Q05_filtersVisibleIndividuallyRemovable",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.SearchUiTest",
+      "name": "Q06_pagingAppendsWithoutDuplicates",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.SearchUiTest",
+      "name": "Q08_emptyResultOffersClearFilters",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.SearchUiTest",
+      "name": "Q02_suggestionsAreLocalOnly",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.SearchUiTest",
+      "name": "Q03_A10_kindFilterAndPopularitySort",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.SearchUiTest",
+      "name": "Q09_A27_adultItemsHidden",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.SettingsUiTest",
+      "name": "S03_A42_appLanguageChangeKeepsContentLanguages",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.SettingsUiTest",
+      "name": "S09_A29_exportThenImportRestoresLibrary",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.SettingsUiTest",
+      "name": "S10_aboutShowsFlavour",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.SettingsUiTest",
+      "name": "S01_settingsFromEveryTabRootWithAllRows",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.SettingsUiTest",
+      "name": "S02_detailAndAndroidBackReturnToList",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.SetupUiTest",
+      "name": "U03_continueThroughStepsOneRootAtATime",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.SetupUiTest",
+      "name": "U06_recreationKeepsStepAndSelections",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.SetupUiTest",
+      "name": "U02_selectingLanguageSwitchesTextImmediately",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.SetupUiTest",
+      "name": "U07_startOpensHomeAndRelaunchSkipsSetup",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.SetupUiTest",
+      "name": "U01_firstLaunchShowsLanguageStepWithPreselection",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.SetupUiTest",
+      "name": "U05_A42_contentLanguagesIndependentOfAppLanguage",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.ShellUiTest",
+      "name": "N01_bottomBarWithThreeDestinations",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.ShellUiTest",
+      "name": "N10_A38_themeToggleSwitchesAndPersists",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.PlayerUiTest",
+      "name": "P25_R86_castingNeverGoesLandscape",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "foss"
+    },
+    {
+      "class": "com.jutlandiatech.archiveplayer.PlayerUiTest",
+      "name": "P25_R86_castingNeverGoesLandscape",
+      "status": "passed",
+      "device": "emulator-5554",
+      "flavour": "full"
+    }
+  ]
+}

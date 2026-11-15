@@ -110,10 +110,12 @@ fun LibraryTab(vm: AppViewModel) {
                         items(records.groupBy { it.identifier }.toList(), key = { it.first }) { (identifier, list) ->
                             val waiting = list.any { it.state == com.jutlandiatech.archiveplayer.data.DownloadState.WAITING_WIFI }
                             val size = list.sumOf { it.sizeBytes }
+                            val sdRemoved = list.any { vm.downloads.availability(it) == com.jutlandiatech.archiveplayer.core.download.Availability.SD_CARD_REMOVED }
                             Column(Modifier.padding(horizontal = 8.dp)) {
                                 Row(verticalAlignment = Alignment.CenterVertically) {
                                     RowLabel(ElementIds.libraryDownload(identifier), list.first().itemTitle.ifBlank { identifier } + " · " +
-                                        t("library.entries", "count" to list.size.toString()) + (if (size > 0) " · " + formatBytes(size) else ""),
+                                        t("library.entries", "count" to list.size.toString()) + (if (size > 0) " · " + formatBytes(size) else "") +
+                                        (if (sdRemoved) " · " + t("library.sdRemoved") else ""),
                                         Modifier.weight(1f)) { vm.push(Screen.Item(identifier)) }
                                     TagGlyphButton(ElementIds.libraryDownloadRemove(identifier), "✕", t("entry.removeDownload")) { vm.removeDownloads(identifier) }
                                 }

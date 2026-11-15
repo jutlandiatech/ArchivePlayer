@@ -7,7 +7,14 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import com.jutlandiatech.archiveplayer.AppEnvironment
 import com.jutlandiatech.archiveplayer.NetworkKind
+import com.jutlandiatech.archiveplayer.core.download.Availability
+import com.jutlandiatech.archiveplayer.core.download.DownloadFileOps
+import com.jutlandiatech.archiveplayer.core.download.DownloadMover
 import com.jutlandiatech.archiveplayer.core.download.DownloadPolicy
+import com.jutlandiatech.archiveplayer.core.download.StoragePolicy
+import com.jutlandiatech.archiveplayer.core.download.StoredDownload
+import com.jutlandiatech.archiveplayer.core.download.Volume
+import com.jutlandiatech.archiveplayer.core.playlist.EntryRef
 import com.jutlandiatech.archiveplayer.core.download.NetworkState
 import com.jutlandiatech.archiveplayer.core.settings.DownloadLocation
 import kotlinx.coroutines.CoroutineScope
@@ -59,10 +66,73 @@ class Downloads(context: Context, private val wifiOnly: () -> Boolean) {
 
     fun dir(location: DownloadLocation): File? = when (location) {
         DownloadLocation.INTERNAL -> File(app.filesDir, "downloads")
-        DownloadLocation.SD_CARD -> app.getExternalFilesDirs(null).getOrNull(1)?.let { File(it, "downloads") }
+        DownloadLocation.SD_CARD -> sdRoot()?.let { File(it, "downloads") }
     }
 
-    fun sdCardMounted(): Boolean = app.getExternalFilesDirs(null).getOrNull(1) != null
+    /** App folder on the removable volume (R85, no storage permission), or null while no card is mounted. */
+    private fun sdRoot(): File? =
+        if (AppEnvironment.sdCardOverride) AppEnvironment.sdCardDir
+        else app.getExternalFilesDirs(null).drop(1).firstOrNull { it != null && android.os.Environment.getExternalStorageState(it) == android.os.Environment.MEDIA_MOUNTED }
+
+    fun sdCardMounted(): Boolean = sdRoot() != null
+
+    fun volumes(): List<Volume> = DownloadLocation.entries.map { loc ->
+        Volume(loc, loc == DownloadLocation.INTERNAL || sdCardMounted(), freeBytes(loc), usedBytes(loc))
+    }
+
+    fun stored(): List<StoredDownload> = records.filter { it.state == DownloadState.DONE }
+        .map { StoredDownload(EntryRef(it.identifier, it.fileName), it.location, it.sizeBytes) }
+
+    fun availability(r: DownloadRecord): Availability =
+        StoragePolicy.availability(StoredDownload(EntryRef(r.identifier, r.fileName), r.location, r.sizeBytes), volumes())
+
+    var moving: Boolean by mutableStateOf(false)
+        private set
+
+    /** Moves finished downloads to [target]; each source is deleted only after its copy is verified (R85). */
+    fun moveTo(target: DownloadLocation) {
+        if (moving || dir(target) == null) return
+        moving = true
+        scope.launch {
+            try {
+                val byRef = records.associateBy { EntryRef(it.identifier, it.fileName) }
+                val ops = object : DownloadFileOps {
+                    private fun src(s: StoredDownload) = byRef[s.ref]?.let(::localFile)
+                    private fun dst(s: StoredDownload) = byRef[s.ref]?.let { localFile(it.copy(location = target)) }
+                    override fun copy(download: StoredDownload, target: DownloadLocation): Boolean {
+                        val from = src(download) ?: return false
+                        val to = dst(download) ?: return false
+                        if (!from.isFile) return to.isFile
+                        return runCatching {
+                            to.parentFile?.mkdirs()
+                            from.copyTo(to, overwrite = true)
+                            true
+                        }.getOrElse { deleteFile(to); false }
+                    }
+                    override fun verifyCopy(download: StoredDownload, target: DownloadLocation): Boolean {
+                        val to = dst(download) ?: return false
+                        val from = src(download)
+                        return to.isFile && (from == null || !from.isFile || from.length() == to.length())
+                    }
+                    override fun delete(download: StoredDownload) {
+                        if (records.none { EntryRef(it.identifier, it.fileName) == download.ref }) {
+                            // Removed while its copy was being made: drop the copy too.
+                            dst(download)?.let(::deleteFile)
+                        } else {
+                            // Record the new location before the source goes, so an interrupted move never points at a deleted file.
+                            update { l -> l.map { if (EntryRef(it.identifier, it.fileName) == download.ref) it.copy(location = target) else it } }
+                        }
+                        src(download)?.let(::deleteFile)
+                    }
+                }
+                val outcome = DownloadMover(ops).move(stored(), target)
+                val moved = outcome.moved.map { it.ref }.toSet()
+                update { l -> l.map { if (EntryRef(it.identifier, it.fileName) in moved) it.copy(location = target) else it } }
+            } finally {
+                moving = false
+            }
+        }
+    }
 
     fun localFile(r: DownloadRecord): File? = dir(r.location)?.let { File(File(it, r.identifier), r.formatFile.replace('/', '_')) }
 
@@ -74,7 +144,8 @@ class Downloads(context: Context, private val wifiOnly: () -> Boolean) {
     fun freeBytes(location: DownloadLocation): Long =
         AppEnvironment.freeBytesOverride ?: (dir(location)?.let { d -> d.mkdirs(); d.usableSpace } ?: 0L)
 
-    fun usedBytes(): Long = records.filter { it.state == DownloadState.DONE }.sumOf { it.sizeBytes }
+    fun usedBytes(location: DownloadLocation? = null): Long =
+        records.filter { it.state == DownloadState.DONE && (location == null || it.location == location) }.sumOf { it.sizeBytes }
 
     fun network(): NetworkState = when (AppEnvironment.networkOverride) {
         NetworkKind.WIFI -> NetworkState(connected = true, unmetered = true)
@@ -101,7 +172,12 @@ class Downloads(context: Context, private val wifiOnly: () -> Boolean) {
     fun remove(predicate: (DownloadRecord) -> Boolean) {
         val gone = records.filter(predicate)
         update { l -> l.filterNot(predicate) }
-        gone.forEach { r -> localFile(r)?.delete(); localFile(r)?.parentFile?.takeIf { it.list().isNullOrEmpty() }?.delete() }
+        gone.forEach { r -> localFile(r)?.let(::deleteFile) }
+    }
+
+    private fun deleteFile(f: File) {
+        f.delete()
+        f.parentFile?.takeIf { it.list().isNullOrEmpty() }?.delete()
     }
 
     fun removeAll() = remove { true }
