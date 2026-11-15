@@ -99,21 +99,30 @@ class Downloads(context: Context, private val wifiOnly: () -> Boolean) {
                 val ops = object : DownloadFileOps {
                     private fun src(s: StoredDownload) = byRef[s.ref]?.let(::localFile)
                     private fun dst(s: StoredDownload) = byRef[s.ref]?.let { localFile(it.copy(location = target)) }
-                    override fun copy(download: StoredDownload, target: DownloadLocation): Boolean = runCatching {
+                    override fun copy(download: StoredDownload, target: DownloadLocation): Boolean {
                         val from = src(download) ?: return false
                         val to = dst(download) ?: return false
                         if (!from.isFile) return to.isFile
-                        to.parentFile?.mkdirs()
-                        from.copyTo(to, overwrite = true)
-                        true
-                    }.getOrDefault(false)
+                        return runCatching {
+                            to.parentFile?.mkdirs()
+                            from.copyTo(to, overwrite = true)
+                            true
+                        }.getOrElse { deleteFile(to); false }
+                    }
                     override fun verifyCopy(download: StoredDownload, target: DownloadLocation): Boolean {
                         val to = dst(download) ?: return false
                         val from = src(download)
                         return to.isFile && (from == null || !from.isFile || from.length() == to.length())
                     }
                     override fun delete(download: StoredDownload) {
-                        src(download)?.let { f -> f.delete(); f.parentFile?.takeIf { it.list().isNullOrEmpty() }?.delete() }
+                        if (records.none { EntryRef(it.identifier, it.fileName) == download.ref }) {
+                            // Removed while its copy was being made: drop the copy too.
+                            dst(download)?.let(::deleteFile)
+                        } else {
+                            // Record the new location before the source goes, so an interrupted move never points at a deleted file.
+                            update { l -> l.map { if (EntryRef(it.identifier, it.fileName) == download.ref) it.copy(location = target) else it } }
+                        }
+                        src(download)?.let(::deleteFile)
                     }
                 }
                 val outcome = DownloadMover(ops).move(stored(), target)
@@ -163,7 +172,12 @@ class Downloads(context: Context, private val wifiOnly: () -> Boolean) {
     fun remove(predicate: (DownloadRecord) -> Boolean) {
         val gone = records.filter(predicate)
         update { l -> l.filterNot(predicate) }
-        gone.forEach { r -> localFile(r)?.delete(); localFile(r)?.parentFile?.takeIf { it.list().isNullOrEmpty() }?.delete() }
+        gone.forEach { r -> localFile(r)?.let(::deleteFile) }
+    }
+
+    private fun deleteFile(f: File) {
+        f.delete()
+        f.parentFile?.takeIf { it.list().isNullOrEmpty() }?.delete()
     }
 
     fun removeAll() = remove { true }
