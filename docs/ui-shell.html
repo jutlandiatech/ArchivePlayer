@@ -1,0 +1,220 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="ArchivePlayer documentation: UI: Shell"><title>UI: Shell · ArchivePlayer Docs</title><link rel="stylesheet" href="assets/docs.css"><script defer src="assets/vendor/mermaid.min.js"></script><script defer src="assets/docs.js"></script></head><body><a class="skip" href="#content">Skip to content</a><header class="topbar"><a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true">A<span>≋</span></span><span>ArchivePlayer <small>Documentation</small></span></a><div class="top-actions"><a href="ArchivePlayer-Documentation-Summary.pdf">PDF summary ↓</a><a href="https://github.com/jutlandiatech/ArchivePlayer">Source ↗</a><button id="menu" aria-expanded="false" aria-controls="sidebar">Menu</button></div></header><div class="layout"><aside id="sidebar"><span class="eyebrow">THE HANDBOOK</span><label class="search-label" for="nav-search">Find a document</label><input id="nav-search" type="search" placeholder="Search documents…"><nav aria-label="Documentation"><a href="index.html" ><span>Overview</span></a><a href="user-guide.html" ><span>User guide</span></a><a href="getting-started.html" ><span>Getting started</span></a><a href="architecture.html" ><span>Architecture &amp; UML</span></a><a href="data.html" ><span>Data &amp; integrations</span></a><a href="maintenance.html" ><span>Maintenance</span></a><a href="app-links.html" ><span>App Links</span></a><a href="requirements.html" ><span>Specification</span></a><a href="testing.html" ><span>Testing &amp; traceability</span></a><a href="evidence.html" ><span>Recorded test evidence</span></a><a href="environment.html" ><span>Development environment</span></a><a href="ui-shell.html" aria-current="page"><span>UI: Shell</span></a><a href="ui-setup.html" ><span>UI: Setup</span></a><a href="ui-home.html" ><span>UI: Home</span></a><a href="ui-search.html" ><span>UI: Search</span></a><a href="ui-item.html" ><span>UI: Item</span></a><a href="ui-player.html" ><span>UI: Player</span></a><a href="ui-library.html" ><span>UI: Library</span></a><a href="ui-settings.html" ><span>UI: Settings</span></a></nav><p id="no-results" hidden>No matching documents.</p><div class="sidebar-note">Source-led documentation<br><strong>HTML edition · 16 Nov 2026</strong></div></aside><main id="content"><div class="page-heading"><span class="eyebrow">UI contracts</span><div><span>ArchivePlayer / UI: Shell</span><a href="https://github.com/jutlandiatech/ArchivePlayer/blob/main/UI_SHELL_SPEC.md">Edit Markdown ↗</a></div></div><div class="reading-layout"><article><h1 id="navigation-shell-theme-and-element-id-contract">Navigation shell, theme and element-ID contract</h1><p>Status: <strong>approved v1.0</strong>, 7 November 2026. Companion to SPECIFICATION.md R18–R26, R34–R38, R46, R50, R62–R69, R80–R83 and decisions D17, D22, D23, D26.</p>
+<h2 id="top-level-structure">Top-level structure</h2><ul>
+<li>Three destinations, in this order: <strong>Home</strong>, <strong>Search</strong> (search plus category browse), <strong>Library</strong> (playlists, liked, following, downloads, history).</li>
+<li>Phones (&lt; 600 dp width): Material 3 bottom navigation bar. Tablets/foldables (≥ 600 dp): navigation rail on the start edge.</li>
+<li>Each destination keeps its own back stack; reselecting the current tab scrolls to top and then pops to the tab root. Android Back pops within the tab, then returns to Home, then leaves the app.</li>
+<li>Top bar on each tab root: localized title, theme toggle (sun/moon, R82), Cast button (Media3 <code>MediaRouteButton</code>, <code>full</code> flavour only) and a Settings action (UI_SETTINGS_SPEC.md).</li>
+<li>Detail destinations (item, collection, category, playlist, settings pages) open within the current tab&#39;s back stack.</li>
+</ul>
+<h2 id="mini-player-and-full-player">Mini-player and full player</h2><ul>
+<li>While a queue exists, a mini-player bar sits directly above the bottom bar (phones) or at the bottom of the content area (tablets) on every screen except the full player and setup.</li>
+<li>Mini-player content: artwork thumbnail, title, creator/item, play/pause, a thin progress indicator, and a Cast indicator when casting. Tapping it, or swiping it up, opens the full player.</li>
+<li>Full player (phones): full-screen sheet with artwork or video surface, title, creator, like, seek bar, controls (R37), queue, quality, subtitles, speed, sleep timer, Cast. Swiping down collapses it to the mini-player.</li>
+<li>Full player (tablets, landscape): side pane beside the content, so browsing continues while the player stays visible.</li>
+<li>Video entries: tapping the video surface toggles controls; a full-screen button switches to immersive landscape.</li>
+</ul>
+<h2 id="theme">Theme</h2><p>Design language follows jutlandiatech/sim-warning-app (SPECIFICATION.md R63, R83).</p>
+<ul>
+<li><strong>Nordic light</strong> (default, regardless of the system setting): white-dominant surfaces, black text, medium blue <code>#2769AD</code> for primary actions, selection, icons and progress.</li>
+<li><strong>Nordic noir</strong> (dark mode): dark neutral surfaces, light text, the same blue family as accent, lightened where needed for WCAG AA contrast.</li>
+<li><strong>Switching:</strong> a sun/moon theme toggle in the top bar of every tab root flips light ↔ noir in one tap. Settings → Appearance offers Nordic light, Nordic noir and Follow system. The change applies immediately without losing navigation, scroll or playback state, and persists.</li>
+<li>No dynamic (wallpaper) colour.</li>
+<li>Typography: body text 18 sp, headings about 28 sp, Android font scaling respected; controls at least 48 dp; generous spacing as in sim-warning-app. Artwork has rounded corners (about 8 dp) for items and is circular for creators/collections.</li>
+<li>All colours are defined in one theme file; no hard-coded colours in screens.</li>
+</ul>
+<h2 id="flavour-differences">Flavour differences</h2><ul>
+<li><code>full</code>: Cast buttons in the top bar and the player, Cast indicator in the mini-player.</li>
+<li><code>foss</code>: no Cast button, no Cast indicator, no route discovery; the layout closes the gap (no empty slot). All other shell behavior is identical.</li>
+</ul>
+<h2 id="element-id-contract">Element-ID contract</h2><p>Follows the sim-warning-app approach (SPECIFICATION.md R69):</p>
+<ul>
+<li>IDs are lower snake case: <code>&lt;area&gt;_&lt;element&gt;[_&lt;qualifier&gt;]</code>, for example <code>nav_home</code>, <code>player_play_pause_button</code>, <code>search_filter_language_fr</code>.</li>
+<li>IDs live in one Kotlin registry object (<code>ElementIds</code>), attached with <code>Modifier.testTag(...)</code>. <code>testTagsAsResourceId = true</code> is set on each semantic root, including dialogs and popups, so UI Automator can use <code>By.res(...)</code>.</li>
+<li>Rows in lists use a qualifier from stable data (archive.org identifier or local playlist ID), never the position or localized text: <code>item_entry_row_&lt;index-in-item&gt;</code> is allowed only for entries because entry order is defined by R11.</li>
+<li>IDs are independent of language, theme and selected values. Accessibility labels stay localized and meaningful; IDs are never read aloud.</li>
+</ul>
+<h3 id="shell-registry-initial">Shell registry (initial)</h3><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Element</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>app_root</code></td>
+<td>Root of the main UI after setup</td>
+</tr>
+<tr>
+<td><code>nav_bar</code> / <code>nav_rail</code></td>
+<td>Bottom navigation bar (phone) / navigation rail (tablet)</td>
+</tr>
+<tr>
+<td><code>nav_home</code> / <code>nav_search</code> / <code>nav_library</code></td>
+<td>Destination items; selected state exposed</td>
+</tr>
+<tr>
+<td><code>top_bar_title</code></td>
+<td>Localized title of the current tab root</td>
+</tr>
+<tr>
+<td><code>top_bar_theme_toggle</code></td>
+<td>Light/noir toggle; current theme exposed as state</td>
+</tr>
+<tr>
+<td><code>top_bar_cast_button</code></td>
+<td>Cast route button (<code>full</code> only)</td>
+</tr>
+<tr>
+<td><code>top_bar_settings_button</code></td>
+<td>Settings action (top bar of every tab root: Home, Search, Library)</td>
+</tr>
+<tr>
+<td><code>home_screen</code> / <code>search_screen</code> / <code>library_screen</code></td>
+<td>Tab root screens</td>
+</tr>
+<tr>
+<td><code>mini_player</code></td>
+<td>Mini-player bar</td>
+</tr>
+<tr>
+<td><code>mini_player_title</code></td>
+<td>Current entry title</td>
+</tr>
+<tr>
+<td><code>mini_player_play_pause_button</code></td>
+<td>Play/pause; state exposed</td>
+</tr>
+<tr>
+<td><code>mini_player_progress</code></td>
+<td>Progress indicator</td>
+</tr>
+<tr>
+<td><code>mini_player_cast_indicator</code></td>
+<td>Visible while casting (<code>full</code> only)</td>
+</tr>
+<tr>
+<td><code>player_screen</code></td>
+<td>Full player root</td>
+</tr>
+<tr>
+<td><code>player_collapse_button</code></td>
+<td>Collapse to mini-player</td>
+</tr>
+<tr>
+<td><code>player_video_surface</code> / <code>player_artwork</code></td>
+<td>Video surface or audio artwork</td>
+</tr>
+<tr>
+<td><code>player_play_pause_button</code> / <code>player_previous_button</code> / <code>player_next_button</code></td>
+<td>Transport controls</td>
+</tr>
+<tr>
+<td><code>player_skip_back_button</code> / <code>player_skip_forward_button</code></td>
+<td>Skip controls</td>
+</tr>
+<tr>
+<td><code>player_seek_bar</code></td>
+<td>Seek bar with progress semantics</td>
+</tr>
+<tr>
+<td><code>player_like_button</code></td>
+<td>Like toggle</td>
+</tr>
+<tr>
+<td><code>player_queue_button</code> / <code>player_quality_button</code> / <code>player_subtitles_button</code> / <code>player_speed_button</code> / <code>player_sleep_timer_button</code></td>
+<td>Player menus</td>
+</tr>
+<tr>
+<td><code>player_shuffle_button</code> / <code>player_repeat_button</code></td>
+<td>Shuffle / repeat; state exposed</td>
+</tr>
+<tr>
+<td><code>player_cast_button</code></td>
+<td>Cast route button in the player (<code>full</code> only)</td>
+</tr>
+<tr>
+<td><code>player_error</code> / <code>player_retry_button</code></td>
+<td>Playback error and retry (R43)</td>
+</tr>
+</tbody></table>
+<p>Area registries for Home, Search, Item, Library, Playlist and Settings follow in their own UI specs.</p>
+<h2 id="acceptance-scenarios">Acceptance scenarios</h2><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Scenario and expected result</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>N01</td>
+<td>Phone portrait after setup: bottom bar with three destinations in order; Home selected; IDs discoverable via Compose and UI Automator.</td>
+</tr>
+<tr>
+<td>N02</td>
+<td>Tablet (≥ 600 dp) and phone landscape at ≥ 600 dp: navigation rail replaces the bottom bar; same IDs for the destinations.</td>
+</tr>
+<tr>
+<td>N03</td>
+<td>Navigate Home → item → collection, switch to Search and back to Home: Home&#39;s back stack is preserved.</td>
+</tr>
+<tr>
+<td>N04</td>
+<td>Reselect the active tab: scroll to top, then pop to the root.</td>
+</tr>
+<tr>
+<td>N05</td>
+<td>Android Back from a tab root other than Home returns to Home; from Home it leaves the app.</td>
+</tr>
+<tr>
+<td>N06</td>
+<td>Start playback: mini-player appears on every tab and detail screen; not on setup or the full player.</td>
+</tr>
+<tr>
+<td>N07</td>
+<td>Tap or swipe up the mini-player: full player opens; swipe down or collapse returns; playback is uninterrupted.</td>
+</tr>
+<tr>
+<td>N08</td>
+<td>Mixed queue advances from audio to video: player switches from artwork to video surface.</td>
+</tr>
+<tr>
+<td>N09</td>
+<td>Cast session active: Cast indicator in mini-player; controls act on the receiver.</td>
+</tr>
+<tr>
+<td>N10</td>
+<td>Fresh install with the phone in dark mode: app opens in Nordic light. Tap <code>top_bar_theme_toggle</code>: Nordic noir applies immediately on every screen without losing state; persists after restart. With Appearance = Follow system, a system dark/light switch is followed live.</td>
+</tr>
+<tr>
+<td>N11</td>
+<td>All three UI languages, 200% font scale, 320 dp width: no clipping in bars and mini-player; touch targets ≥ 48 dp; IDs unchanged.</td>
+</tr>
+<tr>
+<td>N12</td>
+<td>TalkBack: destinations, theme toggle, mini-player and player controls have localized labels and correct selected/toggle states.</td>
+</tr>
+<tr>
+<td>N13</td>
+<td><code>foss</code> build: <code>top_bar_cast_button</code>, <code>player_cast_button</code> and <code>mini_player_cast_indicator</code> do not exist; no empty gaps; all other N-scenarios pass.</td>
+</tr>
+</tbody></table>
+<h2 id="resolved-points">Resolved points</h2><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Topic</th>
+<th>Resolution</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>UO1</td>
+<td>Tablet player placement</td>
+<td>Side pane on the end edge at ≥ 840 dp; full-screen sheet below that.</td>
+</tr>
+<tr>
+<td>UO2</td>
+<td>Mini-player gestures</td>
+<td>Swipe up opens the player; horizontal swipe skips to previous/next.</td>
+</tr>
+</tbody></table>
+</article><aside class="on-this-page"><span class="eyebrow">ON THIS PAGE</span><nav id="toc" aria-label="On this page"></nav></aside></div><footer>ArchivePlayer · Independent of the Internet Archive.<br>Implementation notes and historical test evidence are distinguished throughout.</footer></main></div></body></html>

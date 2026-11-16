@@ -1,0 +1,397 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="ArchivePlayer documentation: Architecture &amp; UML"><title>Architecture &amp; UML · ArchivePlayer Docs</title><link rel="stylesheet" href="assets/docs.css"><script defer src="assets/vendor/mermaid.min.js"></script><script defer src="assets/docs.js"></script></head><body><a class="skip" href="#content">Skip to content</a><header class="topbar"><a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true">A<span>≋</span></span><span>ArchivePlayer <small>Documentation</small></span></a><div class="top-actions"><a href="ArchivePlayer-Documentation-Summary.pdf">PDF summary ↓</a><a href="https://github.com/jutlandiatech/ArchivePlayer">Source ↗</a><button id="menu" aria-expanded="false" aria-controls="sidebar">Menu</button></div></header><div class="layout"><aside id="sidebar"><span class="eyebrow">THE HANDBOOK</span><label class="search-label" for="nav-search">Find a document</label><input id="nav-search" type="search" placeholder="Search documents…"><nav aria-label="Documentation"><a href="index.html" ><span>Overview</span></a><a href="user-guide.html" ><span>User guide</span></a><a href="getting-started.html" ><span>Getting started</span></a><a href="architecture.html" aria-current="page"><span>Architecture &amp; UML</span></a><a href="data.html" ><span>Data &amp; integrations</span></a><a href="maintenance.html" ><span>Maintenance</span></a><a href="app-links.html" ><span>App Links</span></a><a href="requirements.html" ><span>Specification</span></a><a href="testing.html" ><span>Testing &amp; traceability</span></a><a href="evidence.html" ><span>Recorded test evidence</span></a><a href="environment.html" ><span>Development environment</span></a><a href="ui-shell.html" ><span>UI: Shell</span></a><a href="ui-setup.html" ><span>UI: Setup</span></a><a href="ui-home.html" ><span>UI: Home</span></a><a href="ui-search.html" ><span>UI: Search</span></a><a href="ui-item.html" ><span>UI: Item</span></a><a href="ui-player.html" ><span>UI: Player</span></a><a href="ui-library.html" ><span>UI: Library</span></a><a href="ui-settings.html" ><span>UI: Settings</span></a></nav><p id="no-results" hidden>No matching documents.</p><div class="sidebar-note">Source-led documentation<br><strong>HTML edition · 16 Nov 2026</strong></div></aside><main id="content"><div class="page-heading"><span class="eyebrow">Engineering</span><div><span>ArchivePlayer / Architecture &amp; UML</span><a href="https://github.com/jutlandiatech/ArchivePlayer/blob/main/docs/ARCHITECTURE_UML.md">Edit Markdown ↗</a></div></div><div class="reading-layout"><article><h1 id="architecture-and-uml">Architecture and UML</h1><p>Implementation snapshot: 15 November 2026. This document replaces the early proposal and describes the checked-in sources. Class, sequence and state views use UML-style Mermaid notation; component and deployment views use Mermaid flowcharts. See the <a href="index.html">documentation index</a>.</p>
+<h2 id="modules-and-boundaries">Modules and boundaries</h2><figure class="diagram"><div class="diagram-toolbar"><span>UML / ARCHITECTURE</span><button type="button" class="diagram-toggle">Show source</button></div><pre class="mermaid">flowchart LR
+  subgraph core[&quot;core (Kotlin/JVM, no Android)&quot;]
+    model[Catalog model]
+    query[Query builder]
+    lang[Language normalizer]
+    filter[Adult filter]
+    fmt[Format and quality selection]
+    pl[Playlist and library codec]
+    rec[Recommendations]
+    pol[Settings, resume, sleep timer, download-location policies]
+  end
+  subgraph app[&quot;app (Android)&quot;]
+    ui[ui: Compose screens, theme, ElementIds]
+    setup[setup: first-launch flow, TextCatalog]
+    playback[playback: Media3 session, player]
+    data[data: ArchiveRepository, JSON library, SharedPreferences, category map]
+    platform[Downloads: coroutine worker, storage volumes]
+    cast[&quot;cast (full flavour only)&quot;]
+  end
+  ui --&gt; core
+  setup --&gt; core
+  playback --&gt; core
+  data --&gt; core
+  platform --&gt; core
+  playback --&gt; cast
+  data --&gt;|HTTPS| archive[(archive.org)]
+  data --&gt;|HTTPS| pages[(GitHub Pages: category map)]</pre><pre class="diagram-source" hidden><code>flowchart LR
+  subgraph core[&quot;core (Kotlin/JVM, no Android)&quot;]
+    model[Catalog model]
+    query[Query builder]
+    lang[Language normalizer]
+    filter[Adult filter]
+    fmt[Format and quality selection]
+    pl[Playlist and library codec]
+    rec[Recommendations]
+    pol[Settings, resume, sleep timer, download-location policies]
+  end
+  subgraph app[&quot;app (Android)&quot;]
+    ui[ui: Compose screens, theme, ElementIds]
+    setup[setup: first-launch flow, TextCatalog]
+    playback[playback: Media3 session, player]
+    data[data: ArchiveRepository, JSON library, SharedPreferences, category map]
+    platform[Downloads: coroutine worker, storage volumes]
+    cast[&quot;cast (full flavour only)&quot;]
+  end
+  ui --&gt; core
+  setup --&gt; core
+  playback --&gt; core
+  data --&gt; core
+  platform --&gt; core
+  playback --&gt; cast
+  data --&gt;|HTTPS| archive[(archive.org)]
+  data --&gt;|HTTPS| pages[(GitHub Pages: category map)]</code></pre></figure><p><code>core</code> takes plain inputs and returns decisions, so it is tested on the JVM without an emulator. There are two Gradle modules, <code>app</code> and <code>core</code>; the boxes inside them are responsibilities, not separate modules. <code>AppViewModel</code> is a substantial coordinator for setup, navigation, library operations, playback and downloads. Stores and controllers also expose Compose state. Persistence uses JSON files and SharedPreferences, not Room or DataStore. Adult keywords are bundled assets; only the category map is refreshed by <code>ArchiveRepository</code>.</p>
+<h2 id="flavours">Flavours</h2><table>
+<thead>
+<tr>
+<th>Source set</th>
+<th>Contents</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>app/src/main</code></td>
+<td>Everything shared; playback through an interface that does not reference Cast</td>
+</tr>
+<tr>
+<td><code>app/src/full</code></td>
+<td>Cast integration (Media3 Cast, <code>MediaRouteButton</code>, options provider)</td>
+</tr>
+<tr>
+<td><code>app/src/foss</code></td>
+<td>No-op Cast bindings; no Google dependencies</td>
+</tr>
+</tbody></table>
+<h2 id="runtime-classes">Runtime classes</h2><figure class="diagram"><div class="diagram-toolbar"><span>UML / ARCHITECTURE</span><button type="button" class="diagram-toggle">Show source</button></div><pre class="mermaid">classDiagram
+  class AppViewModel {
+    selectTab(target)
+    push(screen)
+    playEntries(item, entries, start, shuffle)
+    updateSettings(new)
+  }
+  class SearchController {
+    submit(text)
+    loadMore()
+    retry()
+  }
+  class ArchiveRepository {
+    search(request, showAdult)
+    metadata(identifier)
+    downloadUrl(identifier, fileName)
+  }
+  class LibraryStore {
+    state: LibraryState
+    update(transform)
+  }
+  class SettingsStore {
+    load()
+    save(settings)
+  }
+  class PlayerConnection
+  class PlaybackService
+  class CastSupport {
+    &lt;&lt;interface&gt;&gt;
+    wrapPlayer(application, localPlayer)
+  }
+  class FlavourCast
+  AppViewModel --&gt; SearchController
+  AppViewModel --&gt; ArchiveRepository
+  AppViewModel --&gt; LibraryStore
+  AppViewModel --&gt; SettingsStore
+  AppViewModel --&gt; PlayerConnection
+  SearchController --&gt; ArchiveRepository
+  SearchController --&gt; LibraryStore
+  PlayerConnection ..&gt; PlaybackService : MediaController/session
+  PlaybackService ..&gt; FlavourCast : wraps ExoPlayer
+  CastSupport &lt;|.. FlavourCast</pre><pre class="diagram-source" hidden><code>classDiagram
+  class AppViewModel {
+    selectTab(target)
+    push(screen)
+    playEntries(item, entries, start, shuffle)
+    updateSettings(new)
+  }
+  class SearchController {
+    submit(text)
+    loadMore()
+    retry()
+  }
+  class ArchiveRepository {
+    search(request, showAdult)
+    metadata(identifier)
+    downloadUrl(identifier, fileName)
+  }
+  class LibraryStore {
+    state: LibraryState
+    update(transform)
+  }
+  class SettingsStore {
+    load()
+    save(settings)
+  }
+  class PlayerConnection
+  class PlaybackService
+  class CastSupport {
+    &lt;&lt;interface&gt;&gt;
+    wrapPlayer(application, localPlayer)
+  }
+  class FlavourCast
+  AppViewModel --&gt; SearchController
+  AppViewModel --&gt; ArchiveRepository
+  AppViewModel --&gt; LibraryStore
+  AppViewModel --&gt; SettingsStore
+  AppViewModel --&gt; PlayerConnection
+  SearchController --&gt; ArchiveRepository
+  SearchController --&gt; LibraryStore
+  PlayerConnection ..&gt; PlaybackService : MediaController/session
+  PlaybackService ..&gt; FlavourCast : wraps ExoPlayer
+  CastSupport &lt;|.. FlavourCast</code></pre></figure><p><code>FlavourCast</code> is supplied by exactly one source set. The full implementation wraps ExoPlayer in Media3 CastPlayer with RemoteCastPlayer; foss returns the local player. <code>:app:verifyFossDependencies</code> rejects forbidden Google/Cast/MediaRouter dependencies.</p>
+<p>Sources: <a href="https://github.com/jutlandiatech/ArchivePlayer/blob/main/app/src/main/java/com/jutlandiatech/archiveplayer/AppViewModel.kt">AppViewModel</a>, <a href="https://github.com/jutlandiatech/ArchivePlayer/blob/main/app/src/main/java/com/jutlandiatech/archiveplayer/ui/SearchController.kt">SearchController</a>, <a href="https://github.com/jutlandiatech/ArchivePlayer/blob/main/app/src/main/java/com/jutlandiatech/archiveplayer/cast/CastSupport.kt">CastSupport</a>, <a href="https://github.com/jutlandiatech/ArchivePlayer/blob/main/app/src/full/java/com/jutlandiatech/archiveplayer/cast/FlavourCast.kt">full implementation</a>, <a href="https://github.com/jutlandiatech/ArchivePlayer/blob/main/app/src/foss/java/com/jutlandiatech/archiveplayer/cast/FlavourCast.kt">foss implementation</a>.</p>
+<h2 id="catalog-and-library-model">Catalog and library model</h2><figure class="diagram"><div class="diagram-toolbar"><span>UML / ARCHITECTURE</span><button type="button" class="diagram-toggle">Show source</button></div><pre class="mermaid">classDiagram
+  class ArchiveItem {
+    identifier: String
+    title: String
+    kind: MediaKind
+  }
+  class Entry {
+    identifier: String
+    index: Int
+    title: String
+  }
+  class MediaFormat {
+    fileName: String
+    format: String
+  }
+  class SubtitleTrack {
+    fileName: String
+    autoGenerated: Boolean
+  }
+  class Playlist {
+    id: String
+    title: String
+    isLiked: Boolean
+  }
+  class EntryRef {
+    identifier: String
+    fileName: String
+  }
+  class LibraryState
+  class HistoryEvent
+  ArchiveItem &quot;1&quot; *-- &quot;0..*&quot; Entry : entries
+  Entry &quot;1&quot; *-- &quot;0..*&quot; MediaFormat : formats
+  Entry &quot;1&quot; *-- &quot;0..*&quot; SubtitleTrack : subtitles
+  LibraryState &quot;1&quot; *-- &quot;1..*&quot; Playlist : includes liked playlist
+  LibraryState &quot;1&quot; *-- &quot;0..*&quot; HistoryEvent : history
+  Playlist &quot;1&quot; *-- &quot;0..*&quot; EntryRef : ordered references
+  HistoryEvent --&gt; EntryRef
+  EntryRef ..&gt; Entry : resolves through metadata</pre><pre class="diagram-source" hidden><code>classDiagram
+  class ArchiveItem {
+    identifier: String
+    title: String
+    kind: MediaKind
+  }
+  class Entry {
+    identifier: String
+    index: Int
+    title: String
+  }
+  class MediaFormat {
+    fileName: String
+    format: String
+  }
+  class SubtitleTrack {
+    fileName: String
+    autoGenerated: Boolean
+  }
+  class Playlist {
+    id: String
+    title: String
+    isLiked: Boolean
+  }
+  class EntryRef {
+    identifier: String
+    fileName: String
+  }
+  class LibraryState
+  class HistoryEvent
+  ArchiveItem &quot;1&quot; *-- &quot;0..*&quot; Entry : entries
+  Entry &quot;1&quot; *-- &quot;0..*&quot; MediaFormat : formats
+  Entry &quot;1&quot; *-- &quot;0..*&quot; SubtitleTrack : subtitles
+  LibraryState &quot;1&quot; *-- &quot;1..*&quot; Playlist : includes liked playlist
+  LibraryState &quot;1&quot; *-- &quot;0..*&quot; HistoryEvent : history
+  Playlist &quot;1&quot; *-- &quot;0..*&quot; EntryRef : ordered references
+  HistoryEvent --&gt; EntryRef
+  EntryRef ..&gt; Entry : resolves through metadata</code></pre></figure><p>Only selected fields are shown. An item has entries, each with alternative media formats. Playlists store references rather than copied media. Entry identity differs from the selected format filename: <code>DownloadRecord.fileName</code> identifies the entry; <code>formatFile</code> identifies the stored format.</p>
+<p>Sources: <a href="https://github.com/jutlandiatech/ArchivePlayer/blob/main/core/src/main/kotlin/com/jutlandiatech/archiveplayer/core/catalog/Model.kt">catalog model</a>, <a href="https://github.com/jutlandiatech/ArchivePlayer/blob/main/core/src/main/kotlin/com/jutlandiatech/archiveplayer/core/playlist/Playlists.kt">playlist model and codecs</a>, <a href="https://github.com/jutlandiatech/ArchivePlayer/blob/main/app/src/main/java/com/jutlandiatech/archiveplayer/data/LibraryStore.kt">LibraryState</a>.</p>
+<h2 id="search-sequence">Search sequence</h2><figure class="diagram"><div class="diagram-toolbar"><span>UML / ARCHITECTURE</span><button type="button" class="diagram-toggle">Show source</button></div><pre class="mermaid">sequenceDiagram
+  actor User
+  participant SC as SearchController
+  participant LS as LibraryStore
+  participant R as ArchiveRepository
+  participant C as ArchiveClient
+  participant IA as archive.org
+  User-&gt;&gt;SC: submit(text)
+  SC-&gt;&gt;LS: Save recent query (maximum 20)
+  SC-&gt;&gt;R: search(request, showAdult)
+  opt Website search applies
+    R-&gt;&gt;C: Request website search JSON
+    C-&gt;&gt;IA: HTTP GET
+    IA--&gt;&gt;C: Response
+    C--&gt;&gt;R: JSON or exception
+  end
+  alt Website result available
+    R-&gt;&gt;R: Parse and filter website results
+  else Not applicable or website request/parse failed
+    R-&gt;&gt;C: Request advancedsearch JSON
+    C-&gt;&gt;IA: HTTP GET
+    IA--&gt;&gt;C: Response
+    C--&gt;&gt;R: JSON or exception
+  end
+  R--&gt;&gt;SC: SearchPage or exception
+  SC-&gt;&gt;SC: Filter, deduplicate, update paging/error state</pre><pre class="diagram-source" hidden><code>sequenceDiagram
+  actor User
+  participant SC as SearchController
+  participant LS as LibraryStore
+  participant R as ArchiveRepository
+  participant C as ArchiveClient
+  participant IA as archive.org
+  User-&gt;&gt;SC: submit(text)
+  SC-&gt;&gt;LS: Save recent query (maximum 20)
+  SC-&gt;&gt;R: search(request, showAdult)
+  opt Website search applies
+    R-&gt;&gt;C: Request website search JSON
+    C-&gt;&gt;IA: HTTP GET
+    IA--&gt;&gt;C: Response
+    C--&gt;&gt;R: JSON or exception
+  end
+  alt Website result available
+    R-&gt;&gt;R: Parse and filter website results
+  else Not applicable or website request/parse failed
+    R-&gt;&gt;C: Request advancedsearch JSON
+    C-&gt;&gt;IA: HTTP GET
+    IA--&gt;&gt;C: Response
+    C--&gt;&gt;R: JSON or exception
+  end
+  R--&gt;&gt;SC: SearchPage or exception
+  SC-&gt;&gt;SC: Filter, deduplicate, update paging/error state</code></pre></figure><p>Search uses 50 rows per page and distinguishes first-page and paging errors. A new request cancels the old coroutine job. <code>ArchiveClient</code> retries HTTP 429/5xx up to three total attempts, using integer-second Retry-After or exponential delays. This policy applies to that client, not every media/download network path.</p>
+<p>Sources: <a href="https://github.com/jutlandiatech/ArchivePlayer/blob/main/app/src/main/java/com/jutlandiatech/archiveplayer/data/ArchiveRepository.kt">repository</a>, <a href="https://github.com/jutlandiatech/ArchivePlayer/blob/main/core/src/main/kotlin/com/jutlandiatech/archiveplayer/core/net/ArchiveClient.kt">network client</a>.</p>
+<h2 id="playback-sequence">Playback sequence</h2><figure class="diagram"><div class="diagram-toolbar"><span>UML / ARCHITECTURE</span><button type="button" class="diagram-toggle">Show source</button></div><pre class="mermaid">sequenceDiagram
+  participant U as User
+  participant VM as AppViewModel
+  participant F as FormatSelector
+  participant D as Downloads
+  participant PC as PlayerConnection
+  participant S as PlaybackService / MediaSession
+  participant P as Player
+  U-&gt;&gt;VM: Play entries
+  VM-&gt;&gt;F: Select format under playback conditions
+  F--&gt;&gt;VM: Format or none
+  VM-&gt;&gt;D: playableFile(identifier, entry filename)
+  D--&gt;&gt;VM: Local file or null
+  VM-&gt;&gt;VM: Build MediaItem with local/stream URI and Cast URL
+  VM-&gt;&gt;PC: setQueue(items, start)
+  PC-&gt;&gt;S: MediaController queue commands
+  S-&gt;&gt;P: Play
+  opt full flavour and Cast session starts
+    P-&gt;&gt;P: CastPlayer hands queue to receiver
+    Note over P: Converter uses remote URL, MIME type and VTT subtitles
+  end
+  PC--&gt;&gt;VM: Playback start/error/state callbacks
+  VM-&gt;&gt;VM: Update history or attempt fallback format</pre><pre class="diagram-source" hidden><code>sequenceDiagram
+  participant U as User
+  participant VM as AppViewModel
+  participant F as FormatSelector
+  participant D as Downloads
+  participant PC as PlayerConnection
+  participant S as PlaybackService / MediaSession
+  participant P as Player
+  U-&gt;&gt;VM: Play entries
+  VM-&gt;&gt;F: Select format under playback conditions
+  F--&gt;&gt;VM: Format or none
+  VM-&gt;&gt;D: playableFile(identifier, entry filename)
+  D--&gt;&gt;VM: Local file or null
+  VM-&gt;&gt;VM: Build MediaItem with local/stream URI and Cast URL
+  VM-&gt;&gt;PC: setQueue(items, start)
+  PC-&gt;&gt;S: MediaController queue commands
+  S-&gt;&gt;P: Play
+  opt full flavour and Cast session starts
+    P-&gt;&gt;P: CastPlayer hands queue to receiver
+    Note over P: Converter uses remote URL, MIME type and VTT subtitles
+  end
+  PC--&gt;&gt;VM: Playback start/error/state callbacks
+  VM-&gt;&gt;VM: Update history or attempt fallback format</code></pre></figure><p>The service owns player/session lifetime; the view model coordinates metadata, fallback formats and history. History is capped at 500 events; position saves occur on pause and periodically while playing unless history is paused. Cast streams the remote URL even when the phone has a local file. Physical receiver handover still needs hardware validation.</p>
+<p>Sources: <a href="https://github.com/jutlandiatech/ArchivePlayer/blob/main/app/src/main/java/com/jutlandiatech/archiveplayer/playback/PlayerConnection.kt">PlayerConnection</a>, <a href="https://github.com/jutlandiatech/ArchivePlayer/blob/main/app/src/main/java/com/jutlandiatech/archiveplayer/playback/PlaybackService.kt">PlaybackService</a>.</p>
+<h2 id="download-state-machine">Download state machine</h2><figure class="diagram"><div class="diagram-toolbar"><span>UML / ARCHITECTURE</span><button type="button" class="diagram-toggle">Show source</button></div><pre class="mermaid">stateDiagram-v2
+  [*] --&gt; QUEUED: enqueue audio
+  QUEUED --&gt; WAITING_WIFI: connected but policy blocks
+  QUEUED --&gt; DOWNLOADING: policy permits
+  WAITING_WIFI --&gt; DOWNLOADING: policy permits
+  DOWNLOADING --&gt; DONE: transfer and final rename succeed
+  DOWNLOADING --&gt; FAILED: failure while connected
+  DOWNLOADING --&gt; QUEUED: failure while offline
+  DOWNLOADING --&gt; QUEUED: reload persisted in-progress record
+  WAITING_WIFI --&gt; QUEUED: allow mobile for item
+  FAILED --&gt; QUEUED: allow mobile for item
+  QUEUED --&gt; [*]: remove
+  WAITING_WIFI --&gt; [*]: remove
+  DOWNLOADING --&gt; [*]: remove record and local file
+  DONE --&gt; [*]: remove
+  FAILED --&gt; [*]: remove</pre><pre class="diagram-source" hidden><code>stateDiagram-v2
+  [*] --&gt; QUEUED: enqueue audio
+  QUEUED --&gt; WAITING_WIFI: connected but policy blocks
+  QUEUED --&gt; DOWNLOADING: policy permits
+  WAITING_WIFI --&gt; DOWNLOADING: policy permits
+  DOWNLOADING --&gt; DONE: transfer and final rename succeed
+  DOWNLOADING --&gt; FAILED: failure while connected
+  DOWNLOADING --&gt; QUEUED: failure while offline
+  DOWNLOADING --&gt; QUEUED: reload persisted in-progress record
+  WAITING_WIFI --&gt; QUEUED: allow mobile for item
+  FAILED --&gt; QUEUED: allow mobile for item
+  QUEUED --&gt; [*]: remove
+  WAITING_WIFI --&gt; [*]: remove
+  DOWNLOADING --&gt; [*]: remove record and local file
+  DONE --&gt; [*]: remove
+  FAILED --&gt; [*]: remove</code></pre></figure><p>The sequential worker polls blocked pending work every three seconds. Offline entries can remain <code>QUEUED</code>. Transfers use <code>.part</code> files and Range requests, appending only after HTTP 206. Removal deletes the record/local file; it does not explicitly cancel an active blocking HTTP transfer. Moving finished downloads copies and verifies file length before updating location and deleting the source; this is not checksum verification.</p>
+<p>Sources: <a href="https://github.com/jutlandiatech/ArchivePlayer/blob/main/app/src/main/java/com/jutlandiatech/archiveplayer/data/Downloads.kt">Downloads</a>, <a href="https://github.com/jutlandiatech/ArchivePlayer/blob/main/core/src/main/kotlin/com/jutlandiatech/archiveplayer/core/download/Downloads.kt">storage policies</a>.</p>
+<h2 id="deployment">Deployment</h2><figure class="diagram"><div class="diagram-toolbar"><span>UML / ARCHITECTURE</span><button type="button" class="diagram-toggle">Show source</button></div><pre class="mermaid">flowchart LR
+  subgraph Device[Android device: API 26 or newer]
+    APK[full or foss APK]
+    PREFS[SharedPreferences settings]
+    JSON[library.json and downloads.json]
+    MEDIA[App-private audio files]
+    APK --&gt; PREFS
+    APK --&gt; JSON
+    APK --&gt; MEDIA
+  end
+  APK --&gt;|Search, metadata, images, media| IA[Internet Archive]
+  APK --&gt;|Category map| PAGES[GitHub Pages]
+  PAGES --&gt;|Playlist link opens app| APK
+  APK --&gt;|full only: Cast control| RECEIVER[Cast receiver]
+  RECEIVER --&gt;|Media and VTT| IA
+  SAF[Android document provider] &lt;--&gt;|Import and export| APK</pre><pre class="diagram-source" hidden><code>flowchart LR
+  subgraph Device[Android device: API 26 or newer]
+    APK[full or foss APK]
+    PREFS[SharedPreferences settings]
+    JSON[library.json and downloads.json]
+    MEDIA[App-private audio files]
+    APK --&gt; PREFS
+    APK --&gt; JSON
+    APK --&gt; MEDIA
+  end
+  APK --&gt;|Search, metadata, images, media| IA[Internet Archive]
+  APK --&gt;|Category map| PAGES[GitHub Pages]
+  PAGES --&gt;|Playlist link opens app| APK
+  APK --&gt;|full only: Cast control| RECEIVER[Cast receiver]
+  RECEIVER --&gt;|Media and VTT| IA
+  SAF[Android document provider] &lt;--&gt;|Import and export| APK</code></pre></figure><p>No ArchivePlayer application backend is implemented here. GitHub Pages serves static content and the share page through <a href="https://github.com/jutlandiatech/ArchivePlayer/blob/main/.github/workflows/pages.yml">pages.yml</a>. App Link verification depends on hosted association data and release signing; see <a href="app-links.html">App Links</a>.</p>
+<h2 id="maintaining-the-diagrams">Maintaining the diagrams</h2><p>Update the relevant view when changing class ownership, storage, service boundaries or flows. Keep requirements in <a href="requirements.html">SPECIFICATION.md</a>, proposed changes in <a href="https://github.com/jutlandiatech/ArchivePlayer/blob/main/docs/proposals/2026-11-13-fullscreen-search-cast.md">proposals</a>, and measured results in <a href="evidence.html">TDD_EVIDENCE.md</a>. A diagram does not establish acceptance-test success.</p>
+</article><aside class="on-this-page"><span class="eyebrow">ON THIS PAGE</span><nav id="toc" aria-label="On this page"></nav></aside></div><footer>ArchivePlayer · Independent of the Internet Archive.<br>Implementation notes and historical test evidence are distinguished throughout.</footer></main></div></body></html>

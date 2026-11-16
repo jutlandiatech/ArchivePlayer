@@ -1,0 +1,51 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="ArchivePlayer documentation: Development environment"><title>Development environment · ArchivePlayer Docs</title><link rel="stylesheet" href="assets/docs.css"><script defer src="assets/vendor/mermaid.min.js"></script><script defer src="assets/docs.js"></script></head><body><a class="skip" href="#content">Skip to content</a><header class="topbar"><a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true">A<span>≋</span></span><span>ArchivePlayer <small>Documentation</small></span></a><div class="top-actions"><a href="ArchivePlayer-Documentation-Summary.pdf">PDF summary ↓</a><a href="https://github.com/jutlandiatech/ArchivePlayer">Source ↗</a><button id="menu" aria-expanded="false" aria-controls="sidebar">Menu</button></div></header><div class="layout"><aside id="sidebar"><span class="eyebrow">THE HANDBOOK</span><label class="search-label" for="nav-search">Find a document</label><input id="nav-search" type="search" placeholder="Search documents…"><nav aria-label="Documentation"><a href="index.html" ><span>Overview</span></a><a href="user-guide.html" ><span>User guide</span></a><a href="getting-started.html" ><span>Getting started</span></a><a href="architecture.html" ><span>Architecture &amp; UML</span></a><a href="data.html" ><span>Data &amp; integrations</span></a><a href="maintenance.html" ><span>Maintenance</span></a><a href="app-links.html" ><span>App Links</span></a><a href="requirements.html" ><span>Specification</span></a><a href="testing.html" ><span>Testing &amp; traceability</span></a><a href="evidence.html" ><span>Recorded test evidence</span></a><a href="environment.html" aria-current="page"><span>Development environment</span></a><a href="ui-shell.html" ><span>UI: Shell</span></a><a href="ui-setup.html" ><span>UI: Setup</span></a><a href="ui-home.html" ><span>UI: Home</span></a><a href="ui-search.html" ><span>UI: Search</span></a><a href="ui-item.html" ><span>UI: Item</span></a><a href="ui-player.html" ><span>UI: Player</span></a><a href="ui-library.html" ><span>UI: Library</span></a><a href="ui-settings.html" ><span>UI: Settings</span></a></nav><p id="no-results" hidden>No matching documents.</p><div class="sidebar-note">Source-led documentation<br><strong>HTML edition · 16 Nov 2026</strong></div></aside><main id="content"><div class="page-heading"><span class="eyebrow">Reference</span><div><span>ArchivePlayer / Development environment</span><a href="https://github.com/jutlandiatech/ArchivePlayer/blob/main/DEVELOPMENT_ENVIRONMENT.md">Edit Markdown ↗</a></div></div><div class="reading-layout"><article><h1 id="development-environment">Development environment</h1><p>Observed November 2026. Historical entries stay; new findings are appended with a date.</p>
+<h2 id="toolchain-from-the-repository">Toolchain (from the repository)</h2><table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Gradle wrapper</td>
+<td>9.9.0</td>
+</tr>
+<tr>
+<td>Android Gradle Plugin</td>
+<td>9.5.1</td>
+</tr>
+<tr>
+<td>Kotlin</td>
+<td>2.4.21 (Compose compiler plugin; <code>core</code> uses Kotlin/JVM)</td>
+</tr>
+<tr>
+<td>Compose BOM</td>
+<td>2026.09.00, Material 3</td>
+</tr>
+<tr>
+<td>Media3</td>
+<td>1.11.1 (ExoPlayer, Compose UI, Cast)</td>
+</tr>
+<tr>
+<td>compileSdk / targetSdk / minSdk</td>
+<td>37 / 37 / 26; build tools 37.0.0</td>
+</tr>
+<tr>
+<td>Java target</td>
+<td>17</td>
+</tr>
+</tbody></table>
+<h2 id="thomas39s-windows-pc">Thomas&#39;s Windows PC</h2><ul>
+<li>Checkout: <code>E:\repo\ArchivePlayer</code>.</li>
+<li>Android SDK: <code>C:\Users\thoma\AppData\Local\Android\Sdk</code>; <code>ANDROID_HOME</code> points there.</li>
+<li>Builds and Android checks run here; <code>tools/run-gradle.ps1</code> wraps <code>gradlew.bat</code>.</li>
+</ul>
+<h2 id="devin-vm">Devin VM</h2><ul>
+<li>Android SDK in <code>~/android-sdk</code> (platform 37, build-tools 37.0.0, emulator, system image <code>android-36;google_apis;x86_64</code>) with AVD <code>ap36</code> (6 GB data partition; the API 37 image crash-loops in this VM with a surfaceflinger <code>hasReadColorBufferDma</code> assertion); KVM available. Core tests, both flavour builds and the connected UI tests run here; <code>local.properties</code> points at the SDK (not committed).</li>
+<li>Start the emulator headless: <code>emulator -avd ap36 -no-window -no-audio -no-boot-anim -gpu swiftshader_indirect -no-snapshot</code>.</li>
+<li>Maven Central answered HTTP 429 from the VM. A VM-only Gradle init script redirects Maven Central to Google&#39;s mirror; it is not part of the repository and not needed on normal machines.</li>
+</ul>
+<h2 id="known-gotchas">Known gotchas</h2><ul>
+<li>Compose UI testing pulls in espresso-core 3.5, which crashes on API 37 (<code>NoSuchMethodException: InputManager.getInstance</code>). <code>app/build.gradle.kts</code> pins espresso-core 3.7.0 for androidTest.</li>
+</ul>
+</article><aside class="on-this-page"><span class="eyebrow">ON THIS PAGE</span><nav id="toc" aria-label="On this page"></nav></aside></div><footer>ArchivePlayer · Independent of the Internet Archive.<br>Implementation notes and historical test evidence are distinguished throughout.</footer></main></div></body></html>

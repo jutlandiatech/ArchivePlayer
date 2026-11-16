@@ -1,0 +1,172 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="ArchivePlayer documentation: UI: Settings"><title>UI: Settings · ArchivePlayer Docs</title><link rel="stylesheet" href="assets/docs.css"><script defer src="assets/vendor/mermaid.min.js"></script><script defer src="assets/docs.js"></script></head><body><a class="skip" href="#content">Skip to content</a><header class="topbar"><a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true">A<span>≋</span></span><span>ArchivePlayer <small>Documentation</small></span></a><div class="top-actions"><a href="ArchivePlayer-Documentation-Summary.pdf">PDF summary ↓</a><a href="https://github.com/jutlandiatech/ArchivePlayer">Source ↗</a><button id="menu" aria-expanded="false" aria-controls="sidebar">Menu</button></div></header><div class="layout"><aside id="sidebar"><span class="eyebrow">THE HANDBOOK</span><label class="search-label" for="nav-search">Find a document</label><input id="nav-search" type="search" placeholder="Search documents…"><nav aria-label="Documentation"><a href="index.html" ><span>Overview</span></a><a href="user-guide.html" ><span>User guide</span></a><a href="getting-started.html" ><span>Getting started</span></a><a href="architecture.html" ><span>Architecture &amp; UML</span></a><a href="data.html" ><span>Data &amp; integrations</span></a><a href="maintenance.html" ><span>Maintenance</span></a><a href="app-links.html" ><span>App Links</span></a><a href="requirements.html" ><span>Specification</span></a><a href="testing.html" ><span>Testing &amp; traceability</span></a><a href="evidence.html" ><span>Recorded test evidence</span></a><a href="environment.html" ><span>Development environment</span></a><a href="ui-shell.html" ><span>UI: Shell</span></a><a href="ui-setup.html" ><span>UI: Setup</span></a><a href="ui-home.html" ><span>UI: Home</span></a><a href="ui-search.html" ><span>UI: Search</span></a><a href="ui-item.html" ><span>UI: Item</span></a><a href="ui-player.html" ><span>UI: Player</span></a><a href="ui-library.html" ><span>UI: Library</span></a><a href="ui-settings.html" aria-current="page"><span>UI: Settings</span></a></nav><p id="no-results" hidden>No matching documents.</p><div class="sidebar-note">Source-led documentation<br><strong>HTML edition · 16 Nov 2026</strong></div></aside><main id="content"><div class="page-heading"><span class="eyebrow">UI contracts</span><div><span>ArchivePlayer / UI: Settings</span><a href="https://github.com/jutlandiatech/ArchivePlayer/blob/main/UI_SETTINGS_SPEC.md">Edit Markdown ↗</a></div></div><div class="reading-layout"><article><h1 id="settings-design-and-automation-contract">Settings design and automation contract</h1><p>Status: <strong>approved v1.0</strong>, 7 November 2026. Implements SPECIFICATION.md R27, R44–R45, R50, R60–R61, R67, R70, R72–R74, R82–R83, R85. Reference: <a href="https://github.com/jutlandiatech/ArchivePlayer/blob/main/design/archiveplayer-mockup.html">interactive mockup</a> → gear icon.</p>
+<h2 id="layout-and-navigation">Layout and navigation</h2><p>Nordic light/noir style (R63, R82), 18sp body text, about 28sp screen heading, touch targets ≥ 48dp. Settings opens from the gear action in the top bar of every tab root and is pushed onto the current tab&#39;s back stack.</p>
+<p>The main list is a column of full-width rounded cards (R83): blue leading icon, label, current value as secondary text, trailing chevron. Icons supplement text, never replace it. Order:</p>
+<ol>
+<li>App language — native name of the selected UI language</li>
+<li>Appearance — Nordic light / Nordic noir / Follow system</li>
+<li>Content languages (watch &amp; listen) — selected languages, or &quot;—&quot;</li>
+<li>Data saver — On/Off</li>
+<li>Download on Wi-Fi only — On/Off</li>
+<li>Show adult content — On/Off</li>
+<li>Storage &amp; downloads — &quot;{used} used · {free} free&quot; of the current location</li>
+<li>Subtitles — default subtitle behaviour</li>
+<li>History — Recording/Paused</li>
+<li>Search history — number of stored searches</li>
+<li>Export / import library</li>
+<li>About — version and flavour</li>
+</ol>
+<p>Each row opens its own detail screen. Changes apply immediately (no Save). In-app Back and Android Back return to the list, then to the tab.</p>
+<h3 id="detail-screens">Detail screens</h3><ul>
+<li><strong>App language:</strong> single-select rows with flag and native name, one per TextCatalog file. Switches all app text immediately; never changes content languages (R27, A42).</li>
+<li><strong>Appearance:</strong> Nordic light (default), Nordic noir, Follow system; kept in sync with the top-bar toggle (R82).</li>
+<li><strong>Content languages:</strong> explanation text, then multi-select chips with native names plus &quot;More languages&quot;; never changes the app language.</li>
+<li><strong>Data saver / Wi-Fi only / Adult content:</strong> one switch each with an explanation. Adult content states that filtering is best-effort (R70). Wi-Fi only mentions the per-download &quot;Download now on mobile data&quot; action (R60).</li>
+<li><strong>Storage &amp; downloads:</strong> &quot;Download location&quot; (Internal storage / SD card with free space; SD card disabled with &quot;No SD card inserted&quot; when absent), move prompt after a location change, uninstall note, used/free bar, 500 MB warning text, list of downloaded items with location and delete, &quot;Delete all downloads&quot; (R61, R85). App-specific folders only (<code>filesDir</code>, <code>getExternalFilesDirs</code>), so no storage permission is requested (D31).</li>
+<li><strong>Subtitles:</strong> Off (default) / Show when available in my content languages / Always show when available, plus &quot;Include auto-generated subtitles&quot; switch (R45).</li>
+<li><strong>History:</strong> explanation that history stays on the phone, &quot;Pause history&quot; switch, &quot;Clear history&quot; with confirmation (R44).</li>
+<li><strong>Search history:</strong> list of recent searches with remove buttons, &quot;Clear all&quot;.</li>
+<li><strong>Export / import library:</strong> Export and Import buttons using the Storage Access Framework, note about Android backup (R73, R74).</li>
+<li><strong>About:</strong> logo and wordmark, version, build flavour, license (Apache-2.0), open-source notices, GitHub link, archive.org attribution and non-affiliation note.</li>
+</ul>
+<h2 id="stable-automation-ids">Stable automation IDs</h2><p>Same <code>testTag</code> / resource-ID approach as UI_SHELL_SPEC.md. Never select controls by localized label or coordinates.</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Element</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>top_bar_settings_button</code></td>
+<td>Gear action on tab roots</td>
+</tr>
+<tr>
+<td><code>settings_screen</code></td>
+<td>Settings list root</td>
+</tr>
+<tr>
+<td><code>settings_back_button</code></td>
+<td>Back action (list and details)</td>
+</tr>
+<tr>
+<td><code>settings_row_&lt;name&gt;</code></td>
+<td>Menu rows: <code>app_language</code>, <code>appearance</code>, <code>content_languages</code>, <code>data_saver</code>, <code>wifi_only</code>, <code>adult_content</code>, <code>storage</code>, <code>subtitles</code>, <code>history</code>, <code>search_history</code>, <code>export_import</code>, <code>about</code></td>
+</tr>
+<tr>
+<td><code>settings_language_&lt;code&gt;</code></td>
+<td>App-language rows (<code>da</code>, <code>de</code>, <code>en</code>, …)</td>
+</tr>
+<tr>
+<td><code>settings_appearance_&lt;light|noir|system&gt;</code></td>
+<td>Appearance options</td>
+</tr>
+<tr>
+<td><code>settings_content_language_&lt;code&gt;</code></td>
+<td>Content-language chips</td>
+</tr>
+<tr>
+<td><code>settings_&lt;data_saver|wifi_only|adult_content&gt;_switch</code></td>
+<td>Switches</td>
+</tr>
+<tr>
+<td><code>settings_storage_location_&lt;int|sd&gt;</code></td>
+<td>Download-location options</td>
+</tr>
+<tr>
+<td><code>settings_storage_move_prompt</code> / <code>_move_button</code> / <code>_keep_button</code></td>
+<td>Move prompt after location change</td>
+</tr>
+<tr>
+<td><code>settings_storage_delete_&lt;identifier&gt;</code> / <code>settings_storage_delete_all</code></td>
+<td>Delete actions</td>
+</tr>
+<tr>
+<td><code>settings_storage_item_&lt;identifier&gt;</code></td>
+<td>Downloaded item row: title, location (&quot;SD card removed&quot; while its card is missing), size</td>
+</tr>
+<tr>
+<td><code>settings_storage_summary</code> / <code>settings_storage_warning</code></td>
+<td>Used/free text of the effective location and the 500 MB warning</td>
+</tr>
+<tr>
+<td><code>settings_storage_sd_missing</code> / <code>settings_storage_uninstall_note</code></td>
+<td>&quot;SD card not found, new downloads go to internal storage&quot; note and the uninstall note</td>
+</tr>
+<tr>
+<td><code>settings_subtitles_&lt;off|subLang|subAlways&gt;</code> / <code>settings_subtitles_auto_switch</code></td>
+<td>Subtitle defaults</td>
+</tr>
+<tr>
+<td><code>settings_history_pause_switch</code> / <code>settings_history_clear_button</code></td>
+<td>History</td>
+</tr>
+<tr>
+<td><code>settings_search_history_remove_&lt;index&gt;</code> / <code>settings_search_history_clear_button</code></td>
+<td>Search history</td>
+</tr>
+<tr>
+<td><code>settings_export_button</code> / <code>settings_import_button</code></td>
+<td>Library export/import</td>
+</tr>
+<tr>
+<td><code>settings_about_flavour</code></td>
+<td>About: build flavour text (<code>full</code> / <code>foss</code>, R81)</td>
+</tr>
+<tr>
+<td><code>settings_about_notices</code> / <code>settings_about_source</code></td>
+<td>About links</td>
+</tr>
+</tbody></table>
+<h2 id="acceptance-scenarios">Acceptance scenarios</h2><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Scenario and expected result</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>S01</td>
+<td>Open Settings from each tab root: 12 rows in the order above with current values; all IDs discoverable.</td>
+</tr>
+<tr>
+<td>S02</td>
+<td>Open every detail; app Back and Android Back return to the list, then to the originating tab; selections kept.</td>
+</tr>
+<tr>
+<td>S03</td>
+<td>Change app language: all text switches immediately and persists; content languages unchanged (A42).</td>
+</tr>
+<tr>
+<td>S04</td>
+<td>Change content languages: Home/search preferences update; app language unchanged.</td>
+</tr>
+<tr>
+<td>S05</td>
+<td>Toggle appearance in Settings and via the top bar: both stay in sync and persist across relaunch.</td>
+</tr>
+<tr>
+<td>S06</td>
+<td>Storage: location switching, move prompt, SD card absent/removed states and deletes behave per R85/A43–A45.</td>
+</tr>
+<tr>
+<td>S07</td>
+<td>Subtitle defaults apply to the next video with subtitles; auto-generated ones hidden when the switch is off.</td>
+</tr>
+<tr>
+<td>S08</td>
+<td>Pause history: playing items adds nothing to history/Continue rows; Clear history empties them after confirmation.</td>
+</tr>
+<tr>
+<td>S09</td>
+<td>Export then import on a clean install restores playlists, likes, follows and settings; downloads are not included.</td>
+</tr>
+<tr>
+<td>S10</td>
+<td>About shows the correct flavour (<code>full</code>/<code>foss</code>) and opens notices and the GitHub link.</td>
+</tr>
+<tr>
+<td>S11</td>
+<td>All three languages, large font, phone and tablet: no clipping, all controls reachable, IDs unchanged.</td>
+</tr>
+</tbody></table>
+</article><aside class="on-this-page"><span class="eyebrow">ON THIS PAGE</span><nav id="toc" aria-label="On this page"></nav></aside></div><footer>ArchivePlayer · Independent of the Internet Archive.<br>Implementation notes and historical test evidence are distinguished throughout.</footer></main></div></body></html>

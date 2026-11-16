@@ -1,0 +1,279 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="ArchivePlayer documentation: UI: Player"><title>UI: Player · ArchivePlayer Docs</title><link rel="stylesheet" href="assets/docs.css"><script defer src="assets/vendor/mermaid.min.js"></script><script defer src="assets/docs.js"></script></head><body><a class="skip" href="#content">Skip to content</a><header class="topbar"><a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true">A<span>≋</span></span><span>ArchivePlayer <small>Documentation</small></span></a><div class="top-actions"><a href="ArchivePlayer-Documentation-Summary.pdf">PDF summary ↓</a><a href="https://github.com/jutlandiatech/ArchivePlayer">Source ↗</a><button id="menu" aria-expanded="false" aria-controls="sidebar">Menu</button></div></header><div class="layout"><aside id="sidebar"><span class="eyebrow">THE HANDBOOK</span><label class="search-label" for="nav-search">Find a document</label><input id="nav-search" type="search" placeholder="Search documents…"><nav aria-label="Documentation"><a href="index.html" ><span>Overview</span></a><a href="user-guide.html" ><span>User guide</span></a><a href="getting-started.html" ><span>Getting started</span></a><a href="architecture.html" ><span>Architecture &amp; UML</span></a><a href="data.html" ><span>Data &amp; integrations</span></a><a href="maintenance.html" ><span>Maintenance</span></a><a href="app-links.html" ><span>App Links</span></a><a href="requirements.html" ><span>Specification</span></a><a href="testing.html" ><span>Testing &amp; traceability</span></a><a href="evidence.html" ><span>Recorded test evidence</span></a><a href="environment.html" ><span>Development environment</span></a><a href="ui-shell.html" ><span>UI: Shell</span></a><a href="ui-setup.html" ><span>UI: Setup</span></a><a href="ui-home.html" ><span>UI: Home</span></a><a href="ui-search.html" ><span>UI: Search</span></a><a href="ui-item.html" ><span>UI: Item</span></a><a href="ui-player.html" aria-current="page"><span>UI: Player</span></a><a href="ui-library.html" ><span>UI: Library</span></a><a href="ui-settings.html" ><span>UI: Settings</span></a></nav><p id="no-results" hidden>No matching documents.</p><div class="sidebar-note">Source-led documentation<br><strong>HTML edition · 16 Nov 2026</strong></div></aside><main id="content"><div class="page-heading"><span class="eyebrow">UI contracts</span><div><span>ArchivePlayer / UI: Player</span><a href="https://github.com/jutlandiatech/ArchivePlayer/blob/main/UI_PLAYER_SPEC.md">Edit Markdown ↗</a></div></div><div class="reading-layout"><article><h1 id="player">Player</h1><p>Status: <strong>approved</strong> (gate 2), 8 November 2026. Extends the mini-player and full-player shell in UI_SHELL_SPEC.md. Implements SPECIFICATION.md R34–R45, R46–R49 (UI part), R62–R67. Reference: <a href="https://github.com/jutlandiatech/ArchivePlayer/blob/main/design/archiveplayer-mockup.html">interactive mockup</a> → player.</p>
+<h2 id="mini-player">Mini-player</h2><p>Defined in UI_SHELL_SPEC.md (above the bottom bar/at the bottom of the content area, all tabs). This spec adds: tapping the mini-player body opens the full player; swiping it down stops playback and clears the queue (with Undo snackbar <code>player_undo_stop</code>); the progress bar is not interactive.</p>
+<h2 id="full-player">Full player</h2><ul>
+<li>Opens as a full-screen layer over the current tab; <code>player_collapse_button</code> or Android Back returns to the tab.</li>
+<li><strong>Audio entry:</strong> large artwork (<code>player_artwork</code>), title, item title/creator (tap opens the item page and collapses the player).</li>
+<li><strong>Video entry:</strong> video surface (<code>player_video_surface</code>) in the video&#39;s real aspect ratio; tap toggles control visibility.</li>
+<li><strong>Full screen (R86):</strong> <code>player_fullscreen_button</code> on the video surface toggles full screen (<code>player_fullscreen</code> root while active). Video 4:3 or wider: landscape (sensor-following), system bars hidden, video edge to edge, overlaid controls auto-hide after 3 s. Narrower video: full screen in portrait. Rotating to landscape while a 4:3-or-wider video plays in the full player enters full screen; rotating back, Back or the button leaves it and restores orientation and system bars. While casting, <code>player_fullscreen_button</code> is hidden and the app never changes orientation (no auto full screen on rotation).</li>
+<li>Mixed queues switch layout per entry without leaving the player (R35).</li>
+<li>Controls (R37): seek bar with elapsed/remaining time, skip back 10 s, previous, play/pause, next, skip forward 30 s, shuffle (on/off), repeat (off → all → one), like (current entry).</li>
+<li>Secondary row: Queue, Quality, Subtitles (shown only when the entry has subtitle files), Speed, Sleep timer, Cast (<code>full</code> only).</li>
+<li>Previous restarts the current entry when more than 3 s have played, otherwise goes to the previous entry.</li>
+</ul>
+<h2 id="sheets">Sheets</h2><table>
+<thead>
+<tr>
+<th>Sheet</th>
+<th>Content</th>
+<th>Behaviour</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Queue <code>sheet_queue</code></td>
+<td>Now playing, then upcoming entries</td>
+<td>Drag handles reorder; swipe or ⋯ → Remove; tap jumps to the entry; &quot;Clear upcoming&quot;</td>
+</tr>
+<tr>
+<td>Quality <code>sheet_quality</code></td>
+<td>&quot;Auto ({chosen})&quot; plus each playable format of the entry (R42)</td>
+<td>Choice applies to the current entry only; FLAC listed but never auto-chosen (R40)</td>
+</tr>
+<tr>
+<td>Subtitles <code>sheet_subtitles</code></td>
+<td>Off (default) + one option per <code>.srt</code>/<code>.vtt</code> file with language label; machine-generated tracks suffixed &quot;Auto-generated&quot; (R45)</td>
+<td>Choice applies to the current entry</td>
+</tr>
+<tr>
+<td>Speed <code>sheet_speed</code></td>
+<td>0.5, 0.75, 1.0, 1.25, 1.5, 1.75, 2.0</td>
+<td>Applies to the session until changed</td>
+</tr>
+<tr>
+<td>Sleep timer <code>sheet_sleep</code></td>
+<td>Off, 15, 30, 45, 60 min, End of current entry</td>
+<td>Active timer shows remaining time on the button; pauses (does not stop) at expiry</td>
+</tr>
+</tbody></table>
+<h2 id="errors-r43">Errors (R43)</h2><p>On a playback error the player first falls back silently to the next suitable format once. If that also fails it shows <code>player_error</code> with the catalog message and <code>player_retry_button</code>; Retry restarts at the same position. Network loss pauses and auto-resumes when the network returns within 30 s.</p>
+<h2 id="background-notification-pip">Background, notification, PiP</h2><ul>
+<li>Media3 <code>MediaSessionService</code> (R34): notification and lock-screen controls; audio focus loss pauses; becoming-noisy pauses.</li>
+<li>Leaving the app during video playback enters PiP (R38) with play/pause, skip back, skip forward actions; without PiP (disabled by user) the audio continues (R39).</li>
+<li>While casting (<code>full</code>): the player shows &quot;Casting to {device}&quot; over the artwork, PiP is not offered, local subtitles hide when the receiver cannot show them (R49).</li>
+</ul>
+<h2 id="text-catalog-contract">Text catalog contract</h2><table>
+<thead>
+<tr>
+<th>Key</th>
+<th>English</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>player.playing</code> / <code>player.paused</code></td>
+<td>Playing / Paused (state descriptions)</td>
+</tr>
+<tr>
+<td><code>player.skipBack</code> / <code>player.skipForward</code></td>
+<td>Back 10 seconds / Forward 30 seconds</td>
+</tr>
+<tr>
+<td><code>player.previous</code> / <code>player.next</code></td>
+<td>Previous / Next</td>
+</tr>
+<tr>
+<td><code>player.shuffle.on</code> / <code>.off</code></td>
+<td>Shuffle on / Shuffle off</td>
+</tr>
+<tr>
+<td><code>player.repeat.off</code> / <code>.all</code> / <code>.one</code></td>
+<td>Repeat off / Repeat all / Repeat one</td>
+</tr>
+<tr>
+<td><code>player.queue</code> / <code>player.queue.clear</code></td>
+<td>Queue / Clear upcoming</td>
+</tr>
+<tr>
+<td><code>player.quality</code> / <code>player.quality.auto</code></td>
+<td>Quality / Auto ({format})</td>
+</tr>
+<tr>
+<td><code>player.subtitles</code> / <code>player.subtitles.off</code> / <code>player.subtitles.auto</code></td>
+<td>Subtitles / Off / Auto-generated</td>
+</tr>
+<tr>
+<td><code>player.speed</code></td>
+<td>Speed</td>
+</tr>
+<tr>
+<td><code>player.sleep</code> / <code>player.sleep.endOfEntry</code> / <code>player.sleep.minutes</code> / <code>player.sleep.remaining</code></td>
+<td>Sleep timer / End of current entry / {minutes} min / {remaining} left</td>
+</tr>
+<tr>
+<td><code>player.error</code></td>
+<td>Playback failed.</td>
+</tr>
+<tr>
+<td><code>player.castingTo</code></td>
+<td>Casting to {device}</td>
+</tr>
+<tr>
+<td><code>player.stopped.undo</code></td>
+<td>Playback stopped. Undo</td>
+</tr>
+</tbody></table>
+<h2 id="element-ids">Element IDs</h2><p>Shell IDs from UI_SHELL_SPEC.md remain. Additional IDs:</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Element</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>player_title</code> / <code>player_subtitle</code></td>
+<td>Entry title / item + creator line</td>
+</tr>
+<tr>
+<td><code>player_elapsed</code> / <code>player_remaining</code></td>
+<td>Time labels</td>
+</tr>
+<tr>
+<td><code>player_state</code></td>
+<td>Invisible node whose state description is <code>playing</code>, <code>paused</code>, <code>buffering</code> or <code>ended</code> (test hook, also read by TalkBack)</td>
+</tr>
+<tr>
+<td><code>player_casting_label</code></td>
+<td>&quot;Casting to …&quot; (<code>full</code>)</td>
+</tr>
+<tr>
+<td><code>player_sleep_remaining</code></td>
+<td>Remaining-time label on the sleep button</td>
+</tr>
+<tr>
+<td><code>player_fullscreen_button</code> / <code>player_fullscreen</code></td>
+<td>Full-screen toggle on the video surface / full-screen root (R86)</td>
+</tr>
+<tr>
+<td><code>player_undo_stop</code></td>
+<td>Undo snackbar after swiping the mini-player away</td>
+</tr>
+<tr>
+<td><code>sheet_queue</code> / <code>queue_row_&lt;index&gt;</code> / <code>queue_drag_&lt;index&gt;</code> / <code>queue_remove_&lt;index&gt;</code> / <code>queue_clear_button</code></td>
+<td>Queue sheet</td>
+</tr>
+<tr>
+<td><code>sheet_quality</code> / <code>quality_option_auto</code> / <code>quality_option_&lt;formatKey&gt;</code></td>
+<td>Quality; <code>&lt;formatKey&gt;</code> lower snake case of the archive.org format, e.g. <code>vbr_mp3</code>, <code>h_264</code>, <code>512kb_mpeg4</code>, <code>ogg_vorbis</code>, <code>flac</code></td>
+</tr>
+<tr>
+<td><code>sheet_subtitles</code> / <code>subtitle_option_off</code> / <code>subtitle_option_&lt;index&gt;</code></td>
+<td>Subtitles</td>
+</tr>
+<tr>
+<td><code>sheet_speed</code> / <code>speed_option_&lt;value&gt;</code></td>
+<td>Speed; <code>&lt;value&gt;</code> = <code>0_5</code>, <code>0_75</code>, <code>1_0</code>, <code>1_25</code>, <code>1_5</code>, <code>1_75</code>, <code>2_0</code></td>
+</tr>
+<tr>
+<td><code>sheet_sleep</code> / <code>sleep_option_&lt;off|15|30|45|60|end&gt;</code></td>
+<td>Sleep timer</td>
+</tr>
+</tbody></table>
+<p>Shuffle and repeat expose their mode as a state description (<code>on</code>/<code>off</code>; <code>off</code>/<code>all</code>/<code>one</code>).</p>
+<h2 id="acceptance-scenarios">Acceptance scenarios</h2><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Scenario and expected result</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>P01</td>
+<td>Play an audio entry from the item page: mini-player visible on all tabs with the title; tapping it opens <code>player_screen</code> with <code>player_artwork</code>; collapse returns to the same tab.</td>
+</tr>
+<tr>
+<td>P02</td>
+<td>Play/pause on mini-player and full player toggle <code>player_state</code> between <code>playing</code> and <code>paused</code>.</td>
+</tr>
+<tr>
+<td>P03</td>
+<td>Skip forward then back: position +30 s then −10 s (± 1 s).</td>
+</tr>
+<tr>
+<td>P04</td>
+<td>Next/previous move through the queue; previous after &gt; 3 s restarts the entry.</td>
+</tr>
+<tr>
+<td>P05</td>
+<td>Repeat cycles off → all → one; shuffle toggles; state descriptions follow.</td>
+</tr>
+<tr>
+<td>P06</td>
+<td>Speed 1.5×: <code>speed_option_1_5</code> selected; player speed 1.5 (read via MediaController in test).</td>
+</tr>
+<tr>
+<td>P07</td>
+<td>Sleep timer &quot;End of current entry&quot; (A34): playback pauses when the entry ends; next entry not started.</td>
+</tr>
+<tr>
+<td>P08</td>
+<td>Sleep timer 15 min with a fake clock: remaining label counts down; at 0 playback pauses.</td>
+</tr>
+<tr>
+<td>P09</td>
+<td>Video entry offering h.264 and 512Kb MPEG4, data saver on, metered (A13): <code>quality_option_auto</code> labelled with 512Kb MPEG4; both listed; choosing h.264 applies to this entry only.</td>
+</tr>
+<tr>
+<td>P10</td>
+<td>Audio entry with VBR MP3, 128 kbps MP3, Ogg, FLAC (A15): Auto = VBR MP3; FLAC listed.</td>
+</tr>
+<tr>
+<td>P11</td>
+<td>Mixed queue audio → video → audio (A16): <code>player_artwork</code>, then <code>player_video_surface</code>, then <code>player_artwork</code>; order kept.</td>
+</tr>
+<tr>
+<td>P12</td>
+<td>Queue sheet: drag <code>queue_drag_2</code> above row 1 reorders; <code>queue_remove_1</code> removes; tap a row jumps to it.</td>
+</tr>
+<tr>
+<td>P13</td>
+<td>Entry with <code>.srt</code> and an ASR <code>.vtt</code> (A33): <code>sheet_subtitles</code> offers Off (selected), the language-labelled track and an &quot;Auto-generated&quot; track.</td>
+</tr>
+<tr>
+<td>P14</td>
+<td>Fixture server returns 404 for the chosen format: player falls back to the next format without showing an error; when all fail, <code>player_error</code> and Retry shown.</td>
+</tr>
+<tr>
+<td>P15</td>
+<td>Stop at 40:00 of a 90-min fixture video (A17), relaunch app: Home Continue row resumes at 40:00.</td>
+</tr>
+<tr>
+<td>P16</td>
+<td>Play video and press Home (A32): activity enters picture-in-picture (<code>isInPictureInPictureMode</code>).</td>
+</tr>
+<tr>
+<td>P17</td>
+<td>Media session (R34): a <code>MediaController</code> connected to the app&#39;s session sees the queue and can pause/resume playback.</td>
+</tr>
+<tr>
+<td>P18</td>
+<td>Swipe the mini-player down: playback stops, mini-player hidden, Undo restores queue and position.</td>
+</tr>
+<tr>
+<td>P19</td>
+<td><code>full</code>: <code>player_cast_button</code> present; <code>foss</code>: absent, no <code>player_casting_label</code> (N13).</td>
+</tr>
+<tr>
+<td>P20</td>
+<td>TalkBack labels: every player control has a non-empty content description from the text catalog in all three languages; touch targets ≥ 48 dp (R64).</td>
+</tr>
+<tr>
+<td>P21</td>
+<td>Full player, 16:9 video: <code>player_fullscreen_button</code> present; tap: <code>player_fullscreen</code> shown, activity requested orientation is landscape, status bar hidden.</td>
+</tr>
+<tr>
+<td>P22</td>
+<td>In full screen, Android Back: <code>player_fullscreen</code> gone, orientation back to unspecified/portrait, <code>player_screen</code> shown, system bars visible.</td>
+</tr>
+<tr>
+<td>P23</td>
+<td>Full player, 9:16 video: tap <code>player_fullscreen_button</code>: <code>player_fullscreen</code> shown, requested orientation stays portrait.</td>
+</tr>
+<tr>
+<td>P24</td>
+<td>Audio entry: no <code>player_fullscreen_button</code>.</td>
+</tr>
+<tr>
+<td>P25</td>
+<td><code>full</code>, casting a video: no <code>player_fullscreen_button</code>; rotating to landscape does not show <code>player_fullscreen</code>; requested orientation unchanged.</td>
+</tr>
+</tbody></table>
+</article><aside class="on-this-page"><span class="eyebrow">ON THIS PAGE</span><nav id="toc" aria-label="On this page"></nav></aside></div><footer>ArchivePlayer · Independent of the Internet Archive.<br>Implementation notes and historical test evidence are distinguished throughout.</footer></main></div></body></html>

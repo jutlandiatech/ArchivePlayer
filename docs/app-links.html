@@ -1,0 +1,37 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="ArchivePlayer documentation: App Links"><title>App Links · ArchivePlayer Docs</title><link rel="stylesheet" href="assets/docs.css"><script defer src="assets/vendor/mermaid.min.js"></script><script defer src="assets/docs.js"></script></head><body><a class="skip" href="#content">Skip to content</a><header class="topbar"><a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true">A<span>≋</span></span><span>ArchivePlayer <small>Documentation</small></span></a><div class="top-actions"><a href="ArchivePlayer-Documentation-Summary.pdf">PDF summary ↓</a><a href="https://github.com/jutlandiatech/ArchivePlayer">Source ↗</a><button id="menu" aria-expanded="false" aria-controls="sidebar">Menu</button></div></header><div class="layout"><aside id="sidebar"><span class="eyebrow">THE HANDBOOK</span><label class="search-label" for="nav-search">Find a document</label><input id="nav-search" type="search" placeholder="Search documents…"><nav aria-label="Documentation"><a href="index.html" ><span>Overview</span></a><a href="user-guide.html" ><span>User guide</span></a><a href="getting-started.html" ><span>Getting started</span></a><a href="architecture.html" ><span>Architecture &amp; UML</span></a><a href="data.html" ><span>Data &amp; integrations</span></a><a href="maintenance.html" ><span>Maintenance</span></a><a href="app-links.html" aria-current="page"><span>App Links</span></a><a href="requirements.html" ><span>Specification</span></a><a href="testing.html" ><span>Testing &amp; traceability</span></a><a href="evidence.html" ><span>Recorded test evidence</span></a><a href="environment.html" ><span>Development environment</span></a><a href="ui-shell.html" ><span>UI: Shell</span></a><a href="ui-setup.html" ><span>UI: Setup</span></a><a href="ui-home.html" ><span>UI: Home</span></a><a href="ui-search.html" ><span>UI: Search</span></a><a href="ui-item.html" ><span>UI: Item</span></a><a href="ui-player.html" ><span>UI: Player</span></a><a href="ui-library.html" ><span>UI: Library</span></a><a href="ui-settings.html" ><span>UI: Settings</span></a></nav><p id="no-results" hidden>No matching documents.</p><div class="sidebar-note">Source-led documentation<br><strong>HTML edition · 16 Nov 2026</strong></div></aside><main id="content"><div class="page-heading"><span class="eyebrow">Development</span><div><span>ArchivePlayer / App Links</span><a href="https://github.com/jutlandiatech/ArchivePlayer/blob/main/docs/APP_LINKS.md">Edit Markdown ↗</a></div></div><div class="reading-layout"><article><h1 id="share-links-github-pages-and-app-links">Share links, GitHub Pages and App Links</h1><p>Share links look like <code>https://jutlandiatech.github.io/ArchivePlayer/p#v1.&lt;payload&gt;</code> (R54). The payload lives in the fragment, so it is never sent to a server.</p>
+<h2 id="what-is-published">What is published</h2><p><code>.github/workflows/pages.yml</code> publishes on every push to <code>main</code> that touches <code>site/</code> or the category map:</p>
+<table>
+<thead>
+<tr>
+<th>Path</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>/ArchivePlayer/</code> (<code>site/index.html</code>)</td>
+<td>Landing page with download links.</td>
+</tr>
+<tr>
+<td><code>/ArchivePlayer/p</code> (<code>site/p/</code>)</td>
+<td>Share page for people without the app (R56): decodes the fragment in the browser, lists the entries with archive.org links and fetches item titles from archive.org.</td>
+</tr>
+<tr>
+<td><code>/ArchivePlayer/catalog/category-map.json</code></td>
+<td>Category map the app fetches and caches (R15); copied from <code>app/src/main/assets/catalog/category-map.json</code>.</td>
+</tr>
+</tbody></table>
+<p>One-time setup (repository admin): <strong>Settings → Pages → Source: GitHub Actions</strong>.</p>
+<h2 id="opening-links-directly-in-the-app-r55">Opening links directly in the app (R55)</h2><p>The app declares a verified App Link for <code>https://jutlandiatech.github.io/ArchivePlayer/p</code>. Android only verifies it against <code>https://jutlandiatech.github.io/.well-known/assetlinks.json</code>, the root of the domain. A project site (<code>/ArchivePlayer/</code>) cannot serve that path, so it needs the organisation site repository <code>jutlandiatech/jutlandiatech.github.io</code> with this file at <code>.well-known/assetlinks.json</code>:</p>
+<pre><code class="language-json">[{
+  &quot;relation&quot;: [&quot;delegate_permission/common.handle_all_urls&quot;],
+  &quot;target&quot;: {
+    &quot;namespace&quot;: &quot;android_app&quot;,
+    &quot;package_name&quot;: &quot;com.jutlandiatech.archiveplayer&quot;,
+    &quot;sha256_cert_fingerprints&quot;: [&quot;&lt;SHA-256 of the signing certificate&gt;&quot;]
+  }
+}]</code></pre><p>Get the fingerprint of the key that signs the APKs with:</p>
+<pre><code class="language-bash">keytool -list -v -keystore &lt;keystore&gt; -alias &lt;alias&gt; | grep SHA256</code></pre><p>The APKs in <code>dist/</code> are signed with a debug key, which differs per machine. For links to open the app on everyone&#39;s phone, sign releases with one release key and list its fingerprint. Add a <code>.nojekyll</code> file to the organisation site so GitHub Pages serves the <code>.well-known</code> folder.</p>
+<p>Until verification succeeds, Android opens share links in the browser. The share page then shows the playlist and links to the app download, and links shared from the app to other apps still work through the import preview (<code>ACTION_SEND</code>).</p>
+<p>Check verification on a phone with:</p>
+<pre><code class="language-bash">adb shell pm verify-app-links --re-verify com.jutlandiatech.archiveplayer
+adb shell pm get-app-links com.jutlandiatech.archiveplayer</code></pre></article><aside class="on-this-page"><span class="eyebrow">ON THIS PAGE</span><nav id="toc" aria-label="On this page"></nav></aside></div><footer>ArchivePlayer · Independent of the Internet Archive.<br>Implementation notes and historical test evidence are distinguished throughout.</footer></main></div></body></html>

@@ -1,0 +1,238 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="ArchivePlayer documentation: UI: Search"><title>UI: Search · ArchivePlayer Docs</title><link rel="stylesheet" href="assets/docs.css"><script defer src="assets/vendor/mermaid.min.js"></script><script defer src="assets/docs.js"></script></head><body><a class="skip" href="#content">Skip to content</a><header class="topbar"><a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true">A<span>≋</span></span><span>ArchivePlayer <small>Documentation</small></span></a><div class="top-actions"><a href="ArchivePlayer-Documentation-Summary.pdf">PDF summary ↓</a><a href="https://github.com/jutlandiatech/ArchivePlayer">Source ↗</a><button id="menu" aria-expanded="false" aria-controls="sidebar">Menu</button></div></header><div class="layout"><aside id="sidebar"><span class="eyebrow">THE HANDBOOK</span><label class="search-label" for="nav-search">Find a document</label><input id="nav-search" type="search" placeholder="Search documents…"><nav aria-label="Documentation"><a href="index.html" ><span>Overview</span></a><a href="user-guide.html" ><span>User guide</span></a><a href="getting-started.html" ><span>Getting started</span></a><a href="architecture.html" ><span>Architecture &amp; UML</span></a><a href="data.html" ><span>Data &amp; integrations</span></a><a href="maintenance.html" ><span>Maintenance</span></a><a href="app-links.html" ><span>App Links</span></a><a href="requirements.html" ><span>Specification</span></a><a href="testing.html" ><span>Testing &amp; traceability</span></a><a href="evidence.html" ><span>Recorded test evidence</span></a><a href="environment.html" ><span>Development environment</span></a><a href="ui-shell.html" ><span>UI: Shell</span></a><a href="ui-setup.html" ><span>UI: Setup</span></a><a href="ui-home.html" ><span>UI: Home</span></a><a href="ui-search.html" aria-current="page"><span>UI: Search</span></a><a href="ui-item.html" ><span>UI: Item</span></a><a href="ui-player.html" ><span>UI: Player</span></a><a href="ui-library.html" ><span>UI: Library</span></a><a href="ui-settings.html" ><span>UI: Settings</span></a></nav><p id="no-results" hidden>No matching documents.</p><div class="sidebar-note">Source-led documentation<br><strong>HTML edition · 16 Nov 2026</strong></div></aside><main id="content"><div class="page-heading"><span class="eyebrow">UI contracts</span><div><span>ArchivePlayer / UI: Search</span><a href="https://github.com/jutlandiatech/ArchivePlayer/blob/main/UI_SEARCH_SPEC.md">Edit Markdown ↗</a></div></div><div class="reading-layout"><article><h1 id="search-and-browse">Search and browse</h1><p>Status: <strong>approved</strong> (gate 2), 8 November 2026. Implements SPECIFICATION.md R09, R14, R22–R29, R33, R62, R70–R71, R77. Reference: <a href="https://github.com/jutlandiatech/ArchivePlayer/blob/main/design/archiveplayer-mockup.html">interactive mockup</a> → Search.</p>
+<h2 id="layout">Layout</h2><ul>
+<li>Tab root with the shell top bar: title &quot;Search&quot;, theme toggle, Cast (<code>full</code>), Settings.</li>
+<li>Query field (56 dp, rounded, search icon, clear button when not empty), placeholder &quot;What do you want to play?&quot;.</li>
+<li><strong>Without a query:</strong> recent searches (up to 5, each removable, R29) followed by &quot;Browse all&quot;: a grid of category tiles from the category map&#39;s top-level and second-level categories (two columns on phones, adaptive on tablets), each tile with the localized name and media kind (R26).</li>
+<li><strong>While typing:</strong> local suggestions below the field (search history, followed collections, category names), debounced 300 ms, no network request (R22). Choosing a suggestion or pressing the keyboard search action runs the search and stores the query in recent searches.</li>
+<li><strong>Results:</strong> a filter chip row and a sort chip row, then grouped sections Collections, Items, Your playlists (R25). Items page incrementally while scrolling (50 per page). Each item row: artwork 56 dp, title, kind badge, creator · year · language codes.</li>
+<li>Tapping an item opens the item page; a collection opens the collection page (UI_ITEM_SPEC.md); a playlist opens the playlist page (UI_LIBRARY_SPEC.md); all in the Search back stack.</li>
+</ul>
+<h2 id="filters-and-sort-r23-r24-r28">Filters and sort (R23, R24, R28)</h2><ul>
+<li>Media kind: All (default), Audio, Video — single choice.</li>
+<li>Language: &quot;Any language&quot; (default) plus chips for the preferred content languages and &quot;More…&quot; for the full list; single choice in v1. With a language filter active, untagged items are excluded (R28).</li>
+<li>Category, decade and duration open small menus from chips &quot;Category&quot;, &quot;Decade&quot;, &quot;Duration&quot;; the chosen value replaces the chip label and the chip shows a remove (×) action.</li>
+<li>Filters combine with AND; every active filter stays visible and individually removable; &quot;Clear filters&quot; resets all.</li>
+<li>Sort: Relevance (default), Popularity, Newest added, Original date — single choice.</li>
+<li>Filters and sort survive navigation to an item and back, and rotation.</li>
+</ul>
+<h2 id="category-page">Category page</h2><ul>
+<li>Opened from a browse tile or a category link: back action, category name, sub-category chips (if any), then results for the category query with the same filter and sort rows (except the Category chip).</li>
+<li>Tapping a sub-category chip opens that sub-category&#39;s page.</li>
+</ul>
+<h2 id="states">States</h2><ul>
+<li>Empty result: &quot;No results for &quot;{query}&quot;&quot; plus &quot;Clear filters&quot; when filters are active (<code>search_empty</code>).</li>
+<li>Error / rate limited (HTTP 429/5xx after back-off, R76): inline message with Retry; the query and filters stay.</li>
+<li>Loading longer than 15 s: &quot;Still loading&quot; with Retry (R77).</li>
+<li>Paging error: the loaded results stay; a footer shows Retry.</li>
+<li>Adult content hidden (default): adult items never appear (R70, R71); no indication that something was filtered.</li>
+</ul>
+<h2 id="text-catalog-contract">Text catalog contract</h2><table>
+<thead>
+<tr>
+<th>Key</th>
+<th>English</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>search.title</code></td>
+<td>Search</td>
+</tr>
+<tr>
+<td><code>search.placeholder</code></td>
+<td>What do you want to play?</td>
+</tr>
+<tr>
+<td><code>search.recent</code></td>
+<td>Recent searches</td>
+</tr>
+<tr>
+<td><code>search.browse</code></td>
+<td>Browse all</td>
+</tr>
+<tr>
+<td><code>search.filter.kind.all</code> / <code>.audio</code> / <code>.video</code></td>
+<td>All / Audio / Video</td>
+</tr>
+<tr>
+<td><code>search.filter.language.any</code></td>
+<td>Any language</td>
+</tr>
+<tr>
+<td><code>search.filter.category</code> / <code>.decade</code> / <code>.duration</code></td>
+<td>Category / Decade / Duration</td>
+</tr>
+<tr>
+<td><code>search.filter.duration.short</code> / <code>.episode</code> / <code>.feature</code></td>
+<td>Under 20 min / 20–60 min / Over 60 min</td>
+</tr>
+<tr>
+<td><code>search.filter.clear</code></td>
+<td>Clear filters</td>
+</tr>
+<tr>
+<td><code>search.sort.relevance</code> / <code>.popularity</code> / <code>.newest</code> / <code>.date</code></td>
+<td>Relevance / Popularity / Newest added / Original date</td>
+</tr>
+<tr>
+<td><code>search.section.collections</code> / <code>.items</code> / <code>.playlists</code></td>
+<td>Collections / Items / Your playlists</td>
+</tr>
+<tr>
+<td><code>search.empty</code></td>
+<td>No results for &quot;{query}&quot;</td>
+</tr>
+<tr>
+<td><code>search.error</code></td>
+<td>Search failed. Check your connection and try again.</td>
+</tr>
+<tr>
+<td><code>search.stillLoading</code></td>
+<td>Still loading…</td>
+</tr>
+</tbody></table>
+<h2 id="element-ids">Element IDs</h2><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Element</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>search_screen</code></td>
+<td>Search root (UI_SHELL_SPEC.md)</td>
+</tr>
+<tr>
+<td><code>search_query_field</code> / <code>search_clear_button</code></td>
+<td>Query field / clear</td>
+</tr>
+<tr>
+<td><code>search_recent_&lt;index&gt;</code> / <code>search_recent_remove_&lt;index&gt;</code></td>
+<td>Recent search row / remove</td>
+</tr>
+<tr>
+<td><code>search_suggestion_&lt;index&gt;</code></td>
+<td>Suggestion row</td>
+</tr>
+<tr>
+<td><code>browse_grid</code> / <code>browse_tile_&lt;categoryId&gt;</code></td>
+<td>Browse grid / tile</td>
+</tr>
+<tr>
+<td><code>search_filter_kind_&lt;all|audio|video&gt;</code></td>
+<td>Kind chips; selected state exposed</td>
+</tr>
+<tr>
+<td><code>search_filter_language_&lt;any|iso&gt;</code> / <code>search_filter_language_more</code></td>
+<td>Language chips</td>
+</tr>
+<tr>
+<td><code>search_filter_category</code> / <code>search_filter_decade</code> / <code>search_filter_duration</code></td>
+<td>Menu chips; <code>_remove</code> suffix for their × action</td>
+</tr>
+<tr>
+<td><code>search_filter_option_&lt;value&gt;</code></td>
+<td>Option in an open filter menu or the language &quot;More…&quot; list (category ID, language ISO code, decade <code>1950</code>, duration <code>short|episode|feature</code>)</td>
+</tr>
+<tr>
+<td><code>search_filter_clear</code></td>
+<td>Clear filters</td>
+</tr>
+<tr>
+<td><code>search_sort_&lt;relevance|popularity|newest|date&gt;</code></td>
+<td>Sort chips; selected state exposed</td>
+</tr>
+<tr>
+<td><code>search_results</code></td>
+<td>Results list (scroll container)</td>
+</tr>
+<tr>
+<td><code>search_section_&lt;collections|items|playlists&gt;</code></td>
+<td>Section headings</td>
+</tr>
+<tr>
+<td><code>search_result_&lt;identifier&gt;</code></td>
+<td>Item or collection result row</td>
+</tr>
+<tr>
+<td><code>search_result_playlist_&lt;playlistId&gt;</code></td>
+<td>Own-playlist result row</td>
+</tr>
+<tr>
+<td><code>search_empty</code> / <code>search_error</code> / <code>search_retry_button</code> / <code>search_paging_retry_button</code></td>
+<td>States</td>
+</tr>
+<tr>
+<td><code>category_screen</code> / <code>category_back_button</code> / <code>category_title</code></td>
+<td>Category page</td>
+</tr>
+<tr>
+<td><code>category_subcategory_&lt;categoryId&gt;</code></td>
+<td>Sub-category chip</td>
+</tr>
+</tbody></table>
+<p>The mockup&#39;s <code>search_sort_rel/pop/new</code> are renamed to the full words above.</p>
+<h2 id="acceptance-scenarios">Acceptance scenarios</h2><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Scenario and expected result</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Q01</td>
+<td>Open Search without a query: browse grid shows one tile per category-map entry (bundled fixture map), localized names; recent searches hidden when empty.</td>
+</tr>
+<tr>
+<td>Q02</td>
+<td>Type &quot;gun&quot; with history containing &quot;gunsmoke&quot;: suggestion appears; no request reaches the fixture server while typing (R22).</td>
+</tr>
+<tr>
+<td>Q03</td>
+<td>Search &quot;gunsmoke&quot; (A10), filter Audio, sort Popularity: request contains <code>mediatype:(audio OR etree)</code> and <code>sort[]=downloads desc</code>; results in server order; sections Collections / Items / Your playlists in that order, empty sections hidden.</td>
+</tr>
+<tr>
+<td>Q04</td>
+<td>Language filter French on a fixture with fr, <code>French</code>, untagged items (A05–A07): only French-tagged items shown; switching to Any language shows the untagged item too.</td>
+</tr>
+<tr>
+<td>Q05</td>
+<td>Several filters active: each chip shows its value and × removes only that filter; Clear filters resets all.</td>
+</tr>
+<tr>
+<td>Q06</td>
+<td>Scroll to the end of page 1: page 2 is requested and appended; no duplicate rows.</td>
+</tr>
+<tr>
+<td>Q07</td>
+<td>Server returns 503 then 200: after back-off the results show; if it keeps failing, <code>search_error</code> with Retry; Retry succeeds after recovery.</td>
+</tr>
+<tr>
+<td>Q08</td>
+<td>Query with no hits: <code>search_empty</code> with the query text from the catalog; with filters active <code>search_filter_clear</code> is offered.</td>
+</tr>
+<tr>
+<td>Q09</td>
+<td>Fixture contains an item in <code>no-preview</code> and one with subject &quot;xxx&quot; (A27): neither is shown with the adult setting off.</td>
+</tr>
+<tr>
+<td>Q10</td>
+<td>Recent searches: running a search adds it; <code>search_recent_remove_0</code> removes it; Settings → Search history shows the same list (R29).</td>
+</tr>
+<tr>
+<td>Q11</td>
+<td>Tap a browse tile with sub-categories: category page with sub-category chips and results; Back returns to the grid.</td>
+</tr>
+<tr>
+<td>Q12</td>
+<td>Open an item from results and go back: query, filters, sort and scroll position preserved; also after rotation.</td>
+</tr>
+<tr>
+<td>Q13</td>
+<td>Own playlist named &quot;Gunsmoke favourites&quot;: appears under Your playlists for &quot;gunsmoke&quot;.</td>
+</tr>
+<tr>
+<td>Q14</td>
+<td>All three languages at 200 % font scale, 320 dp width: chips wrap or scroll without clipping; IDs unchanged.</td>
+</tr>
+</tbody></table>
+</article><aside class="on-this-page"><span class="eyebrow">ON THIS PAGE</span><nav id="toc" aria-label="On this page"></nav></aside></div><footer>ArchivePlayer · Independent of the Internet Archive.<br>Implementation notes and historical test evidence are distinguished throughout.</footer></main></div></body></html>

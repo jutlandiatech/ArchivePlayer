@@ -1,0 +1,225 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="ArchivePlayer documentation: UI: Setup"><title>UI: Setup · ArchivePlayer Docs</title><link rel="stylesheet" href="assets/docs.css"><script defer src="assets/vendor/mermaid.min.js"></script><script defer src="assets/docs.js"></script></head><body><a class="skip" href="#content">Skip to content</a><header class="topbar"><a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true">A<span>≋</span></span><span>ArchivePlayer <small>Documentation</small></span></a><div class="top-actions"><a href="ArchivePlayer-Documentation-Summary.pdf">PDF summary ↓</a><a href="https://github.com/jutlandiatech/ArchivePlayer">Source ↗</a><button id="menu" aria-expanded="false" aria-controls="sidebar">Menu</button></div></header><div class="layout"><aside id="sidebar"><span class="eyebrow">THE HANDBOOK</span><label class="search-label" for="nav-search">Find a document</label><input id="nav-search" type="search" placeholder="Search documents…"><nav aria-label="Documentation"><a href="index.html" ><span>Overview</span></a><a href="user-guide.html" ><span>User guide</span></a><a href="getting-started.html" ><span>Getting started</span></a><a href="architecture.html" ><span>Architecture &amp; UML</span></a><a href="data.html" ><span>Data &amp; integrations</span></a><a href="maintenance.html" ><span>Maintenance</span></a><a href="app-links.html" ><span>App Links</span></a><a href="requirements.html" ><span>Specification</span></a><a href="testing.html" ><span>Testing &amp; traceability</span></a><a href="evidence.html" ><span>Recorded test evidence</span></a><a href="environment.html" ><span>Development environment</span></a><a href="ui-shell.html" ><span>UI: Shell</span></a><a href="ui-setup.html" aria-current="page"><span>UI: Setup</span></a><a href="ui-home.html" ><span>UI: Home</span></a><a href="ui-search.html" ><span>UI: Search</span></a><a href="ui-item.html" ><span>UI: Item</span></a><a href="ui-player.html" ><span>UI: Player</span></a><a href="ui-library.html" ><span>UI: Library</span></a><a href="ui-settings.html" ><span>UI: Settings</span></a></nav><p id="no-results" hidden>No matching documents.</p><div class="sidebar-note">Source-led documentation<br><strong>HTML edition · 16 Nov 2026</strong></div></aside><main id="content"><div class="page-heading"><span class="eyebrow">UI contracts</span><div><span>ArchivePlayer / UI: Setup</span><a href="https://github.com/jutlandiatech/ArchivePlayer/blob/main/UI_SETUP_SPEC.md">Edit Markdown ↗</a></div></div><div class="reading-layout"><article><h1 id="first-launch-setup">First-launch setup</h1><p>Status: <strong>approved v1.0</strong>, 7 November 2026. Companion to SPECIFICATION.md R27, R65–R69, R70 and decision D15. The layout follows jutlandiatech/sim-warning-app&#39;s setup approach, in the Nordic light design language (R63, R83).</p>
+<h2 id="flow">Flow</h2><p>Setup runs once on first launch, before the main UI. It has three short steps with &quot;Step N of 3&quot; text and progress marks (meaning must not depend on colour alone):</p>
+<ol>
+<li><strong>Language</strong> — choose the UI language.</li>
+<li><strong>Content languages</strong> — choose preferred content languages (optional).</li>
+<li><strong>Ready</strong> — short privacy note and Start.</li>
+</ol>
+<p>A primary full-width button (&quot;Continue&quot;, on the last step &quot;Start&quot;) and, from step 2 on, a Back action. Android Back moves one step back within setup; on step 1 it leaves the app without completing setup. Selections survive back/forward navigation, rotation and activity recreation. Completing setup persists the choices and the &quot;setup completed&quot; flag, then opens Home. After that, launching the app goes straight to Home.</p>
+<h2 id="step-1--language">Step 1 — Language</h2><ul>
+<li>English heading: &quot;Choose your language&quot;. Supporting text: &quot;You can change this later in Settings.&quot;</li>
+<li>One single-selection row per discovered text catalog (R66), each showing the flag and the native language name (Dansk, Deutsch, English). Sorted by native name.</li>
+<li>Preselect the catalog matching the phone&#39;s language; otherwise English. Exactly one row is selected.</li>
+<li>Selecting a row updates all setup text and the title immediately, keeping the current step.</li>
+<li>Flags are decorative; the language name is the accessible label.</li>
+</ul>
+<h2 id="step-2--content-languages">Step 2 — Content languages</h2><ul>
+<li>English heading: &quot;Which languages do you watch and listen in?&quot;. Supporting text: &quot;Languages of the films, shows and audio you want. Separate from the app language. We&#39;ll favour these on Home and offer them as quick filters. You can skip this.&quot;</li>
+<li><strong>Separation:</strong> content languages are independent of the app language chosen in step 1. Going back to step 1 and changing the app language never changes the content-language selection, and vice versa.</li>
+<li>Multi-select chips for common content languages, shown with native names. On first entry, the phone&#39;s language is preselected (if it is in the language list), plus English (SO1); the step-1 app-language choice has no influence. Chips shown directly: English, German, Danish, French, Spanish, Italian, Swedish, Norwegian, Dutch, Japanese (SO2). A &quot;More languages&quot; action opens the full list of languages known to the normalization table (R13).</li>
+<li>Zero selections are allowed (no preference).</li>
+</ul>
+<h2 id="step-3--ready">Step 3 — Ready</h2><ul>
+<li>English heading: &quot;You&#39;re all set&quot;.</li>
+<li>Privacy note: &quot;No account, no tracking. Your playlists and history stay on your phone.&quot;</li>
+<li>Content-filter note: &quot;Adult content is hidden. You can change this in Settings.&quot; (R70; the setting is not offered during setup.)</li>
+<li>Primary action &quot;Start&quot; completes setup and opens Home. A rapid double tap completes setup only once.</li>
+</ul>
+<h2 id="text-catalog-contract">Text catalog contract</h2><p>All setup text comes from the TextCatalog files (R65). Initial keys:</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>English</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>app.name</code></td>
+<td>ArchivePlayer</td>
+</tr>
+<tr>
+<td><code>language.self</code></td>
+<td>English (each catalog: its own native name)</td>
+</tr>
+<tr>
+<td><code>setup.progress</code></td>
+<td>Step {current} of {total}</td>
+</tr>
+<tr>
+<td><code>setup.language.title</code></td>
+<td>Choose your language</td>
+</tr>
+<tr>
+<td><code>setup.language.hint</code></td>
+<td>You can change this later in Settings.</td>
+</tr>
+<tr>
+<td><code>setup.contentLanguages.title</code></td>
+<td>Which languages do you watch and listen in?</td>
+</tr>
+<tr>
+<td><code>setup.contentLanguages.hint</code></td>
+<td>We&#39;ll favour these on Home and offer them as quick filters. You can skip this.</td>
+</tr>
+<tr>
+<td><code>setup.contentLanguages.more</code></td>
+<td>More languages</td>
+</tr>
+<tr>
+<td><code>setup.ready.title</code></td>
+<td>You&#39;re all set</td>
+</tr>
+<tr>
+<td><code>setup.ready.privacy</code></td>
+<td>No account, no tracking. Your playlists and history stay on your phone.</td>
+</tr>
+<tr>
+<td><code>setup.ready.adultContent</code></td>
+<td>Adult content is hidden. You can change this in Settings.</td>
+</tr>
+<tr>
+<td><code>action.continue</code></td>
+<td>Continue</td>
+</tr>
+<tr>
+<td><code>action.back</code></td>
+<td>Back</td>
+</tr>
+<tr>
+<td><code>action.start</code></td>
+<td>Start</td>
+</tr>
+</tbody></table>
+<p>Danish and German texts are drafted in the catalog files during the test gate and reviewed by Thomas.</p>
+<h2 id="element-ids">Element IDs</h2><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Element</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>setup_root</code></td>
+<td>Setup root</td>
+</tr>
+<tr>
+<td><code>setup_progress</code></td>
+<td>Progress text and marks</td>
+</tr>
+<tr>
+<td><code>setup_language_screen</code></td>
+<td>Step 1 root</td>
+</tr>
+<tr>
+<td><code>setup_language_title</code> / <code>setup_language_hint</code></td>
+<td>Heading / hint</td>
+</tr>
+<tr>
+<td><code>setup_language_&lt;code&gt;</code></td>
+<td>Language row per catalog, e.g. <code>setup_language_en</code>, <code>setup_language_de</code>, <code>setup_language_da</code>; selected state exposed</td>
+</tr>
+<tr>
+<td><code>setup_content_languages_screen</code></td>
+<td>Step 2 root</td>
+</tr>
+<tr>
+<td><code>setup_content_languages_title</code> / <code>setup_content_languages_hint</code></td>
+<td>Heading / hint</td>
+</tr>
+<tr>
+<td><code>setup_content_language_&lt;iso&gt;</code></td>
+<td>Content-language chip, e.g. <code>setup_content_language_fr</code>; checked state exposed</td>
+</tr>
+<tr>
+<td><code>setup_content_languages_more_button</code></td>
+<td>Opens the full language list</td>
+</tr>
+<tr>
+<td><code>setup_ready_screen</code></td>
+<td>Step 3 root</td>
+</tr>
+<tr>
+<td><code>setup_ready_title</code> / <code>setup_ready_privacy</code> / <code>setup_ready_adult_content</code></td>
+<td>Ready texts</td>
+</tr>
+<tr>
+<td><code>setup_continue_button</code></td>
+<td>Continue on steps 1–2</td>
+</tr>
+<tr>
+<td><code>setup_back_button</code></td>
+<td>Back on steps 2–3</td>
+</tr>
+<tr>
+<td><code>setup_start_button</code></td>
+<td>Start on step 3</td>
+</tr>
+</tbody></table>
+<h2 id="acceptance-scenarios">Acceptance scenarios</h2><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Scenario and expected result</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>U01</td>
+<td>First launch with phone language da, de, en, and an unsupported language (es): correct preselection (es → English); exactly one row selected; &quot;Step 1 of 3&quot;.</td>
+</tr>
+<tr>
+<td>U02</td>
+<td>Select each language row by ID: setup text changes immediately; IDs and selected state stay stable.</td>
+</tr>
+<tr>
+<td>U03</td>
+<td>Continue through steps 1–3: exactly one step root visible at a time; progress increments; Back absent on step 1, present on steps 2–3.</td>
+</tr>
+<tr>
+<td>U04</td>
+<td>In-app Back and Android Back on steps 2–3 return one step and keep selections; Android Back on step 1 leaves the app and setup is shown again on next launch.</td>
+</tr>
+<tr>
+<td>U05</td>
+<td>Content languages: default preselection from the phone&#39;s language plus English; changing the app language in step 1 afterwards leaves the selection unchanged; toggling chips by ID; zero selections allowed; &quot;More languages&quot; adds a language.</td>
+</tr>
+<tr>
+<td>U06</td>
+<td>Rotate / recreate the activity on each step: same step and selections.</td>
+</tr>
+<tr>
+<td>U07</td>
+<td>Start: Home opens; UI language and content languages persisted; relaunch opens Home directly. Double tap on Start completes once.</td>
+</tr>
+<tr>
+<td>U08</td>
+<td>Adding a test-only fourth catalog in the test APK: it appears as a language row without code changes.</td>
+</tr>
+<tr>
+<td>U09</td>
+<td>All languages at normal and 200% font scale on 320 dp width: no clipping; actions reachable by scrolling; touch targets ≥ 48 dp.</td>
+</tr>
+<tr>
+<td>U10</td>
+<td>TalkBack: headings, single/multi selection states, button labels; flags not announced redundantly.</td>
+</tr>
+</tbody></table>
+<h2 id="resolved-points">Resolved points</h2><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Topic</th>
+<th>Resolution</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>SO1</td>
+<td>Content-language preselection</td>
+<td>Phone&#39;s language (if listed) plus English, independent of the app language (D30).</td>
+</tr>
+<tr>
+<td>SO2</td>
+<td>Content-language chip list</td>
+<td>en, de, da, fr, es, it, sv, no, nl, ja shown directly; the rest under &quot;More languages&quot;.</td>
+</tr>
+</tbody></table>
+</article><aside class="on-this-page"><span class="eyebrow">ON THIS PAGE</span><nav id="toc" aria-label="On this page"></nav></aside></div><footer>ArchivePlayer · Independent of the Internet Archive.<br>Implementation notes and historical test evidence are distinguished throughout.</footer></main></div></body></html>

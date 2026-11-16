@@ -1,0 +1,244 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="ArchivePlayer documentation: UI: Item"><title>UI: Item · ArchivePlayer Docs</title><link rel="stylesheet" href="assets/docs.css"><script defer src="assets/vendor/mermaid.min.js"></script><script defer src="assets/docs.js"></script></head><body><a class="skip" href="#content">Skip to content</a><header class="topbar"><a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true">A<span>≋</span></span><span>ArchivePlayer <small>Documentation</small></span></a><div class="top-actions"><a href="ArchivePlayer-Documentation-Summary.pdf">PDF summary ↓</a><a href="https://github.com/jutlandiatech/ArchivePlayer">Source ↗</a><button id="menu" aria-expanded="false" aria-controls="sidebar">Menu</button></div></header><div class="layout"><aside id="sidebar"><span class="eyebrow">THE HANDBOOK</span><label class="search-label" for="nav-search">Find a document</label><input id="nav-search" type="search" placeholder="Search documents…"><nav aria-label="Documentation"><a href="index.html" ><span>Overview</span></a><a href="user-guide.html" ><span>User guide</span></a><a href="getting-started.html" ><span>Getting started</span></a><a href="architecture.html" ><span>Architecture &amp; UML</span></a><a href="data.html" ><span>Data &amp; integrations</span></a><a href="maintenance.html" ><span>Maintenance</span></a><a href="app-links.html" ><span>App Links</span></a><a href="requirements.html" ><span>Specification</span></a><a href="testing.html" ><span>Testing &amp; traceability</span></a><a href="evidence.html" ><span>Recorded test evidence</span></a><a href="environment.html" ><span>Development environment</span></a><a href="ui-shell.html" ><span>UI: Shell</span></a><a href="ui-setup.html" ><span>UI: Setup</span></a><a href="ui-home.html" ><span>UI: Home</span></a><a href="ui-search.html" ><span>UI: Search</span></a><a href="ui-item.html" aria-current="page"><span>UI: Item</span></a><a href="ui-player.html" ><span>UI: Player</span></a><a href="ui-library.html" ><span>UI: Library</span></a><a href="ui-settings.html" ><span>UI: Settings</span></a></nav><p id="no-results" hidden>No matching documents.</p><div class="sidebar-note">Source-led documentation<br><strong>HTML edition · 16 Nov 2026</strong></div></aside><main id="content"><div class="page-heading"><span class="eyebrow">UI contracts</span><div><span>ArchivePlayer / UI: Item</span><a href="https://github.com/jutlandiatech/ArchivePlayer/blob/main/UI_ITEM_SPEC.md">Edit Markdown ↗</a></div></div><div class="reading-layout"><article><h1 id="item-and-collection-pages">Item and collection pages</h1><p>Status: <strong>approved</strong> (gate 2), 8 November 2026. Implements SPECIFICATION.md R09–R12, R30–R33, R40, R45, R50–R53, R59, R62, R70. Reference: <a href="https://github.com/jutlandiatech/ArchivePlayer/blob/main/design/archiveplayer-mockup.html">interactive mockup</a> → item page.</p>
+<h2 id="item-page-layout">Item page layout</h2><p>Opened from any tab; it lives in that tab&#39;s back stack (UI_SHELL_SPEC.md).</p>
+<ul>
+<li>Top bar: back (<code>item_back_button</code>), overflow menu (Open on archive.org, Copy link, Add item to playlist).</li>
+<li>Header: artwork (item image or first image file, generated placeholder fallback, R12), title, creator, year, media-kind badge, language codes, duration, collection link (opens the collection page).</li>
+<li>Action row: <strong>Play all</strong> (primary), <strong>Shuffle</strong>, <strong>Like</strong> (toggle; likes the whole item = all its entries), <strong>Follow</strong> (toggle; follows the item&#39;s first collection, or creator when there is none), <strong>Share</strong> (Android share sheet with the archive.org item URL), <strong>Download</strong> (audio items only, R59; state: not downloaded → queued/progress → downloaded; tap on downloaded asks to remove).</li>
+<li>Description: sanitized HTML (R12), collapsed to 4 lines with &quot;More&quot;/&quot;Less&quot;.</li>
+<li>Entry list: virtualized; each row has index/track number, title, duration, format/quality hint, liked indicator, download state for audio, and a &quot;⋯&quot; menu. Tapping a row starts the item from that entry (R31). The currently playing entry is highlighted.</li>
+<li>Items with more than 30 entries show a filter field above the list (R32), matching title substrings case-insensitively.</li>
+</ul>
+<h2 id="entry-menu-bottom-sheet-sheet_entry">Entry menu (bottom sheet <code>sheet_entry</code>)</h2><p>Play next · Add to queue · Add to playlist… (opens playlist picker with &quot;New playlist&quot;) · Like / Unlike · Download / Remove download (audio only) · Share entry link.</p>
+<h2 id="states">States</h2><ul>
+<li>Loading: header skeleton and placeholder rows; cached metadata renders immediately (R77).</li>
+<li>Nothing playable (R09): <code>item_nothing_playable</code> message &quot;This item has nothing ArchivePlayer can play.&quot;, Open on archive.org link; Play all, Shuffle, Download disabled; the item is excluded from rows and cannot be added to playlists.</li>
+<li>Error: message with Retry (<code>item_error</code>, <code>item_retry_button</code>).</li>
+<li>Video items: Download is not shown (R59).</li>
+<li>Adult item while the adult setting is off (e.g. via a shared link, R70): message &quot;This item is hidden by your content settings.&quot; with a link to Settings; nothing else loads.</li>
+</ul>
+<h2 id="collection-page">Collection page</h2><ul>
+<li>Opened from an item&#39;s collection link, a Home card, a search result, or Following in the Library.</li>
+<li>Header: artwork, title, item count, description (collapsed), <strong>Follow</strong> toggle, Share.</li>
+<li>Item list with the same kind/language/decade/duration filters and sorts as search (UI_SEARCH_SPEC.md), paging 50 per page.</li>
+</ul>
+<h2 id="text-catalog-contract">Text catalog contract</h2><table>
+<thead>
+<tr>
+<th>Key</th>
+<th>English</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>item.playAll</code> / <code>item.shuffle</code></td>
+<td>Play all / Shuffle</td>
+</tr>
+<tr>
+<td><code>item.like</code> / <code>item.liked</code></td>
+<td>Like / Liked</td>
+</tr>
+<tr>
+<td><code>item.follow</code> / <code>item.following</code></td>
+<td>Follow / Following</td>
+</tr>
+<tr>
+<td><code>item.share</code></td>
+<td>Share</td>
+</tr>
+<tr>
+<td><code>item.download</code> / <code>item.downloading</code> / <code>item.downloaded</code></td>
+<td>Download / Downloading {percent} % / Downloaded</td>
+</tr>
+<tr>
+<td><code>item.removeDownload.confirm</code></td>
+<td>Remove the downloaded files for this item?</td>
+</tr>
+<tr>
+<td><code>item.more</code> / <code>item.less</code></td>
+<td>More / Less</td>
+</tr>
+<tr>
+<td><code>item.filter</code></td>
+<td>Filter episodes</td>
+</tr>
+<tr>
+<td><code>item.nothingPlayable</code></td>
+<td>This item has nothing ArchivePlayer can play.</td>
+</tr>
+<tr>
+<td><code>item.openArchive</code></td>
+<td>Open on archive.org</td>
+</tr>
+<tr>
+<td><code>item.hiddenAdult</code></td>
+<td>This item is hidden by your content settings.</td>
+</tr>
+<tr>
+<td><code>entry.playNext</code> / <code>entry.addToQueue</code> / <code>entry.addToPlaylist</code></td>
+<td>Play next / Add to queue / Add to playlist…</td>
+</tr>
+<tr>
+<td><code>entry.like</code> / <code>entry.unlike</code></td>
+<td>Like / Unlike</td>
+</tr>
+<tr>
+<td><code>entry.download</code> / <code>entry.removeDownload</code> / <code>entry.share</code></td>
+<td>Download / Remove download / Share</td>
+</tr>
+<tr>
+<td><code>collection.items</code></td>
+<td>{count} items</td>
+</tr>
+</tbody></table>
+<h2 id="element-ids">Element IDs</h2><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Element</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>item_screen</code> / <code>item_back_button</code> / <code>item_overflow_button</code></td>
+<td>Page root / back / overflow</td>
+</tr>
+<tr>
+<td><code>item_menu_&lt;open_archive|copy_link|add_to_playlist&gt;</code></td>
+<td>Overflow menu actions</td>
+</tr>
+<tr>
+<td><code>item_artwork</code> / <code>item_title</code> / <code>item_creator</code> / <code>item_year</code> / <code>item_kind</code> / <code>item_languages</code> / <code>item_collection_link</code></td>
+<td>Header fields</td>
+</tr>
+<tr>
+<td><code>item_play_all_button</code> / <code>item_shuffle_button</code></td>
+<td>Playback actions</td>
+</tr>
+<tr>
+<td><code>item_like_button</code> / <code>item_follow_button</code></td>
+<td>Toggles; checked state exposed</td>
+</tr>
+<tr>
+<td><code>item_share_button</code> / <code>item_download_button</code></td>
+<td>Share / download (absent for video)</td>
+</tr>
+<tr>
+<td><code>item_download_progress</code></td>
+<td>Download progress</td>
+</tr>
+<tr>
+<td><code>item_description</code> / <code>item_description_toggle</code></td>
+<td>Description / More–Less</td>
+</tr>
+<tr>
+<td><code>item_entry_filter</code></td>
+<td>Episode filter field (only when &gt; 30 entries)</td>
+</tr>
+<tr>
+<td><code>item_entries</code></td>
+<td>Entry list (scroll container)</td>
+</tr>
+<tr>
+<td><code>item_entry_row_&lt;index&gt;</code> / <code>item_entry_menu_&lt;index&gt;</code></td>
+<td>Entry row / its ⋯ menu; <code>&lt;index&gt;</code> = 0-based position in the unfiltered list</td>
+</tr>
+<tr>
+<td><code>item_entry_playing_&lt;index&gt;</code></td>
+<td>Now-playing highlight</td>
+</tr>
+<tr>
+<td><code>sheet_entry</code> / <code>entry_menu_&lt;play_next|add_to_queue|add_to_playlist|like|download|share&gt;</code></td>
+<td>Entry menu and its actions</td>
+</tr>
+<tr>
+<td><code>sheet_playlist_picker</code> / <code>playlist_picker_&lt;playlistId&gt;</code> / <code>playlist_picker_new</code></td>
+<td>Playlist picker</td>
+</tr>
+<tr>
+<td><code>item_nothing_playable</code> / <code>item_open_archive_button</code></td>
+<td>Nothing-playable state</td>
+</tr>
+<tr>
+<td><code>item_error</code> / <code>item_retry_button</code> / <code>item_hidden_adult</code></td>
+<td>Error / adult-hidden states</td>
+</tr>
+<tr>
+<td><code>collection_screen</code> / <code>collection_back_button</code> / <code>collection_title</code> / <code>collection_count</code> / <code>collection_follow_button</code> / <code>collection_share_button</code></td>
+<td>Collection page</td>
+</tr>
+<tr>
+<td><code>collection_items</code> / <code>collection_item_&lt;identifier&gt;</code></td>
+<td>Collection item list / row; filter and sort chips reuse <code>search_filter_*</code> / <code>search_sort_*</code> inside <code>collection_screen</code></td>
+</tr>
+</tbody></table>
+<h2 id="acceptance-scenarios">Acceptance scenarios</h2><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Scenario and expected result</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>I01</td>
+<td>Open fixture item <code>OTRR_Philip_Marlowe_Singles</code> (A11): header shows title, creator, year, audio badge, <code>en</code>; entries in <code>track</code> order; derivatives grouped into one row each (R10, R11).</td>
+</tr>
+<tr>
+<td>I02</td>
+<td>Tap <code>item_play_all_button</code>: playback starts at entry 0, mini-player shows the entry title, queue contains all entries in order.</td>
+</tr>
+<tr>
+<td>I03</td>
+<td>Tap <code>item_entry_row_3</code>: playback starts at entry 3; the queue holds all entries in item order with entry 3 current, so Previous reaches entry 2.</td>
+</tr>
+<tr>
+<td>I04</td>
+<td>Shuffle: all entries queued, entry order differs from item order for a fixture with ≥ 5 entries (seeded random in tests).</td>
+</tr>
+<tr>
+<td>I05</td>
+<td>Like the item, then open Library → Liked: all its entries listed; <code>item_like_button</code> checked after reopening.</td>
+</tr>
+<tr>
+<td>I06</td>
+<td>Follow on an item with a collection: <code>item_follow_button</code> checked; the collection appears in Library → Following (A21 part).</td>
+</tr>
+<tr>
+<td>I07</td>
+<td>Entry menu → Play next / Add to queue: queue order updated accordingly (A13).</td>
+</tr>
+<tr>
+<td>I08</td>
+<td>Entry menu → Add to playlist → New playlist &quot;Noir&quot;: playlist created with that entry; menu → Add to playlist on another entry lists &quot;Noir&quot;.</td>
+</tr>
+<tr>
+<td>I09</td>
+<td>Item with 40 entries: <code>item_entry_filter</code> shown; typing &quot;07&quot; shows only matching rows; item with 12 entries has no filter.</td>
+</tr>
+<tr>
+<td>I10</td>
+<td>Video fixture <code>his_girl_friday</code>: <code>item_download_button</code> absent; entry menu has no Download.</td>
+</tr>
+<tr>
+<td>I11</td>
+<td>Audio item Download (Wi-Fi-only satisfied): progress shown, then Downloaded; offline playback of the entry uses the local file (A19 UI part).</td>
+</tr>
+<tr>
+<td>I12</td>
+<td>Item without playable files (A12): <code>item_nothing_playable</code> shown; Play all and Shuffle disabled.</td>
+</tr>
+<tr>
+<td>I13</td>
+<td>Server error then recovery: <code>item_error</code>, Retry loads the page.</td>
+</tr>
+<tr>
+<td>I14</td>
+<td>Collection page from <code>item_collection_link</code>: title, item count, Follow; kind filter Audio limits the list.</td>
+</tr>
+<tr>
+<td>I15</td>
+<td>Adult fixture reached from an imported share link with the adult setting off (R70): its item page shows <code>item_hidden_adult</code>, no entries loaded.</td>
+</tr>
+<tr>
+<td>I16</td>
+<td>Share opens the Android share sheet with <code>https://archive.org/details/&lt;identifier&gt;</code> (intent captured in test).</td>
+</tr>
+</tbody></table>
+</article><aside class="on-this-page"><span class="eyebrow">ON THIS PAGE</span><nav id="toc" aria-label="On this page"></nav></aside></div><footer>ArchivePlayer · Independent of the Internet Archive.<br>Implementation notes and historical test evidence are distinguished throughout.</footer></main></div></body></html>

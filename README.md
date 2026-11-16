@@ -6,7 +6,11 @@ An open-source Android app for discovering, streaming and casting the audio and 
 
 Licensed under the [Apache License 2.0](LICENSE). ArchivePlayer is independent and not affiliated with the Internet Archive.
 
-## Specification
+## Documentation
+
+Open the [HTML handbook](docs/index.html) or download the [PDF summary](docs/ArchivePlayer-Documentation-Summary.pdf). Markdown sources start at the [documentation index](docs/README.md), [user guide](docs/USER_GUIDE.md), [architecture and UML](docs/ARCHITECTURE_UML.md), [data and integrations](docs/DATA_AND_INTEGRATIONS.md), and [maintenance guide](docs/MAINTENANCE.md).
+
+## Requirements and verification
 
 ArchivePlayer is developed specification-first: specifications are agreed before tests, and tests are written before the implementation they cover.
 
@@ -20,12 +24,12 @@ ArchivePlayer is developed specification-first: specifications are agreed before
 - [UI_PLAYER_SPEC.md](UI_PLAYER_SPEC.md) — mini and full player, sheets, queue, PiP, errors, full-screen video (P01–P25). Approved 8 November 2026.
 - [UI_LIBRARY_SPEC.md](UI_LIBRARY_SPEC.md) — Library, playlists, likes, follows, downloads, history, share/import (L01–L17). Approved 8 November 2026.
 - [ANDROID_FEASIBILITY.md](ANDROID_FEASIBILITY.md) — archive.org, Cast and Android findings and validation gates.
-- [docs/ARCHITECTURE_UML.md](docs/ARCHITECTURE_UML.md) — proposed module/component architecture.
+- [docs/ARCHITECTURE_UML.md](docs/ARCHITECTURE_UML.md) — implemented architecture, class models, search/playback sequences, download states and deployment.
 - [TESTING.md](TESTING.md) — test strategy, traceability and how to run checks.
 - [TDD_EVIDENCE.md](TDD_EVIDENCE.md) — recorded red→green runs (evidence files in `docs/tdd/`).
 - [DEVELOPMENT_ENVIRONMENT.md](DEVELOPMENT_ENVIRONMENT.md) — observed build environment and toolchain.
 
-Current status: version 0.2.0, specification v1.0 plus full-screen video (R86), archive.org website search (R87) and the Cast fix (R46). 377 tests (173 core, 103 Android UI in `full`, 101 in `foss`) run on an API 36 emulator; results are in [TDD_EVIDENCE.md](TDD_EVIDENCE.md). APKs for both flavours are in [dist/](dist/). Chromecast, SD cards, picture-in-picture, tablets and performance still need a check on real devices ([docs/GETTING_STARTED.md](docs/GETTING_STARTED.md#8-things-only-a-real-device-can-check)).
+Source version: `1.0.0` (version code `3`, declared in `app/build.gradle.kts`). Historical version 0.2.0 evidence records 377 tests (173 core, 103 Android UI in `full`, 101 in `foss`) on an API 36 emulator; see [TDD_EVIDENCE.md](TDD_EVIDENCE.md). These are recorded results, not a fresh run of this checkout. APKs for both flavours are in [dist/](dist/); their versions must be checked independently. Chromecast, SD cards, picture-in-picture, tablets and performance still need a check on real devices ([docs/GETTING_STARTED.md](docs/GETTING_STARTED.md#8-things-only-a-real-device-can-check)).
 
 ## Design
 

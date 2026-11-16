@@ -1,0 +1,60 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="ArchivePlayer documentation: Overview"><title>Overview · ArchivePlayer Docs</title><link rel="stylesheet" href="assets/docs.css"><script defer src="assets/vendor/mermaid.min.js"></script><script defer src="assets/docs.js"></script></head><body><a class="skip" href="#content">Skip to content</a><header class="topbar"><a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true">A<span>≋</span></span><span>ArchivePlayer <small>Documentation</small></span></a><div class="top-actions"><a href="ArchivePlayer-Documentation-Summary.pdf">PDF summary ↓</a><a href="https://github.com/jutlandiatech/ArchivePlayer">Source ↗</a><button id="menu" aria-expanded="false" aria-controls="sidebar">Menu</button></div></header><div class="layout"><aside id="sidebar"><span class="eyebrow">THE HANDBOOK</span><label class="search-label" for="nav-search">Find a document</label><input id="nav-search" type="search" placeholder="Search documents…"><nav aria-label="Documentation"><a href="index.html" aria-current="page"><span>Overview</span></a><a href="user-guide.html" ><span>User guide</span></a><a href="getting-started.html" ><span>Getting started</span></a><a href="architecture.html" ><span>Architecture &amp; UML</span></a><a href="data.html" ><span>Data &amp; integrations</span></a><a href="maintenance.html" ><span>Maintenance</span></a><a href="app-links.html" ><span>App Links</span></a><a href="requirements.html" ><span>Specification</span></a><a href="testing.html" ><span>Testing &amp; traceability</span></a><a href="evidence.html" ><span>Recorded test evidence</span></a><a href="environment.html" ><span>Development environment</span></a><a href="ui-shell.html" ><span>UI: Shell</span></a><a href="ui-setup.html" ><span>UI: Setup</span></a><a href="ui-home.html" ><span>UI: Home</span></a><a href="ui-search.html" ><span>UI: Search</span></a><a href="ui-item.html" ><span>UI: Item</span></a><a href="ui-player.html" ><span>UI: Player</span></a><a href="ui-library.html" ><span>UI: Library</span></a><a href="ui-settings.html" ><span>UI: Settings</span></a></nav><p id="no-results" hidden>No matching documents.</p><div class="sidebar-note">Source-led documentation<br><strong>HTML edition · 16 Nov 2026</strong></div></aside><main id="content"><div class="hero"><span class="eyebrow">PROJECT HANDBOOK / ANDROID</span><h1>Explore the archive.<br>Understand the app.</h1><p>A practical guide to ArchivePlayer, from your first stream to the systems behind playback, storage and Cast.</p><div class="hero-actions"><a class="primary" href="user-guide.html">Read the user guide <span>↗</span></a><a class="secondary" href="ArchivePlayer-Documentation-Summary.pdf">Download PDF summary ↓</a></div><div class="hero-meta"><span>2 Gradle modules</span><span>2 distribution flavours</span><span>7 architecture diagrams</span></div></div><div class="cards"><a href="architecture.html"><b>01 / Architecture</b><h2>The system, mapped.</h2><p>Components, class models, sequences and download states.</p></a><a href="getting-started.html"><b>02 / Development</b><h2>From source to device.</h2><p>Set up the toolchain, build flavours and run the right checks.</p></a><a href="data.html"><b>03 / Data</b><h2>Know the boundaries.</h2><p>Persistence, external requests, imports and exports.</p></a></div><div class="page-heading"><span class="eyebrow">Start here</span><div><span>ArchivePlayer / Overview</span><a href="https://github.com/jutlandiatech/ArchivePlayer/blob/main/docs/README.md">Edit Markdown ↗</a></div></div><div class="reading-layout"><article><h1 id="archiveplayer-documentation">ArchivePlayer documentation</h1><p>Maintainer documentation reviewed against source on 15 November 2026. Specifications and historical test evidence retain their own dates and authority.</p>
+<p>Open the <a href="index.html">HTML handbook</a> for a styled navigation view with document search across 19 titles and offline UML rendering. Download the <a href="ArchivePlayer-Documentation-Summary.pdf">four-page PDF summary</a> for an overview of the app, architecture, runtime flows and maintenance. Both can be read locally; external source links require internet access.</p>
+<table>
+<thead>
+<tr>
+<th>Need</th>
+<th>Document</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Set up tools, build and launch</td>
+<td><a href="getting-started.html">Getting started</a></td>
+</tr>
+<tr>
+<td>Use the app</td>
+<td><a href="user-guide.html">User guide</a></td>
+</tr>
+<tr>
+<td>Understand components, classes, flows and deployment</td>
+<td><a href="architecture.html">Architecture and UML</a></td>
+</tr>
+<tr>
+<td>Understand persistence and external boundaries</td>
+<td><a href="data.html">Data and integrations</a></td>
+</tr>
+<tr>
+<td>Change and verify the project</td>
+<td><a href="maintenance.html">Maintenance guide</a></td>
+</tr>
+<tr>
+<td>Read agreed requirements</td>
+<td><a href="requirements.html">Specification</a> and root <code>UI_*_SPEC.md</code> documents</td>
+</tr>
+<tr>
+<td>Find test commands and traceability</td>
+<td><a href="testing.html">Testing</a></td>
+</tr>
+<tr>
+<td>Inspect recorded outcomes</td>
+<td><a href="evidence.html">TDD evidence</a> and <a href="https://github.com/jutlandiatech/ArchivePlayer/blob/main/docs/tdd/README.md">evidence format</a></td>
+</tr>
+<tr>
+<td>Configure playlist links</td>
+<td><a href="app-links.html">App Links</a></td>
+</tr>
+<tr>
+<td>Check historical toolchain observations</td>
+<td><a href="environment.html">Development environment</a></td>
+</tr>
+<tr>
+<td>Inspect design references</td>
+<td><a href="https://github.com/jutlandiatech/ArchivePlayer/blob/main/design/README.md">Design assets</a></td>
+</tr>
+</tbody></table>
+<p>The source build declares version <code>1.0.0</code> / code <code>3</code>; packaged APKs and older test evidence can describe earlier versions. Historical test counts are not a fresh verification of this checkout. Cast receivers, removable storage, PiP, backup, tablet layouts and performance still require the checks described in the testing documents.</p>
+<p>The <a href="https://github.com/jutlandiatech/sim-warning-app/tree/main/docs">sim-warning-app documentation</a> informed the source-linked UML and generated-PDF approach. Its repository was accessible on 16 November 2026. ArchivePlayer adds a local HTML handbook. Microsoft 365 is not required to maintain it.</p>
+<h2 id="regenerate-the-html-and-pdf">Regenerate the HTML and PDF</h2><pre><code class="language-powershell">node tools/build-docs.cjs
+python tools/export-docs-summary.py</code></pre><p>Run from the repository root. HTML generation requires Node.js and uses the pinned Markdown parser in <code>docs/assets/vendor</code>; reading HTML requires no build or network connection. PDF generation requires Python with <code>reportlab</code> (<code>python -m pip install reportlab</code>). The PDF is a curated summary maintained in its generator, rather than an automatic export of every specification. Update it when behavior changes, then render and inspect the PDF.</p>
+<p>Generated <code>.html</code> files and the PDF are documentation artifacts. Edit Markdown rather than generated HTML. Styling and browser interactions live in <code>docs/assets/docs.css</code> and <code>docs/assets/docs.js</code>. Vendor versions/licenses are recorded in <a href="https://github.com/jutlandiatech/ArchivePlayer/blob/main/docs/assets/vendor/README.md">assets/vendor/README.md</a>. This pass does not publish a hosted site or change the existing Pages deployment.</p>
+</article><aside class="on-this-page"><span class="eyebrow">ON THIS PAGE</span><nav id="toc" aria-label="On this page"></nav></aside></div><footer>ArchivePlayer · Independent of the Internet Archive.<br>Implementation notes and historical test evidence are distinguished throughout.</footer></main></div></body></html>

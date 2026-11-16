@@ -1,0 +1,96 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="ArchivePlayer documentation: Getting started"><title>Getting started · ArchivePlayer Docs</title><link rel="stylesheet" href="assets/docs.css"><script defer src="assets/vendor/mermaid.min.js"></script><script defer src="assets/docs.js"></script></head><body><a class="skip" href="#content">Skip to content</a><header class="topbar"><a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true">A<span>≋</span></span><span>ArchivePlayer <small>Documentation</small></span></a><div class="top-actions"><a href="ArchivePlayer-Documentation-Summary.pdf">PDF summary ↓</a><a href="https://github.com/jutlandiatech/ArchivePlayer">Source ↗</a><button id="menu" aria-expanded="false" aria-controls="sidebar">Menu</button></div></header><div class="layout"><aside id="sidebar"><span class="eyebrow">THE HANDBOOK</span><label class="search-label" for="nav-search">Find a document</label><input id="nav-search" type="search" placeholder="Search documents…"><nav aria-label="Documentation"><a href="index.html" ><span>Overview</span></a><a href="user-guide.html" ><span>User guide</span></a><a href="getting-started.html" aria-current="page"><span>Getting started</span></a><a href="architecture.html" ><span>Architecture &amp; UML</span></a><a href="data.html" ><span>Data &amp; integrations</span></a><a href="maintenance.html" ><span>Maintenance</span></a><a href="app-links.html" ><span>App Links</span></a><a href="requirements.html" ><span>Specification</span></a><a href="testing.html" ><span>Testing &amp; traceability</span></a><a href="evidence.html" ><span>Recorded test evidence</span></a><a href="environment.html" ><span>Development environment</span></a><a href="ui-shell.html" ><span>UI: Shell</span></a><a href="ui-setup.html" ><span>UI: Setup</span></a><a href="ui-home.html" ><span>UI: Home</span></a><a href="ui-search.html" ><span>UI: Search</span></a><a href="ui-item.html" ><span>UI: Item</span></a><a href="ui-player.html" ><span>UI: Player</span></a><a href="ui-library.html" ><span>UI: Library</span></a><a href="ui-settings.html" ><span>UI: Settings</span></a></nav><p id="no-results" hidden>No matching documents.</p><div class="sidebar-note">Source-led documentation<br><strong>HTML edition · 16 Nov 2026</strong></div></aside><main id="content"><div class="page-heading"><span class="eyebrow">Development</span><div><span>ArchivePlayer / Getting started</span><a href="https://github.com/jutlandiatech/ArchivePlayer/blob/main/docs/GETTING_STARTED.md">Edit Markdown ↗</a></div></div><div class="reading-layout"><article><h1 id="getting-started">Getting started</h1><p>How to clone, build, test and run ArchivePlayer on your own machine.</p>
+<h2 id="1-install">1. Install</h2><table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Version</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a href="https://developer.android.com/studio">Android Studio</a></td>
+<td>current stable</td>
+<td>Bundles a JDK 17+ (JetBrains Runtime) and the SDK Manager.</td>
+</tr>
+<tr>
+<td>Android SDK Platform</td>
+<td>37</td>
+<td>SDK Manager → SDK Platforms.</td>
+</tr>
+<tr>
+<td>Android SDK Build-Tools</td>
+<td>37.0.0</td>
+<td>SDK Manager → SDK Tools.</td>
+</tr>
+<tr>
+<td>Android Emulator + a system image</td>
+<td>API 36 or 37, x86_64 (or arm64 on Apple silicon)</td>
+<td>Only needed for UI tests without a phone.</td>
+</tr>
+<tr>
+<td>Git</td>
+<td>any recent</td>
+<td></td>
+</tr>
+<tr>
+<td>Python 3</td>
+<td>3.10+</td>
+<td>Only to regenerate text catalogs / category map (<code>tools/gen_*.py</code>).</td>
+</tr>
+</tbody></table>
+<p>Gradle itself is not installed separately: the wrapper (<code>gradlew</code>, <code>gradlew.bat</code>) downloads Gradle 9.9.0 on first use.</p>
+<p>Command-line only (no Android Studio): install a JDK 17+, the Android command-line tools, then
+<code>sdkmanager &quot;platform-tools&quot; &quot;platforms;android-37.0&quot; &quot;build-tools;37.0.0&quot;</code> and set <code>ANDROID_HOME</code>.</p>
+<h2 id="2-clone-and-open">2. Clone and open</h2><pre><code class="language-bash">git clone https://github.com/jutlandiatech/ArchivePlayer.git
+cd ArchivePlayer</code></pre><p>In Android Studio choose <strong>File → Open</strong> and select the <code>ArchivePlayer</code> folder. Let the Gradle sync finish. Android Studio writes <code>local.properties</code> with your SDK path (it is git-ignored).</p>
+<h2 id="3-build-variants">3. Build variants</h2><p>The app has two flavours (dimension <code>distribution</code>):</p>
+<table>
+<thead>
+<tr>
+<th>Variant</th>
+<th>Contents</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>fullDebug</code> / <code>fullRelease</code></td>
+<td>Everything, including Chromecast (Google Play Services, Media3 Cast, MediaRouter).</td>
+</tr>
+<tr>
+<td><code>fossDebug</code> / <code>fossRelease</code></td>
+<td>No Google Play Services, Cast, MediaRouter or Firebase. Checked by <code>:app:verifyFossDependencies</code>.</td>
+</tr>
+</tbody></table>
+<p>Pick the variant in <strong>Build → Select Build Variant</strong>, then run on a phone or emulator.</p>
+<h2 id="4-commands">4. Commands</h2><p>macOS/Linux use <code>./gradlew</code>; Windows uses <code>gradlew.bat</code> or <code>.\tools\run-gradle.ps1</code>.</p>
+<pre><code class="language-bash">./gradlew :core:test                                   # pure Kotlin domain tests (fast, no device)
+./gradlew :app:assembleFullDebug :app:assembleFossDebug # APKs in app/build/outputs/apk/
+./gradlew :app:verifyFossDependencies                  # FOSS flavour stays Google-free
+./gradlew --continue :app:connectedFullDebugAndroidTest :app:connectedFossDebugAndroidTest  # UI tests, needs a device</code></pre><p>Single UI test:</p>
+<pre><code class="language-bash">./gradlew :app:connectedFullDebugAndroidTest \
+  -Pandroid.testInstrumentationRunnerArguments.class=&lt;package&gt;.PlayerUiTest#P01_miniPlayerAcrossTabs</code></pre><p>UI tests never touch archive.org: a local fake server (<code>app/src/androidTest/.../support/FixtureServer.kt</code>) serves recorded responses and small generated media. Each test starts from a fresh install (test orchestrator with <code>clearPackageData</code>).</p>
+<h2 id="5-where-things-live">5. Where things live</h2><p>See the code map in the <a href="https://github.com/jutlandiatech/ArchivePlayer/blob/main/README.md#code-map">README</a>. Texts shown in the app come from <code>app/src/main/assets/texts/TextCatalog_*.json</code>, generated by <code>tools/gen_text_catalogs.py</code>; edit the script and re-run it rather than editing the JSON. The same applies to <code>tools/gen_category_map.py</code> and <code>app/src/main/assets/catalog/category-map.json</code>.</p>
+<p>The GitHub Pages site (share page, category map) lives in <code>site/</code>; open <code>site/p/index.html#&lt;fragment&gt;</code> in a browser to try a share link locally. Publishing and App Link setup are in <a href="app-links.html">APP_LINKS.md</a>.</p>
+<h2 id="6-working-on-a-change">6. Working on a change</h2><ol>
+<li>Find or add the requirement in <a href="requirements.html">SPECIFICATION.md</a> or the matching <code>UI_*_SPEC.md</code>.</li>
+<li>Write the failing test first, named after the requirement/scenario ID (see <a href="testing.html">TESTING.md</a>).</li>
+<li>Implement until it passes; run <code>:core:test</code>, both flavours&#39; UI tests and <code>:app:verifyFossDependencies</code>.</li>
+<li>Open a pull request against <code>main</code>.</li>
+</ol>
+<h2 id="7-optional-ai-coding-agents">7. Optional: AI coding agents</h2><p>Nothing in the build depends on an AI tool. If you use one (for example Devin, GitHub Copilot, Claude Code, Cursor or Android Studio&#39;s Gemini), these files give it the context it needs:</p>
+<ul>
+<li><code>SPECIFICATION.md</code> and the <code>UI_*_SPEC.md</code> files: requirements, scenarios and the element-ID contract the UI tests rely on.</li>
+<li><code>TESTING.md</code>: how tests are named and run.</li>
+<li><code>DEVELOPMENT_ENVIRONMENT.md</code>: toolchain versions and known gotchas (e.g. emulator image issues).</li>
+<li><code>ArchivePlayer.code-workspace</code>: VS Code tasks for the common Gradle commands.</li>
+</ul>
+<p>Keep the specification-first workflow: let the agent update the spec and tests before the implementation, and review its changes like any other pull request.</p>
+<h2 id="8-things-only-a-real-device-can-check">8. Things only a real device can check</h2><p>Automated tests cover the logic and the UI on an emulator. Before a release, check on real hardware:</p>
+<ul>
+<li>Casting to a physical Chromecast (<code>full</code> flavour): connect, play, pause, seek, queue, disconnect and resume locally. Check both a video and an audio entry, including one you have downloaded (the Chromecast must stream it from archive.org), and that the phone stays in portrait while casting (R46, R86).</li>
+<li>Full-screen video: maximize a widescreen film (phone turns to landscape, bars hide, controls fade after about 3 s), tilt back to portrait or press Back to leave; a portrait video stays portrait (R86).</li>
+<li>Downloads to a removable SD card: choose the SD card in Settings, download, remove the card, re-insert it.</li>
+<li>Picture-in-picture for video: home button during playback, controls in the PiP window, return to the app.</li>
+<li>Phone and tablet layouts (bottom bar below 600 dp width, navigation rail above), portrait and landscape.</li>
+<li>Smooth scrolling of long lists and playback start time on a low-end phone.</li>
+</ul>
+</article><aside class="on-this-page"><span class="eyebrow">ON THIS PAGE</span><nav id="toc" aria-label="On this page"></nav></aside></div><footer>ArchivePlayer · Independent of the Internet Archive.<br>Implementation notes and historical test evidence are distinguished throughout.</footer></main></div></body></html>

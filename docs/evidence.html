@@ -1,0 +1,245 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="ArchivePlayer documentation: Recorded test evidence"><title>Recorded test evidence · ArchivePlayer Docs</title><link rel="stylesheet" href="assets/docs.css"><script defer src="assets/vendor/mermaid.min.js"></script><script defer src="assets/docs.js"></script></head><body><a class="skip" href="#content">Skip to content</a><header class="topbar"><a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true">A<span>≋</span></span><span>ArchivePlayer <small>Documentation</small></span></a><div class="top-actions"><a href="ArchivePlayer-Documentation-Summary.pdf">PDF summary ↓</a><a href="https://github.com/jutlandiatech/ArchivePlayer">Source ↗</a><button id="menu" aria-expanded="false" aria-controls="sidebar">Menu</button></div></header><div class="layout"><aside id="sidebar"><span class="eyebrow">THE HANDBOOK</span><label class="search-label" for="nav-search">Find a document</label><input id="nav-search" type="search" placeholder="Search documents…"><nav aria-label="Documentation"><a href="index.html" ><span>Overview</span></a><a href="user-guide.html" ><span>User guide</span></a><a href="getting-started.html" ><span>Getting started</span></a><a href="architecture.html" ><span>Architecture &amp; UML</span></a><a href="data.html" ><span>Data &amp; integrations</span></a><a href="maintenance.html" ><span>Maintenance</span></a><a href="app-links.html" ><span>App Links</span></a><a href="requirements.html" ><span>Specification</span></a><a href="testing.html" ><span>Testing &amp; traceability</span></a><a href="evidence.html" aria-current="page"><span>Recorded test evidence</span></a><a href="environment.html" ><span>Development environment</span></a><a href="ui-shell.html" ><span>UI: Shell</span></a><a href="ui-setup.html" ><span>UI: Setup</span></a><a href="ui-home.html" ><span>UI: Home</span></a><a href="ui-search.html" ><span>UI: Search</span></a><a href="ui-item.html" ><span>UI: Item</span></a><a href="ui-player.html" ><span>UI: Player</span></a><a href="ui-library.html" ><span>UI: Library</span></a><a href="ui-settings.html" ><span>UI: Settings</span></a></nav><p id="no-results" hidden>No matching documents.</p><div class="sidebar-note">Source-led documentation<br><strong>HTML edition · 16 Nov 2026</strong></div></aside><main id="content"><div class="page-heading"><span class="eyebrow">Reference</span><div><span>ArchivePlayer / Recorded test evidence</span><a href="https://github.com/jutlandiatech/ArchivePlayer/blob/main/TDD_EVIDENCE.md">Edit Markdown ↗</a></div></div><div class="reading-layout"><article><h1 id="tdd-evidence">TDD evidence</h1><p>Actual test runs, newest first. Machine-readable details (every test, its result and the SHA-256 of every test source) are in <code>docs/tdd/</code>.</p>
+<h2 id="version-020--storage-screen-review-fixes-private-files-15-november-2026">Version 0.2.0 — storage screen, review fixes, private files (15 November 2026)</h2><ul>
+<li>Evidence: <a href="tdd/green-v0.2.0-storage.json">docs/tdd/green-v0.2.0-storage.json</a>.</li>
+<li>Commands: <code>./gradlew :core:test :app:verifyFossDependencies</code>, <code>./gradlew :app:connectedFullDebugAndroidTest</code>, <code>./gradlew :app:connectedFossDebugAndroidTest</code> (AVD <code>ap36</code>, API 36).</li>
+<li>Added: <code>SettingsStorageUiTest</code> S06 (R61, R85, A43–A45; SD card faked through <code>AppEnvironment.sdCardOverride</code>/<code>sdCardDir</code>) in both flavours; <code>MetadataParserTest.R10_privateFilesAreNotPlayable</code> in core. Also covers the four review fixes (website search not used with language/decade filters, shell Back after the queue is cleared, portrait full screen, replay after the end).</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Tests</th>
+<th>Passed</th>
+<th>Failed</th>
+<th>Skipped</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Core JVM (<code>core/src/test</code>)</td>
+<td>173</td>
+<td>172</td>
+<td>0</td>
+<td>1 (opt-in live check)</td>
+</tr>
+<tr>
+<td>Android UI, <code>full</code></td>
+<td>103</td>
+<td>103</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>Android UI, <code>foss</code></td>
+<td>101</td>
+<td>101</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td><strong>Total</strong></td>
+<td><strong>377</strong></td>
+<td><strong>376</strong></td>
+<td><strong>0</strong></td>
+<td><strong>1</strong></td>
+</tr>
+</tbody></table>
+<p><code>verifyFossDependencies</code> passes, and the rebuilt <code>foss</code> APK contains no <code>com/google/android/gms</code> classes.</p>
+<h2 id="version-020--full-screen-video-website-search-cast-fix-14-november-2026">Version 0.2.0 — full-screen video, website search, Cast fix (14 November 2026)</h2><ul>
+<li>Evidence: <a href="tdd/green-v0.2.0.json">docs/tdd/green-v0.2.0.json</a> (results of the runs below, SHA-256 of every test source).</li>
+<li>Environment: as for gate 3 (AVD <code>ap36</code>, API 36 <code>google_apis</code> x86_64; app compiled against and targeting SDK 37).</li>
+<li>Commands: <code>./gradlew :core:test --rerun-tasks :app:verifyFossDependencies</code>, <code>./gradlew :app:connectedFullDebugAndroidTest</code>, <code>./gradlew :app:connectedFossDebugAndroidTest</code>. P25 was added after the two suites and ran on its own in each flavour (<code>-Pandroid.testInstrumentationRunnerArguments.class=com.jutlandiatech.archiveplayer.PlayerUiTest#P25_R86_castingNeverGoesLandscape</code>).</li>
+<li>Added: website search URL, parser and fallback (R87, A47), format → MIME type (R46), full-screen policy (R86) in core; P21–P25 (R86) in both flavours; <code>CastConverterTest</code> A48 (<code>full</code> only).</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Tests</th>
+<th>Passed</th>
+<th>Failed</th>
+<th>Skipped</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Core JVM (<code>core/src/test</code>)</td>
+<td>172</td>
+<td>171</td>
+<td>0</td>
+<td>1 (opt-in live check)</td>
+</tr>
+<tr>
+<td>Android UI, <code>full</code></td>
+<td>101</td>
+<td>101</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>Android UI, <code>foss</code></td>
+<td>99</td>
+<td>99</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td><strong>Total</strong></td>
+<td><strong>372</strong></td>
+<td><strong>371</strong></td>
+<td><strong>0</strong></td>
+<td><strong>1</strong></td>
+</tr>
+</tbody></table>
+<p>The known flaky test <code>I14_R33_collectionPageWithFollowAndFilters</code> passed in both flavours in this run. <code>verifyFossDependencies</code> passes.</p>
+<p>Not covered by automated tests: actual playback on a physical Chromecast (the receiver side of R46/A48), plus the device checks listed for gate 3.</p>
+<h2 id="gate-3--green-implementation-complete-8-november-2026">Gate 3 — green, implementation complete (8 November 2026)</h2><ul>
+<li>Evidence: <a href="tdd/green-gate3.json">docs/tdd/green-gate3.json</a> (results of the runs below, base commit <code>97d8b1d</code>, SHA-256 of every test source).</li>
+<li>Environment: as for gate 2 (AVD <code>ap36</code>, API 36 <code>google_apis</code> x86_64; app compiled against and targeting SDK 37).</li>
+<li>Commands: <code>./gradlew :core:test :app:verifyFossDependencies</code>, then <code>./gradlew :app:connectedFullDebugAndroidTest</code>, then <code>./gradlew :app:connectedFossDebugAndroidTest</code>.</li>
+<li>Added since gate 2: S09 (library export/import round trip). The <code>full</code> and <code>foss</code> suites each gained this test, so 94 UI tests per flavour.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Tests</th>
+<th>Passed</th>
+<th>Failed</th>
+<th>Skipped</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Core JVM (<code>core/src/test</code>)</td>
+<td>160</td>
+<td>159</td>
+<td>0</td>
+<td>1 (opt-in live check)</td>
+</tr>
+<tr>
+<td>Android UI, <code>full</code></td>
+<td>94</td>
+<td>93</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr>
+<td>Android UI, <code>foss</code></td>
+<td>94</td>
+<td>94</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td><strong>Total</strong></td>
+<td><strong>348</strong></td>
+<td><strong>346</strong></td>
+<td><strong>1</strong></td>
+<td><strong>1</strong></td>
+</tr>
+</tbody></table>
+<p>Known flaky test: <code>I14_R33_collectionPageWithFollowAndFilters</code> (<code>full</code>) failed once in this run with a Compose-internal error (&quot;Detected multithreaded access to SnapshotStateObserver&quot; while drawing), not an assertion. It passed in the earlier full runs, in the <code>foss</code> run, and in 3 of 3 reruns on its own (<code>-Pandroid.testInstrumentationRunnerArguments.class=com.jutlandiatech.archiveplayer.ItemUiTest#I14_R33_collectionPageWithFollowAndFilters</code>).</p>
+<p><code>verifyFossDependencies</code> passes, and the <code>foss</code> APK&#39;s dex files contain no <code>com.google.android.gms</code>, <code>com.google.firebase</code>, <code>androidx.mediarouter</code> or <code>androidx.media3.cast</code> references.</p>
+<p>Not covered by automated tests (check on real devices, see docs/GETTING_STARTED.md section 8): casting to a physical Chromecast, removable SD cards, the picture-in-picture window buttons, tablet layouts on hardware, performance targets (R77), App Link verification and the GitHub Pages deployment (docs/APP_LINKS.md).</p>
+<h2 id="gate-2--red-baseline-ui-screens-added-8-november-2026">Gate 2 — red baseline, UI screens added (8 November 2026)</h2><ul>
+<li>Evidence: <a href="tdd/red-gate2.json">docs/tdd/red-gate2.json</a> (replaces the 7 November file; same tool, all test-source hashes re-recorded).</li>
+<li>Adds UI specs and tests for Home (H01–H12), Search (Q01–Q14), Item/collection (I01–I16), Player (P01–P20) and Library (L01–L17), with the <code>FixtureServer</code> / <code>AppEnvironment</code> / <code>PlayerProbe</code> test seams (see TESTING.md).</li>
+<li>Environment: as below, except the emulator is <code>ap36</code> = API 36 <code>google_apis</code> x86_64 (6 GB data partition). The API 37 image crash-loops in the VM (surfaceflinger assertion <code>hasReadColorBufferDma</code>), so installs failed. The app still compiles and targets SDK 37.</li>
+<li>Commands: unchanged (below).</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Tests</th>
+<th>Passed</th>
+<th>Failed</th>
+<th>Skipped</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Core JVM (<code>core/src/test</code>)</td>
+<td>160</td>
+<td>0</td>
+<td>159</td>
+<td>1 (opt-in live check)</td>
+</tr>
+<tr>
+<td>Android UI, <code>full</code></td>
+<td>93</td>
+<td>0</td>
+<td>93</td>
+<td>0</td>
+</tr>
+<tr>
+<td>Android UI, <code>foss</code></td>
+<td>93</td>
+<td>0</td>
+<td>93</td>
+<td>0</td>
+</tr>
+<tr>
+<td><strong>Total</strong></td>
+<td><strong>346</strong></td>
+<td><strong>0</strong></td>
+<td><strong>345</strong></td>
+<td><strong>1</strong></td>
+</tr>
+</tbody></table>
+<p>Why the Android tests fail (checked per test): the screens do not exist yet. 86 per flavour time out waiting for a screen&#39;s element ID (<code>waitForTag</code>), 7 per flavour (setup and UI Automator tests) fail on a missing ID directly. Core failures are unchanged from 7 November. <code>verifyFossDependencies</code> still passes.</p>
+<h2 id="gate-2--red-baseline-7-november-2026">Gate 2 — red baseline (7 November 2026)</h2><ul>
+<li>Evidence: <a href="tdd/red-gate2.json">docs/tdd/red-gate2.json</a>, written by <code>tools/record-tdd-evidence.py</code>.</li>
+<li>Base: <code>main</code> at <code>10a805d</code> (approved specification v1.0) plus the test commit on <code>devin/tests-gate2</code>.</li>
+<li>Environment: Devin VM (Ubuntu, JDK 17), Gradle 9.9.0, Android SDK 37; emulator <code>ap37</code> = API 37 <code>google_apis</code> x86_64, phone language en-US.</li>
+<li>Commands:<ul>
+<li><code>./gradlew :core:test --continue</code></li>
+<li><code>./gradlew --continue :app:connectedFullDebugAndroidTest :app:connectedFossDebugAndroidTest</code></li>
+<li><code>./gradlew :app:verifyFossDependencies</code></li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Tests</th>
+<th>Passed</th>
+<th>Failed</th>
+<th>Skipped</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Core JVM (<code>core/src/test</code>)</td>
+<td>160</td>
+<td>0</td>
+<td>159</td>
+<td>1 (opt-in live check)</td>
+</tr>
+<tr>
+<td>Android UI, <code>full</code></td>
+<td>14</td>
+<td>0</td>
+<td>14</td>
+<td>0</td>
+</tr>
+<tr>
+<td>Android UI, <code>foss</code></td>
+<td>14</td>
+<td>0</td>
+<td>14</td>
+<td>0</td>
+</tr>
+<tr>
+<td><strong>Total</strong></td>
+<td><strong>188</strong></td>
+<td><strong>0</strong></td>
+<td><strong>187</strong></td>
+<td><strong>1</strong></td>
+</tr>
+</tbody></table>
+<p>Why they fail (checked per test, nothing else fails):</p>
+<ul>
+<li>Core: 142 throw <code>NotImplementedError</code> from the API skeleton (<code>TODO()</code> bodies); 10 <code>assertThrows</code> checks receive <code>NotImplementedError</code> instead of the expected exception; 5 fail because data files the implementation must add do not exist yet (<code>app/src/main/assets/texts/TextCatalog_*.json</code>, <code>app/src/main/assets/catalog/category-map.json</code>). Two tests initially passed vacuously on a missing catalog directory; they were tightened before this baseline.</li>
+<li>Android: the screens do not exist yet, so element IDs are missing (<code>setup_root</code>, <code>setup_continue_button</code>, <code>setup_language_de</code> not found).</li>
+</ul>
+<p>Structural checks that already pass (not part of the red count): both flavours assemble, and <code>verifyFossDependencies</code> confirms the <code>foss</code> runtime classpath has no Google Play Services, Cast or MediaRouter (the <code>full</code> classpath has <code>play-services-cast-framework</code>, <code>media3-cast</code> and <code>mediarouter</code>).</p>
+<p>Gate 3 records <code>green-gate2.json</code> with identical test-source hashes once the implementation passes.</p>
+</article><aside class="on-this-page"><span class="eyebrow">ON THIS PAGE</span><nav id="toc" aria-label="On this page"></nav></aside></div><footer>ArchivePlayer · Independent of the Internet Archive.<br>Implementation notes and historical test evidence are distinguished throughout.</footer></main></div></body></html>

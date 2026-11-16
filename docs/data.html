@@ -1,0 +1,90 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="ArchivePlayer documentation: Data &amp; integrations"><title>Data &amp; integrations · ArchivePlayer Docs</title><link rel="stylesheet" href="assets/docs.css"><script defer src="assets/vendor/mermaid.min.js"></script><script defer src="assets/docs.js"></script></head><body><a class="skip" href="#content">Skip to content</a><header class="topbar"><a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true">A<span>≋</span></span><span>ArchivePlayer <small>Documentation</small></span></a><div class="top-actions"><a href="ArchivePlayer-Documentation-Summary.pdf">PDF summary ↓</a><a href="https://github.com/jutlandiatech/ArchivePlayer">Source ↗</a><button id="menu" aria-expanded="false" aria-controls="sidebar">Menu</button></div></header><div class="layout"><aside id="sidebar"><span class="eyebrow">THE HANDBOOK</span><label class="search-label" for="nav-search">Find a document</label><input id="nav-search" type="search" placeholder="Search documents…"><nav aria-label="Documentation"><a href="index.html" ><span>Overview</span></a><a href="user-guide.html" ><span>User guide</span></a><a href="getting-started.html" ><span>Getting started</span></a><a href="architecture.html" ><span>Architecture &amp; UML</span></a><a href="data.html" aria-current="page"><span>Data &amp; integrations</span></a><a href="maintenance.html" ><span>Maintenance</span></a><a href="app-links.html" ><span>App Links</span></a><a href="requirements.html" ><span>Specification</span></a><a href="testing.html" ><span>Testing &amp; traceability</span></a><a href="evidence.html" ><span>Recorded test evidence</span></a><a href="environment.html" ><span>Development environment</span></a><a href="ui-shell.html" ><span>UI: Shell</span></a><a href="ui-setup.html" ><span>UI: Setup</span></a><a href="ui-home.html" ><span>UI: Home</span></a><a href="ui-search.html" ><span>UI: Search</span></a><a href="ui-item.html" ><span>UI: Item</span></a><a href="ui-player.html" ><span>UI: Player</span></a><a href="ui-library.html" ><span>UI: Library</span></a><a href="ui-settings.html" ><span>UI: Settings</span></a></nav><p id="no-results" hidden>No matching documents.</p><div class="sidebar-note">Source-led documentation<br><strong>HTML edition · 16 Nov 2026</strong></div></aside><main id="content"><div class="page-heading"><span class="eyebrow">Engineering</span><div><span>ArchivePlayer / Data &amp; integrations</span><a href="https://github.com/jutlandiatech/ArchivePlayer/blob/main/docs/DATA_AND_INTEGRATIONS.md">Edit Markdown ↗</a></div></div><div class="reading-layout"><article><h1 id="data-and-integrations">Data and integrations</h1><p>Implementation reviewed 15 November 2026. See <a href="architecture.html">UML</a> for runtime relationships.</p>
+<h2 id="local-persistence">Local persistence</h2><table>
+<thead>
+<tr>
+<th>Data</th>
+<th>Implementation</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Settings/setup</td>
+<td><code>SettingsStore</code>: private SharedPreferences named <code>settings</code>; load returns null until <code>setupDone</code>.</td>
+</tr>
+<tr>
+<td>Library</td>
+<td><code>LibraryStore</code>: <code>filesDir/library.json</code>; playlists, likes, follows, history, recent queries and last follow check.</td>
+</tr>
+<tr>
+<td>Download index</td>
+<td><code>Downloads</code>: <code>filesDir/downloads.json</code>; references, selected files, URLs, locations, states and byte counters.</td>
+</tr>
+<tr>
+<td>Audio bytes</td>
+<td>Internal <code>filesDir/downloads</code> or removable app-specific <code>downloads</code> directory; pending transfers use <code>.part</code>.</td>
+</tr>
+<tr>
+<td>Category map</td>
+<td>Bundled asset with optional validated <code>filesDir/category-map.json</code> cache selected on a later launch.</td>
+</tr>
+<tr>
+<td>Adult keywords</td>
+<td>Bundled <code>assets/catalog/adult-keywords.json</code>; no repository refresh path.</td>
+</tr>
+<tr>
+<td>Metadata cache</td>
+<td>In-memory <code>ConcurrentHashMap</code>; not a persistent offline catalog.</td>
+</tr>
+<tr>
+<td>Interface text</td>
+<td>Bundled ENG, GER and DEN JSON catalogs in <code>assets/texts</code>.</td>
+</tr>
+<tr>
+<td>Shared files</td>
+<td>Temporary <code>cacheDir/shared</code>, exposed via FileProvider read grants.</td>
+</tr>
+</tbody></table>
+<p>History updates cap records at 500; submitted recent searches cap at 20. Library/download decoding falls back to empty/default state on unreadable data. This is not a data migration or corruption-repair system. Library writes are direct file writes; download-index write exceptions are caught. These stores are not transactional databases.</p>
+<p>Sources: <a href="https://github.com/jutlandiatech/ArchivePlayer/blob/main/app/src/main/java/com/jutlandiatech/archiveplayer/data/LibraryStore.kt">LibraryStore</a>, <a href="https://github.com/jutlandiatech/ArchivePlayer/blob/main/app/src/main/java/com/jutlandiatech/archiveplayer/data/SettingsStore.kt">SettingsStore</a>, <a href="https://github.com/jutlandiatech/ArchivePlayer/blob/main/app/src/main/java/com/jutlandiatech/archiveplayer/data/Downloads.kt">Downloads</a>.</p>
+<h2 id="external-requests">External requests</h2><table>
+<thead>
+<tr>
+<th>Purpose</th>
+<th>Boundary</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Website-ranked search</td>
+<td>Archive <code>services/search/beta/page_production</code> when applicable; failure falls back to advanced search.</td>
+</tr>
+<tr>
+<td>Advanced search</td>
+<td>Archive <code>advancedsearch.php</code>, built from <code>SearchRequest</code>.</td>
+</tr>
+<tr>
+<td>Metadata</td>
+<td>Archive <code>/metadata/{identifier}</code>.</td>
+</tr>
+<tr>
+<td>Media</td>
+<td>Archive <code>/download/{identifier}/{encoded file path}</code>.</td>
+</tr>
+<tr>
+<td>Images</td>
+<td>Archive <code>/services/img/{identifier}</code>.</td>
+</tr>
+<tr>
+<td>Category map</td>
+<td><code>https://jutlandiatech.github.io/ArchivePlayer/catalog/category-map.json</code>.</td>
+</tr>
+<tr>
+<td>Playlist links</td>
+<td>GitHub Pages <code>/ArchivePlayer/p</code> with versioned compressed fragment payload.</td>
+</tr>
+</tbody></table>
+<p><code>ArchiveClient</code> adds a version User-Agent, checks the initial host against Archive/GitHub Pages/test hosts, and retries 429/5xx up to three total attempts. It uses integer-second Retry-After or exponential delays. Downloads and Media3 use other network paths; this client is not a universal network gateway or redirect-validation layer.</p>
+<p>Category refresh validates JSON before writing a temporary cache and renaming it. It does not replace an already selected in-memory map. Search results live in controller state; item metadata is cached by the repository in memory.</p>
+<p>Sources: <a href="https://github.com/jutlandiatech/ArchivePlayer/blob/main/app/src/main/java/com/jutlandiatech/archiveplayer/data/ArchiveRepository.kt">repository</a>, <a href="https://github.com/jutlandiatech/ArchivePlayer/blob/main/core/src/main/kotlin/com/jutlandiatech/archiveplayer/core/net/ArchiveClient.kt">network client</a>, <a href="https://github.com/jutlandiatech/ArchivePlayer/blob/main/core/src/main/kotlin/com/jutlandiatech/archiveplayer/core/search/Search.kt">search builders</a>.</p>
+<h2 id="import-export-and-android-integration">Import, export and Android integration</h2><p>Pure Kotlin <a href="https://github.com/jutlandiatech/ArchivePlayer/blob/main/core/src/main/kotlin/com/jutlandiatech/archiveplayer/core/playlist/Playlists.kt">playlist/library codecs</a> handle serialization. <code>AppViewModel</code> connects them to intents, previews, share choosers and document streams. Library export includes playlists, likes, follows, history and settings, but neither media bytes nor download index. Library import uses <code>LibraryMerger</code>; it does not reconstruct downloaded files.</p>
+<p><code>MainActivity</code> is exported for launch/import and <code>PlaybackService</code> for Media3/external controllers. FileProvider and download keep-alive service are not exported. Backup is enabled with internal/external download folders excluded by <a href="https://github.com/jutlandiatech/ArchivePlayer/blob/main/app/src/main/res/xml/backup_rules.xml">backup_rules.xml</a> and <a href="https://github.com/jutlandiatech/ArchivePlayer/blob/main/app/src/main/res/xml/data_extraction_rules.xml">data_extraction_rules.xml</a>. Actual restoration still needs device validation.</p>
+<p><a href="https://github.com/jutlandiatech/ArchivePlayer/blob/main/app/src/main/java/com/jutlandiatech/archiveplayer/AppEnvironment.kt">AppEnvironment</a> provides instrumentation overrides for URLs, connectivity, storage, shuffle and Cast state. These are test seams rather than user configuration. Debug cleartext settings are separate from release configuration.</p>
+</article><aside class="on-this-page"><span class="eyebrow">ON THIS PAGE</span><nav id="toc" aria-label="On this page"></nav></aside></div><footer>ArchivePlayer · Independent of the Internet Archive.<br>Implementation notes and historical test evidence are distinguished throughout.</footer></main></div></body></html>

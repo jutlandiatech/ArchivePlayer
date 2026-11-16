@@ -1,0 +1,1080 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="ArchivePlayer documentation: Specification"><title>Specification · ArchivePlayer Docs</title><link rel="stylesheet" href="assets/docs.css"><script defer src="assets/vendor/mermaid.min.js"></script><script defer src="assets/docs.js"></script></head><body><a class="skip" href="#content">Skip to content</a><header class="topbar"><a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true">A<span>≋</span></span><span>ArchivePlayer <small>Documentation</small></span></a><div class="top-actions"><a href="ArchivePlayer-Documentation-Summary.pdf">PDF summary ↓</a><a href="https://github.com/jutlandiatech/ArchivePlayer">Source ↗</a><button id="menu" aria-expanded="false" aria-controls="sidebar">Menu</button></div></header><div class="layout"><aside id="sidebar"><span class="eyebrow">THE HANDBOOK</span><label class="search-label" for="nav-search">Find a document</label><input id="nav-search" type="search" placeholder="Search documents…"><nav aria-label="Documentation"><a href="index.html" ><span>Overview</span></a><a href="user-guide.html" ><span>User guide</span></a><a href="getting-started.html" ><span>Getting started</span></a><a href="architecture.html" ><span>Architecture &amp; UML</span></a><a href="data.html" ><span>Data &amp; integrations</span></a><a href="maintenance.html" ><span>Maintenance</span></a><a href="app-links.html" ><span>App Links</span></a><a href="requirements.html" aria-current="page"><span>Specification</span></a><a href="testing.html" ><span>Testing &amp; traceability</span></a><a href="evidence.html" ><span>Recorded test evidence</span></a><a href="environment.html" ><span>Development environment</span></a><a href="ui-shell.html" ><span>UI: Shell</span></a><a href="ui-setup.html" ><span>UI: Setup</span></a><a href="ui-home.html" ><span>UI: Home</span></a><a href="ui-search.html" ><span>UI: Search</span></a><a href="ui-item.html" ><span>UI: Item</span></a><a href="ui-player.html" ><span>UI: Player</span></a><a href="ui-library.html" ><span>UI: Library</span></a><a href="ui-settings.html" ><span>UI: Settings</span></a></nav><p id="no-results" hidden>No matching documents.</p><div class="sidebar-note">Source-led documentation<br><strong>HTML edition · 16 Nov 2026</strong></div></aside><main id="content"><div class="page-heading"><span class="eyebrow">Reference</span><div><span>ArchivePlayer / Specification</span><a href="https://github.com/jutlandiatech/ArchivePlayer/blob/main/SPECIFICATION.md">Edit Markdown ↗</a></div></div><div class="reading-layout"><article><h1 id="archiveplayer--requirements-and-design-specification">ArchivePlayer — requirements and design specification</h1><p>Version: 1.0 (approved), 7 November 2026.</p>
+<p>Status: <strong>approved by Thomas on 7 November 2026.</strong> All requirement rows record decisions from the requirements interview and the review of v0.1 and v0.2 (decision log D01–D31). Changes from now on are made by pull request and recorded in the decision log. Per the SpecAndTestDrivenDevelopment workflow, tests are written before the implementation they cover (TESTING.md).</p>
+<p>Companion documents:</p>
+<ul>
+<li><a href="ui-shell.html">UI_SHELL_SPEC.md</a> — navigation shell, mini-player, theme and theme toggle, flavour differences, element-ID conventions.</li>
+<li><a href="ui-setup.html">UI_SETUP_SPEC.md</a> — first-launch setup (language, content languages, adult-content default).</li>
+<li><a href="ui-settings.html">UI_SETTINGS_SPEC.md</a> — Settings menu, detail screens and their element IDs.</li>
+<li><a href="ui-home.html">UI_HOME_SPEC.md</a> — Home rows, cards and refresh (H01–H12). Approved 8 November 2026.</li>
+<li><a href="ui-search.html">UI_SEARCH_SPEC.md</a> — search, suggestions, filters, sorts, browse and category pages (Q01–Q14). Approved 8 November 2026.</li>
+<li><a href="ui-item.html">UI_ITEM_SPEC.md</a> — item and collection pages, entry rows and menus (I01–I16). Approved 8 November 2026.</li>
+<li><a href="ui-player.html">UI_PLAYER_SPEC.md</a> — mini and full player, sheets, queue, PiP, errors (P01–P20). Approved 8 November 2026.</li>
+<li><a href="ui-library.html">UI_LIBRARY_SPEC.md</a> — Library, playlists, likes, follows, downloads, history, share/import (L01–L17). Approved 8 November 2026.</li>
+<li><a href="https://github.com/jutlandiatech/ArchivePlayer/blob/main/ANDROID_FEASIBILITY.md">ANDROID_FEASIBILITY.md</a> — archive.org, Cast and Android findings behind these requirements; <a href="architecture.html">docs/ARCHITECTURE_UML.md</a> — proposed architecture.</li>
+<li><a href="testing.html">TESTING.md</a> and <a href="evidence.html">TDD_EVIDENCE.md</a> — test strategy/traceability and recorded red→green runs (filled in the test gate).</li>
+<li>Design references: <a href="https://github.com/jutlandiatech/ArchivePlayer/blob/main/design/README.md">design/</a> (interactive mockup, logo).</li>
+</ul>
+<h2 id="1-purpose-and-scope">1. Purpose and scope</h2><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Requirement</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>R01</td>
+<td>ArchivePlayer makes the audio and video hosted on the Internet Archive (archive.org) convenient to discover, stream on the phone, and cast to a Chromecast device.</td>
+</tr>
+<tr>
+<td>R02</td>
+<td>Native Android app in Kotlin with Jetpack Compose (Material 3) and Jetpack Media3 (ExoPlayer, MediaSession, Cast). Android 8.0 / API 26 and newer.</td>
+</tr>
+<tr>
+<td>R03</td>
+<td>Open-source project on GitHub under the Apache License 2.0. Not targeted at Google Play; distributed as APKs through GitHub Releases in two build flavours (R80), one of them F-Droid-ready.</td>
+</tr>
+<tr>
+<td>R04</td>
+<td>v1 is anonymous and local-only: no sign-in, no ArchivePlayer server, no analytics, no advertising, no tracking. The app contacts only archive.org and the project&#39;s GitHub Pages site (R15, R54–R56).</td>
+</tr>
+<tr>
+<td>R05</td>
+<td>Design the data model so optional archive.org sign-in (e.g. syncing playlists to archive.org Lists) can be added later without migrating away from local identifiers. Sign-in is out of scope for v1.</td>
+</tr>
+<tr>
+<td>R06</td>
+<td>Supported form factors: phones (portrait and landscape) and tablets/foldables with dedicated large-screen layouts (R62). Android TV and Android Auto apps are out of scope; standard media-session controls (headsets, Bluetooth, Wear/Auto media controls provided by the system) must still work.</td>
+</tr>
+</tbody></table>
+<h2 id="2-content-source-and-catalog-model">2. Content source and catalog model</h2><p>archive.org facts that shape these requirements (observed November 2026; counts are time-dependent): roughly 17.6M <code>movies</code> items, 14.3M <code>audio</code> items, 0.3M <code>etree</code> live-concert items. <code>subject</code> is free text and noisy; <code>genre</code> is sparse; curated collections are the cleanest taxonomy; <code>language</code> uses mixed values (<code>fre</code>, <code>French</code>, <code>fr</code>, <code>Français</code>) and is missing on many items; playable derivatives are progressive files (h.264 MP4, &quot;512Kb MPEG4&quot;, VBR MP3, Ogg Vorbis, FLAC); download URLs redirect to <code>dn*.ca.archive.org</code>, support HTTP byte ranges and send <code>Access-Control-Allow-Origin: *</code>.</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Requirement</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>R07</td>
+<td>Media kinds: treat archive.org <code>mediatype</code> <code>movies</code> as <strong>video</strong> and <code>audio</code> and <code>etree</code> as <strong>audio</strong>. Other media types are excluded.</td>
+</tr>
+<tr>
+<td>R08</td>
+<td>Model content in three levels: <strong>Collection</strong> (archive.org collection or creator), <strong>Item</strong> (archive.org item), <strong>Entry</strong> (one playable file/track/episode inside an item). Single-file items have exactly one entry.</td>
+</tr>
+<tr>
+<td>R09</td>
+<td>Show only playable content. An item is playable when it contains at least one entry in a format supported for both local playback and Cast (R40). Search queries pre-filter by format where the API allows; items that turn out to have no playable entry when opened show a clear &quot;nothing playable&quot; state and are excluded from rows, playlists and downloads.</td>
+</tr>
+<tr>
+<td>R10</td>
+<td>Entries are grouped from archive.org files: original and derivative files of the same track/episode form one entry with several available formats. Non-media files (images, text, spectrograms, metadata, torrents) are not entries; images may be used as artwork; subtitle files attach to their entry (R45).</td>
+</tr>
+<tr>
+<td>R11</td>
+<td>Entry order follows the item&#39;s track metadata (<code>track</code> field) when present, otherwise natural filename order.</td>
+</tr>
+<tr>
+<td>R12</td>
+<td>Display metadata per item: title, creator, date/year, duration, media kind, normalized languages, collection(s), description (HTML stripped/sanitized), artwork (item image or first image file, with a generated placeholder fallback), archive.org link.</td>
+</tr>
+<tr>
+<td>R13</td>
+<td>Language normalization: map archive.org <code>language</code> values (ISO 639-1/639-2 codes, English names, native names, case variants) to ISO 639-1 codes through a versioned mapping table covered by unit tests. Unmapped values are ignored for filtering and logged in debug builds. Items without any mappable language are &quot;untagged&quot;.</td>
+</tr>
+</tbody></table>
+<h2 id="3-curated-category-map">3. Curated category map</h2><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Requirement</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>R14</td>
+<td>Discovery categories come from a hand-curated, versioned <strong>category map</strong> (JSON). Each category has a stable ID, localized names (English fallback), media kind, optional artwork, child categories, and a query definition composed of archive.org collections, subjects/genres and other field filters. Example: Video → Movies → Film Noir = collection <code>Film_Noir</code> OR subject <code>film noir</code>.</td>
+</tr>
+<tr>
+<td>R15</td>
+<td>A copy of the category map is bundled in the APK. The app fetches the latest version from the project&#39;s GitHub Pages site, validates it against the schema version it supports, caches it, and falls back to the cached or bundled copy when the fetch fails or validation fails. Never show a broken or partially parsed map.</td>
+</tr>
+<tr>
+<td>R16</td>
+<td>The category map file lives in the repository and is updated via normal pull requests; changing categories never requires a new APK as long as the schema version is unchanged.</td>
+</tr>
+<tr>
+<td>R17</td>
+<td>The initial map contains: <strong>Video</strong> — Movies (Comedy, Drama, Film Noir, Sci-Fi &amp; Horror, Westerns, Silent films, Animation &amp; cartoons), TV (classic TV by decade, 1940s–1990s), Documentaries, Newsreels &amp; historical footage; <strong>Audio</strong> — Music (Rock, Pop, Jazz, Classical, Folk &amp; World, Hip-hop, Electronic/Netlabels, 78rpm records), Live concerts (etree and top artist collections), Old Time Radio (Drama, Comedy, Westerns, Mystery &amp; Suspense, Sci-Fi), Podcasts, Audiobooks &amp; spoken word. Each category has a concrete query; a test verifies every query returns playable results. Later changes go through pull requests to the map file.</td>
+</tr>
+</tbody></table>
+<h2 id="4-home-screen">4. Home screen</h2><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Requirement</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>R18</td>
+<td>Home is a vertical list of horizontal rows (Spotify-style). Personal rows: Continue watching/listening, Recently played, Your playlists, Downloads, New in collections you follow. Curated rows come from the category map. Personal rows are hidden when empty.</td>
+</tr>
+<tr>
+<td>R19</td>
+<td>&quot;Because you played X&quot; rows are computed on the device from local history (same collection, creator, or subject as recently completed or long-played items). No history leaves the device.</td>
+</tr>
+<tr>
+<td>R20</td>
+<td>Curated rows favour the user&#39;s preferred content languages (R27) without hiding content that has no language tag.</td>
+</tr>
+<tr>
+<td>R21</td>
+<td>&quot;New in collections you follow&quot; is refreshed when the app opens (and on pull-to-refresh), at most once every 6 hours, showing items added since the last check. No push notifications in v1.</td>
+</tr>
+</tbody></table>
+<h2 id="5-search-and-browse">5. Search and browse</h2><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Requirement</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>R22</td>
+<td>Search tab: query field with as-you-type suggestions drawn from local search history, followed collections and category names; no remote suggestions in v1. Suggestion requests are debounced by 300 ms.</td>
+</tr>
+<tr>
+<td>R23</td>
+<td>Filters (chips): media kind (all/audio/video), category, language, decade, duration class (short &lt; 20 min, episode 20–60 min, feature &gt; 60 min). Filters combine with AND; selected filters remain visible and individually removable.</td>
+</tr>
+<tr>
+<td>R24</td>
+<td>Sort: relevance (default), popularity (archive.org download counts), newest added, original date.</td>
+</tr>
+<tr>
+<td>R25</td>
+<td>Results are grouped: Collections, Items, and the user&#39;s own playlists matching the query. Results page incrementally (infinite scroll) and show a clear empty state and error/retry state.</td>
+</tr>
+<tr>
+<td>R87</td>
+<td>Text search uses archive.org&#39;s own website search (the relevance-ranked endpoint behind archive.org/search, metadata backend) restricted to the media kinds in R07, so results match what archive.org users see. When that endpoint fails or returns an unparseable response, the app falls back to <code>advancedsearch.php</code> with title-weighted relevance. Third-party search engines are not used (Google&#39;s Custom Search JSON API is closed to new customers and ends 1 January 2027; see docs/proposals/2026-11-13-fullscreen-search-cast.md).</td>
+</tr>
+<tr>
+<td>R26</td>
+<td>Without a query, the Search tab shows the category map as browsable tiles (browse). Opening a category shows its sub-categories and a results list using the same filters and sorts.</td>
+</tr>
+<tr>
+<td>R27</td>
+<td>Preferred content languages: chosen during setup (UI_SETUP_SPEC.md) and in Settings; zero or more ISO languages. They are a separate setting from the app (UI) language: changing one never changes the other, and they have distinct names (&quot;App language&quot; vs &quot;Content languages&quot;).</td>
+</tr>
+<tr>
+<td>R28</td>
+<td>When a language filter is active, only items tagged with a matching normalized language are shown; untagged items are excluded. Without a language filter, untagged items are shown normally.</td>
+</tr>
+<tr>
+<td>R29</td>
+<td>Recent searches are stored locally, shown in the Search tab, and can be removed individually or cleared.</td>
+</tr>
+</tbody></table>
+<h2 id="6-item-pages">6. Item pages</h2><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Requirement</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>R30</td>
+<td>Every item opens as an album/show page: artwork, title, creator, year, media kind, languages, collection link, Like, Follow (collection/creator), Share, Download (audio only, R59), Play all, Shuffle, and the list of entries. Single-entry items use the same page with one entry.</td>
+</tr>
+<tr>
+<td>R31</td>
+<td>Entries can be played individually (starting playback of the item from that entry), added to the queue (play next / add to queue), added to a playlist, liked, and (audio) downloaded. The whole item can be added to a playlist as its entries.</td>
+</tr>
+<tr>
+<td>R32</td>
+<td>Long entry lists (hundreds of episodes) are virtualized and filterable within the page; a filter field is shown for items with more than 30 entries.</td>
+</tr>
+<tr>
+<td>R33</td>
+<td>Collection pages show collection metadata, Follow, and the collection&#39;s items with the same filters/sorts as search.</td>
+</tr>
+</tbody></table>
+<h2 id="7-playback">7. Playback</h2><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Requirement</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>R34</td>
+<td>One shared Media3 player behind a <code>MediaSessionService</code> provides background playback, notification and lock-screen controls, audio focus handling, and becoming-noisy (headphones unplugged) pause.</td>
+</tr>
+<tr>
+<td>R35</td>
+<td>Queue: playing an item, playlist or Liked list replaces the queue in order; users can play next, add to queue, reorder and remove queue entries. Audio and video entries may be mixed in one queue; the player switches between the audio layout (artwork) and the video surface per entry.</td>
+</tr>
+<tr>
+<td>R36</td>
+<td>Resume position is stored per entry (after 30 s played; the last 30 s or 95 % count as finished) and feeds Continue watching/listening. Finished entries are marked played.</td>
+</tr>
+<tr>
+<td>R37</td>
+<td>Controls: play/pause, seek bar, previous/next, skip back/forward (back 10 s / forward 30 s), playback speed 0.5–2.0×, shuffle, repeat off/all/one, sleep timer (minutes or end of current entry).</td>
+</tr>
+<tr>
+<td>R38</td>
+<td>Picture-in-picture for video when the user leaves the app during video playback (Android 8+), with play/pause and skip actions.</td>
+</tr>
+<tr>
+<td>R39</td>
+<td>Background audio continues with the screen off. When a video entry plays in the background without PiP, its audio continues and the video resumes on return.</td>
+</tr>
+<tr>
+<td>R86</td>
+<td>Full-screen video: the full player offers a maximize button for video entries. The video surface follows the video&#39;s real aspect ratio. For videos 4:3 or wider, maximize switches to landscape (sensor-following), hides the system bars and shows the video edge to edge with auto-hiding overlaid controls; narrower videos go full screen in portrait. Tilting the phone to landscape while a 4:3-or-wider video plays in the full player also enters full screen; tilting back, Back or the minimize button leaves it and restores orientation and system bars. Landscape is only for video playing on the phone in full screen: while casting (R46), the app never forces or auto-enters landscape, and the maximize button is hidden. Layout and IDs in UI_PLAYER_SPEC.md.</td>
+</tr>
+<tr>
+<td>R40</td>
+<td>Format selection: automatically pick the best format playable both locally and on the default Cast receiver — video: h.264 MP4 (preferred over &quot;512Kb MPEG4&quot; and others); audio: VBR MP3, then 128 kbps MP3, then Ogg Vorbis (local only, never sent to Cast). FLAC is never auto-selected in v1.</td>
+</tr>
+<tr>
+<td>R41</td>
+<td>Data saver setting: on metered networks prefer the lower-bitrate video derivative (&quot;512Kb MPEG4&quot;) and the lowest-bitrate MP3. Default: on; applies to metered networks only.</td>
+</tr>
+<tr>
+<td>R42</td>
+<td>Quality menu in the player lists the entry&#39;s alternative playable formats; a manual choice applies to the current entry only.</td>
+</tr>
+<tr>
+<td>R43</td>
+<td>Playback errors (network loss, HTTP errors, unsupported format) show a recoverable error with Retry and automatically fall back to the next suitable format once before reporting.</td>
+</tr>
+<tr>
+<td>R44</td>
+<td>Played entries and play events are recorded locally in history (for R18/R19), and history recording can be paused and cleared in Settings.</td>
+</tr>
+<tr>
+<td>R45</td>
+<td>Subtitles: when an entry has SubRip (<code>.srt</code>) or WebVTT (<code>.vtt</code>) files, all are offered in a subtitle menu (off by default), labelled with their language where known. Tracks identified as machine-generated (archive.org speech recognition, detected from file name or metadata) are labelled &quot;Auto-generated&quot;.</td>
+</tr>
+</tbody></table>
+<h2 id="8-chromecast">8. Chromecast</h2><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Requirement</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>R46</td>
+<td>Full Cast support (<code>full</code> flavour, R80) with Google&#39;s Default Media Receiver: a Cast button in the top bar and player; any entry, item, playlist or queue can be cast. Every item sent to the receiver carries its MIME type (derived from the archive.org format), always the https archive.org URL (never a downloaded local file), and only WebVTT subtitles.</td>
+</tr>
+<tr>
+<td>R47</td>
+<td>The whole queue is handed to the receiver so playback continues when the phone is locked, the app is backgrounded, or its process is killed.</td>
+</tr>
+<tr>
+<td>R48</td>
+<td>Playback transfers seamlessly between phone and Chromecast in both directions, preserving queue, current entry and position.</td>
+</tr>
+<tr>
+<td>R49</td>
+<td>While casting, the app, notification and lock screen control the Cast session (play/pause, seek, next/previous, volume). Cast-only limitations (e.g. picture-in-picture, local subtitles if unsupported) are handled gracefully. Formats sent to Cast must satisfy R40; Ogg Vorbis is never sent to Cast (MP3 is used instead).</td>
+</tr>
+</tbody></table>
+<h2 id="9-library-playlists-likes-follows-history">9. Library: playlists, likes, follows, history</h2><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Requirement</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>R50</td>
+<td>Library tab with filter chips: Playlists, Liked, Following, Downloads, History. Settings is reachable from the top bar of every tab root (Home, Search, Library).</td>
+</tr>
+<tr>
+<td>R51</td>
+<td>Playlists: create, rename, describe, delete (with undo), reorder entries, remove entries; mixed audio and video entries allowed; artwork is a mosaic of the first entries&#39; artwork. Playlists can be played, shuffled, cast, shared, exported and (audio entries) downloaded.</td>
+</tr>
+<tr>
+<td>R52</td>
+<td>Liked: a heart on any entry or item adds it to an automatic &quot;Liked&quot; list that behaves like a playlist (play, shuffle, cast, share, download) but cannot be renamed or deleted.</td>
+</tr>
+<tr>
+<td>R53</td>
+<td>Following: users follow collections and creators; followed sources feed the Home row (R21) and are listed in Library.</td>
+</tr>
+</tbody></table>
+<h2 id="10-sharing-and-export">10. Sharing and export</h2><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Requirement</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>R54</td>
+<td>Share link: a playlist (or the Liked list, or a single item/entry) can be shared as an https link to the project&#39;s GitHub Pages site. The link fragment encodes a versioned, compressed payload (title, optional description, ordered archive.org identifiers and file names); no data is sent to any server when creating or opening the link.</td>
+</tr>
+<tr>
+<td>R55</td>
+<td>With ArchivePlayer installed, opening a share link opens an import preview in the app (verified Android App Link via <code>https://jutlandiatech.github.io/.well-known/assetlinks.json</code>, served from the organisation site; see docs/APP_LINKS.md). Importing creates a new local playlist; it never overwrites an existing one.</td>
+</tr>
+<tr>
+<td>R56</td>
+<td>Without the app, the GitHub Pages share page renders the playlist from the fragment: titles (fetched from archive.org by the page), links to archive.org, and a link to the app&#39;s download page.</td>
+</tr>
+<tr>
+<td>R57</td>
+<td>Playlists whose share link would exceed 8,000 characters (about 300–500 entries after compression) are shared as a file instead, with a clear explanation.</td>
+</tr>
+<tr>
+<td>R58</td>
+<td>Playlist file export/import via the Android share sheet and Storage Access Framework, format <code>.archiveplaylist</code> (JSON, versioned schema). The full-library export (R74) is a superset of this format. Import validates the schema and reports skipped/invalid entries.</td>
+</tr>
+</tbody></table>
+<h2 id="11-offline-downloads-audio-only">11. Offline downloads (audio only)</h2><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Requirement</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>R59</td>
+<td>Audio entries, whole audio items, playlists and Liked can be downloaded for offline playback. Video entries are not downloadable in v1; when downloading a mixed playlist, only its audio entries download and the UI says so.</td>
+</tr>
+<tr>
+<td>R60</td>
+<td>Downloads run in a background download worker kept alive by a foreground service, so they survive closing the app and resume (HTTP byte ranges) after network loss. Files are stored as plain files in the chosen download location (R85). &quot;Download on Wi-Fi only&quot; is on by default; Settings can switch it off, and while it is on, a download waiting for Wi-Fi offers a one-off &quot;Download now on mobile data&quot; action.</td>
+</tr>
+<tr>
+<td>R61</td>
+<td>Downloaded entries play offline automatically (cast falls back to streaming). Used and free storage are shown, with a warning below 500 MB free; no hard storage limit in v1. Downloads can be removed individually or all at once.</td>
+</tr>
+<tr>
+<td>R85</td>
+<td>Download location: Settings → Storage &amp; downloads offers &quot;Internal storage&quot; (default) and &quot;SD card&quot;, each showing its free space. &quot;SD card&quot; is offered only while a removable volume is mounted. Files go to ArchivePlayer&#39;s own folder on the chosen volume (<code>Context.getExternalFilesDirs</code>, no storage permission); Settings states that they are removed when the app is uninstalled. Changing the location applies to new downloads and offers to move existing downloads, showing count and size; the user can decline. A move is resumable, and a source file is deleted only after its copy is verified. If the card is removed, downloads on it are marked &quot;SD card removed&quot; and play by streaming; they are not deleted and work offline again when the card returns. While the chosen card is missing, new downloads go to internal storage and the Storage screen says so. Used/free storage and the 500 MB warning (R61) are per location. Same in both flavours.</td>
+</tr>
+</tbody></table>
+<h2 id="12-devices-layout-look-and-feel">12. Devices, layout, look and feel</h2><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Requirement</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>R62</td>
+<td>Large screens (≥ 600 dp width) use tablet-optimized layouts: navigation rail instead of bottom bar, two-pane list/detail where useful, and the expanded player beside content. See UI_SHELL_SPEC.md.</td>
+</tr>
+<tr>
+<td>R63</td>
+<td>Visual style follows jutlandiatech/sim-warning-app (&quot;Nordic&quot;): <strong>Nordic light</strong> is the default theme regardless of the system setting — white-dominant surfaces, black text, medium blue <code>#2769AD</code> accent. <strong>Nordic noir</strong> is the dark variant (dark neutral surfaces, light text, a lighter tint of the same blue where contrast requires). No dynamic (wallpaper) colour. Theme switching: R82.</td>
+</tr>
+<tr>
+<td>R64</td>
+<td>Accessibility: Android text scaling, TalkBack labels for all controls, touch targets ≥ 48 dp, sufficient contrast in both themes. Validate all three UI languages at enlarged font sizes without clipping.</td>
+</tr>
+</tbody></table>
+<h2 id="13-localization-and-stable-element-ids">13. Localization and stable element IDs</h2><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Requirement</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>R65</td>
+<td>UI languages: English, German, Danish. All app-owned text comes from per-language JSON text catalogs <code>app/src/main/assets/texts/TextCatalog_&lt;CODE&gt;.json</code> (<code>ENG</code>, <code>GER</code>, <code>DEN</code>), using stable text keys and named <code>{placeholders}</code> with strict argument checking, following the approach of jutlandiatech/sim-warning-app.</td>
+</tr>
+<tr>
+<td>R66</td>
+<td>Adding a UI language requires only adding a new catalog file: the app discovers catalogs in <code>assets/texts/</code>, and each catalog names itself (<code>language.self</code>, plus its ISO code). A unit test fails the build if any catalog&#39;s key set differs from the English reference or contains blank values.</td>
+</tr>
+<tr>
+<td>R67</td>
+<td>First launch has a setup step that selects the UI language: rows with flag and native language name, preselecting the phone&#39;s language when a catalog exists, otherwise English; switching updates the UI immediately. The choice can be changed later in Settings.</td>
+</tr>
+<tr>
+<td>R68</td>
+<td>Category names in the category map carry translations; missing translations fall back to English. Content metadata from archive.org is shown as-is (not translated).</td>
+</tr>
+<tr>
+<td>R69</td>
+<td>Every app-owned screen root, interactive control and status element has a stable, language-independent element ID (Compose <code>testTag</code>, exposed as resource IDs via <code>testTagsAsResourceId</code>) registered in the UI specs. Tests locate elements by ID, never by localized text or coordinates; they separately assert visible text against catalog values.</td>
+</tr>
+</tbody></table>
+<h2 id="14-content-filtering">14. Content filtering</h2><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Requirement</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>R70</td>
+<td>Adult content is hidden by default. Settings offers an opt-in &quot;Show adult content&quot; switch with a short explanation.</td>
+</tr>
+<tr>
+<td>R71</td>
+<td>Filtering is best-effort and stated as such in Settings/Help. Mechanism: exclude items in archive.org&#39;s <code>no-preview</code> collection and items whose subjects or title match a curated keyword list (adult, porn, xxx, nsfw, erotic and equivalents in English, German, Danish, French). The keyword list is a remote JSON file on the GitHub Pages site next to the category map, with a bundled fallback and the same validation rules (R15). Applied to search queries and as a client-side check on item pages, Home rows and playlists imported via link or file.</td>
+</tr>
+</tbody></table>
+<h2 id="15-settings-backup-and-privacy">15. Settings, backup and privacy</h2><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Requirement</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>R72</td>
+<td>Settings (menu style per R83; layout, detail screens and IDs in UI_SETTINGS_SPEC.md): UI language, appearance (R82), preferred content languages, data saver, download on Wi-Fi only, storage/downloads (incl. download location, R85), subtitles default, show adult content, history (pause/clear), clear search history, export/import library, about (version, flavour, license, open-source notices, archive.org attribution).</td>
+</tr>
+<tr>
+<td>R73</td>
+<td>Library data (playlists, likes, follows, history, settings) is stored locally (Room/DataStore) and included in Android Auto Backup. Downloaded media and caches are excluded from backup.</td>
+</tr>
+<tr>
+<td>R74</td>
+<td>&quot;Export library&quot; / &quot;Import library&quot; writes/reads one versioned JSON file via the Storage Access Framework, working without Google services. Import merges (no silent overwrite) and reports conflicts.</td>
+</tr>
+<tr>
+<td>R75</td>
+<td>No analytics, crash reporting SDKs, or third-party trackers. Network access is limited to archive.org domains and the project&#39;s GitHub Pages domain.</td>
+</tr>
+</tbody></table>
+<h2 id="16-non-functional-requirements">16. Non-functional requirements</h2><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Requirement</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>R76</td>
+<td>Be a good archive.org citizen: descriptive User-Agent with app name, version and project URL; HTTP caching of search and metadata responses; request debouncing; paging rather than bulk crawling; exponential back-off on HTTP 429/5xx. No bulk or background crawling.</td>
+</tr>
+<tr>
+<td>R77</td>
+<td>Responsiveness: Home renders cached content immediately and refreshes in the background; the UI never blocks on network. Targets: first Home content &lt; 3 s on a warm cache; search results &lt; 5 s on a typical 4G connection; requests taking longer than 15 s show a &quot;still loading&quot; state with Retry. Measured on an emulator with network shaping and on a real phone.</td>
+</tr>
+<tr>
+<td>R78</td>
+<td>Robustness: archive.org metadata is untrusted input. Parsing tolerates missing/odd fields and never crashes the app; descriptions are sanitized before display.</td>
+</tr>
+<tr>
+<td>R79</td>
+<td>Architecture separates a pure-Kotlin core (catalog model, language normalization, category-map parsing, format selection, share-link encoding, playlist/queue logic) from Android adapters, so most behavior is unit-testable on the JVM with MockWebServer-based functional tests.</td>
+</tr>
+</tbody></table>
+<h2 id="16a-build-flavours-appearance-and-menus">16a. Build flavours, appearance and menus</h2><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Requirement</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>R80</td>
+<td>Two product flavours from the start: <strong><code>full</code></strong> (with Chromecast via the Google Cast SDK, distributed through GitHub Releases) and <strong><code>foss</code></strong> (no Cast, no Google Play Services or other proprietary libraries, F-Droid-ready). Both flavours share all other code and behavior. CI builds and tests both.</td>
+</tr>
+<tr>
+<td>R81</td>
+<td>In <code>foss</code>, every Cast requirement (R46–R49) has a defined &quot;no Cast&quot; behavior: no Cast button or Cast indicator is shown, no Cast route discovery happens, and all playback is local. Cast code lives behind an interface with a no-op <code>foss</code> implementation; tests cover both implementations. The About screen shows the flavour.</td>
+</tr>
+<tr>
+<td>R82</td>
+<td>Appearance: Nordic light by default. A theme toggle (sun/moon icon) in the top bar of each tab root switches between Nordic light and Nordic noir in one tap; Settings → Appearance offers Nordic light, Nordic noir and Follow system. The choice is persisted, applies immediately without losing screen state, and is included in backup/export.</td>
+</tr>
+<tr>
+<td>R83</td>
+<td>Menus and settings follow sim-warning-app&#39;s design language: Settings is a list of full-width rows with a blue icon, the label, the current value as secondary text and a chevron; each row opens its own detail screen; changes apply immediately (no Save button). Body text 18 sp, headings about 28 sp, controls at least 48 dp, generous spacing. The UI-language detail screen uses the same flag + native-name rows as setup.</td>
+</tr>
+<tr>
+<td>R84</td>
+<td>Logo &quot;Signal A&quot;: a bold &quot;A&quot; whose crossbar is a play triangle, with two signal arcs at the apex. Masters in <code>design/logo/</code>: the launcher icon is an adaptive icon (white glyph on <code>#2769AD</code>, glyph inside the 66 dp safe zone) with an Android 13+ monochrome layer; in the app, the blue glyph plus the &quot;Archive<strong>Player</strong>&quot; wordmark appears in the setup header and About. Both flavours use the same icon.</td>
+</tr>
+</tbody></table>
+<h2 id="17-acceptance-scenarios">17. Acceptance scenarios</h2><p>These scenarios define intended behavior, not completed tests. Each must be translated into tests before its production implementation.</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Given / when</th>
+<th>Expected outcome</th>
+<th>Requirements</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>A01</td>
+<td>First launch on a German phone</td>
+<td>Setup preselects Deutsch; UI shows German catalog text</td>
+<td>R65–R67</td>
+</tr>
+<tr>
+<td>A02</td>
+<td>First launch on a phone set to Spanish</td>
+<td>Setup preselects English</td>
+<td>R67</td>
+</tr>
+<tr>
+<td>A03</td>
+<td>A new <code>TextCatalog_FRA.json</code> with all keys is added to assets</td>
+<td>French appears as UI language choice without code changes</td>
+<td>R66</td>
+</tr>
+<tr>
+<td>A04</td>
+<td>A catalog misses one key</td>
+<td>Catalog-parity test fails</td>
+<td>R66</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>Item has <code>language</code> = <code>fre</code>, another <code>French</code>, another <code>Français</code></td>
+<td>All three match the French filter and display as French</td>
+<td>R13, R28</td>
+</tr>
+<tr>
+<td>A06</td>
+<td>Language filter French is active; a film has no language field</td>
+<td>Film is not in results</td>
+<td>R28</td>
+</tr>
+<tr>
+<td>A07</td>
+<td>No language filter; same film</td>
+<td>Film can appear in results</td>
+<td>R28</td>
+</tr>
+<tr>
+<td>A08</td>
+<td>Remote category map is unreachable on first start</td>
+<td>Bundled map is used; categories are shown</td>
+<td>R15</td>
+</tr>
+<tr>
+<td>A09</td>
+<td>Remote map has an unsupported schema version or invalid JSON</td>
+<td>Previous cached or bundled map is used</td>
+<td>R15</td>
+</tr>
+<tr>
+<td>A10</td>
+<td>Search &quot;gunsmoke&quot;, filter audio, sort popularity</td>
+<td>Audio results sorted by download count; grouped Collections / Items / Playlists</td>
+<td>R22–R25</td>
+</tr>
+<tr>
+<td>A11</td>
+<td>Open an item with 487 episodes</td>
+<td>Album/show page with virtualized list; entry order per R11</td>
+<td>R30–R32</td>
+</tr>
+<tr>
+<td>A12</td>
+<td>Item with only images and text</td>
+<td>Not shown in results; if opened by link, shows &quot;nothing playable&quot;</td>
+<td>R09</td>
+</tr>
+<tr>
+<td>A13</td>
+<td>Video entry offers h.264 and 512Kb MPEG4, data saver on, metered network</td>
+<td>512Kb MPEG4 selected; quality menu lists both</td>
+<td>R40–R42</td>
+</tr>
+<tr>
+<td>A14</td>
+<td>Same entry on Wi-Fi</td>
+<td>h.264 selected</td>
+<td>R40–R41</td>
+</tr>
+<tr>
+<td>A15</td>
+<td>Audio entry offers VBR MP3, 128 kbps MP3, Ogg, FLAC</td>
+<td>VBR MP3 selected; FLAC listed but never auto-selected</td>
+<td>R40</td>
+</tr>
+<tr>
+<td>A16</td>
+<td>Play a mixed playlist (audio, video, audio)</td>
+<td>Player switches layout per entry; queue order kept</td>
+<td>R35</td>
+</tr>
+<tr>
+<td>A17</td>
+<td>Stop a 90-minute film at 40 min, reopen app</td>
+<td>Film in Continue watching; resumes at 40 min</td>
+<td>R36</td>
+</tr>
+<tr>
+<td>A18</td>
+<td>Start Cast during playback of entry 3 of a playlist at 12:34</td>
+<td>Playback continues on Chromecast at entry 3, 12:34 with full queue</td>
+<td>R46–R48</td>
+</tr>
+<tr>
+<td>A19</td>
+<td>While casting, lock phone and kill the app process</td>
+<td>Receiver continues through the queue</td>
+<td>R47</td>
+</tr>
+<tr>
+<td>A20</td>
+<td>Stop Cast session</td>
+<td>Playback continues on the phone at the current position</td>
+<td>R48</td>
+</tr>
+<tr>
+<td>A21</td>
+<td>Share a 20-entry playlist; open link on a phone with the app</td>
+<td>Import preview; importing creates a new playlist with the same 20 entries in order</td>
+<td>R54–R55</td>
+</tr>
+<tr>
+<td>A22</td>
+<td>Open the same link in a desktop browser</td>
+<td>Pages site lists the 20 entries with archive.org links</td>
+<td>R56</td>
+</tr>
+<tr>
+<td>A23</td>
+<td>Share a playlist whose link exceeds the limit</td>
+<td>User is offered file sharing instead</td>
+<td>R57</td>
+</tr>
+<tr>
+<td>A24</td>
+<td>Export a playlist file and import it on another phone</td>
+<td>Identical playlist created; invalid entries reported</td>
+<td>R58</td>
+</tr>
+<tr>
+<td>A25</td>
+<td>Download a mixed playlist on mobile data with Wi-Fi-only on</td>
+<td>Only audio entries queued; downloads wait for Wi-Fi and offer the mobile-data override; UI explains both</td>
+<td>R59–R60</td>
+</tr>
+<tr>
+<td>A26</td>
+<td>Airplane mode; play a downloaded audio entry</td>
+<td>Plays offline</td>
+<td>R61</td>
+</tr>
+<tr>
+<td>A27</td>
+<td>Adult setting off; search a term matching known adult items</td>
+<td>Those items are not shown</td>
+<td>R70–R71</td>
+</tr>
+<tr>
+<td>A28</td>
+<td>Like an entry; follow a collection; restart app</td>
+<td>Entry in Liked; collection in Following and feeds Home row</td>
+<td>R52–R53, R21</td>
+</tr>
+<tr>
+<td>A29</td>
+<td>Export library, clear app data, import library</td>
+<td>Playlists, likes, follows, settings restored</td>
+<td>R74</td>
+</tr>
+<tr>
+<td>A30</td>
+<td>Tablet in landscape</td>
+<td>Navigation rail and two-pane layouts</td>
+<td>R62</td>
+</tr>
+<tr>
+<td>A31</td>
+<td>All three languages at 200% font scale, compact phone width</td>
+<td>No clipping; controls reachable; element IDs unchanged</td>
+<td>R64, R69</td>
+</tr>
+<tr>
+<td>A32</td>
+<td>Play video, press Home</td>
+<td>Picture-in-picture with controls</td>
+<td>R38</td>
+</tr>
+<tr>
+<td>A33</td>
+<td>Entry has <code>.srt</code> subtitles</td>
+<td>Subtitle menu offers it; off by default</td>
+<td>R45</td>
+</tr>
+<tr>
+<td>A34</td>
+<td>Sleep timer &quot;end of current entry&quot;</td>
+<td>Playback pauses when the entry ends</td>
+<td>R37</td>
+</tr>
+<tr>
+<td>A35</td>
+<td>archive.org returns HTTP 429</td>
+<td>Back-off and user-visible retry; no request storm</td>
+<td>R76</td>
+</tr>
+<tr>
+<td>A37</td>
+<td>Install the <code>foss</code> APK; open Home, an item and the player</td>
+<td>No Cast button or indicator anywhere; playback works locally; About shows <code>foss</code></td>
+<td>R80–R81</td>
+</tr>
+<tr>
+<td>A38</td>
+<td>Fresh install on a phone set to dark mode</td>
+<td>App starts in Nordic light; tapping the theme toggle switches to Nordic noir immediately and persists across restarts</td>
+<td>R63, R82</td>
+</tr>
+<tr>
+<td>A39</td>
+<td>Wi-Fi only on, on mobile data; start a download and choose &quot;Download now on mobile data&quot;</td>
+<td>That download starts on mobile data; the setting stays on</td>
+<td>R60</td>
+</tr>
+<tr>
+<td>A40</td>
+<td>Entry has a human-made <code>.srt</code> and a machine-generated transcript subtitle</td>
+<td>Both offered; the machine-generated one labelled &quot;Auto-generated&quot;</td>
+<td>R45</td>
+</tr>
+<tr>
+<td>A41</td>
+<td>Remote adult keyword list adds a keyword</td>
+<td>Matching items are hidden after the next successful fetch, without a new APK</td>
+<td>R71</td>
+</tr>
+<tr>
+<td>A42</td>
+<td>Content languages are English + French; user switches app language to Dansk (setup or Settings)</td>
+<td>Content languages stay English + French; switching content languages never changes the app language</td>
+<td>R27, R67</td>
+</tr>
+<tr>
+<td>A43</td>
+<td>SD card inserted; user picks &quot;SD card&quot; as download location and downloads an album</td>
+<td>Files are stored in ArchivePlayer&#39;s folder on the SD card; Storage &amp; downloads shows the usage under SD card</td>
+<td>R85</td>
+</tr>
+<tr>
+<td>A44</td>
+<td>2 downloads (416 MB) on internal storage; user switches the location to SD card</td>
+<td>Prompt &quot;Move 2 downloads (416 MB) to SD card?&quot;. Move: both are moved and still play offline. Keep: they stay; new downloads go to the SD card</td>
+<td>R85</td>
+</tr>
+<tr>
+<td>A45</td>
+<td>Downloads on the SD card; card is removed, later reinserted</td>
+<td>Entries are marked &quot;SD card removed&quot; and play by streaming, nothing is deleted; after reinsertion they play offline again</td>
+<td>R85</td>
+</tr>
+<tr>
+<td>A46</td>
+<td>Play a 16:9 film, tap maximize</td>
+<td>Landscape, system bars hidden, video fills the screen; Back returns to portrait with bars</td>
+<td>R86</td>
+</tr>
+<tr>
+<td>A47</td>
+<td>Search &quot;his girl friday&quot;</td>
+<td>The 1940 film item is among the first results</td>
+<td>R87</td>
+</tr>
+<tr>
+<td>A48</td>
+<td>Cast a downloaded MP3 and a streamed MP4</td>
+<td>The receiver gets https URLs with <code>audio/mpeg</code> and <code>video/mp4</code>; playback starts on the Chromecast</td>
+<td>R46</td>
+</tr>
+<tr>
+<td>A36</td>
+<td>Run the setup scenarios in UI_SETUP_SPEC.md and shell scenarios in UI_SHELL_SPEC.md</td>
+<td>Stable IDs, correct navigation, localization and accessibility</td>
+<td>R62–R69</td>
+</tr>
+</tbody></table>
+<h2 id="18-resolved-open-points">18. Resolved open points</h2><p>All open points of v0.1 were resolved in review on 7 November 2026; the resolutions are folded into the requirements.</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Topic</th>
+<th>Resolution</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>O01</td>
+<td>Initial category list</td>
+<td>Approved as listed in R17.</td>
+</tr>
+<tr>
+<td>O02</td>
+<td>Brand accent colour</td>
+<td>Nordic blue <code>#2769AD</code>, light-first (R63, D22).</td>
+</tr>
+<tr>
+<td>O03</td>
+<td>Adult-content detection</td>
+<td><code>no-preview</code> collection plus remote keyword list, best-effort (R71, D24).</td>
+</tr>
+<tr>
+<td>O04</td>
+<td>Performance targets</td>
+<td>Relaxed: &lt; 3 s Home from cache, &lt; 5 s search on 4G, &quot;still loading&quot; + Retry after 15 s (R77).</td>
+</tr>
+<tr>
+<td>O05</td>
+<td>Share-link hosting</td>
+<td>Repository made public; GitHub Pages at <code>https://jutlandiatech.github.io/ArchivePlayer/</code> with App Links (R55).</td>
+</tr>
+<tr>
+<td>O06</td>
+<td>Maximum share-link length</td>
+<td>8,000 characters (R57).</td>
+</tr>
+<tr>
+<td>O07</td>
+<td>Download on Wi-Fi only</td>
+<td>Default on, with Settings switch and per-download mobile-data override (R60).</td>
+</tr>
+<tr>
+<td>O08</td>
+<td>Download storage limit</td>
+<td>No hard limit; warn below 500 MB free (R61).</td>
+</tr>
+<tr>
+<td>O09</td>
+<td>&quot;New in followed&quot; refresh</td>
+<td>At most every 6 hours (R21).</td>
+</tr>
+<tr>
+<td>O10</td>
+<td>Remote search suggestions</td>
+<td>Local suggestions only in v1 (R22).</td>
+</tr>
+<tr>
+<td>O11</td>
+<td>Suggestion debounce</td>
+<td>300 ms (R22).</td>
+</tr>
+<tr>
+<td>O12</td>
+<td>Duration classes</td>
+<td>Short &lt; 20 min, episode 20–60 min, feature &gt; 60 min (R23).</td>
+</tr>
+<tr>
+<td>O13</td>
+<td>In-item entry filter</td>
+<td>Shown above 30 entries (R32).</td>
+</tr>
+<tr>
+<td>O14</td>
+<td>Resume thresholds</td>
+<td>30 s played; last 30 s or 95 % = finished (R36).</td>
+</tr>
+<tr>
+<td>O15</td>
+<td>Skip intervals</td>
+<td>Back 10 s, forward 30 s (R37).</td>
+</tr>
+<tr>
+<td>O16</td>
+<td>Video in background without PiP</td>
+<td>Audio continues; video resumes on return (R39).</td>
+</tr>
+<tr>
+<td>O17</td>
+<td>Ogg Vorbis on Cast</td>
+<td>Never sent to Cast; MP3 instead (R49).</td>
+</tr>
+<tr>
+<td>O18</td>
+<td>Data saver default</td>
+<td>On, metered networks only (R41).</td>
+</tr>
+<tr>
+<td>O19</td>
+<td>Machine-generated subtitles</td>
+<td>Offered, labelled &quot;Auto-generated&quot; (R45, D25).</td>
+</tr>
+<tr>
+<td>O20</td>
+<td>F-Droid</td>
+<td>Two flavours <code>full</code> and <code>foss</code> from the start (R80–R81, D26).</td>
+</tr>
+<tr>
+<td>O21</td>
+<td>Setup flow content</td>
+<td>Language → content languages → ready/privacy note; adult setting not asked (UI_SETUP_SPEC.md).</td>
+</tr>
+</tbody></table>
+<h2 id="19-decision-log">19. Decision log</h2><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Decision (7 November 2026)</th>
+<th>Requirements</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>D01</td>
+<td>Anonymous, local-only v1; sign-in possible later</td>
+<td>R04–R05</td>
+</tr>
+<tr>
+<td>D02</td>
+<td>Share via GitHub Pages link plus file export/import</td>
+<td>R54–R58</td>
+</tr>
+<tr>
+<td>D03</td>
+<td>Items open as album/show pages with selectable entries</td>
+<td>R30–R32</td>
+</tr>
+<tr>
+<td>D04</td>
+<td>Playlists may mix audio and video</td>
+<td>R35, R51</td>
+</tr>
+<tr>
+<td>D05</td>
+<td>Adult content hidden by default, opt-in to show</td>
+<td>R70–R71</td>
+</tr>
+<tr>
+<td>D06</td>
+<td>Offline downloads in v1, audio only</td>
+<td>R59–R61</td>
+</tr>
+<tr>
+<td>D07</td>
+<td>Phone plus tablet-optimized layouts</td>
+<td>R06, R62</td>
+</tr>
+<tr>
+<td>D08</td>
+<td>Full Cast with the Default Media Receiver</td>
+<td>R46–R49</td>
+</tr>
+<tr>
+<td>D09</td>
+<td>Category map as remote JSON on GitHub Pages with bundled copy</td>
+<td>R14–R16</td>
+</tr>
+<tr>
+<td>D10</td>
+<td>Preferred content languages plus filter; untagged excluded when filtering</td>
+<td>R27–R28</td>
+</tr>
+<tr>
+<td>D11</td>
+<td>Automatic format with manual override and data saver</td>
+<td>R40–R42</td>
+</tr>
+<tr>
+<td>D12</td>
+<td>Home: personal rows, curated rows, on-device &quot;Because you played&quot;</td>
+<td>R18–R21</td>
+</tr>
+<tr>
+<td>D13</td>
+<td>Full search: suggestions, filters, sorts, grouped results</td>
+<td>R22–R29</td>
+</tr>
+<tr>
+<td>D14</td>
+<td>UI in English, German, Danish via TextCatalog JSON files and stable element IDs</td>
+<td>R65–R69</td>
+</tr>
+<tr>
+<td>D15</td>
+<td>UI-language setup as in sim-warning-app</td>
+<td>R67</td>
+</tr>
+<tr>
+<td>D16</td>
+<td>Apache-2.0 license</td>
+<td>R03</td>
+</tr>
+<tr>
+<td>D17</td>
+<td>Navigation: Home, Search (incl. browse), Library, plus mini-player</td>
+<td>UI_SHELL_SPEC.md</td>
+</tr>
+<tr>
+<td>D18</td>
+<td><del>Dark-first, fixed brand accent, light follows system</del> — superseded by D22/D23</td>
+<td>R63</td>
+</tr>
+<tr>
+<td>D19</td>
+<td>Rich player incl. subtitles and picture-in-picture</td>
+<td>R34–R45</td>
+</tr>
+<tr>
+<td>D20</td>
+<td>Likes plus followed collections/creators with &quot;New&quot; row</td>
+<td>R21, R52–R53</td>
+</tr>
+<tr>
+<td>D21</td>
+<td>Android backup plus manual full export/import; no analytics</td>
+<td>R73–R75</td>
+</tr>
+<tr>
+<td>D22</td>
+<td>Nordic light-first design language as in sim-warning-app (<code>#2769AD</code>, white, black)</td>
+<td>R63, R83</td>
+</tr>
+<tr>
+<td>D23</td>
+<td>Nordic noir dark mode, switchable via top-bar toggle and Settings → Appearance</td>
+<td>R82</td>
+</tr>
+<tr>
+<td>D24</td>
+<td>Adult filter: <code>no-preview</code> collection plus remote keyword list, best-effort</td>
+<td>R71</td>
+</tr>
+<tr>
+<td>D25</td>
+<td>All subtitles offered; machine-generated ones labelled</td>
+<td>R45</td>
+</tr>
+<tr>
+<td>D26</td>
+<td>Two build flavours: <code>full</code> (Cast) and <code>foss</code> (F-Droid-ready)</td>
+<td>R80–R81</td>
+</tr>
+<tr>
+<td>D27</td>
+<td>Wi-Fi-only downloads by default with override; relaxed performance targets; remaining small defaults accepted</td>
+<td>R60, R77, section 18</td>
+</tr>
+<tr>
+<td>D28</td>
+<td>Menus and settings follow sim-warning-app; initial category list approved</td>
+<td>R17, R72, R83</td>
+</tr>
+<tr>
+<td>D29</td>
+<td>Logo &quot;Signal A&quot; chosen from five concepts; same icon in <code>full</code> and <code>foss</code></td>
+<td>R84</td>
+</tr>
+<tr>
+<td>D30</td>
+<td>App language and content languages are fully separate settings; content-language preselection comes from the phone&#39;s language, not the app-language choice</td>
+<td>R27, R67</td>
+</tr>
+<tr>
+<td>D31</td>
+<td>Downloads can be stored on internal storage or an SD card (app-specific folder, no storage permission); internal is the default and existing downloads move only with consent</td>
+<td>R85</td>
+</tr>
+</tbody></table>
+</article><aside class="on-this-page"><span class="eyebrow">ON THIS PAGE</span><nav id="toc" aria-label="On this page"></nav></aside></div><footer>ArchivePlayer · Independent of the Internet Archive.<br>Implementation notes and historical test evidence are distinguished throughout.</footer></main></div></body></html>

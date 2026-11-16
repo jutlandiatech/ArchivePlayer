@@ -1,0 +1,180 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="ArchivePlayer documentation: UI: Home"><title>UI: Home · ArchivePlayer Docs</title><link rel="stylesheet" href="assets/docs.css"><script defer src="assets/vendor/mermaid.min.js"></script><script defer src="assets/docs.js"></script></head><body><a class="skip" href="#content">Skip to content</a><header class="topbar"><a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true">A<span>≋</span></span><span>ArchivePlayer <small>Documentation</small></span></a><div class="top-actions"><a href="ArchivePlayer-Documentation-Summary.pdf">PDF summary ↓</a><a href="https://github.com/jutlandiatech/ArchivePlayer">Source ↗</a><button id="menu" aria-expanded="false" aria-controls="sidebar">Menu</button></div></header><div class="layout"><aside id="sidebar"><span class="eyebrow">THE HANDBOOK</span><label class="search-label" for="nav-search">Find a document</label><input id="nav-search" type="search" placeholder="Search documents…"><nav aria-label="Documentation"><a href="index.html" ><span>Overview</span></a><a href="user-guide.html" ><span>User guide</span></a><a href="getting-started.html" ><span>Getting started</span></a><a href="architecture.html" ><span>Architecture &amp; UML</span></a><a href="data.html" ><span>Data &amp; integrations</span></a><a href="maintenance.html" ><span>Maintenance</span></a><a href="app-links.html" ><span>App Links</span></a><a href="requirements.html" ><span>Specification</span></a><a href="testing.html" ><span>Testing &amp; traceability</span></a><a href="evidence.html" ><span>Recorded test evidence</span></a><a href="environment.html" ><span>Development environment</span></a><a href="ui-shell.html" ><span>UI: Shell</span></a><a href="ui-setup.html" ><span>UI: Setup</span></a><a href="ui-home.html" aria-current="page"><span>UI: Home</span></a><a href="ui-search.html" ><span>UI: Search</span></a><a href="ui-item.html" ><span>UI: Item</span></a><a href="ui-player.html" ><span>UI: Player</span></a><a href="ui-library.html" ><span>UI: Library</span></a><a href="ui-settings.html" ><span>UI: Settings</span></a></nav><p id="no-results" hidden>No matching documents.</p><div class="sidebar-note">Source-led documentation<br><strong>HTML edition · 16 Nov 2026</strong></div></aside><main id="content"><div class="page-heading"><span class="eyebrow">UI contracts</span><div><span>ArchivePlayer / UI: Home</span><a href="https://github.com/jutlandiatech/ArchivePlayer/blob/main/UI_HOME_SPEC.md">Edit Markdown ↗</a></div></div><div class="reading-layout"><article><h1 id="home-screen">Home screen</h1><p>Status: <strong>approved</strong> (gate 2), 8 November 2026. Implements SPECIFICATION.md R18–R21, R36, R44, R53, R62, R77. Reference: <a href="https://github.com/jutlandiatech/ArchivePlayer/blob/main/design/archiveplayer-mockup.html">interactive mockup</a> → Home.</p>
+<h2 id="layout">Layout</h2><ul>
+<li>Tab root with the shell top bar (UI_SHELL_SPEC.md): title &quot;Home&quot;, theme toggle, Cast (<code>full</code>), Settings.</li>
+<li>A vertical, lazily composed list of rows. Each row has a heading (22 sp) and a horizontally scrolling list of cards. Rows and cards are lazy, so long rows cost nothing off-screen.</li>
+<li>Card: square artwork 136 dp with rounded corners (circular for collections/creators), media-kind badge (♪ audio, ▶ video), title (max 2 lines), secondary line (creator, year, or progress text), and for Continue cards a progress bar.</li>
+<li>Pull-to-refresh refreshes curated rows and &quot;New in collections you follow&quot; (R21: at most every 6 hours, manual refresh always allowed).</li>
+<li>Tapping a card opens the item page (UI_ITEM_SPEC.md) in the Home back stack; a playlist card opens the playlist page (UI_LIBRARY_SPEC.md); a collection card opens the collection page.</li>
+<li>Long-press on an item card opens the entry/item menu (Play, Play next, Add to queue, Add to playlist, Like) from UI_ITEM_SPEC.md.</li>
+</ul>
+<h2 id="row-order-and-visibility">Row order and visibility</h2><p>Order (R18), personal rows hidden when empty:</p>
+<ol>
+<li>Continue listening &amp; watching — entries with a stored resume position that are not finished (R36), newest first; secondary text &quot;{position} / {duration}&quot;; tapping resumes at the stored position.</li>
+<li>Recently played — newest first, de-duplicated by item.</li>
+<li>Your playlists — Liked first, then user playlists by last change; mosaic artwork.</li>
+<li>Downloads — downloaded audio items (shown only when at least one exists).</li>
+<li>New in collections you follow — items added since the last check (R21).</li>
+<li>Because you played {title} — on-device recommendations (R19), at most one row in v1.</li>
+<li>Curated rows: one row per top-level category of the category map, in map order (R14–R17), ranked by preferred content languages without hiding untagged items (R20).</li>
+</ol>
+<h2 id="states">States</h2><ul>
+<li>First start (no history): only curated rows; no empty placeholders for personal rows.</li>
+<li>Loading: cached rows render immediately (R77); rows still loading show placeholder cards (<code>home_row_loading_&lt;row&gt;</code>); after 15 s a row shows &quot;Still loading&quot; with Retry.</li>
+<li>Offline / error: cached rows stay visible; rows without cache show an inline error with Retry (<code>home_row_error_&lt;row&gt;</code>, <code>home_row_retry_&lt;row&gt;</code>). No full-screen error while any row has content.</li>
+<li>History paused (Settings): Continue and Recently played still show what was recorded before the pause.</li>
+</ul>
+<h2 id="text-catalog-contract">Text catalog contract</h2><table>
+<thead>
+<tr>
+<th>Key</th>
+<th>English</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>home.title</code></td>
+<td>Home</td>
+</tr>
+<tr>
+<td><code>home.row.continue</code></td>
+<td>Continue listening &amp; watching</td>
+</tr>
+<tr>
+<td><code>home.row.recent</code></td>
+<td>Recently played</td>
+</tr>
+<tr>
+<td><code>home.row.playlists</code></td>
+<td>Your playlists</td>
+</tr>
+<tr>
+<td><code>home.row.downloads</code></td>
+<td>Downloads</td>
+</tr>
+<tr>
+<td><code>home.row.newFollowed</code></td>
+<td>New in collections you follow</td>
+</tr>
+<tr>
+<td><code>home.row.because</code></td>
+<td>Because you played {title}</td>
+</tr>
+<tr>
+<td><code>home.card.progress</code></td>
+<td>{position} / {duration}</td>
+</tr>
+<tr>
+<td><code>home.row.stillLoading</code></td>
+<td>Still loading…</td>
+</tr>
+<tr>
+<td><code>home.row.error</code></td>
+<td>Couldn&#39;t load this row.</td>
+</tr>
+<tr>
+<td><code>action.retry</code></td>
+<td>Retry</td>
+</tr>
+</tbody></table>
+<p>Curated row headings come from the category map&#39;s localized names (R68).</p>
+<h2 id="element-ids">Element IDs</h2><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Element</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>home_screen</code></td>
+<td>Home root (UI_SHELL_SPEC.md)</td>
+</tr>
+<tr>
+<td><code>home_list</code></td>
+<td>Vertical row list (scroll container)</td>
+</tr>
+<tr>
+<td><code>home_row_&lt;row&gt;</code></td>
+<td>Row container; <code>&lt;row&gt;</code> = <code>continue</code>, <code>recent</code>, <code>playlists</code>, <code>downloads</code>, <code>new_followed</code>, <code>because</code>, or <code>category_&lt;categoryId&gt;</code></td>
+</tr>
+<tr>
+<td><code>home_row_title_&lt;row&gt;</code></td>
+<td>Row heading</td>
+</tr>
+<tr>
+<td><code>home_card_&lt;row&gt;_&lt;identifier&gt;</code></td>
+<td>Item card in a row (archive.org identifier)</td>
+</tr>
+<tr>
+<td><code>home_playlist_&lt;playlistId&gt;</code></td>
+<td>Playlist card (<code>liked</code> for the Liked list)</td>
+</tr>
+<tr>
+<td><code>home_card_progress_&lt;identifier&gt;</code></td>
+<td>Progress bar on a Continue card</td>
+</tr>
+<tr>
+<td><code>home_row_loading_&lt;row&gt;</code> / <code>home_row_error_&lt;row&gt;</code> / <code>home_row_retry_&lt;row&gt;</code></td>
+<td>Loading, error and retry per row</td>
+</tr>
+<tr>
+<td><code>home_refresh</code></td>
+<td>Pull-to-refresh indicator</td>
+</tr>
+</tbody></table>
+<p>The mockup&#39;s <code>home_card_&lt;identifier&gt;</code> is refined to include the row so that an item appearing in two rows keeps unique IDs.</p>
+<h2 id="acceptance-scenarios">Acceptance scenarios</h2><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Scenario and expected result</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>H01</td>
+<td>Fresh install, fixture category map and search responses: Home shows only curated rows, in category-map order; no personal row IDs exist.</td>
+</tr>
+<tr>
+<td>H02</td>
+<td>Play an entry for more than 30 s, stop, return to Home: <code>home_row_continue</code> is first and contains the item with a progress bar; <code>home_row_recent</code> follows.</td>
+</tr>
+<tr>
+<td>H03</td>
+<td>Tap a Continue card: player opens on that entry at the stored position (± 2 s).</td>
+</tr>
+<tr>
+<td>H04</td>
+<td>Finish an entry (last 30 s or 95 %): it leaves Continue and stays in Recently played.</td>
+</tr>
+<tr>
+<td>H05</td>
+<td>Create a playlist and like an entry: <code>home_row_playlists</code> shows <code>home_playlist_liked</code> first, then the playlist.</td>
+</tr>
+<tr>
+<td>H06</td>
+<td>Follow a collection: <code>home_row_new_followed</code> is fed from it; reopening Home within 6 hours sends no new search for that collection; pull-to-refresh sends one (R21).</td>
+</tr>
+<tr>
+<td>H07</td>
+<td>Content languages = French; a curated row&#39;s fixture has French, English and untagged items: French items come first; untagged items are still shown.</td>
+</tr>
+<tr>
+<td>H08</td>
+<td>Server returns errors for one curated row: the other rows render; that row shows error and Retry; Retry after the server recovers fills the row.</td>
+</tr>
+<tr>
+<td>H09</td>
+<td>Slow fixture response (&gt; 15 s) for a row: &quot;Still loading&quot; with Retry appears; the rest of Home stays usable.</td>
+</tr>
+<tr>
+<td>H10</td>
+<td>Tap a curated item card: item page opens in the Home tab; Back returns to Home at the same scroll position.</td>
+</tr>
+<tr>
+<td>H11</td>
+<td>Pause history in Settings, play another entry: Continue and Recently played do not change.</td>
+</tr>
+<tr>
+<td>H12</td>
+<td>All three languages at 200 % font scale, 320 dp width: row headings and cards do not clip; IDs unchanged.</td>
+</tr>
+</tbody></table>
+</article><aside class="on-this-page"><span class="eyebrow">ON THIS PAGE</span><nav id="toc" aria-label="On this page"></nav></aside></div><footer>ArchivePlayer · Independent of the Internet Archive.<br>Implementation notes and historical test evidence are distinguished throughout.</footer></main></div></body></html>

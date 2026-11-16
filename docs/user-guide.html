@@ -1,0 +1,44 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="ArchivePlayer documentation: User guide"><title>User guide · ArchivePlayer Docs</title><link rel="stylesheet" href="assets/docs.css"><script defer src="assets/vendor/mermaid.min.js"></script><script defer src="assets/docs.js"></script></head><body><a class="skip" href="#content">Skip to content</a><header class="topbar"><a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true">A<span>≋</span></span><span>ArchivePlayer <small>Documentation</small></span></a><div class="top-actions"><a href="ArchivePlayer-Documentation-Summary.pdf">PDF summary ↓</a><a href="https://github.com/jutlandiatech/ArchivePlayer">Source ↗</a><button id="menu" aria-expanded="false" aria-controls="sidebar">Menu</button></div></header><div class="layout"><aside id="sidebar"><span class="eyebrow">THE HANDBOOK</span><label class="search-label" for="nav-search">Find a document</label><input id="nav-search" type="search" placeholder="Search documents…"><nav aria-label="Documentation"><a href="index.html" ><span>Overview</span></a><a href="user-guide.html" aria-current="page"><span>User guide</span></a><a href="getting-started.html" ><span>Getting started</span></a><a href="architecture.html" ><span>Architecture &amp; UML</span></a><a href="data.html" ><span>Data &amp; integrations</span></a><a href="maintenance.html" ><span>Maintenance</span></a><a href="app-links.html" ><span>App Links</span></a><a href="requirements.html" ><span>Specification</span></a><a href="testing.html" ><span>Testing &amp; traceability</span></a><a href="evidence.html" ><span>Recorded test evidence</span></a><a href="environment.html" ><span>Development environment</span></a><a href="ui-shell.html" ><span>UI: Shell</span></a><a href="ui-setup.html" ><span>UI: Setup</span></a><a href="ui-home.html" ><span>UI: Home</span></a><a href="ui-search.html" ><span>UI: Search</span></a><a href="ui-item.html" ><span>UI: Item</span></a><a href="ui-player.html" ><span>UI: Player</span></a><a href="ui-library.html" ><span>UI: Library</span></a><a href="ui-settings.html" ><span>UI: Settings</span></a></nav><p id="no-results" hidden>No matching documents.</p><div class="sidebar-note">Source-led documentation<br><strong>HTML edition · 16 Nov 2026</strong></div></aside><main id="content"><div class="page-heading"><span class="eyebrow">Using ArchivePlayer</span><div><span>ArchivePlayer / User guide</span><a href="https://github.com/jutlandiatech/ArchivePlayer/blob/main/docs/USER_GUIDE.md">Edit Markdown ↗</a></div></div><div class="reading-layout"><article><h1 id="user-guide">User guide</h1><p>ArchivePlayer discovers, streams and casts Internet Archive audio and video. Availability and metadata depend on the source catalog. The app is independent of the Internet Archive.</p>
+<h2 id="first-launch">First launch</h2><p>Complete setup to choose the app language and content languages, theme, data saver and download preferences. English, German and Danish text catalogs are bundled. Interface language and content languages are separate: changing the interface language does not replace content preferences. Adult content is hidden by default; metadata/keyword filtering cannot guarantee classification.</p>
+<h2 id="discover-and-play">Discover and play</h2><p>Use <strong>Home</strong> for category rows, continued playback and followed collections. Open an item to inspect its playable entries. Use <strong>Search</strong> for queries and filters such as media kind, language, decade and duration. Search can also find matching local playlists. Retry a failed load; a later-page error can occur while earlier results remain visible.</p>
+<p>On an item, play an entry or the available list, or add entries to the queue. The mini-player leads to the full player, with seeking, queue, speed, quality, subtitles where available and a sleep timer. Video supports full-screen presentation; PiP behavior needs device verification. A failed media format triggers an attempt to use alternatives before reporting failure.</p>
+<h2 id="library-and-sharing">Library and sharing</h2><p>Use <strong>Library</strong> for playlists, likes, followed collections, downloads and history. Playlists contain Archive item/filename references rather than media bytes. A reference can stop resolving if an upstream file changes or disappears.</p>
+<p>Share a playlist through Android&#39;s share chooser. Short enough playlists use an HTTPS link; longer ones can be shared as <code>.archiveplaylist</code> files. Import opens a preview before saving. For links that stay in the browser, see <a href="app-links.html">App Links</a>.</p>
+<p>Library export/import in Settings uses Android&#39;s document picker. Exports include library references and settings, not downloaded media. Import merges library data and keeps conflicting playlists as copies; imported settings can replace current settings. Export a copy before transferring an important library.</p>
+<h2 id="download-audio">Download audio</h2><p>Downloads are audio-only. Playlist downloads skip video and report its count. Wi-Fi-only policy can leave work waiting; a mobile-data override is available per item. Internal app storage is the default; removable storage can be selected when available. Changing location can offer to move existing downloads.</p>
+<p>A finished local file is used when available. A missing volume/file causes playback to use streaming, which requires a network. Downloads are app-private and can be removed by uninstalling the app. A library export preserves references and settings, not those files.</p>
+<h2 id="cast-flavours">Cast flavours</h2><p>The <code>full</code> build includes Chromecast controls; <code>foss</code> has no Cast integration. The receiver needs access to Archive&#39;s remote media even when the phone has a local copy. Cast subtitles use WebVTT; SRT tracks usable locally are not sent as receiver text tracks. Receiver compatibility and handover require hardware checks.</p>
+<h2 id="troubleshooting">Troubleshooting</h2><table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Check</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>No or unexpected results</td>
+<td>Simplify query, clear filters and check content languages/adult filtering.</td>
+</tr>
+<tr>
+<td>Search fails</td>
+<td>Retry later; catalog requests back off on rate limits/server errors.</td>
+</tr>
+<tr>
+<td>Download waits</td>
+<td>Check connectivity, Wi-Fi-only settings and mobile-data override.</td>
+</tr>
+<tr>
+<td>Downloaded audio streams</td>
+<td>Check that its volume is mounted and file exists.</td>
+</tr>
+<tr>
+<td>Cast control absent</td>
+<td>Check that the installed build is <code>full</code>.</td>
+</tr>
+<tr>
+<td>Missing quality/subtitles</td>
+<td>Available controls depend on source formats and receiver support.</td>
+</tr>
+</tbody></table>
+<p>For build/test problems, see <a href="maintenance.html">maintenance</a>.</p>
+</article><aside class="on-this-page"><span class="eyebrow">ON THIS PAGE</span><nav id="toc" aria-label="On this page"></nav></aside></div><footer>ArchivePlayer · Independent of the Internet Archive.<br>Implementation notes and historical test evidence are distinguished throughout.</footer></main></div></body></html>

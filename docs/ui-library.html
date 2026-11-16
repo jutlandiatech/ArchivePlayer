@@ -1,0 +1,261 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="ArchivePlayer documentation: UI: Library"><title>UI: Library · ArchivePlayer Docs</title><link rel="stylesheet" href="assets/docs.css"><script defer src="assets/vendor/mermaid.min.js"></script><script defer src="assets/docs.js"></script></head><body><a class="skip" href="#content">Skip to content</a><header class="topbar"><a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true">A<span>≋</span></span><span>ArchivePlayer <small>Documentation</small></span></a><div class="top-actions"><a href="ArchivePlayer-Documentation-Summary.pdf">PDF summary ↓</a><a href="https://github.com/jutlandiatech/ArchivePlayer">Source ↗</a><button id="menu" aria-expanded="false" aria-controls="sidebar">Menu</button></div></header><div class="layout"><aside id="sidebar"><span class="eyebrow">THE HANDBOOK</span><label class="search-label" for="nav-search">Find a document</label><input id="nav-search" type="search" placeholder="Search documents…"><nav aria-label="Documentation"><a href="index.html" ><span>Overview</span></a><a href="user-guide.html" ><span>User guide</span></a><a href="getting-started.html" ><span>Getting started</span></a><a href="architecture.html" ><span>Architecture &amp; UML</span></a><a href="data.html" ><span>Data &amp; integrations</span></a><a href="maintenance.html" ><span>Maintenance</span></a><a href="app-links.html" ><span>App Links</span></a><a href="requirements.html" ><span>Specification</span></a><a href="testing.html" ><span>Testing &amp; traceability</span></a><a href="evidence.html" ><span>Recorded test evidence</span></a><a href="environment.html" ><span>Development environment</span></a><a href="ui-shell.html" ><span>UI: Shell</span></a><a href="ui-setup.html" ><span>UI: Setup</span></a><a href="ui-home.html" ><span>UI: Home</span></a><a href="ui-search.html" ><span>UI: Search</span></a><a href="ui-item.html" ><span>UI: Item</span></a><a href="ui-player.html" ><span>UI: Player</span></a><a href="ui-library.html" aria-current="page"><span>UI: Library</span></a><a href="ui-settings.html" ><span>UI: Settings</span></a></nav><p id="no-results" hidden>No matching documents.</p><div class="sidebar-note">Source-led documentation<br><strong>HTML edition · 16 Nov 2026</strong></div></aside><main id="content"><div class="page-heading"><span class="eyebrow">UI contracts</span><div><span>ArchivePlayer / UI: Library</span><a href="https://github.com/jutlandiatech/ArchivePlayer/blob/main/UI_LIBRARY_SPEC.md">Edit Markdown ↗</a></div></div><div class="reading-layout"><article><h1 id="library-playlists-sharing-and-downloads">Library, playlists, sharing and downloads</h1><p>Status: <strong>approved</strong> (gate 2), 8 November 2026. Implements SPECIFICATION.md R44, R50–R61, R85 (UI part), R62. Reference: <a href="https://github.com/jutlandiatech/ArchivePlayer/blob/main/design/archiveplayer-mockup.html">interactive mockup</a> → Library.</p>
+<h2 id="library-tab">Library tab</h2><ul>
+<li>Tab root with the shell top bar: title &quot;Library&quot;, theme toggle, Cast (<code>full</code>), Settings.</li>
+<li>Filter chips (single choice, remembered): <strong>Playlists</strong> (default), <strong>Liked</strong>, <strong>Following</strong>, <strong>Downloads</strong>, <strong>History</strong>.</li>
+<li><strong>Playlists:</strong> &quot;New playlist&quot; row first, then Liked (pinned, cannot be renamed or deleted, R52), then user playlists by last change. Row: mosaic artwork (first 4 entries), name, &quot;{count} entries&quot;.</li>
+<li><strong>Liked:</strong> opens the Liked list in the playlist layout.</li>
+<li><strong>Following:</strong> followed collections and creators; tap opens the collection page (or a creator search); ⋯ → Unfollow.</li>
+<li><strong>Downloads:</strong> used and free storage for the current location, warning when &lt; 500 MB free (R61); list of downloaded items/entries with size; per-row remove; &quot;Remove all&quot; with confirmation; waiting-for-Wi-Fi rows show &quot;Download now on mobile data&quot; (R60).</li>
+<li><strong>History:</strong> play events newest first, grouped by day; tap plays the entry; &quot;Clear history&quot; (with confirmation). When history is paused a banner says so with a link to Settings.</li>
+<li>Empty states per chip with a short hint (e.g. &quot;Tap ♡ on anything you like.&quot;).</li>
+</ul>
+<h2 id="playlist-page">Playlist page</h2><ul>
+<li>Header: mosaic artwork, name, description, &quot;{count} entries · {duration}&quot;.</li>
+<li>Actions: Play (primary), Shuffle, Share, Download, Cast (<code>full</code>), overflow: Rename, Edit description, Export file, Delete.</li>
+<li>Entry rows as in UI_ITEM_SPEC.md plus a drag handle in edit mode (<code>playlist_edit_button</code> toggles); swipe or ⋯ → Remove from playlist.</li>
+<li>Delete: playlist removed, snackbar with Undo (5 s).</li>
+<li>Download of a mixed playlist: only audio entries are queued; a notice states &quot;{n} video entries can&#39;t be downloaded&quot; (R59).</li>
+<li>Liked uses this page without Rename/Edit description/Delete.</li>
+</ul>
+<h2 id="sharing-and-import-r54r58">Sharing and import (R54–R58)</h2><ul>
+<li>Share: if the encoded link fits (≤ 8,000 chars) the Android share sheet opens with the GitHub Pages link; otherwise a dialog explains it is too long and offers &quot;Share as file&quot; (<code>.archiveplaylist</code>).</li>
+<li>Export file: Storage Access Framework &quot;Create document&quot; with <code>&lt;name&gt;.archiveplaylist</code>.</li>
+<li>Import (opened before setup is complete: the preview appears right after setup): from an App Link (<code>https://jutlandiatech.github.io/ArchivePlayer/p#…</code>) or opening/sharing an <code>.archiveplaylist</code> file into the app. The <strong>import preview</strong> shows name, description, entry count and the first entries, plus skipped/invalid entries (&quot;{n} entries couldn&#39;t be read&quot;); tapping an entry opens its item page; <strong>Import</strong> creates a new playlist (name gets &quot; (2)&quot; when the name exists, never overwrites, R55); <strong>Cancel</strong> leaves everything unchanged.</li>
+</ul>
+<h2 id="text-catalog-contract">Text catalog contract</h2><table>
+<thead>
+<tr>
+<th>Key</th>
+<th>English</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>library.title</code></td>
+<td>Library</td>
+</tr>
+<tr>
+<td><code>library.filter.playlists</code> / <code>.liked</code> / <code>.following</code> / <code>.downloads</code> / <code>.history</code></td>
+<td>Playlists / Liked / Following / Downloads / History</td>
+</tr>
+<tr>
+<td><code>library.newPlaylist</code> / <code>library.newPlaylist.name</code></td>
+<td>New playlist / Playlist name</td>
+</tr>
+<tr>
+<td><code>library.liked</code></td>
+<td>Liked</td>
+</tr>
+<tr>
+<td><code>library.entries</code></td>
+<td>{count} entries</td>
+</tr>
+<tr>
+<td><code>library.empty.playlists</code> / <code>.liked</code> / <code>.following</code> / <code>.downloads</code> / <code>.history</code></td>
+<td>Empty-state hints</td>
+</tr>
+<tr>
+<td><code>library.unfollow</code></td>
+<td>Unfollow</td>
+</tr>
+<tr>
+<td><code>library.storage</code> / <code>library.storage.low</code></td>
+<td>{used} used · {free} free / Less than 500 MB free</td>
+</tr>
+<tr>
+<td><code>library.downloads.removeAll</code> / <code>.removeAll.confirm</code></td>
+<td>Remove all / Remove all downloads?</td>
+</tr>
+<tr>
+<td><code>library.downloads.waitingWifi</code> / <code>.mobileNow</code></td>
+<td>Waiting for Wi-Fi / Download now on mobile data</td>
+</tr>
+<tr>
+<td><code>library.history.clear</code> / <code>.clear.confirm</code> / <code>.paused</code></td>
+<td>Clear history / Clear all history? / History is paused</td>
+</tr>
+<tr>
+<td><code>playlist.play</code> / <code>.shuffle</code> / <code>.share</code> / <code>.download</code> / <code>.edit</code></td>
+<td>Play / Shuffle / Share / Download / Edit</td>
+</tr>
+<tr>
+<td><code>playlist.rename</code> / <code>.description</code> / <code>.export</code> / <code>.delete</code> / <code>.deleted.undo</code></td>
+<td>Rename / Edit description / Export file / Delete / Playlist deleted. Undo</td>
+</tr>
+<tr>
+<td><code>playlist.remove</code></td>
+<td>Remove from playlist</td>
+</tr>
+<tr>
+<td><code>playlist.videoNotDownloaded</code></td>
+<td>{count} video entries can&#39;t be downloaded</td>
+</tr>
+<tr>
+<td><code>share.tooLong</code> / <code>share.asFile</code></td>
+<td>This playlist is too long for a link. Share it as a file instead. / Share as file</td>
+</tr>
+<tr>
+<td><code>import.title</code> / <code>.skipped</code> / <code>.import</code> / <code>.cancel</code></td>
+<td>Import playlist / {count} entries couldn&#39;t be read / Import / Cancel</td>
+</tr>
+</tbody></table>
+<h2 id="element-ids">Element IDs</h2><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Element</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>library_screen</code></td>
+<td>Library root (UI_SHELL_SPEC.md)</td>
+</tr>
+<tr>
+<td><code>library_filter_&lt;playlists|liked|following|downloads|history&gt;</code></td>
+<td>Chips; selected state exposed</td>
+</tr>
+<tr>
+<td><code>library_list</code></td>
+<td>List (scroll container)</td>
+</tr>
+<tr>
+<td><code>library_new_playlist_button</code> / <code>dialog_playlist_name_field</code> / <code>dialog_confirm_button</code> / <code>dialog_cancel_button</code></td>
+<td>New playlist + shared text/confirm dialogs</td>
+</tr>
+<tr>
+<td><code>library_playlist_&lt;playlistId&gt;</code></td>
+<td>Playlist row; Liked = <code>library_playlist_liked</code></td>
+</tr>
+<tr>
+<td><code>library_following_&lt;sourceId&gt;</code> / <code>library_unfollow_&lt;sourceId&gt;</code></td>
+<td>Followed source row / unfollow</td>
+</tr>
+<tr>
+<td><code>library_storage_summary</code> / <code>library_storage_warning</code></td>
+<td>Storage usage / low-space warning</td>
+</tr>
+<tr>
+<td><code>library_download_&lt;identifier&gt;</code> / <code>library_download_remove_&lt;identifier&gt;</code> / <code>library_download_mobile_now_&lt;identifier&gt;</code></td>
+<td>Download rows</td>
+</tr>
+<tr>
+<td><code>library_downloads_remove_all</code></td>
+<td>Remove all</td>
+</tr>
+<tr>
+<td><code>library_history_&lt;index&gt;</code> / <code>library_history_clear</code> / <code>library_history_paused</code></td>
+<td>History rows / clear / paused banner</td>
+</tr>
+<tr>
+<td><code>library_empty</code></td>
+<td>Empty state of the current chip</td>
+</tr>
+<tr>
+<td><code>playlist_screen</code> / <code>playlist_back_button</code> / <code>playlist_title</code> / <code>playlist_description</code> / <code>playlist_count</code></td>
+<td>Playlist page header</td>
+</tr>
+<tr>
+<td><code>playlist_play_button</code> / <code>playlist_shuffle_button</code> / <code>playlist_share_button</code> / <code>playlist_download_button</code> / <code>playlist_cast_button</code></td>
+<td>Actions (<code>playlist_cast_button</code> only in <code>full</code>)</td>
+</tr>
+<tr>
+<td><code>playlist_overflow_button</code> / <code>playlist_menu_&lt;rename|description|export|delete&gt;</code></td>
+<td>Overflow and its actions</td>
+</tr>
+<tr>
+<td><code>playlist_edit_button</code> / <code>playlist_entry_row_&lt;index&gt;</code> / <code>playlist_entry_drag_&lt;index&gt;</code> / <code>playlist_entry_remove_&lt;index&gt;</code></td>
+<td>Entry editing</td>
+</tr>
+<tr>
+<td><code>playlist_video_notice</code></td>
+<td>Mixed-download notice</td>
+</tr>
+<tr>
+<td><code>playlist_undo_delete</code></td>
+<td>Undo snackbar</td>
+</tr>
+<tr>
+<td><code>dialog_share_too_long</code> / <code>share_as_file_button</code></td>
+<td>Too-long link dialog</td>
+</tr>
+<tr>
+<td><code>import_screen</code> / <code>import_title</code> / <code>import_count</code> / <code>import_skipped</code> / <code>import_entry_&lt;index&gt;</code> / <code>import_confirm_button</code> / <code>import_cancel_button</code></td>
+<td>Import preview</td>
+</tr>
+</tbody></table>
+<h2 id="acceptance-scenarios">Acceptance scenarios</h2><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Scenario and expected result</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>L01</td>
+<td>Open Library: chips in order Playlists, Liked, Following, Downloads, History; Playlists selected; <code>library_playlist_liked</code> first after New playlist.</td>
+</tr>
+<tr>
+<td>L02</td>
+<td>New playlist &quot;Noir&quot;: <code>library_playlist_&lt;id&gt;</code> row appears with &quot;0 entries&quot;; the playlist page opens.</td>
+</tr>
+<tr>
+<td>L03</td>
+<td>Add 3 entries to a playlist from item pages; reorder entry 2 to position 0 in edit mode; remove entry 1: order persists after app restart.</td>
+</tr>
+<tr>
+<td>L04</td>
+<td>Rename and edit description through the overflow: header and Library row update.</td>
+</tr>
+<tr>
+<td>L05</td>
+<td>Delete a playlist: gone from Library; Undo restores it with entries. Liked has no Delete/Rename.</td>
+</tr>
+<tr>
+<td>L06</td>
+<td>Play / Shuffle on a playlist: queue replaced with the playlist entries (R35).</td>
+</tr>
+<tr>
+<td>L07</td>
+<td>Like an entry: Liked chip lists it; unliking removes it.</td>
+</tr>
+<tr>
+<td>L08</td>
+<td>Following lists followed collections; Unfollow removes the row and the source stops feeding Home (R53).</td>
+</tr>
+<tr>
+<td>L09</td>
+<td>Share a 20-entry playlist (A21): share-sheet intent carries a <code>https://jutlandiatech.github.io/ArchivePlayer/p#…</code> link that decodes to the same 20 entries.</td>
+</tr>
+<tr>
+<td>L10</td>
+<td>Share a playlist whose link exceeds 8,000 characters (A23): <code>dialog_share_too_long</code> with Share as file; the file intent has an <code>.archiveplaylist</code> attachment.</td>
+</tr>
+<tr>
+<td>L11</td>
+<td>Open a share link via <code>ACTION_VIEW</code> intent: <code>import_screen</code> with the playlist name and count; Import creates a new playlist; importing again creates &quot;Name (2)&quot; (A21, R55).</td>
+</tr>
+<tr>
+<td>L12</td>
+<td>Open an <code>.archiveplaylist</code> file with 2 invalid entries (A24): preview reports 2 skipped; import creates the valid entries only.</td>
+</tr>
+<tr>
+<td>L13</td>
+<td>Download a mixed playlist on mobile data with Wi-Fi-only on (A25): only audio entries listed in Downloads, rows show Waiting for Wi-Fi and the mobile-data action; <code>playlist_video_notice</code> shown.</td>
+</tr>
+<tr>
+<td>L14</td>
+<td>Downloads chip: storage summary visible; with &lt; 500 MB free (fake storage) <code>library_storage_warning</code> shown; remove one and Remove all work.</td>
+</tr>
+<tr>
+<td>L15</td>
+<td>History chip lists played entries newest first; Clear history empties it; with history paused the banner is shown.</td>
+</tr>
+<tr>
+<td>L16</td>
+<td>Empty Library chips show <code>library_empty</code> with the catalog hint in all three languages.</td>
+</tr>
+<tr>
+<td>L17</td>
+<td><code>foss</code>: <code>playlist_cast_button</code> absent; <code>full</code>: present.</td>
+</tr>
+</tbody></table>
+</article><aside class="on-this-page"><span class="eyebrow">ON THIS PAGE</span><nav id="toc" aria-label="On this page"></nav></aside></div><footer>ArchivePlayer · Independent of the Internet Archive.<br>Implementation notes and historical test evidence are distinguished throughout.</footer></main></div></body></html>
