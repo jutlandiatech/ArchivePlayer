@@ -8,7 +8,7 @@ Licensed under the [Apache License 2.0](LICENSE). ArchivePlayer is independent a
 
 ## Documentation
 
-Open the [HTML handbook](docs/index.html) or download the [PDF summary](docs/ArchivePlayer-Documentation-Summary.pdf). Markdown sources start at the [documentation index](docs/README.md), [user guide](docs/USER_GUIDE.md), [architecture and UML](docs/ARCHITECTURE_UML.md), [data and integrations](docs/DATA_AND_INTEGRATIONS.md), and [maintenance guide](docs/MAINTENANCE.md).
+Open the [HTML handbook](docs/index.html), download the [full PDF handbook](docs/ArchivePlayer-Full-Handbook.pdf), or read the shorter [PDF summary](docs/ArchivePlayer-Documentation-Summary.pdf). Markdown sources start at the [documentation index](docs/README.md), [user guide](docs/USER_GUIDE.md), [architecture and UML](docs/ARCHITECTURE_UML.md), [data and integrations](docs/DATA_AND_INTEGRATIONS.md), and [maintenance guide](docs/MAINTENANCE.md).
 
 ## Requirements and verification
 

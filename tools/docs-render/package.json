@@ -1,0 +1,8 @@
+{
+  "name": "archiveplayer-docs-render",
+  "private": true,
+  "description": "Pinned build-only Mermaid renderer for the PDF handbook",
+  "dependencies": {
+    "@mermaid-js/mermaid-cli": "11.4.2"
+  }
+}
